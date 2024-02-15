@@ -5,7 +5,7 @@
       <PlaceOrder />
       <PlaceSpecialists :specialities="specialities" />
     </div>
-    <Orders :orders="orders"/>
+    <Orders :orders="orders" />
     <TheFreelancers :freelancers="freelancers" />
     <OrderBanner />
   </div>
@@ -31,7 +31,6 @@ export default {
     const freelancers = freeLancersData.data;
     const specialities = specialitiesData.content;
     const orders = ordersData.data;
-    console.log(freelancers);
     return {
       freelancers,
       specialities,
@@ -39,6 +38,7 @@ export default {
     };
   },
   async mounted() {
+    console.log("Test branch");
     this.$store.dispatch("fetchOrders/getOrders");
   },
 
