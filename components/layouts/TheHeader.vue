@@ -157,7 +157,7 @@
             {{
               $store.state.auth && Boolean($store.state.userInfo["name"])
                 ? $store.state.userInfo["name"]
-                : "Kirish"
+                : "Chiqish"
             }}
           </button>
           <button
