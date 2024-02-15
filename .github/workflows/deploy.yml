@@ -36,6 +36,6 @@ jobs:
         script_stop: true
         script: |
           git --work-tree="${{ env.TARGET_FOLDER }}" --git-dir="${{ env.TARGET_FOLDER }}/.git" clean -f .
-          cd "${{ env.TARGET_FOLDER }}"
-          npm run build
+          yarn --cwd "${{ env.TARGET_FOLDER }}"
+          yarn --cwd "${{ env.TARGET_FOLDER }}" run build
           pm2 restart hirelancer
