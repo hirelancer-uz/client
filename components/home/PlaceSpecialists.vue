@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="place flex flex-col mb-[96px] xl:mb-[40px]">
     <h2 class="text-black text-[32px] mb-8 font-semibold xl:text-[18px] xl:mb-4">
-      Mavjud sohalarda mutaxassislar
+      Mavjud yo’nalishlar
     </h2>
     <div class="list">
       <SpecialistsCard v-for="elem in specialities" :key="elem?.id" :obj="elem" />

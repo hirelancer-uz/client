@@ -76,7 +76,7 @@
         {{ order?.name }}
       </h6>
       <span
-        class="text-base text-grey-80 xl:text-[14px] xl:line-clamp-3"
+        class="text-base text-grey-80 xl:text-[14px] xl:line-clamp-3 order-desc"
         v-html="order?.description"
       >
       </span>
@@ -182,5 +182,16 @@ export default {
 <style lang="css" scoped>
 .light-yellow {
   background-color: rgba(242, 153, 74, 0.16);
+}
+:deep(.order-desc p) {
+  display: none;
+}
+:deep(.order-desc p:first-child) {
+  display: block;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>

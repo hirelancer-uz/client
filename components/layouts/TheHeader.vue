@@ -38,12 +38,12 @@
           <nuxt-link class="text-[18px] text-black font-tt font-normal" to="/freelancers"
             >Frilanserlar</nuxt-link
           >
-          <nuxt-link class="text-[18px] text-black font-tt font-normal" to="/"
+          <!-- <nuxt-link class="text-[18px] text-black font-tt font-normal" to="/"
             >Ishlar</nuxt-link
           >
           <nuxt-link class="text-[18px] text-black font-tt font-normal" to="/"
             >Forum</nuxt-link
-          >
+          > -->
         </div>
       </div>
       <div class="right flex gap-12">

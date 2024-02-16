@@ -1,6 +1,6 @@
 <template lang="html">
   <div
-    class="number-check flex flex-col px-[120px] xl:px-0 gap-8 py-[80px] xl:py-0 border border-solid border-grey-light rounded-3xl number-card xl:border-0"
+    class="number-check bg-white flex flex-col px-[120px] xl:px-0 gap-8 py-[80px] xl:py-0 border border-solid border-grey-light rounded-3xl number-card xl:border-0"
   >
     <div class="flex flex-col items-center">
       <nuxt-link to="/">

@@ -1,58 +1,46 @@
 <template lang="html">
   <div
-    class="banner bg-bg-grey rounded-[32px] mb-[102px] xl:bg-blue xl:rounded-[12px] xl:mb-[40px]"
+    class="banner bg-bg-grey rounded-[32px] mb-[120px] xl:bg-blue xl:rounded-[12px] xl:mb-[40px]"
   >
     <div
       class="left pt-16 pl-[80px] pb-[50px] flex flex-col justify-between xl:py-[28px] xl:px-[20px] xl:justify-center h-full"
     >
       <div class="flex flex-col">
         <h3 class="font-semibold text-black text-[48px] xl:text-[16px] xl:text-white">
-          Vazifalaringizni bajarishga qodir
-          <span class="text-blue xl:text-yellow">Frilanserlarni</span> qidiring
+          <span class="text-blue xl:text-yellow">Frilanserlar</span> sizga xizmat
+          ko‘rsatishga tayyor
         </h3>
         <p class="text-black text-[18px] mt-4 xl:mt-[6px] xl:text-[12px] xl:text-white">
-          Eski qoidalarni unuting. Siz eng yaxshi frilanserlarni mana shu yerda. ega
-          chiqishingiz mumkin.
+          1000+ ortiq
+          <span class="text-blue">dizaynerlar, dasturchilar, marketologlar</span> va
+          boshqa yo‘nalishdagi frilanserlar sizning buyurtmangizni bajarib berishga
+          tayyor!
         </p>
         <div class="list flex gap-3 mt-8 xl:hidden">
           <button
-            class="whitespace-nowrap bg-grey-8 font-tt text-black py-2 px-4 rounded-[500px] text-[14px]"
+            class="whitespace-nowrap bg-white font-tt text-black py-2 px-4 rounded-[500px] text-[14px]"
           >
             UI/UX dizayner
           </button>
           <button
-            class="whitespace-nowrap bg-grey-8 font-tt text-black py-2 px-4 rounded-[500px] text-[14px]"
+            class="whitespace-nowrap bg-white font-tt text-black py-2 px-4 rounded-[500px] text-[14px]"
           >
             IOS developer
           </button>
           <button
-            class="whitespace-nowrap bg-grey-8 font-tt text-black py-2 px-4 rounded-[500px] text-[14px]"
+            class="whitespace-nowrap bg-white font-tt text-black py-2 px-4 rounded-[500px] text-[14px]"
           >
             Grafik dizayner
           </button>
           <button
-            class="whitespace-nowrap bg-grey-8 font-tt text-black py-2 px-4 rounded-[500px] text-[14px]"
+            class="whitespace-nowrap bg-white font-tt text-black py-2 px-4 rounded-[500px] text-[14px]"
           >
             Copy-writer
           </button>
           <button
-            class="whitespace-nowrap bg-grey-8 font-tt text-black py-2 px-4 rounded-[500px] text-[14px] flex gap-2"
+            class="whitespace-nowrap bg-white font-tt text-black py-2 px-4 rounded-[500px] text-[14px] flex gap-2"
           >
             Все фрилансеры
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-            >
-              <path
-                d="M11.6667 13.3333L15 10M15 10L11.6667 6.66668M15 10L5 10"
-                stroke="#020105"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
           </button>
         </div>
       </div>
@@ -92,7 +80,7 @@
           "
           class="h-[60px] flex justify-center min-w-[220px] px-[20px] border-solid text-base border-main-color bg-transparent border rounded-xl text-main-color font-tt items-center font-semibold"
         >
-        Daromad topish
+          Daromad topish
         </button>
       </div>
     </div>

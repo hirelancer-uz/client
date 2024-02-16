@@ -1,14 +1,14 @@
 <template lang="html">
   <div
-    class="freelancer-card px-6 py-6 border border-solid border-grey-8 rounded-2xl cursor-pointer xl:rounded-[16px] xl:p-[16px]"
+    class="freelancer-card px-5 py-5 border border-solid border-grey-8 rounded-2xl cursor-pointer xl:rounded-[16px] xl:p-[16px]"
     @click="$router.push(`/freelancer/${freelancer?.id}`)"
   >
-    <div class="card">
+    <div class="card flex flex-col items-center gap-4">
       <div class="image w-[80px] h-[80px] relative xl:w-[66px] xl:h-[66px]">
         <!-- <img v-if="freelancer?.avatar" class="w-full h-full object-cover" :src="freelancer?.avatar" alt="" /> -->
         <div class="rounded-full overflow-hidden h-full w-full">
           <img
-            v-if="freelancer?.avatar"
+            v-if="false"
             class="w-full h-full object-cover"
             :src="`${imgUrl}${freelancer?.avatar}`"
             alt=""
@@ -40,13 +40,13 @@
             /></svg
         ></span>
       </div>
-      <div class="body flex flex-col justify-between xl:w-[70%] xl:gap-[8px] gap-3">
+      <div class="body flex flex-col justify-between items-center xl:w-[70%] xl:gap-[8px] gap-3">
         <div>
-          <h4 class="text-[14px] font-medium text-black truncate name whitespace-normal">
+          <h4 class="text-base font-medium text-black truncate name whitespace-normal text-center">
             {{ freelancer?.name }}
           </h4>
           <div class="flex items-center gap-3 mt-2">
-            <p class="text-xs font-medium text-yellow flex gap-[4px]">
+            <p class="text-xs font-medium text-black flex gap-[4px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="14"
@@ -126,7 +126,7 @@
               {{ freelancer?.specialities[0]?.name_ru }}
             </div>
           </div>
-          <p
+          <!-- <p
             :class="{ online: freelancer?.online }"
             class="text-[14px] text-grey-24 flex gap-[4px] items-center"
           >
@@ -139,7 +139,7 @@
             >
               <circle cx="3" cy="3" r="3" fill="#C2C2C3" /></svg
             >{{ freelancer?.online ? "Online" : "Offline" }}
-          </p>
+          </p> -->
         </div>
       </div>
     </div>
@@ -191,11 +191,11 @@ export default {
 };
 </script>
 <style lang="css" scoped>
-.card {
+/* .card {
   display: grid;
   grid-template-columns: 80px 1fr;
   gap: 17px;
-}
+} */
 .online {
   color: var(--green);
 }

@@ -1,10 +1,11 @@
 <template lang="html">
   <div
-    class="registration pt-[130px] xl:h-full h-[100vh] w-full overflow-hidden xl:pt-20 xl:px-4 relative"
+    class="registration  xl:h-full h-[100vh] w-full overflow-hidden xl:pt-20 xl:px-4 relative flex items-center justify-center"
   >
-    <div class="2xl:container mx-auto h-full flex flex-col gap-4">
+  <img class="absolute z-10" src="../../assets//images/register-img.png" alt="">
+    <div class="2xl:container mx-auto h-full flex flex-col justify-center gap-4 relative z-20">
       <div class="flex justify-center">
-        <NumberCheck @checkNumber="__POST_SEND_CODE" :loading="loading"/>
+        <NumberCheck @checkNumber="__POST_SEND_CODE" :loading="loading" />
       </div>
     </div>
   </div>
@@ -39,5 +40,8 @@ export default {
 .number-card {
   width: 100%;
   max-width: 712px;
+}
+.registration {
+  background: linear-gradient(128.71deg, #000043 -1.76%, #585cc5 98.51%);
 }
 </style>
