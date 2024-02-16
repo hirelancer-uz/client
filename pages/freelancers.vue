@@ -1,8 +1,8 @@
-<template lang="html">
+<template>
   <transition name="fade-left" mode="out-in">
     <div class="freelancers pt-16 pb-[120px] xl:px-4 xl:pt-6 xl:pb-6">
       <div class="2xl:container mx-auto">
-        <div class="title flex justify-between xl:hidden">
+        <div class="title flex justify-between items-center xl:hidden">
           <h2 class="text-black text-[32px] font-semibold">Frilanserlar</h2>
           <div class="button flex gap-6 items-center">
             <button
@@ -124,7 +124,7 @@
             </svg>
           </button>
         </div>
-        <div class="tab flex gap-4 xl:grid xl:grid-cols-2">
+        <!-- <div class="tab flex gap-4 xl:grid xl:grid-cols-2">
           <button
             class="px-6 h-[40px] flex items-center bg-bg-grey rounded-lg xl:justify-center xl:h-[44px] text-[14px] text-grey-64 border border-solid border-bg-grey"
             :class="{ active: true }"
@@ -136,8 +136,8 @@
           >
             Команды
           </button>
-        </div>
-        <div class="body mt-8 xl:mt-4">
+        </div> -->
+        <div class="body mt-[30px] xl:mt-4">
           <FreelancersFilter
             class="xl:hidden"
             :specialities="specialities"
@@ -182,7 +182,11 @@ export default {
     store.commit("setPageData", { title: "TitleQul" });
     const [freeLancersData, specialitiesData] = await Promise.all([
       store.dispatch("fetchFreelancers/getFreelancers", {
-        params: { page: query.page || 1, page_size: query.page_size || 5, ...query },
+        params: {
+          page: query.page || 1,
+          page_size: query.page_size || 5,
+          ...query,
+        },
       }),
       store.dispatch("fetchSpecialities/getSpecialities"),
     ]);
@@ -233,9 +237,12 @@ export default {
     async __GET_FREELANCERS() {
       this.loading = true;
       try {
-        const data = await this.$store.dispatch("fetchFreelancers/getFreelancers", {
-          params: { ...this.$route.query },
-        });
+        const data = await this.$store.dispatch(
+          "fetchFreelancers/getFreelancers",
+          {
+            params: { ...this.$route.query },
+          }
+        );
         this.freelancers = data.data;
         this.totalPage = data?.meta?.total;
         this.loading = false;

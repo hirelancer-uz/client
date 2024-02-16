@@ -1,6 +1,6 @@
-<template lang="html">
+<template>
   <div
-    class="number-check flex flex-col px-[120px] gap-8 xl:gap-10 py-[80px] border border-solid border-grey-light rounded-3xl number-card xl:px-0 xl:border-0 xl:py-0"
+    class="number-check flex flex-col px-[120px] gap-[32px] xl:gap-[32px] py-[80px] border border-solid border-grey-light rounded-3xl number-card xl:px-0 xl:border-0 xl:py-0"
   >
     <div class="flex flex-col items-center">
       <nuxt-link to="/">
@@ -29,9 +29,16 @@
               fill="#5C46E6"
             />
             <circle cx="81.8028" cy="7.87821" r="4.14823" fill="white" />
-            <circle cx="119.966" cy="7.87821" r="4.14823" fill="white" /></svg></span
+            <circle
+              cx="119.966"
+              cy="7.87821"
+              r="4.14823"
+              fill="white"
+            /></svg></span
       ></nuxt-link>
-      <h4 class="flex text-black text-[24px] font-semibold mt-[31px] xl:text-[20px]">
+      <h4
+        class="flex text-black text-[24px] font-semibold mt-[31px] xl:text-[20px]"
+      >
         Foydalanuvchi turini tanlang
       </h4>
       <div
@@ -42,7 +49,7 @@
           :class="{ 'activeF bg-blue': userType }"
           class="border-[2px] border-solid border-grey-light rounded-l-[12px] h-full w-[235px] xl:w-auto flex gap-2 text-base xl:text-[14px] text-black font-medium items-center justify-center"
         >
-          Я - Фрилансер<svg
+          Frilanser<svg
             class="xl:w-5 xl:h-5"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -64,7 +71,7 @@
           :class="{ 'activeC bg-light-red': !userType }"
           class="border-[2px] border-solid border-grey-light rounded-r-[12px] h-full w-[235px] xl:w-auto flex gap-2 text-base xl:text-[14px] text-black font-medium items-center justify-center"
         >
-          Я - заказчик<svg
+          Buyurtmachi<svg
             class="xl:w-5 xl:h-5"
             xmlns="http://www.w3.org/2000/svg"
             width="25"
@@ -83,122 +90,149 @@
               d="M2.83541 16.3292C2.46493 16.1439 2.01442 16.2941 1.82918 16.6646C1.64394 17.0351 1.79411 17.4856 2.16459 17.6708L2.83541 16.3292ZM11.8354 13.3292L11.1646 12.9938L10.4938 14.3354L11.1646 14.6708L11.8354 13.3292ZM19.75 18C19.75 18.4142 20.0858 18.75 20.5 18.75C20.9142 18.75 21.25 18.4142 21.25 18H19.75ZM14.2331 15.3666L13.8977 16.0374L14.2331 15.3666ZM16.9164 16.75H18.5V15.25H16.9164V16.75ZM18.5 19.25H10.3885V20.75H18.5V19.25ZM7.14625 18.4846L2.83541 16.3292L2.16459 17.6708L6.47542 19.8262L7.14625 18.4846ZM14.5685 14.6957L11.8354 13.3292L11.1646 14.6708L13.8977 16.0374L14.5685 14.6957ZM10.3885 19.25C9.26302 19.25 8.15295 18.9879 7.14625 18.4846L6.47542 19.8262C7.69041 20.4337 9.03015 20.75 10.3885 20.75V19.25ZM19.75 18C19.75 18.6904 19.1904 19.25 18.5 19.25V20.75C20.0188 20.75 21.25 19.5188 21.25 18H19.75ZM18.5 16.75C19.1904 16.75 19.75 17.3096 19.75 18H21.25C21.25 16.4812 20.0188 15.25 18.5 15.25V16.75ZM16.9164 15.25C16.1014 15.25 15.2975 15.0602 14.5685 14.6957L13.8977 16.0374C14.835 16.506 15.8685 16.75 16.9164 16.75V15.25Z"
               fill="#28303F"
             />
-            <circle cx="18.5" cy="8" r="4" stroke="#28303F" stroke-width="1.5" />
+            <circle
+              cx="18.5"
+              cy="8"
+              r="4"
+              stroke="#28303F"
+              stroke-width="1.5"
+            />
           </svg>
         </button>
       </div>
-      <p
+      <!-- <p
         class="text-base text-grey-64 mt-4 text-center max-w-[90%] xl:text-[14px] xl:leading-5"
       >
         ищу работу ищу работу ищу работу ищу работу ищу работу ищу работу
-      </p>
+      </p> -->
     </div>
     <div>
       <a-form-model ref="ruleForm" :model="form" :rules="rules">
         <div class="flex flex-col gap-8 pb-12 xl:gap-6 xl:pb-0">
-          <a-form-model-item ref="name" class="form-item" label="Ismingizni" prop="name">
+          <a-form-model-item
+            ref="name"
+            class="form-item"
+            label="Ismingiz"
+            prop="name"
+          >
             <a-input v-model="form.name" placeholder="Ismingizni kiriting" />
           </a-form-model-item>
           <a-form-model-item
             ref="name"
             class="form-item"
-            label="Familyangini"
+            label="Familyangiz"
             prop="surname"
           >
-            <a-input v-model="form.surname" placeholder="Faimilyangini kiriting" />
+            <a-input
+              v-model="form.surname"
+              placeholder="Faimilyangini kiriting"
+            />
           </a-form-model-item>
-          <a-form-model-item ref="name" class="form-item" label="Jinsingiz" prop="gender">
+          <a-form-model-item
+            ref="name"
+            class="form-item"
+            label="Jinsingiz"
+            prop="gender"
+          >
             <a-radio-group v-model="form.gender">
               <div class="grid grid-cols-2 gap-4 gender-btns">
                 <button
                   @click="form.gender = 'male'"
-                  class="border border-solid border-border-darik px-4 py-4 rounded-lg flex flex-col gap-6 xl:flex-row-reverse xl:px-3 xl:py-[14px]"
+                  class="border-[2px] border-solid border-border-darik px-4 py-4 rounded-lg flex flex-col gap-6 xl:flex-row-reverse xl:px-3 xl:py-[14px]"
                   :class="{ active: form.gender == 'male' }"
                 >
                   <div
                     class="flex justify-between items-center w-full xl:justify-end xl:pr-1"
                   >
-                    <svg
-                      class="xl:hidden"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                    >
-                      <path
-                        d="M14.558 3.24951C14.1438 3.24951 13.808 3.5853 13.808 3.99951C13.808 4.41373 14.1438 4.74951 14.558 4.74951V3.24951ZM20.0013 3.99951H20.7513C20.7513 3.5853 20.4155 3.24951 20.0013 3.24951V3.99951ZM19.2513 9.44276C19.2513 9.85697 19.5871 10.1928 20.0013 10.1928C20.4155 10.1928 20.7513 9.85697 20.7513 9.44276H19.2513ZM13.1277 9.81545C12.8347 10.1083 12.8347 10.5832 13.1276 10.8761C13.4204 11.169 13.8953 11.1691 14.1882 10.8762L13.1277 9.81545ZM20.5236 4.54201C20.8165 4.24914 20.8166 3.77427 20.5237 3.48135C20.2309 3.18843 19.756 3.18838 19.4631 3.48125L20.5236 4.54201ZM13.1253 17.8111C11.2084 19.7279 8.10059 19.7279 6.18374 17.8111L5.12308 18.8717C7.62572 21.3744 11.6833 21.3744 14.1859 18.8717L13.1253 17.8111ZM6.18374 17.8111C4.26688 15.8942 4.26688 12.7864 6.18374 10.8695L5.12308 9.80887C2.62043 12.3115 2.62043 16.3691 5.12308 18.8717L6.18374 17.8111ZM6.18374 10.8695C8.10059 8.95267 11.2084 8.95267 13.1253 10.8695L14.1859 9.80887C11.6833 7.30622 7.62572 7.30622 5.12308 9.80887L6.18374 10.8695ZM13.1253 10.8695C15.0421 12.7864 15.0421 15.8942 13.1253 17.8111L14.1859 18.8717C16.6886 16.3691 16.6886 12.3115 14.1859 9.80887L13.1253 10.8695ZM14.558 4.74951L20.0013 4.74951V3.24951L14.558 3.24951V4.74951ZM19.2513 3.99951V9.44276H20.7513V3.99951H19.2513ZM14.1882 10.8762L20.5236 4.54201L19.4631 3.48125L13.1277 9.81545L14.1882 10.8762Z"
-                        fill="#5C46E6"
-                      />
-                    </svg>
+                    <div class="flex gap-[13px] items-center">
+                      <svg
+                        class="xl:hidden"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M14.558 3.24951C14.1438 3.24951 13.808 3.5853 13.808 3.99951C13.808 4.41373 14.1438 4.74951 14.558 4.74951V3.24951ZM20.0013 3.99951H20.7513C20.7513 3.5853 20.4155 3.24951 20.0013 3.24951V3.99951ZM19.2513 9.44276C19.2513 9.85697 19.5871 10.1928 20.0013 10.1928C20.4155 10.1928 20.7513 9.85697 20.7513 9.44276H19.2513ZM13.1277 9.81545C12.8347 10.1083 12.8347 10.5832 13.1276 10.8761C13.4204 11.169 13.8953 11.1691 14.1882 10.8762L13.1277 9.81545ZM20.5236 4.54201C20.8165 4.24914 20.8166 3.77427 20.5237 3.48135C20.2309 3.18843 19.756 3.18838 19.4631 3.48125L20.5236 4.54201ZM13.1253 17.8111C11.2084 19.7279 8.10059 19.7279 6.18374 17.8111L5.12308 18.8717C7.62572 21.3744 11.6833 21.3744 14.1859 18.8717L13.1253 17.8111ZM6.18374 17.8111C4.26688 15.8942 4.26688 12.7864 6.18374 10.8695L5.12308 9.80887C2.62043 12.3115 2.62043 16.3691 5.12308 18.8717L6.18374 17.8111ZM6.18374 10.8695C8.10059 8.95267 11.2084 8.95267 13.1253 10.8695L14.1859 9.80887C11.6833 7.30622 7.62572 7.30622 5.12308 9.80887L6.18374 10.8695ZM13.1253 10.8695C15.0421 12.7864 15.0421 15.8942 13.1253 17.8111L14.1859 18.8717C16.6886 16.3691 16.6886 12.3115 14.1859 9.80887L13.1253 10.8695ZM14.558 4.74951L20.0013 4.74951V3.24951L14.558 3.24951V4.74951ZM19.2513 3.99951V9.44276H20.7513V3.99951H19.2513ZM14.1882 10.8762L20.5236 4.54201L19.4631 3.48125L13.1277 9.81545L14.1882 10.8762Z"
+                          fill="#5C46E6"
+                        />
+                      </svg>
+
+                      <h5
+                        class="text-[18px] text-grey-64 font-semibold xl:text-base xl:flex xl:gap-2 xl:items-center"
+                      >
+                        <svg
+                          class="xl:w-5 xl:h-5 hidden xl:block"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            d="M14.558 3.24951C14.1438 3.24951 13.808 3.5853 13.808 3.99951C13.808 4.41373 14.1438 4.74951 14.558 4.74951V3.24951ZM20.0013 3.99951H20.7513C20.7513 3.5853 20.4155 3.24951 20.0013 3.24951V3.99951ZM19.2513 9.44276C19.2513 9.85697 19.5871 10.1928 20.0013 10.1928C20.4155 10.1928 20.7513 9.85697 20.7513 9.44276H19.2513ZM13.1277 9.81545C12.8347 10.1083 12.8347 10.5832 13.1276 10.8761C13.4204 11.169 13.8953 11.1691 14.1882 10.8762L13.1277 9.81545ZM20.5236 4.54201C20.8165 4.24914 20.8166 3.77427 20.5237 3.48135C20.2309 3.18843 19.756 3.18838 19.4631 3.48125L20.5236 4.54201ZM13.1253 17.8111C11.2084 19.7279 8.10059 19.7279 6.18374 17.8111L5.12308 18.8717C7.62572 21.3744 11.6833 21.3744 14.1859 18.8717L13.1253 17.8111ZM6.18374 17.8111C4.26688 15.8942 4.26688 12.7864 6.18374 10.8695L5.12308 9.80887C2.62043 12.3115 2.62043 16.3691 5.12308 18.8717L6.18374 17.8111ZM6.18374 10.8695C8.10059 8.95267 11.2084 8.95267 13.1253 10.8695L14.1859 9.80887C11.6833 7.30622 7.62572 7.30622 5.12308 9.80887L6.18374 10.8695ZM13.1253 10.8695C15.0421 12.7864 15.0421 15.8942 13.1253 17.8111L14.1859 18.8717C16.6886 16.3691 16.6886 12.3115 14.1859 9.80887L13.1253 10.8695ZM14.558 4.74951L20.0013 4.74951V3.24951L14.558 3.24951V4.74951ZM19.2513 3.99951V9.44276H20.7513V3.99951H19.2513ZM14.1882 10.8762L20.5236 4.54201L19.4631 3.48125L13.1277 9.81545L14.1882 10.8762Z"
+                            fill="#5C46E6"
+                          />
+                        </svg>
+                        Erkak
+                      </h5>
+                    </div>
+
                     <a-radio class="type-radio" value="male" />
                   </div>
-                  <h5
-                    class="text-[18px] text-grey-64 font-semibold xl:text-base xl:flex xl:gap-2 xl:items-center"
-                  >
-                    <svg
-                      class="xl:w-5 xl:h-5 hidden xl:block"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                    >
-                      <path
-                        d="M14.558 3.24951C14.1438 3.24951 13.808 3.5853 13.808 3.99951C13.808 4.41373 14.1438 4.74951 14.558 4.74951V3.24951ZM20.0013 3.99951H20.7513C20.7513 3.5853 20.4155 3.24951 20.0013 3.24951V3.99951ZM19.2513 9.44276C19.2513 9.85697 19.5871 10.1928 20.0013 10.1928C20.4155 10.1928 20.7513 9.85697 20.7513 9.44276H19.2513ZM13.1277 9.81545C12.8347 10.1083 12.8347 10.5832 13.1276 10.8761C13.4204 11.169 13.8953 11.1691 14.1882 10.8762L13.1277 9.81545ZM20.5236 4.54201C20.8165 4.24914 20.8166 3.77427 20.5237 3.48135C20.2309 3.18843 19.756 3.18838 19.4631 3.48125L20.5236 4.54201ZM13.1253 17.8111C11.2084 19.7279 8.10059 19.7279 6.18374 17.8111L5.12308 18.8717C7.62572 21.3744 11.6833 21.3744 14.1859 18.8717L13.1253 17.8111ZM6.18374 17.8111C4.26688 15.8942 4.26688 12.7864 6.18374 10.8695L5.12308 9.80887C2.62043 12.3115 2.62043 16.3691 5.12308 18.8717L6.18374 17.8111ZM6.18374 10.8695C8.10059 8.95267 11.2084 8.95267 13.1253 10.8695L14.1859 9.80887C11.6833 7.30622 7.62572 7.30622 5.12308 9.80887L6.18374 10.8695ZM13.1253 10.8695C15.0421 12.7864 15.0421 15.8942 13.1253 17.8111L14.1859 18.8717C16.6886 16.3691 16.6886 12.3115 14.1859 9.80887L13.1253 10.8695ZM14.558 4.74951L20.0013 4.74951V3.24951L14.558 3.24951V4.74951ZM19.2513 3.99951V9.44276H20.7513V3.99951H19.2513ZM14.1882 10.8762L20.5236 4.54201L19.4631 3.48125L13.1277 9.81545L14.1882 10.8762Z"
-                        fill="#5C46E6"
-                      />
-                    </svg>
-                    Erkaklar
-                  </h5>
                 </button>
                 <button
                   @click="form.gender = 'female'"
-                  class="border border-solid border-border-darik px-4 py-4 rounded-lg flex flex-col gap-6 xl:flex-row-reverse xl:px-3 xl:py-[14px]"
+                  class="border-[2px] border-solid border-border-darik px-4 py-4 rounded-lg flex flex-col gap-6 xl:flex-row-reverse xl:px-3 xl:py-[14px]"
                   :class="{ active: form.gender == 'female' }"
                 >
                   <div
                     class="flex justify-between items-center w-full xl:justify-end xl:pr-1"
                   >
-                    <svg
-                      class="xl:hidden"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                    >
-                      <path
-                        d="M13.6579 13.6507L17.4887 17.4807M17.4887 17.4807L19.9933 19.9849M17.4887 17.4807L19.9933 14.9761M17.4887 17.4807L14.9845 19.9849M13.6556 5.65536C11.4459 3.44561 7.86316 3.44561 5.65341 5.65536C3.44366 7.86511 3.44366 11.4478 5.65341 13.6576C7.86316 15.8673 11.4459 15.8673 13.6556 13.6576C15.8654 11.4478 15.8654 7.86511 13.6556 5.65536Z"
-                        stroke="#BB2649"
-                        stroke-width="1.5"
-                        stroke-miterlimit="10"
-                        stroke-linecap="round"
-                      />
-                    </svg>
+                    <div class="flex gap-[13px] items-center">
+                      <svg
+                        class="xl:hidden"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M13.6579 13.6507L17.4887 17.4807M17.4887 17.4807L19.9933 19.9849M17.4887 17.4807L19.9933 14.9761M17.4887 17.4807L14.9845 19.9849M13.6556 5.65536C11.4459 3.44561 7.86316 3.44561 5.65341 5.65536C3.44366 7.86511 3.44366 11.4478 5.65341 13.6576C7.86316 15.8673 11.4459 15.8673 13.6556 13.6576C15.8654 11.4478 15.8654 7.86511 13.6556 5.65536Z"
+                          stroke="#BB2649"
+                          stroke-width="1.5"
+                          stroke-miterlimit="10"
+                          stroke-linecap="round"
+                        />
+                      </svg>
+
+                      <h5
+                        class="text-[18px] text-grey-64 font-semibold xl:text-base xl:flex xl:gap-2 xl:items-center"
+                      >
+                        <svg
+                          class="xl:w-5 xl:h-5 hidden xl:block"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            d="M13.6579 13.6507L17.4887 17.4807M17.4887 17.4807L19.9933 19.9849M17.4887 17.4807L19.9933 14.9761M17.4887 17.4807L14.9845 19.9849M13.6556 5.65536C11.4459 3.44561 7.86316 3.44561 5.65341 5.65536C3.44366 7.86511 3.44366 11.4478 5.65341 13.6576C7.86316 15.8673 11.4459 15.8673 13.6556 13.6576C15.8654 11.4478 15.8654 7.86511 13.6556 5.65536Z"
+                            stroke="#BB2649"
+                            stroke-width="1.5"
+                            stroke-miterlimit="10"
+                            stroke-linecap="round"
+                          />
+                        </svg>
+                        Ayol
+                      </h5>
+                    </div>
+
                     <a-radio class="type-radio" value="female" />
                   </div>
-                  <h5
-                    class="text-[18px] text-grey-64 font-semibold xl:text-base xl:flex xl:gap-2 xl:items-center"
-                  >
-                    <svg
-                      class="xl:w-5 xl:h-5 hidden xl:block"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                    >
-                      <path
-                        d="M13.6579 13.6507L17.4887 17.4807M17.4887 17.4807L19.9933 19.9849M17.4887 17.4807L19.9933 14.9761M17.4887 17.4807L14.9845 19.9849M13.6556 5.65536C11.4459 3.44561 7.86316 3.44561 5.65341 5.65536C3.44366 7.86511 3.44366 11.4478 5.65341 13.6576C7.86316 15.8673 11.4459 15.8673 13.6556 13.6576C15.8654 11.4478 15.8654 7.86511 13.6556 5.65536Z"
-                        stroke="#BB2649"
-                        stroke-width="1.5"
-                        stroke-miterlimit="10"
-                        stroke-linecap="round"
-                      />
-                    </svg>
-                    Ayollar
-                  </h5>
                 </button>
               </div>
             </a-radio-group>
@@ -207,7 +241,7 @@
             v-if="userType"
             ref="name"
             class="form-item"
-            label="Sohangizni tanlang"
+            label="Mutaxassisligingizni tanlang"
           >
             <div
               class="min-h-[58px] xl:min-h-[50px] items-center border border-solid flex justify-between border-grey-8 rounded-lg px-4 py-3"
@@ -216,7 +250,7 @@
                 class="text-grey-40 text-base xl:text-[14px]"
                 v-if="activeCheckedList == 0"
               >
-                Специальности
+                Mutaxassisligingizni tanlang
               </p>
               <div v-else class="w-full flex flex-wrap gap-[4px]">
                 <div
@@ -245,7 +279,9 @@
               </div>
               <button
                 class="w-6 xl:hidden"
-                @click="(visible = true), (checkedList = [...activeCheckedList])"
+                @click="
+                  (visible = true), (checkedList = [...activeCheckedList])
+                "
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -280,10 +316,14 @@
               </button>
             </div>
           </a-form-model-item>
-          <div class="py-4 w-full flex justify-center items-center relative xl:py-[18px]">
+          <div
+            class="py-4 w-full flex justify-center items-center relative xl:py-[18px]"
+          >
             <span class="h-[1px] w-full absolute z-0 bg-border-darik"></span>
-            <p class="relative text-base font-medium text-grey-80 z-10 bg-white px-2">
-              Qoshimcha malumotlar
+            <p
+              class="relative text-base font-medium text-grey-80 z-10 bg-white px-2"
+            >
+              Qo'shimcha malumotlar
             </p>
           </div>
           <a-form-model-item
@@ -304,13 +344,17 @@
               type="text"
               ref="date"
               v-model="form.date_of_birth"
-              placeholder="Tugilgan sanangiz"
+              placeholder="Tug'ilgan sanangiz"
               @input="formatDate"
               @blur="blurHandler"
             />
           </a-form-model-item>
-          <a-form-model-item ref="name" class="form-item" label="Viloyat tanlang">
-            <a-select v-model="form.region_id" placeholder="Viloyat tanlang">
+          <a-form-model-item
+            ref="name"
+            class="form-item"
+            label="Viloyatni tanlang"
+          >
+            <a-select v-model="form.region_id" placeholder="Viloyatni tanlang">
               <a-select-option
                 :value="region?.id"
                 v-for="region in regions"
@@ -372,17 +416,39 @@ export default {
       form: {
         name: "",
         surname: "",
-        gender: "",
+        gender: "male",
         date_of_birth: "",
         specialities: [],
         region_id: undefined,
       },
       rules: {
-        name: [{ required: true, message: "This field is required", trigger: "blur" }],
-        surname: [{ required: true, message: "This field is required", trigger: "blur" }],
-        gender: [{ required: true, message: "This field is required", trigger: "blur" }],
+        name: [
+          {
+            required: true,
+            message: "Ushbu havolani to'ldirish majburiy",
+            trigger: "blur",
+          },
+        ],
+        surname: [
+          {
+            required: true,
+            message: "Ushbu havolani to'ldirish majburiy",
+            trigger: "blur",
+          },
+        ],
+        gender: [
+          {
+            required: true,
+            message: "Ushbu havolani to'ldirish majburiy",
+            trigger: "blur",
+          },
+        ],
         specialities: [
-          { required: true, message: "This field is required", trigger: "blur" },
+          {
+            required: true,
+            message: "Ushbu havolani to'ldirish majburiy",
+            trigger: "blur",
+          },
         ],
       },
     };
@@ -422,7 +488,9 @@ export default {
       var output = "";
       if (values.length == 3) {
         var year =
-          values[2].length !== 4 ? parseInt(values[2]) + 2000 : parseInt(values[2]);
+          values[2].length !== 4
+            ? parseInt(values[2]) + 2000
+            : parseInt(values[2]);
         var month = parseInt(values[1]) - 1;
         var day = parseInt(values[0]);
         var d = new Date(year, month, day);
@@ -467,7 +535,9 @@ export default {
       }
     },
     deleteChecked(id) {
-      this.activeCheckedList = this.activeCheckedList.filter((item) => item.id != id);
+      this.activeCheckedList = this.activeCheckedList.filter(
+        (item) => item.id != id
+      );
     },
 
     handleOk() {
@@ -490,7 +560,9 @@ export default {
       // formData.append("specialities[]", JSON.stringify(this.form.specialities));
       const data = {
         ...this.form,
-        date_of_birth: this.form.date_of_birth.replaceAll(" ", "").replaceAll("/", "-"),
+        date_of_birth: this.form.date_of_birth
+          .replaceAll(" ", "")
+          .replaceAll("/", "-"),
         // [`specialities[]`]: this.form.specialities,
       };
       delete data["specialities"];
@@ -566,7 +638,8 @@ export default {
   display: flex;
   align-items: center;
 }
-.form-item :deep(.ant-select-selection__rendered .ant-select-selection-selected-value) {
+.form-item
+  :deep(.ant-select-selection__rendered .ant-select-selection-selected-value) {
   color: var(--grey-80, #353437);
   font-family: "TT Interfaces";
   font-size: 16px;
@@ -647,8 +720,11 @@ export default {
   border-color: var(--blue);
   color: var(--blue);
 }
-:deep(.ant-select-focused
-    .ant-select-selection, .ant-select-selection:focus, .ant-select-selection:active) {
+:deep(
+    .ant-select-focused .ant-select-selection,
+    .ant-select-selection:focus,
+    .ant-select-selection:active
+  ) {
   border: 1px solid var(--blue);
   box-shadow: 0px 0px 0px 3px rgba(70, 105, 229, 0.2);
 }

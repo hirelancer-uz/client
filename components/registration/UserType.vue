@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div
     class="number-check flex flex-col px-[120px] gap-8 py-[80px] border border-solid border-grey-light rounded-3xl number-card xl:border-0 xl:px-0 xl:py-0"
   >
@@ -29,16 +29,25 @@
               fill="#5C46E6"
             />
             <circle cx="81.8028" cy="7.87821" r="4.14823" fill="white" />
-            <circle cx="119.966" cy="7.87821" r="4.14823" fill="white" /></svg></span
+            <circle
+              cx="119.966"
+              cy="7.87821"
+              r="4.14823"
+              fill="white"
+            /></svg></span
       ></nuxt-link>
-      <h4 class="flex text-black text-[24px] font-semibold mt-[31px] xl:text-[20px]">
+      <h4
+        class="flex text-black text-[24px] font-semibold mt-[31px] xl:text-[20px]"
+      >
         Royxatdan otish
       </h4>
       <p class="flex text-base text-grey-64 mt-2 xl:text-[14px]">
         Foydalanuvchi turini tanlang
       </p>
     </div>
-    <div class="xl:h-full xl:flex xl:flex-col xl:justify-between xl:pb-4 xl:pt-2">
+    <div
+      class="xl:h-full xl:flex xl:flex-col xl:justify-between xl:pb-4 xl:pt-2"
+    >
       <a-form-model ref="ruleForm" :model="form" :rules="rules">
         <div class="flex flex-col gap-8 xl:gap-6">
           <a-form-model-item
@@ -122,7 +131,7 @@
           :class="{ 'opacity-50 pointer-events-none': time > 0 }"
           class="text-blue text-[15px] mt-3 xl:mt-2 xl:text-[14px]"
         >
-          Qayta jonatish
+          Qayta jo'natish
         </button>
 
         <p class="text-grey-40 text-[14px] mt-6 xl:hidden">
@@ -160,7 +169,8 @@
             @click="onSubmit"
             class="h-[60px] xl:h-[52px] border border-solid border-blue bg-blue rounded-[12px] flex justify-center items-center text-[18px] xl:text-[14px] text-white font-medium"
             :class="{
-              'pointer-events-none opacity-50': loading || form.password.length < 6,
+              'pointer-events-none opacity-50':
+                loading || form.password.length < 6,
             }"
           >
             <LoaderBtn v-if="loading" />
@@ -186,7 +196,11 @@ export default {
       },
       rules: {
         phone_number: [
-          { required: true, message: "This field is required", trigger: "blur" },
+          {
+            required: true,
+            message: "This field is required",
+            trigger: "blur",
+          },
           { min: 9, message: "Length should 9", trigger: "blur" },
         ],
       },

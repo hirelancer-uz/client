@@ -16,7 +16,9 @@
         class="h-[40px] px-[24px] rounded-[8px] border border-solid border-grey-light bg-bg-grey flex gap-2 items-center text-black text-[14px]"
       >
         {{ elem?.name_ru }}
-        <button @click="$emit('deleteFilter', `specialities[${elem?.id}]`, elem?.id)">
+        <button
+          @click="$emit('deleteFilter', `specialities[${elem?.id}]`, elem?.id)"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -35,7 +37,7 @@
         </button>
       </div>
     </div>
-    <div class="body flex flex-col gap-8 mt-[26px] xl:mt-0">
+    <div class="body flex flex-col gap-8 xl:mt-0">
       <div class="list grid grid-cols-3 xl:grid-cols-1 gap-4" v-if="loading">
         <a-skeleton
           :paragraph="false"
@@ -52,7 +54,11 @@
         />
       </div>
 
-      <VPagination :load="true" :totalPage="totalPage" @getData="__GET_FREELANCERS" />
+      <VPagination
+        :load="true"
+        :totalPage="totalPage"
+        @getData="__GET_FREELANCERS"
+      />
     </div>
   </div>
 </template>

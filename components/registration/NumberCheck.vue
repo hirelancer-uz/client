@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div
     class="number-check bg-white flex flex-col px-[120px] xl:px-0 gap-8 py-[80px] xl:py-0 border border-solid border-grey-light rounded-3xl number-card xl:border-0"
   >
@@ -29,13 +29,20 @@
               fill="#5C46E6"
             />
             <circle cx="81.8028" cy="7.87821" r="4.14823" fill="white" />
-            <circle cx="119.966" cy="7.87821" r="4.14823" fill="white" /></svg></span
+            <circle
+              cx="119.966"
+              cy="7.87821"
+              r="4.14823"
+              fill="white"
+            /></svg></span
       ></nuxt-link>
-      <h4 class="flex text-black text-[24px] font-semibold mt-[31px] xl:text-[20px]">
+      <h4
+        class="flex text-black text-[24px] font-semibold mt-[31px] xl:text-[20px]"
+      >
         Kirish yoki ro'yxatdan o'tish
       </h4>
       <p class="flex text-base text-grey-64 mt-2 xl:text-[14px]">
-        Единая авторизация и регистрация
+        Yagona avtorizatsiya va ro'yxatdan o'tish
       </p>
     </div>
     <div class="xl:pt-2">
@@ -79,7 +86,9 @@
       <button
         @click="onSubmit"
         class="h-[60px] xl:h-[52px] border border-solid border-blue bg-blue rounded-[12px] flex justify-center items-center text-[18px] xl:text-[14px] text-white font-medium"
-        :class="{ 'pointer-events-none opacity-50': loading ||  form.phone.length < 12}"
+        :class="{
+          'pointer-events-none opacity-50': loading || form.phone.length < 12,
+        }"
       >
         <LoaderBtn v-if="loading" />
         <span v-else>Kodni jo’natish</span>
@@ -102,7 +111,11 @@ export default {
       },
       rules: {
         phone: [
-          { required: true, message: "This field is required", trigger: "blur" },
+          {
+            required: true,
+            message: "This field is required",
+            trigger: "blur",
+          },
           { min: 12, message: "Length should 9", trigger: "blur" },
         ],
       },
