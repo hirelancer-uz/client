@@ -2,33 +2,37 @@
   <transition name="fade-left" mode="out-in">
     <div class="freelancers pt-16 pb-[120px] xl:px-4 xl:pt-6 xl:pb-6">
       <div class="2xl:container mx-auto">
-        <div class="title flex justify-between items-center xl:hidden">
+        <div class="title items-center xl:hidden grider">
           <h2 class="text-black text-[32px] font-semibold">Frilanserlar</h2>
-          <div class="button flex gap-6 items-center">
-            <button
-              class="h-[52px] w-[52px] flex justify-center items-center border-[2px] border-solid border-grey-light rounded-full overflow-hidden"
+          <div class="button grid header gap-4 items-center">
+            <div
+              class="searcher border-[1px] border-solid border-grey-light h-[60px] rounded-[8px] px-[16px] py-[12px] flex items-center justify-between"
             >
+              <input
+                type="text"
+                placeholder="Поиск"
+                class="text-[16px] text-[#353437] leading-[150%] h-[100%] w-[90%]"
+              />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="30"
-                height="30"
-                viewBox="0 0 30 30"
+                width="22"
+                height="22"
+                viewBox="0 0 22 22"
                 fill="none"
               >
                 <path
-                  d="M19.1285 19.1288L24.9042 24.9057M21.6047 13.1512C21.6047 17.8201 17.8198 21.605 13.151 21.605C8.48212 21.605 4.69727 17.8201 4.69727 13.1512C4.69727 8.48238 8.48212 4.69753 13.151 4.69753C17.8198 4.69753 21.6047 8.48238 21.6047 13.1512Z"
-                  stroke="#5C46E6"
+                  d="M21 21L19 19M1 10.5C1 5.25329 5.25329 1 10.5 1C15.7467 1 20 5.25329 20 10.5C20 15.7467 15.7467 20 10.5 20C5.25329 20 1 15.7467 1 10.5Z"
+                  stroke="#28303F"
                   stroke-width="1.5"
-                  stroke-miterlimit="10"
                   stroke-linecap="round"
                   stroke-linejoin="round"
                 />
               </svg>
-            </button>
+            </div>
             <button
               v-if="$store.state.auth && Boolean($store.state.userInfo['name'])"
               @click="$router.push('/profile/customer')"
-              class="xl:hidden h-[60px] w-[204px] flex justify-center items-center bg-blue rounded-xl text-base font-medium text-white"
+              class="xl:hidden h-[60px] w-[204px] flex justify-center items-center bg-white rounded-[12px] text-base font-medium text-blue border-[1px] border-blue border-solid"
             >
               Buyurtma qoshish
             </button>
@@ -266,6 +270,14 @@ export default {
   display: grid;
   grid-template-columns: 332px 1fr;
   grid-gap: 32px;
+}
+.grider {
+  display: grid;
+  grid-template-columns: 332px 1fr;
+  grid-gap: 32px;
+}
+.header {
+  grid-template-columns: 8fr 2fr;
 }
 @media (max-width: 1200px) {
   .body {

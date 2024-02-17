@@ -1,12 +1,12 @@
 <template lang="html">
   <div>
-    <div class="flex gap-4">
-      <button
+    <div class="flex gap-4 justify-end">
+      <!-- <button
         v-if="load"
         class="h-[52px] rounded-[8px] bg-bg-grey text-grey-40 text-base border border-solid border-grey-8 w-[228px] flex justify-center items-center xl:hidden"
       >
         Load more
-      </button>
+      </button> -->
       <a-pagination
         class="order-pagination"
         v-model.number="current"
@@ -63,14 +63,24 @@ export default {
   border: none;
   background-color: transparent;
 }
-.order-pagination :deep(.ant-pagination-jump-next) .ant-pagination-item-container,
-.order-pagination :deep(.ant-pagination-jump-prev) .ant-pagination-item-container {
+.order-pagination
+  :deep(.ant-pagination-jump-next)
+  .ant-pagination-item-container,
+.order-pagination
+  :deep(.ant-pagination-jump-prev)
+  .ant-pagination-item-container {
   display: flex;
   /* align-items: center; */
   justify-content: center;
 }
-.order-pagination :deep(.ant-pagination-jump-next) .ant-pagination-item-container span,
-.order-pagination :deep(.ant-pagination-jump-prev) .ant-pagination-item-container span {
+.order-pagination
+  :deep(.ant-pagination-jump-next)
+  .ant-pagination-item-container
+  span,
+.order-pagination
+  :deep(.ant-pagination-jump-prev)
+  .ant-pagination-item-container
+  span {
   left: auto;
   top: auto;
   bottom: auto;
@@ -104,7 +114,6 @@ export default {
   .order-pagination :deep(.ant-pagination-item) a {
     font-size: 14px;
   }
-  
 }
 @media (max-width: 576px) {
   .order-pagination :deep(.ant-pagination-item),
@@ -119,6 +128,5 @@ export default {
   .order-pagination :deep(.ant-pagination-item) a {
     font-size: 14px;
   }
-  
 }
 </style>
