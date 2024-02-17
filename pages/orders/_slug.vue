@@ -1,9 +1,9 @@
 <template lang="html">
   <div class="pt-12 order xl:pt-6">
-    <div class="max-w-[1286px] mx-auto pb-[55px]">
+    <div class="max-w-[1286px] mx-auto pb-[80px]">
       <nuxt-link
         to="/"
-        class="flex xl:hidden gap-4 w-[162px] py-3 border border-grey-24 border-solid rounded-lg justify-center items-center text-base font-medium text-blue hover:text-blue"
+        class="back-btn flex xl:hidden gap-4 w-[162px] py-3 border border-grey-24 border-solid rounded-lg justify-center items-center text-base font-medium text-blue hover:text-blue"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -19,12 +19,12 @@
             fill="#5C46E6"
           />
         </svg>
-        Отмена
+        Orqaga
       </nuxt-link>
       <div class="content-box mt-6 xl:mt-0 xl:px-4">
         <div>
           <div
-            class="info rounded-3xl xl:rounded-2xl border-solid border-grey-8 px-8 py-8 xl:px-4 xl:py-4 border"
+            class="info rounded-3xl xl:rounded-2xl border-solid border-grey-8 pr-8 pl-6 py-6 xl:px-4 xl:py-4 border"
           >
             <div class="head flex justify-between xl:flex-col xl:gap-4">
               <div class="flex gap-4 items-center">
@@ -51,26 +51,80 @@
                 >
                 <span v-if="order?.urgent" class="h-[19px] w-[1px] bg-grey-8"></span>
                 <span
-                  class="flex gap-[7px] items-center rounded-[8px] px-[8px] py-[4px] text-green text-[14px] font-medium"
+                  v-if="step1"
+                  class="flex gap-[7px] items-center rounded-[8px]  text-dark-yellow text-[14px] font-medium"
                   ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="18"
-                    height="20"
-                    viewBox="0 0 18 20"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
                     fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       opacity="0.4"
-                      d="M7.37552 0.722073L2.3777 2.94333C0.932081 3.58583 -0.0219094 5.02467 0.0700804 6.60396C0.429713 12.7782 2.23776 15.4963 6.93588 18.677C8.18048 19.5196 9.82104 19.5217 11.0647 18.6777C15.7773 15.4797 17.5206 12.7231 17.9119 6.62535C18.0139 5.03561 17.0583 3.5815 15.6026 2.93452L10.6246 0.722073C9.59037 0.262401 8.40979 0.262402 7.37552 0.722073Z"
+                      d="M22 19V16C22 14.3431 20.6569 13 19 13H18C17.3705 13 16.7777 13.2964 16.4 13.8L15.2 15.4C14.4446 16.4072 13.259 17 12 17C10.741 17 9.55542 16.4072 8.8 15.4L7.6 13.8C7.22229 13.2964 6.62951 13 6 13H5C3.34315 13 2 14.3431 2 16V19C2 20.6569 3.34315 22 5 22H19C20.6569 22 22 20.6569 22 19Z"
+                      fill="#F2994A"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M5 13H6C6.62951 13 7.22229 13.2964 7.6 13.8L8.8 15.4C9.55542 16.4072 10.741 17 12 17C13.259 17 14.4446 16.4072 15.2 15.4L16.4 13.8C16.7777 13.2964 17.3705 13 18 13H19C19.3506 13 19.6872 13.0602 20 13.1707V6C20 3.79086 18.2091 2 16 2H8C5.79086 2 4 3.79086 4 6V13.1707C4.31278 13.0602 4.64936 13 5 13ZM10.75 8.5C10.75 7.5335 11.5335 6.75 12.5 6.75C13.4665 6.75 14.25 7.5335 14.25 8.5C14.25 9.4665 13.4665 10.25 12.5 10.25C11.5335 10.25 10.75 9.4665 10.75 8.5ZM12.5 5.25C10.7051 5.25 9.25 6.70507 9.25 8.5C9.25 9.12574 9.42684 9.71018 9.73327 10.2061L8.46967 11.4697C8.17678 11.7626 8.17678 12.2374 8.46967 12.5303C8.76256 12.8232 9.23744 12.8232 9.53033 12.5303L10.7939 11.2667C11.2898 11.5732 11.8743 11.75 12.5 11.75C14.2949 11.75 15.75 10.2949 15.75 8.5C15.75 6.70507 14.2949 5.25 12.5 5.25Z"
+                      fill="#F2994A"
+                    />
+                  </svg>
+                  Идет прием заявок</span
+                >
+                <span
+                  v-if="step2"
+                  class="flex gap-[7px] items-center rounded-[8px]  text-main-color text-[14px] font-medium"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <rect
+                      width="24"
+                      height="24"
+                      rx="8"
+                      fill="#5C46E6"
+                      fill-opacity="0.4"
+                    />
+                    <path
+                      d="M6 18V14.551C6 13.7054 6.66581 13.0205 7.48785 13.0205H14.4309C15.253 13.0205 15.9188 13.7054 15.9188 14.551V18M15.9196 8.25878L17.2862 9.66379L20 6.87213M13.164 8.26746C13.164 9.51974 12.1771 10.5349 10.9598 10.5349C9.74238 10.5349 8.7555 9.51974 8.7555 8.26746C8.7555 7.01518 9.74238 6 10.9598 6C12.1771 6 13.164 7.01518 13.164 8.26746Z"
+                      stroke="#5C46E6"
+                      stroke-miterlimit="10"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  Испольнитель выбран</span
+                >
+                <span
+                  v-if="step3"
+                  class="flex gap-[7px] items-center rounded-[8px]  text-green text-[14px] font-medium"
+                  ><svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      opacity="0.4"
+                      d="M22 19V16C22 14.3431 20.6569 13 19 13H18C17.3705 13 16.7777 13.2964 16.4 13.8L15.2 15.4C14.4446 16.4072 13.259 17 12 17C10.741 17 9.55542 16.4072 8.8 15.4L7.6 13.8C7.22229 13.2964 6.62951 13 6 13H5C3.34315 13 2 14.3431 2 16V19C2 20.6569 3.34315 22 5 22H19C20.6569 22 22 20.6569 22 19Z"
                       fill="#009A10"
                     />
                     <path
                       fill-rule="evenodd"
                       clip-rule="evenodd"
-                      d="M12.4939 6.43558C12.8056 6.70834 12.8372 7.18216 12.5645 7.49389L9.69455 10.7738C9.07786 11.4786 8.01561 11.5729 7.28433 10.9879L5.53151 9.58566C5.20806 9.3269 5.15562 8.85494 5.41438 8.53149C5.67313 8.20804 6.1451 8.1556 6.46855 8.41436L8.22137 9.81662C8.32584 9.90019 8.47759 9.88671 8.56569 9.78603L11.4356 6.50613C11.7084 6.1944 12.1822 6.16282 12.4939 6.43558Z"
+                      d="M5 13H6C6.62951 13 7.22229 13.2964 7.6 13.8L8.8 15.4C9.55542 16.4072 10.741 17 12 17C13.259 17 14.4446 16.4072 15.2 15.4L16.4 13.8C16.7777 13.2964 17.3705 13 18 13H19C19.3506 13 19.6872 13.0602 20 13.1707V6C20 3.79086 18.2091 2 16 2H8C5.79086 2 4 3.79086 4 6V13.1707C4.31278 13.0602 4.64936 13 5 13ZM15.5645 6.49389C15.8372 6.18216 15.8056 5.70834 15.4939 5.43558C15.1822 5.16282 14.7084 5.1944 14.4356 5.50613L11.5657 8.78603C11.4776 8.88671 11.3258 8.90019 11.2214 8.81662L9.46855 7.41436C9.1451 7.1556 8.67313 7.20804 8.41438 7.53149C8.15562 7.85494 8.20806 8.3269 8.53151 8.58566L10.2843 9.98792C11.0156 10.5729 12.0779 10.4786 12.6946 9.77378L15.5645 6.49389Z"
                       fill="#009A10"
-                    /></svg
-                  >Идет прием заявок</span
+                    />
+                  </svg>
+
+                  Выполненно</span
                 >
               </div>
 
@@ -101,7 +155,7 @@
                 specific assigned tasks and billing hours to ASU Prep.
               </p> -->
             </div>
-            <div class="files flex flex-col gap-4 mt-4">
+            <div class="files flex flex-col gap-4 mt-4 pl-2">
               <h6 class="text-black text-[20px] font-semibold xl:text-[18px]">
                 Файлы к задаче
               </h6>
@@ -109,7 +163,7 @@
                 <FileCard v-for="file in order?.files" :file="file" :key="file?.id" />
               </div>
             </div>
-            <div class="files flex flex-col gap-4 mt-4 xl:mt-6 mb-6">
+            <div class="files flex flex-col gap-4 mt-4 xl:mt-6 mb-6 pl-2">
               <h6 class="text-black text-[20px] xl:text-[18px] font-semibold">
                 Категории:
               </h6>
@@ -131,7 +185,7 @@
               </div>
             </div>
             <div
-              class="content-bottom border-[0] border-t border-solid border-grey-8 pt-4 flex justify-between xl:flex-col xl:gap-6 xl:max-w-[90%] xl:mx-auto white-space-nowrap"
+              class="content-bottom border-[0] border-t border-solid border-grey-8 pt-4 flex justify-between xl:flex-col xl:gap-6 xl:max-w-[90%] xl:mx-auto white-space-nowrap pl-2"
             >
               <div class="flex items-center gap-[28px] xl:justify-between">
                 <p class="text-base xl:text-[14px] text-grey-64 flex gap-2 items-center">
@@ -189,7 +243,7 @@
                   >{{ order?.request_count }} запросов
                 </p>
               </div>
-              <p
+              <!-- <p
                 class="underline text-base text-pantone-2023 flex items-center gap-[10px] xl:text-center mx-auto xl:text-[14px] white-space-nowrap"
               >
                 Сообщить модератору о нарушении
@@ -217,14 +271,14 @@
                     fill="#BB2649"
                   />
                 </svg>
-              </p>
+              </p> -->
             </div>
           </div>
           <div class="flex-col gap-4 hidden xl:flex xl:mt-6 xl:gap-6">
             <ClientCard :client="order?.client" />
             <PriceCard @open="openModal" :order="order" />
           </div>
-          <div class="flex flex-col gap-4 mt-8 xl:mt-6">
+          <!-- <div class="flex flex-col gap-4 mt-8 xl:mt-6">
             <InfoCard
               v-if="$store.state.auth && Boolean($store.state.userInfo['name'])"
               title="Отправьте заявке для получение заказа"
@@ -285,7 +339,7 @@
                   stroke-linejoin="round"
                 /></svg
             ></InfoCard>
-          </div>
+          </div> -->
         </div>
         <div class="flex flex-col gap-4 xl:hidden">
           <ClientCard :client="order?.client" />
@@ -295,20 +349,27 @@
     </div>
     <SimilarOrders :orders="orders" />
     <div>
-      <Transition name="opacity">
+      <!-- <Transition name="opacity">
         <div
           v-if="bottomModal"
           @click="closeModal"
           class="modal-bg fixed w-full h-full bottom-0 left-0"
         ></div>
-      </Transition>
-      <Transition name="nested">
-        <div v-if="bottomModal" class="fixed w-full bottom-0 left-0">
-          <BottomModal @close="closeModal" @submit="submit" />
-        </div>
-      </Transition>
+      </Transition> -->
+      <!-- <Transition name="nested"> -->
+      <!-- <div v-if="bottomModal" class="fixed w-full bottom-0 left-0"> -->
+      <BottomModal @close="closeModal" @submit="submit" :visibleProp="bottomModal" />
+      <!-- </div> -->
+      <!-- </Transition> -->
       <div class="xl:hidden flex">
         <OrderSuccess :visibleProp="visible" @handleOkProp="handleOk" />
+      </div>
+      <div class="flex">
+        <ToBeFreelancer
+          :visibleProp="visibleToFree"
+          @handleOkProp="handleOk"
+          @open="visibleSpicial = true"
+        />
       </div>
       <vue-bottom-sheet-vue2 ref="myBottomSheet" class="bottom-drawer">
         <BottomModal @close="closeModal" @submit="submit" />
@@ -319,6 +380,14 @@
         </vue-bottom-sheet-vue2>
       </div>
     </div>
+    <SpicialsticsCheck
+      @saveChecked="saveChecked"
+      :visible="visibleSpicial"
+      @handleOk="handleOkSpicial"
+      :specialities="specialities"
+      :activeCheckedList="activeCheckedList"
+      :openBottom="openBottom"
+    />
   </div>
 </template>
 <script>
@@ -332,37 +401,114 @@ import OrderSuccess from "../../components/modals/OrderSuccess.vue";
 import BottomSuccess from "../../components/orders/BottomSuccess.vue";
 import Loader from "../../components/Loader.vue";
 import moment from "moment";
+import ToBeFreelancer from "../../components/modals/ToBeFreelancer.vue";
+import SpicialsticsCheck from "../../components/modals/SpicialsticsCheck.vue";
 export default {
   data() {
     return {
       bottomModal: false,
       visible: false,
       dateFormat: "DD MMM YYYY, HH:mm",
+      visibleToFree: false,
+      activeCheckedList: [],
+      openBottom: false,
+      visibleSpicial: false,
     };
+  },
+  computed: {
+    step1() {
+      return !this.order?.selected_request && !this.order?.start_of_execution;
+    },
+    step2() {
+      return (
+        this.order?.selected_request &&
+        this.order?.start_of_execution &&
+        !this.order?.end_of_execution
+      );
+    },
+    step3() {
+      return (
+        this.order?.selected_request &&
+        this.order?.start_of_execution &&
+        this.order?.end_of_execution
+      );
+    },
   },
   mounted() {
     this.__GET_ORDERS();
   },
   async asyncData({ store, params }) {
     try {
-      const [orderData, ordersData] = await Promise.all([
+      const [orderData, ordersData, specialitiesData] = await Promise.all([
         store.dispatch("fetchOrders/getOrderById", {
           id: params.slug,
         }),
         store.dispatch("fetchOrders/getOrders"),
+        store.dispatch("fetchSpecialities/getSpecialities"),
       ]);
       const order = orderData?.content;
       const orders = ordersData.data;
+      const specialities = specialitiesData.content;
 
       return {
         order,
         orders,
+        specialities,
       };
     } catch (e) {
     } finally {
     }
   },
   methods: {
+    handleOkSpicial() {
+      this.visibleSpicial = false;
+    },
+    onSubmitSpicial() {
+      let formData = new FormData();
+      this.activeCheckedList.forEach((item) => {
+        formData.append("specialities[]", item.id);
+      });
+      this.__POST_REGISTER(formData);
+    },
+    async __POST_REGISTER(form) {
+      try {
+        const data = await this.$store.dispatch(
+          "fetchSpecialities/postSpecialities",
+          form
+        );
+        if (data.success) {
+          this.$notification["success"]({
+            message: "Success",
+            description: "Успешно изменен",
+          });
+          await this.$store.dispatch("reloadUserInfo");
+          this.activeCheckedList = this.$store.state.userInfo.specialities;
+        }
+      } catch (e) {
+        this.$notification["error"]({
+          message: "Error",
+          description: e.response.statusText,
+        });
+      }
+    },
+    async saveChecked(checkedList) {
+      this.activeCheckedList = await [...checkedList];
+      this.onSubmitSpicial();
+      this.visibleSpicial = false;
+      this.closeSpicial();
+    },
+    closeSpicial() {
+      this.openBottom = false;
+    },
+    openSpicial() {
+      this.openBottom = true;
+      setTimeout(() => {
+        if (this.openBottom) this.openBottom = false;
+      }, 10);
+    },
+    handleOk() {
+      this.visible = false;
+    },
     moment,
     open() {
       this.$refs.myBottomSheet.open();
@@ -376,12 +522,22 @@ export default {
     closeSuccess() {
       this.$refs.orderSucccess.close();
     },
-    openModal() {
-      if (window.innerWidth >= 1200) {
-        this.bottomModal = true;
+    async openModal() {
+      if (this.$store.state.auth && this.$store.state.userInfo?.name) {
+        if (this.$store.state.userInfo?.specialities.length == 0) {
+          this.visibleToFree = !this.visibleToFree;
+        } else {
+          this.bottomModal = !this.bottomModal;
+        }
       } else {
-        this.open();
+        localStorage.setItem("return_link", this.$route.path);
+        this.$router.push("/registration");
       }
+      // if (window.innerWidth >= 1200) {
+      //   this.bottomModal = true;
+      // } else {
+      //   this.open();
+      // }
     },
     submit(form) {
       this.__POST_ORDER(form);
@@ -391,6 +547,7 @@ export default {
         const data = await this.$store.dispatch("fetchOrders/getOrderById", {
           id: this.$route.params.slug,
         });
+        // this.bottomModal;
       } catch (e) {
       } finally {
       }
@@ -434,10 +591,20 @@ export default {
     OrderSuccess,
     BottomSuccess,
     Loader,
+    ToBeFreelancer,
+    SpicialsticsCheck,
   },
 };
 </script>
 <style lang="css" scoped>
+.back-btn {
+  transition: 0.3s;
+}
+.back-btn:hover {
+  border: 1px solid var(--main-color);
+  background: #f5f3ff;
+  box-shadow: 0px 12px 16px 0px rgba(92, 70, 229, 0.08);
+}
 .content-box {
   display: grid;
   grid-template-columns: 1fr 348px;

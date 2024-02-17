@@ -1,7 +1,7 @@
 <template lang="html">
-  <div class="footer pt-16 bg-dark-violet xl:px-4 xl:pt-[32px]">
+  <div class="footer bg-blue-night xl:px-4">
     <div class="2xl:container mx-auto">
-      <div
+      <!-- <div
         class="lists flex justify-between pb-[80px] border-b-[1px] border-[0] border-[color:#362B42] border-solid xl:flex-col xl:pb-[32px]"
       >
         <div class="list">
@@ -115,7 +115,7 @@
             >
           </div>
         </div>
-      </div>
+      </div> -->
       <div
         class="py-6 flex justify-between xl:items-center xl:flex-col xl:gap-[12px]"
       >

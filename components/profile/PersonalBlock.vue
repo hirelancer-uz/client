@@ -84,7 +84,7 @@
               >{{ userInfo["rating"] }}
             </p>
             <span class="w-[1px] h-[20px] bg-grey-8"> </span>
-            <p class="text-grey-80 text-[14px] flex gap-2 items-center">
+            <!-- <p class="text-grey-80 text-[14px] flex gap-2 items-center">
               <svg
                 v-if="userInfo['online']"
                 xmlns="http://www.w3.org/2000/svg"
@@ -137,33 +137,89 @@
                   stroke-width="0.5"
                 /></svg
               >{{ userInfo["online"] ? "Online" : "Offline" }}
+            </p> -->
+            <p class="text-[14px] flex gap-1 items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="none"
+              >
+                <path
+                  d="M3.49999 4.66667H2.33332C1.68899 4.66667 1.16666 5.189 1.16666 5.83333V11.0833C1.16666 11.7277 1.68899 12.25 2.33332 12.25H3.49999C4.14432 12.25 4.66666 11.7277 4.66666 11.0833V5.83333C4.66666 5.189 4.14432 4.66667 3.49999 4.66667Z"
+                  stroke="#009A10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M9.26151 12.25H7.12313C6.66247 12.25 6.21212 12.1136 5.82883 11.8581L4.92641 11.2565C4.76413 11.1483 4.66666 10.9662 4.66666 10.7711V5.98825C4.66666 5.88673 4.69315 5.78697 4.74351 5.69883L6.99999 1.75H7.77507C8.93983 1.75 9.63457 3.04813 8.98848 4.01727L8.16666 5.25H11.3391C12.0981 5.25 12.655 5.96329 12.4709 6.69962L11.5252 10.4826C11.2655 11.5213 10.3322 12.25 9.26151 12.25Z"
+                  stroke="#009A10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                /></svg
+              ><span class="text-green">26</span><span class="text-grey-40">/</span
+              ><span class="text-pantone-2023">2</span
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 14 14"
+                fill="none"
+              >
+                <g clip-path="url(#clip0_1451_10014)">
+                  <path
+                    d="M10.5 8.75L11.6667 8.75C12.311 8.75 12.8333 8.22766 12.8333 7.58333L12.8333 3.5C12.8333 2.85567 12.311 2.33333 11.6667 2.33333L10.5 2.33333C9.85566 2.33333 9.33332 2.85567 9.33332 3.5L9.33332 7.58333C9.33332 8.22766 9.85566 8.75 10.5 8.75Z"
+                    stroke="#BB2649"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M4.73847 1.75L6.87685 1.75C7.3375 1.75 7.78785 1.88635 8.17115 2.14188L9.07356 2.74349C9.23585 2.85168 9.33332 3.03382 9.33332 3.22886L9.33332 8.01175C9.33332 8.11327 9.30683 8.21303 9.25646 8.30117L6.99999 12.25L6.22491 12.25C5.06015 12.25 4.36541 10.9519 5.0115 9.98273L5.83332 8.75L2.66089 8.75C1.90189 8.75 1.34498 8.03671 1.52906 7.30038L2.4748 3.51742C2.73448 2.47869 3.66777 1.75 4.73847 1.75Z"
+                    stroke="#BB2649"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_1451_10014">
+                    <rect
+                      width="14"
+                      height="14"
+                      fill="white"
+                      transform="translate(14 14) rotate(180)"
+                    />
+                  </clipPath>
+                </defs>
+              </svg>
             </p>
           </div>
           <a-skeleton :paragraph="false" v-else />
         </div>
-        <div class="buttons" v-if="$route.name == 'freelancer'">
+        <div class="buttons" v-if="$route.name == 'freelancer-index'">
           <button
-            class="border border-solid border-blue rounded-[12px] h-12 flex gap-2 justify-center items-center text-base text-blue font-medium"
+            class="border-[2px] border-solid border-main-color rounded-[12px] h-12 flex gap-2 justify-center items-center text-base text-main-color font-medium"
           >
             Написать
             <svg
-              xmlns="http://www.w3.org/2000/svg"
               width="25"
               height="24"
               viewBox="0 0 25 24"
               fill="none"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M9.33984 10.698L9.34165 10.6951M12.5 10.698L12.5018 10.6951M15.6602 10.698L15.662 10.6951M17.5 5.3584H7.5C5.843 5.3584 4.5 6.7014 4.5 8.3584V13.0224C4.5 14.6794 5.843 16.0224 7.5 16.0224H8.815L8.827 19.8634L13.298 16.0224H17.5C19.157 16.0224 20.5 14.6794 20.5 13.0224V8.3584C20.5 6.7014 19.157 5.3584 17.5 5.3584Z"
-                stroke="#7037EA"
+                d="M13.5 3H11.5C6.52944 3 2.5 7.02944 2.5 12V17C2.5 19.2091 4.29086 21 6.5 21H13.5C18.4706 21 22.5 16.9706 22.5 12C22.5 7.02944 18.4706 3 13.5 3Z"
+                stroke="#5C46E6"
                 stroke-width="1.5"
-                stroke-miterlimit="10"
-                stroke-linecap="round"
                 stroke-linejoin="round"
               />
+              <circle cx="12.5" cy="12" r="1" fill="#5C46E6" />
+              <circle cx="16.5" cy="12" r="1" fill="#5C46E6" />
+              <circle cx="8.5" cy="12" r="1" fill="#5C46E6" />
             </svg>
           </button>
-          <button
+          <!-- <button
             class="border border-solid border-grey-8 rounded-[12px] h-12 flex justify-center items-center"
           >
             <svg
@@ -182,7 +238,7 @@
                 stroke-linejoin="round"
               />
             </svg>
-          </button>
+          </button> -->
         </div>
         <div class="grid grid-cols-2 client-types" v-if="profile">
           <button
@@ -400,10 +456,13 @@
         <p class="text-grey-40 text-[12px] font-semibold uppercase">
           УЧАСТНИК С: 21 МАЯ 2010 ГОДА
         </p>
-        <span class="h-[1px] w-full bg-grey-8"></span>
+        <span
+          class="h-[1px] w-full bg-grey-8"
+          v-if="$route.name != 'freelancer-index'"
+        ></span>
 
         <button
-          v-if="profile"
+          v-if="profile && $route.name != 'freelancer-index'"
           @click="$store.dispatch('logout')"
           class="underline text-base text-pantone-2023 flex items-center gap-[10px]"
         >
@@ -436,7 +495,7 @@
           </svg>
         </button>
         <p
-          v-else
+          v-if="$route.name != 'freelancer-index' && !profile"
           class="underline text-base text-pantone-2023 flex items-center gap-[10px] xl:text-center mx-auto xl:text-[14px] white-space-nowrap"
         >
           Сообщить модератору о нарушении
@@ -548,8 +607,8 @@ export default {
 <style lang="css" scoped>
 .buttons {
   display: grid;
-  grid-template-columns: 1fr 48px;
-  grid-gap: 16px;
+  /* grid-template-columns: 1fr 48px; */
+  /* grid-gap: 16px; */
 }
 .body::-webkit-scrollbar {
   display: none;

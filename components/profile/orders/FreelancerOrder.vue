@@ -3,7 +3,7 @@
     <div class="max-w-[1286px] mx-auto pb-[55px]">
       <nuxt-link
         to="/profile/freelancer/orders/active/status"
-        class="flex gap-4 w-[162px] py-3 border border-grey-24 border-solid rounded-lg justify-center items-center text-base font-medium text-blue hover:text-blue xl:hidden"
+        class="back-btn flex gap-4 w-[162px] py-3 border border-grey-24 border-solid rounded-lg justify-center items-center text-base font-medium text-blue hover:text-blue xl:hidden"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -574,6 +574,14 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+.back-btn {
+  transition: 0.3s;
+}
+.back-btn:hover {
+  border: 1px solid var(--main-color);
+  background: #f5f3ff;
+  box-shadow: 0px 12px 16px 0px rgba(92, 70, 229, 0.08);
+}
 .content-box {
   display: grid;
   grid-template-columns: 1fr 348px;

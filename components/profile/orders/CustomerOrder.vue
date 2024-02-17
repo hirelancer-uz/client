@@ -97,7 +97,7 @@
                   >
                   <span class="h-[19px] w-[1px] bg-grey-8"></span> -->
                   <span
-                    v-if="order?.selected_request?.id"
+                    v-if="order?.selected_request?.id && !order?.end_of_execution"
                     class="flex gap-[7px] items-center rounded-[8px] px-[8px] py-[4px] text-main-color text-[14px] font-medium"
                     ><svg
                       width="24"
@@ -597,12 +597,12 @@
         </div>
       </Transition>
       <CloseOrder @handleOkProp="handleOk" :visibleProp="visibleClose" />
-      <CancellationOrder
+      <!-- <CancellationOrder
         @handleOkProp="handleOkCancel"
         :visibleProp="visibleCancel"
         @submit="submitCancel"
         title="Loyihani yopish uchun mijozni tasdig’i kutilmoqda"
-      />
+      /> -->
       <CompliteOrder
         @handleOkProp="handleOkComplite"
         :visibleProp="visibleComplite"

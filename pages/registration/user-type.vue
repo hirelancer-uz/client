@@ -4,7 +4,7 @@
   >
     <div class="2xl:container mx-auto h-full flex flex-col gap-4">
       <div class="flex justify-center xl:h-full">
-        <UserType @sendCode="sendCode" :loading="loading"/>
+        <UserType @sendCode="sendCode" :loading="loading" />
       </div>
     </div>
   </div>
@@ -37,18 +37,25 @@ export default {
     },
     async __GET_USER() {
       try {
+        let returnLink = localStorage.getItem("return_link");
         if (localStorage.getItem("auth-token")) {
           const userInfoData = await this.$store.dispatch("fetchAuth/getUserInfo");
           this.userInfo = userInfoData;
           this.$store.commit("getUserInfo", userInfoData);
           if (this.userInfo?.name) {
-            this.$router.push("/profile/freelancer");
+            returnLink
+              ? this.$router.push(returnLink)
+              : this.$router.push("/profile/freelancer");
           } else {
+            localStorage.setItem("return_link2", returnLink);
             this.$router.push("/registration/user-info");
           }
         }
       } catch (e) {}
     },
+  },
+  destroyed() {
+    localStorage.removeItem("return_link");
   },
   components: { UserType },
 };

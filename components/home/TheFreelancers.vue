@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="2xl:container mx-auto mt-[96px] xl:mt-[40px] xl:px-4">
+  <div class="2xl:container mx-auto mt-[120px] xl:mt-[40px] xl:px-4">
     <div class="flex justify-between mb-[40px] items-center xl:mb-[16px]">
       <h1 class="text-black text-[32px] font-semibold xl:text-[18px]">
         Eng yaxshi frilanserlar
@@ -67,8 +67,7 @@ export default {
 .list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  row-gap: 24px;
-  column-gap: 16px;
+  gap: 16px;
 }
 @media screen and (max-width: 1024px) {
   .list {

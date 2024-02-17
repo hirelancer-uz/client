@@ -1,7 +1,11 @@
 <template lang="html">
-  <div class="portfolios flex flex-col gap-6 xl:gap-4 xl:pb-6 xl:border-[0] xl:border-solid xl:border-b xl:border-grey-light">
+  <div
+    class="portfolios flex flex-col gap-6 xl:gap-4 xl:pb-6 xl:border-[0] xl:border-solid xl:border-b xl:border-grey-light"
+  >
     <div class="flex justify-between">
-      <h1 class="text-black text-[24px] font-semibold xl:text-[18px]">Участие в мероприятиях</h1>
+      <h1 class="text-black text-[24px] font-semibold xl:text-[18px]">
+        Участие в мероприятиях
+      </h1>
       <button class="xl:block hidden">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +67,7 @@
         </div>
       </div>
     </div>
-    <div class="xl:hidden">
+    <div class="xl:hidden" v-if="true">
       <div class="events-swiper swiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
@@ -87,7 +91,9 @@
         </div>
       </div>
     </div>
-    <div class="flex-col gap-[6px] xl:flex hidden  xl:gap-2">
+    <FrelancerEmptyBlock v-else />
+
+    <div class="flex-col gap-[6px] xl:flex hidden xl:gap-2" v-if="false">
       <EventsCard />
       <EventsCard />
       <EventsCard />
@@ -95,12 +101,14 @@
       <EventsCard />
       <EventsCard />
     </div>
+    <FrelancerEmptyBlock class="xl:flex hidden" v-else />
   </div>
 </template>
 <script>
 import { Swiper, Navigation } from "swiper";
 import "swiper/swiper-bundle.min.css";
 import EventsCard from "./EventsCard.vue";
+import FrelancerEmptyBlock from "../freelancers/FrelancerEmptyBlock.vue";
 export default {
   mounted() {
     const swiper = new Swiper(".events-swiper", {
@@ -127,7 +135,7 @@ export default {
       },
     });
   },
-  components: { EventsCard },
+  components: { EventsCard, FrelancerEmptyBlock },
 };
 </script>
 <style lang="css" scoped>

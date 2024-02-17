@@ -1,35 +1,39 @@
 <template lang="html">
   <div
-    class="card price-card px-[24px] py-[24px] xl:px-4 xl:py-4 rounded-2xl bg-bg-grey flex flex-col gap-6"
+    class="card price-card px-6 py-6 xl:px-4 xl:py-4 rounded-2xl bg-bg-grey flex flex-col gap-6"
   >
-    <div class="flex flex-col gap-[10px] xl:gap-4">
-      <div class="flex flex-col xl:flex-row xl:justify-between xl:items-center">
+    <div class="flex flex-col gap-6 xl:gap-4">
+      <div
+        class="flex justify-between items-center xl:flex-row xl:justify-between xl:items-center"
+      >
         <p class="text-grey-64 text-[14px] xl:text-base xl:font-semibold">
           Buyrtma narxi:
         </p>
-        <h1 class="text-blue text-[24px] font-semibold xl:text-base">
+        <h1 class="text-black text-base font-semibold xl:text-base">
           {{
             order?.price ? `${order?.price.toLocaleString()} so’m` : "По договоренности"
           }}
         </h1>
       </div>
-      <div class="flex flex-col xl:flex-row xl:justify-between xl:items-center">
+      <div
+        class="flex justify-between items-center xl:flex-row xl:justify-between xl:items-center"
+      >
         <p class="text-grey-64 text-[14px] xl:font-medium">Срок:</p>
-        <h4 class="text-black text-base font-semibold xl:font-medium xl:text-[14px]">
-          По договоренности 12
+        <h4
+          class="text-main-color text-[18px] font-semibold xl:font-medium xl:text-[14px]"
+        >
+          По договоренности
         </h4>
       </div>
     </div>
-    <div class="buttons flex flex-col gap-4 xl:hidden">
+    <div class="buttons flex flex-col gap-4 xl:hidden" v-if="accessApp">
       <button
-        v-if="
-          !order?.requests.find((item) => item.freelancer_id == $store.state.userInfo?.id)
-        "
         @click="$emit('open')"
-        class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-blue border-blue text-base text-white font-medium"
+        class="app-btn relative over h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-blue border-blue text-base text-white font-medium"
       >
-        Отправить заявку
+        <span class="relative z-20"> Отправить заявку</span>
         <svg
+          class="relative z-20"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -46,7 +50,7 @@
           />
         </svg>
       </button>
-      <button
+      <!-- <button
         class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-white border-blue text-base text-blue font-medium"
       >
         Написать<svg
@@ -63,13 +67,40 @@
             stroke-linecap="round"
           />
         </svg>
-      </button>
+      </button> -->
     </div>
   </div>
 </template>
 <script>
 export default {
   props: ["order"],
+  computed: {
+    accessApp() {
+      return (
+        !this.order?.requests.find(
+          (item) => item.freelancer_id == this.$store.state.userInfo?.id
+        ) &&
+        !this.order?.start_of_execution &&
+        this.order?.client?.id != this.$store.state.userInfo?.id
+      );
+    },
+  },
 };
 </script>
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.app-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: var(--Button-gradient, linear-gradient(0deg, #5c46e5 0%, #9882ff 106.73%));
+  box-shadow: 0px 12px 16px 0px rgba(92, 70, 229, 0.16);
+  opacity: 0;
+  transition: 0.3s;
+}
+.app-btn:hover::after {
+  opacity: 1;
+}
+</style>

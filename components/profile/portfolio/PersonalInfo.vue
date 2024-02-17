@@ -53,9 +53,13 @@
         </button>
       </div>
       <div
+      v-if="userInfo?.bio"
         class="body pt-6 border-[0] border-t border-solid border-grey-8 mt-4 flex flex-col gap-4 xl:border-[0] xl:pt-0 text-base text-grey-64 xl:text-[14px]"
         v-html="userInfo?.bio"
       ></div>
+      <div v-else class="h-[208px] pt-6 border-[0] border-t border-solid border-grey-8 mt-4 flex justify-center items-center">
+      <p class="text-[18px] text-grey-64 font-medium">Afuski ma’lumot topilmadi!</p>
+      </div>
     </div>
   </div>
 </template>

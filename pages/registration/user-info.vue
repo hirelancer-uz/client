@@ -1,5 +1,7 @@
 <template lang="html">
-  <div class="registration pt-[130px] pb-[100px] xl:pt-20 w-full overflow-hidden xl:px-4 xl:pb-4">
+  <div
+    class="registration pt-[130px] pb-[100px] xl:pt-20 w-full overflow-hidden xl:px-4 xl:pb-4"
+  >
     <div class="2xl:container mx-auto h-full flex flex-col gap-4">
       <div class="flex justify-center">
         <UserInfo
@@ -39,11 +41,16 @@ export default {
       try {
         const data = await this.$store.dispatch("fetchAuth/postRegister", form);
         if (data.success) {
-          // localStorage.setItem("auth-token", data.content.accessToken);
-          this.$router.push("/profile/freelancer");
+          const returnLink = localStorage.getItem("return_link2");
+          returnLink
+            ? this.$router.push(returnLink)
+            : this.$router.push("/profile/freelancer");
         }
       } catch (e) {}
     },
+  },
+  destroyed() {
+    localStorage.removeItem("return_link2");
   },
   components: { UserInfo },
 };

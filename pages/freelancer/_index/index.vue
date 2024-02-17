@@ -8,12 +8,12 @@
           :profile="false"
           :userInfo="freelancer"
         />
-        <Achievements :profile="false" />
+        <!-- <Achievements :profile="false" /> -->
       </div>
       <div class="portfolio-block mt-[40px] xl:mt-6">
         <Portfolios :portfolios="portfolios" />
       </div>
-      <div class="events-block mt-[45px] xl:mt-[56px]">
+      <div class="events-block mt-10 xl:mt-[56px]">
         <Events />
       </div>
     </ProfileLayout>
@@ -62,9 +62,9 @@ export default {
 </script>
 <style lang="css" scoped>
 .personal-information {
-  display: grid;
+  /* display: grid;
   grid-template-columns: 2fr 1fr;
-  grid-gap: 16px;
+  grid-gap: 16px; */
 }
 @media (max-width: 1200px) {
   .personal-information {

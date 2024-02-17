@@ -1,6 +1,6 @@
 <template lang="html">
   <div
-    class="card client-card px-[22px] py-[22px] xl:px-4 xl:py-4 border border-solid border-grey-8 rounded-2xl"
+    class="card client-card px-[22px] py-[22px] xl:px-4 xl:py-4 border border-solid border-grey-8 rounded-2xl cursor-pointer"
   >
     <div class="relative w-[60px] h-[60px] xl:w-[52px] xl:h-[52px]">
       <div
@@ -76,6 +76,14 @@ export default {
   grid-template-columns: 60px 1fr;
   grid-gap: 12px;
 }
+.client-card {
+  transition: 0.3s;
+}
+.client-card:hover {
+  border: 1px solid var(--Main-color, #5c46e5);
+  box-shadow: 0px 12px 24px 0px rgba(92, 70, 229, 0.16);
+}
+
 @media (max-width: 1200px) {
   .card {
     grid-template-columns: 52px 1fr;

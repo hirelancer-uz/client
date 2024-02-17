@@ -6,9 +6,9 @@
         <div class="flex justify-between items-end mt-8 xl:mt-0">
           <div class="flex flex-col gap-4 xl:w-full">
             <h1 class="text-[32px] font-semibold xl:hidden text-black">
-              Faol buyurtmalar
+              Buyurtmalar
             </h1>
-            <div class="buttons flex gap-4 xl:grid xl:grid-cols-2 xl:w-full">
+            <!-- <div class="buttons flex gap-4 xl:grid xl:grid-cols-2 xl:w-full">
               <button
                 :class="{ active: tab }"
                 class="rounded-[8px] justify-center flex xl:h-[44px] xl:items-center xl:font-medium bg-bg-grey px-6 py-2 text-[14px] text-grey-64 font-tt"
@@ -20,7 +20,7 @@
               >
                 Заказы
               </button>
-            </div>
+            </div> -->
           </div>
           <a
             href="#"

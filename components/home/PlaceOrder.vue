@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="place-order flex flex-col mb-[96px] xl:mb-[40px] xl:hidden">
+  <div class="place-order flex flex-col mb-[120px] xl:mb-[40px] xl:hidden">
     <h2 class="text-black text-[32px] mb-8 font-semibold xl:text-[18px] xl:mb-[12px]">
       Buyurtma qanday beriladi
     </h2>
@@ -17,10 +17,10 @@
         <img src="../../assets/images/step-3.png" alt="" />
       </PlaceOrderCard>
     </div>
-    <p class="text-base text-black text-center mt-4 xl:hidden">
+    <!-- <p class="text-base text-black text-center mt-4 xl:hidden">
       🛡 Xizmatda pulingiz xavfsiz. Ishni qabul qilganingizdan so'ng pudratchi to'lovni
       oladi. Agar frilanser ish bo'lmasa, biz pulni qaytarib beramiz
-    </p>
+    </p> -->
   </div>
 </template>
 <script>

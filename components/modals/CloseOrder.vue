@@ -87,7 +87,7 @@ export default {
   props: ["visibleProp"],
   data() {
     return {
-      visible: true,
+      visible: false,
     };
   },
   methods: {

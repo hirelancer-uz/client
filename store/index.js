@@ -29,4 +29,14 @@ export const actions = {
       commit("logout");
     }
   },
+  async reloadUserInfo({ commit }) {
+    if (localStorage.getItem("auth-token")) {
+      try {
+        const [userInfoData] = await Promise.all([
+          this.$axiosInstance.$get(`/api/auth/user`),
+        ]);
+        commit("getUserInfo", userInfoData);
+      } catch (e) {}
+    }
+  },
 };

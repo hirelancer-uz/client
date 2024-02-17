@@ -3,7 +3,7 @@
     <div class="max-w-[954px] mx-auto">
       <div class="flex justify-between">
         <h1 class="text-black text-[32px] font-semibold xl:text-[18px]">
-          Faol buyurtmalar
+          Buyurtmalar
         </h1>
         <nuxt-link
           class="flex gap-[6px] text-blue text-[18px] items-center font-medium xl:text-[14px]"

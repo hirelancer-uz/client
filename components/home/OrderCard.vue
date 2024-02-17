@@ -1,10 +1,10 @@
 <template lang="html">
   <div
-    class="card relative order-card pt-[25px] pr-[32px] pb-[31px] pl-[34px] rounded-3xl bg-white cursor-pointer xl:border-[1px] xl:border-solid xl:border-grey-8 xl:rounded-[16px] xl:p-[16px]"
+    class="card relative order-card px-8 py-6 rounded-3xl bg-white cursor-pointer xl:border-[1px] xl:border-solid xl:border-grey-8 xl:rounded-[16px] xl:p-[16px]"
     @click="$router.push(`/orders/${order?.id}`)"
   >
     <div class="header flex justify-between xl:flex-col-reverse xl:gap-2">
-      <div class="flex gap-[20px] items-center xl:gap-[12px]">
+      <div class="flex gap-6 items-center xl:gap-[12px]">
         <span
           v-if="order?.urgent"
           class="border light-yellow rounded-[500px] border-solid border-dark-yellow text-dark-yellow h-[36px] xl:h-[32px] px-[20px] xl:pl-2 xl:pr-3 flex items-center xl:text-[12px] xl:gap-1"
@@ -27,6 +27,76 @@
           >Срочный заказ</span
         >
         <span
+          v-if="step1"
+          class="flex gap-[7px] items-center rounded-[8px] text-dark-yellow text-[14px] font-medium"
+          ><svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              opacity="0.4"
+              d="M22 19V16C22 14.3431 20.6569 13 19 13H18C17.3705 13 16.7777 13.2964 16.4 13.8L15.2 15.4C14.4446 16.4072 13.259 17 12 17C10.741 17 9.55542 16.4072 8.8 15.4L7.6 13.8C7.22229 13.2964 6.62951 13 6 13H5C3.34315 13 2 14.3431 2 16V19C2 20.6569 3.34315 22 5 22H19C20.6569 22 22 20.6569 22 19Z"
+              fill="#F2994A"
+            />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M5 13H6C6.62951 13 7.22229 13.2964 7.6 13.8L8.8 15.4C9.55542 16.4072 10.741 17 12 17C13.259 17 14.4446 16.4072 15.2 15.4L16.4 13.8C16.7777 13.2964 17.3705 13 18 13H19C19.3506 13 19.6872 13.0602 20 13.1707V6C20 3.79086 18.2091 2 16 2H8C5.79086 2 4 3.79086 4 6V13.1707C4.31278 13.0602 4.64936 13 5 13ZM10.75 8.5C10.75 7.5335 11.5335 6.75 12.5 6.75C13.4665 6.75 14.25 7.5335 14.25 8.5C14.25 9.4665 13.4665 10.25 12.5 10.25C11.5335 10.25 10.75 9.4665 10.75 8.5ZM12.5 5.25C10.7051 5.25 9.25 6.70507 9.25 8.5C9.25 9.12574 9.42684 9.71018 9.73327 10.2061L8.46967 11.4697C8.17678 11.7626 8.17678 12.2374 8.46967 12.5303C8.76256 12.8232 9.23744 12.8232 9.53033 12.5303L10.7939 11.2667C11.2898 11.5732 11.8743 11.75 12.5 11.75C14.2949 11.75 15.75 10.2949 15.75 8.5C15.75 6.70507 14.2949 5.25 12.5 5.25Z"
+              fill="#F2994A"
+            />
+          </svg>
+          Идет прием заявок</span
+        >
+        <span
+          v-if="step2"
+          class="flex gap-[7px] items-center rounded-[8px] text-main-color text-[14px] font-medium"
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <rect width="24" height="24" rx="8" fill="#5C46E6" fill-opacity="0.4" />
+            <path
+              d="M6 18V14.551C6 13.7054 6.66581 13.0205 7.48785 13.0205H14.4309C15.253 13.0205 15.9188 13.7054 15.9188 14.551V18M15.9196 8.25878L17.2862 9.66379L20 6.87213M13.164 8.26746C13.164 9.51974 12.1771 10.5349 10.9598 10.5349C9.74238 10.5349 8.7555 9.51974 8.7555 8.26746C8.7555 7.01518 9.74238 6 10.9598 6C12.1771 6 13.164 7.01518 13.164 8.26746Z"
+              stroke="#5C46E6"
+              stroke-miterlimit="10"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          Испольнитель выбран</span
+        >
+        <span
+          v-if="step3"
+          class="flex gap-[7px] items-center rounded-[8px] text-green text-[14px] font-medium"
+          ><svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              opacity="0.4"
+              d="M22 19V16C22 14.3431 20.6569 13 19 13H18C17.3705 13 16.7777 13.2964 16.4 13.8L15.2 15.4C14.4446 16.4072 13.259 17 12 17C10.741 17 9.55542 16.4072 8.8 15.4L7.6 13.8C7.22229 13.2964 6.62951 13 6 13H5C3.34315 13 2 14.3431 2 16V19C2 20.6569 3.34315 22 5 22H19C20.6569 22 22 20.6569 22 19Z"
+              fill="#009A10"
+            />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M5 13H6C6.62951 13 7.22229 13.2964 7.6 13.8L8.8 15.4C9.55542 16.4072 10.741 17 12 17C13.259 17 14.4446 16.4072 15.2 15.4L16.4 13.8C16.7777 13.2964 17.3705 13 18 13H19C19.3506 13 19.6872 13.0602 20 13.1707V6C20 3.79086 18.2091 2 16 2H8C5.79086 2 4 3.79086 4 6V13.1707C4.31278 13.0602 4.64936 13 5 13ZM15.5645 6.49389C15.8372 6.18216 15.8056 5.70834 15.4939 5.43558C15.1822 5.16282 14.7084 5.1944 14.4356 5.50613L11.5657 8.78603C11.4776 8.88671 11.3258 8.90019 11.2214 8.81662L9.46855 7.41436C9.1451 7.1556 8.67313 7.20804 8.41438 7.53149C8.15562 7.85494 8.20806 8.3269 8.53151 8.58566L10.2843 9.98792C11.0156 10.5729 12.0779 10.4786 12.6946 9.77378L15.5645 6.49389Z"
+              fill="#009A10"
+            />
+          </svg>
+
+          Выполненно</span
+        >
+        <span
           v-if="order?.urgent"
           class="flex w-[1px] h-[27px] bg-grey-8 xl:hidden"
         ></span>
@@ -46,7 +116,7 @@
             {{ moment(order?.created_at).format(dateFormat) }}
           </p>
         </div>
-        <button
+        <!-- <button
           class="w-[42px] h-[42px] xl:w-[40px] xl:h-[40px] rounded-full border-[2px] border-grey-light border-solid flex items-center justify-center"
         >
           <svg
@@ -66,7 +136,7 @@
               stroke-linejoin="round"
             />
           </svg>
-        </button>
+        </button> -->
       </div>
     </div>
     <div
@@ -89,19 +159,19 @@
       </div>
     </div>
     <div
-      class="footer flex justify-between mt-[23px] xl:flex-row-reverse xl:mt-[20px] xl:gap-[20px]"
+      class="footer flex items-center justify-between mt-4 xl:flex-row-reverse xl:mt-[20px] xl:gap-[20px]"
     >
-      <h1 class="text-grey-80 text-2xl font-semibold xl:text-base" v-if="order?.price">
+      <h1 class="text-grey-80 text-[24px] font-semibold xl:text-base" v-if="order?.price">
         {{ order?.price.toLocaleString() }} sum
       </h1>
-      <h1 class="text-grey-80 text-2xl font-semibold xl:text-base" v-else>
+      <h1 class="text-grey-80 text-[24px] font-semibold xl:text-base" v-else>
         По договоренности
       </h1>
 
-      <div class="flex gap-8 xl:flex-col xl:gap-[20px]">
+      <div class="flex gap-6 xl:flex-col xl:gap-[20px]">
         <div class="flex gap-[24px] items-center xl:gap-[12px]">
           <p
-            class="text-base flex gap-3 text-grey-40 xl:text-[12px] xl:gap-[6px] items-center"
+            class="text-base flex gap-2 text-grey-40 xl:text-[12px] xl:gap-[6px] items-center"
           >
             <svg
               class="xl:w-[16px] xl:h-[16px]"
@@ -121,7 +191,7 @@
           </p>
           <span class="flex w-[1px] h-[27px] bg-grey-8"></span>
           <p
-            class="text-base flex gap-3 text-grey-40 font-tt xl:text-[12px] xl:gap-[6px] items-center"
+            class="text-base flex gap-2 text-grey-40 font-tt xl:text-[12px] xl:gap-[6px] items-center"
           >
             <svg
               class="xl:w-[16px] xl:h-[16px]"
@@ -145,15 +215,15 @@
         </div>
         <div class="buttons flex gap-6 xl:flex-col-reverse xl:hidden">
           <button
-            class="underline text-grey-80 text-base font-medium text-center xl:pb-[20px]"
+            class="h-12 flex items-center text-grey-64 px-6 border border-solid border-grey-24 rounded-lg text-base font-medium text-center xl:pb-[20px]"
           >
             Подробнее
           </button>
-          <button
+          <!-- <button
             class="py-[15px] px-[20px] font-semibold font-tt bg-blue text-white rounded-lg text-center"
           >
             Отправить заявку
-          </button>
+          </button> -->
         </div>
       </div>
     </div>
@@ -173,6 +243,25 @@ export default {
       dateFormat: "DD.MM.YYYY",
       hourFormat: "HH:mm",
     };
+  },
+  computed: {
+    step1() {
+      return !this.order?.selected_request && !this.order?.start_of_execution;
+    },
+    step2() {
+      return (
+        this.order?.selected_request &&
+        this.order?.start_of_execution &&
+        !this.order?.end_of_execution
+      );
+    },
+    step3() {
+      return (
+        this.order?.selected_request &&
+        this.order?.start_of_execution &&
+        this.order?.end_of_execution
+      );
+    },
   },
   methods: {
     moment,

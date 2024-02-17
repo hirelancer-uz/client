@@ -1,5 +1,7 @@
 <template lang="html">
-  <div class="freelancer-tab flex justify-start xl:mx-[-16px] xl:border-[0] xl:border-b xl:border-solid xl:border-border-darik">
+  <div
+    class="freelancer-tab flex justify-start xl:mx-[-16px] xl:border-[0] xl:border-b xl:border-solid xl:border-border-darik"
+  >
     <div
       class="rounded-2xl bg-bg-grey px-4 xl:px-0 py-4 flex gap-6 xl:bg-transparent xl:overflow-x-scroll xl:gap-3 scroll-none xl:pb-6"
     >
@@ -48,28 +50,30 @@
         </svg>
         Портфолио</nuxt-link
       >
-      <!-- <nuxt-link
+      <nuxt-link
         to="/"
-        class="opacity-50 pointer-events-none text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[96px] xl:min-h-[68px] rounded-[12px] hover:text-black"
+        class="text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[96px] xl:min-h-[68px] rounded-[12px] hover:text-black"
         ><svg
-          xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="25"
           viewBox="0 0 24 25"
           fill="none"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M4 20.9805V4.01953M6.66016 5.70741L7.6792 6.12805C9.47537 6.86947 11.5109 6.75623 13.2137 5.82015C14.5913 5.06291 16.199 4.83815 17.7314 5.18859L20 5.70741V14.5139L17.7314 13.995C16.199 13.6446 14.5913 13.8694 13.2137 14.6266C11.5109 15.5627 9.47537 15.6759 7.6792 14.9345L6.66016 14.5139"
-            stroke="#5D5D5F"
+            d="M13 3.5H11C6.02944 3.5 2 7.52944 2 12.5V17.5C2 19.7091 3.79086 21.5 6 21.5H13C17.9706 21.5 22 17.4706 22 12.5C22 7.52944 17.9706 3.5 13 3.5Z"
+            stroke="#353437"
             stroke-width="1.5"
-            stroke-miterlimit="10"
-            stroke-linecap="round"
             stroke-linejoin="round"
           />
+          <circle cx="12" cy="12.5" r="1" fill="#353437" />
+          <circle cx="16" cy="12.5" r="1" fill="#353437" />
+          <circle cx="8" cy="12.5" r="1" fill="#353437" />
         </svg>
-        Бизнесы</nuxt-link
+
+        Отзывы</nuxt-link
       >
-      <nuxt-link
+      <!--   <nuxt-link
         to="/"
         class="opacity-50 pointer-events-none text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[96px] xl:min-h-[68px] rounded-[12px] hover:text-black"
         ><svg
