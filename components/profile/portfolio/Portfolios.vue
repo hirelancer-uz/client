@@ -1,7 +1,9 @@
-<template lang="html">
+<template>
   <div class="portfolios flex flex-col gap-6 xl:gap-4">
     <div class="flex justify-between">
-      <h1 class="text-black text-[24px] font-semibold xl:text-[18px]">Портфолио</h1>
+      <h1 class="text-black text-[24px] font-semibold xl:text-[18px]">
+        Portfolio
+      </h1>
       <nuxt-link
         v-if="portfolios.length > 0"
         class="flex gap-[6px] text-blue text-base font-medium xl:hidden"
@@ -40,7 +42,7 @@
       @click="$router.push(`/freelancer/${$route.params.index}/portfolio`)"
       class="hidden xl:flex gap-2 w-full justify-center h-[52px] items-center rounded-[12px] bg-main-color text-[14px] text-white font-medium"
     >
-      Смотрите больше
+      Ko'proq ko'rish
       <svg
         width="24"
         height="24"

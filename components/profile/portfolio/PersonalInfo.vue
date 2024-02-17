@@ -1,17 +1,19 @@
-<template lang="html">
+<template>
   <div class="personal-info">
     <div
       class="border border-solid border-grey-8 px-6 py-4 rounded-2xl h-full xl:rounded-[16px] xl:border-t xl:pt-6 xl:pb-0 xl:px-4 xl:py-4 xl:border"
       :class="{ 'profile-info': profile }"
     >
       <div class="flex justify-between">
-        <h6 class="text-[18px] font-medium text-black xl:font-semibold">О фрилансере</h6>
+        <h6 class="text-[18px] font-medium text-black xl:font-semibold">
+          Frilanser haqida
+        </h6>
         <button
           v-if="isEdit"
           @click="$router.push(`/profile/${$route.params.user}/settings`)"
           class="flex gap-[6px] text-base text-blue font-medium items-center xl:hidden"
         >
-          Редактировать
+          Ma'lumotlarni yangilash
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -53,12 +55,17 @@
         </button>
       </div>
       <div
-      v-if="userInfo?.bio"
+        v-if="userInfo?.bio"
         class="body pt-6 border-[0] border-t border-solid border-grey-8 mt-4 flex flex-col gap-4 xl:border-[0] xl:pt-0 text-base text-grey-64 xl:text-[14px]"
         v-html="userInfo?.bio"
       ></div>
-      <div v-else class="h-[208px] pt-6 border-[0] border-t border-solid border-grey-8 mt-4 flex justify-center items-center">
-      <p class="text-[18px] text-grey-64 font-medium">Afuski ma’lumot topilmadi!</p>
+      <div
+        v-else
+        class="h-[208px] pt-6 border-[0] border-t border-solid border-grey-8 mt-4 flex justify-center items-center"
+      >
+        <p class="text-[18px] text-grey-64 font-medium">
+          Afuski ma’lumot topilmadi!
+        </p>
       </div>
     </div>
   </div>

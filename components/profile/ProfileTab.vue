@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div class="profile-tab flex justify-start">
     <div class="rounded-2xl bg-bg-grey px-4 py-4 flex gap-6 xl:hidden">
       <nuxt-link
@@ -21,7 +21,7 @@
             stroke-linejoin="round"
           />
         </svg>
-        Профиль
+        Profil
       </nuxt-link>
       <nuxt-link
         :to="`/profile/${$route.params.user}/orders/active/status`"
@@ -67,7 +67,7 @@
             stroke-linejoin="round"
           />
         </svg>
-        Портфолио</nuxt-link
+        Portfolio</nuxt-link
       >
       <!-- <nuxt-link
         v-if="$route.params.user == 'freelancer'"
@@ -162,7 +162,7 @@
         Исполнители</nuxt-link
       > -->
       <nuxt-link
-      :to="`/profile/${$route.params.user}/settings`"
+        :to="`/profile/${$route.params.user}/settings`"
         :class="{ active: $route.name.includes('settings') }"
         class="text-black text-base font-medium flex flex-col gap-2 items-center bg-white px-4 justify-center min-w-[120px] min-h-[79px] rounded-[12px] hover:text-black"
         ><svg
@@ -181,7 +181,7 @@
             stroke-linejoin="round"
           />
         </svg>
-        Настройки</nuxt-link
+        Sozlamalar</nuxt-link
       >
     </div>
   </div>
