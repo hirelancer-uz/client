@@ -199,6 +199,7 @@
         <div class="buttons" v-if="$route.name == 'freelancer-index'">
           <button
             class="border-[2px] border-solid border-main-color rounded-[12px] h-12 flex gap-2 justify-center items-center text-base text-main-color font-medium"
+            :class="{ 'pointer-events-none opacity-50': !userInfo?.contacts?.telegram }"
           >
             Написать
             <svg

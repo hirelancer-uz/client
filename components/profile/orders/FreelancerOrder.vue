@@ -19,23 +19,23 @@
             fill="#5C46E6"
           />
         </svg>
-        Отмена
+        Назад
       </nuxt-link>
       <div class="content-box mt-6 xl:mt-0">
         <div class="flex flex-col gap-6">
           <div
-            class="info-box rounded-3xl border-solid border-grey-8 border relative overflow-hidden max-h-[430px]"
+            class="info-box rounded-3xl border-solid border-grey-light border-[2px] relative overflow-hidden max-h-[430px]"
             :class="{ active: openBlock == true }"
           >
             <div
-              class="status flex justify-center pt-[36px] pb-8 border-[0] border-b border-solid border-grey-8 relative"
+              class="status flex justify-center pt-[18px] pb-[18px] border-[0] border-b-[2px] border-solid border-grey-light relative"
             >
               <OrderStatus :status="status" />
             </div>
-            <div class="info px-8 py-8 xl:px-4 xl:py-4">
-              <div class="head flex justify-between">
-                <div class="flex gap-4 items-center">
-                  <!-- <span
+            <div class="info px-6 py-6 xl:px-4 xl:py-4">
+              <div class="head flex justify-start">
+                <!-- <div class="flex gap-4 items-center"> -->
+                <!-- <span
                     class="flex gap-[4px] status-red items-center rounded-[8px] px-[8px] py-[4px] text-light-red text-[14px] font-medium"
                     ><svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -54,10 +54,10 @@
                       /></svg
                     >Срочный заказ</span
                   > -->
-                </div>
+                <!-- </div> -->
 
                 <div class="flex gap-6">
-                  <p class="text-base text-grey-40">{{ orderDate }}, {{ orderHours }}</p>
+                  <p class="text-base text-grey-64">{{ orderDate }}, {{ orderHours }}</p>
                   <p class="text-base text-grey-64 flex gap-[6px]">
                     Заказ:<span class="font-medium text-black">#{{ order?.id }}</span>
                   </p>
@@ -84,7 +84,7 @@
                   <FileCard v-for="file in order?.files" :file="file" :key="file?.id" />
                 </div>
               </div>
-              <div class="files flex flex-col gap-4 mt-4 xl:mt-6 mb-6">
+              <div class="files flex flex-col gap-4 mt-6 xl:mt-6 mb-6">
                 <h6 class="text-black text-[20px] xl:text-[18px] font-semibold">
                   Категории:
                 </h6>
@@ -167,7 +167,7 @@
                     >{{ order?.request_count }} запросов
                   </p>
                 </div>
-                <p
+                <!-- <p
                   class="underline text-base text-pantone-2023 flex items-center gap-[10px] xl:text-center xl:mx-auto xl:text-[14px] white-space-nowrap"
                 >
                   Сообщить модератору о нарушении
@@ -195,7 +195,7 @@
                       fill="#BB2649"
                     />
                   </svg>
-                </p>
+                </p> -->
               </div>
             </div>
             <div
@@ -222,41 +222,72 @@
               </button>
             </div>
           </div>
-          <OrderChat />
+          <OrderChat :status="status" />
         </div>
         <div class="flex flex-col gap-4">
           <ClientCard :client="order?.client" />
           <div
-            class="card price-card px-[24px] py-[24px] rounded-2xl bg-bg-grey flex flex-col gap-6"
+            class="card price-card px-6 py-6 rounded-2xl bg-bg-grey flex flex-col gap-6"
           >
-            <div class="flex flex-col gap-[10px]">
-              <div class="flex flex-col">
-                <p class="text-grey-64 text-[14px]">Buyrtma narxi:</p>
+            <div class="flex flex-col gap-6">
+              <div class="flex justify-between">
+                <p class="text-grey-64 text-[14px]">Срок:</p>
 
                 <h1
-                  class="text-blue text-[24px] font-semibold xl:text-base"
-                  v-if="order?.price"
+                  class="text-black text-base font-semibold xl:text-base"
+                  v-if="order?.deadline"
                 >
-                  {{ order?.price.toLocaleString() }} so’m
+                  {{ order?.deadline }}
                 </h1>
-                <h1 class="text-blue text-[24px] font-semibold xl:text-base" v-else>
+                <h1 class="text-black text-base font-semibold xl:text-base" v-else>
                   По договоренности
                 </h1>
                 <!-- <p class="text-grey-40 text-[15px] line-through">750 000</p> -->
               </div>
-              <div class="flex flex-col">
-                <p class="text-grey-64 text-[14px]">Срок:</p>
-                <h4 class="text-black text-base font-semibold" v-if="order?.deadline">
-                  {{ order?.deadline }}
+              <div class="flex justify-between">
+                <p class="text-grey-64 font-medium text-[18px]">Buyrtma narxi:</p>
+                <h4 class="text-main-color text-[18px] font-semibold" v-if="order?.price">
+                  {{ order?.price.toLocaleString() }} so’m
                 </h4>
-                <h4 class="text-black text-base font-semibold" v-else>
+                <h4 class="text-main-color text-[18px] font-semibold" v-else>
                   По договоренности
                 </h4>
               </div>
             </div>
             <EndingProcess v-if="status == 2" :selected="order?.selected_request" />
-            <span class="w-full h-[2px] bg-grey-light flex"></span>
+            <span
+              class="w-full h-[2px] bg-grey-light flex"
+              v-if="!order?.end_of_execution"
+            ></span>
+            <!-- v-if="!order?.end_of_execution" -->
+
             <div class="buttons flex flex-col gap-4" v-if="!order?.end_of_execution">
+              <!-- <div class="flex flex-col gap-2" >
+                <button
+                  class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] bg-grey-light text-base text-grey-80 font-medium"
+                >
+                  Ожидание подверждение
+                  <svg
+                    width="25"
+                    height="24"
+                    viewBox="0 0 25 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.56495 11.757L11.938 14.129L16.195 9.87098M20.498 11.999C20.498 16.4161 16.9171 19.997 12.5 19.997C8.08278 19.997 4.50195 16.4161 4.50195 11.999C4.50195 7.5818 8.08278 4.00098 12.5 4.00098C16.9171 4.00098 20.498 7.5818 20.498 11.999Z"
+                      stroke="#353437"
+                      stroke-width="1.5"
+                      stroke-miterlimit="10"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+                <p class="text-grey-80 text-[14px] max-w-[90%] mx-auto text-center">
+                  Mijoz ishni bitganligni tasdiqlanishi kutilmoqda
+                </p>
+              </div> -->
               <button
                 v-if="status == 2"
                 @click="visibleClose = true"
@@ -280,10 +311,11 @@
                   />
                 </svg>
               </button>
+              <!-- v-if="status != 3" -->
               <button
                 v-if="status != 3"
                 @click="visibleCancel = true"
-                class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-white border-grey-24 text-base text-grey-64 font-medium"
+                class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] bg-[#667B8C] text-base text-white font-medium"
               >
                 Отменить заказ
                 <svg
@@ -295,7 +327,7 @@
                 >
                   <path
                     d="M8 12H16M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z"
-                    stroke="#5D5D5F"
+                    stroke="#fff"
                     stroke-width="1.5"
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -414,7 +446,13 @@
           <BottomModal @close="closeModal" />
         </div>
       </Transition>
-      <CloseOrder
+      <CloseOrder @handleOkProp="handleOkWait" :visibleProp="visibleWait" />
+      <FreelancerComplite
+        @handleOkProp="handleOk"
+        :visibleProp="visibleClose"
+        @submit="submitFinish"
+      />
+      <FreelancerCancel
         @handleOkProp="handleOk"
         :visibleProp="visibleClose"
         @submit="submitFinish"
@@ -450,12 +488,15 @@ import ComplaintOrder from "@/components/modals/ComplaintOrder.vue";
 import OrderChat from "@/components/orders/OrderChat.vue";
 import Loader from "@/components/Loader.vue";
 import moment from "moment";
+import FreelancerComplite from "../../modals/FreelancerComplite.vue";
+import FreelancerCancel from "../../modals/FreelancerCancel.vue";
 export default {
   props: ["order"],
   data() {
     return {
       bottomModal: false,
       step: 1,
+      visibleWait: false,
       openBlock: false,
       visibleClose: false,
       visibleCancel: false,
@@ -489,6 +530,9 @@ export default {
     moment,
     handleOk() {
       this.visibleClose = false;
+    },
+    handleOkWait() {
+      this.visibleWait = false;
     },
     handleOkCancel() {
       this.visibleCancel = false;
@@ -570,6 +614,8 @@ export default {
     ComplaintOrder,
     OrderChat,
     Loader,
+    FreelancerComplite,
+    FreelancerCancel,
   },
 };
 </script>

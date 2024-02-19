@@ -1,9 +1,9 @@
 <template lang="html">
   <div
-    class="profile-orders-card border border-solid rounded-2xl border-grey-8 px-8 py-6 flex flex-col gap-4"
+    class="profile-orders-card border border-solid rounded-2xl border-grey-8 px-8 py-6 flex flex-col gap-[21px]"
   >
-    <div class="head flex justify-between items-center">
-      <div class="flex gap-[10px] flex-col items-start">
+    <div class="head flex justify-between items-start gap-7">
+      <div class="flex flex-col items-start max-w-[75%]">
         <!-- <span
           class="flex gap-[4px] status-red items-center rounded-[8px] px-[8px] py-[4px] text-light-red text-[14px] font-medium"
           ><svg
@@ -23,12 +23,20 @@
             /></svg
           >Срочный заказ</span
         > -->
-        <h3 class="text-[20px] text-black font-medium">
-          {{ order?.name }}
-        </h3>
+        <a-tooltip placement="bottomRight">
+          <template slot="title">
+            <span>{{ order?.name }}</span>
+          </template>
+          <h3 class="text-[20px] text-black font-medium truncate max-w-full">
+            #{{ order?.id }}: {{ order?.name }}
+          </h3>
+        </a-tooltip>
       </div>
       <p class="text-[20px] text-black font-medium" v-if="order?.price">
         {{ order?.price }} сум
+      </p>
+      <p class="text-[20px] text-black font-medium whitespace-nowrap" v-else>
+        По договоренности
       </p>
     </div>
     <div class="body flex justify-between">
@@ -59,13 +67,12 @@
         >
           <p class="text-base text-grey-64 flex gap-[6px]">
             Срок начала:
-            <span class="text-black">{{
-              moment(order?.created_at).format(dateFormat)
-            }}</span>
+            <span class="text-black">{{ order?.start_of_execution || "----" }}</span>
           </p>
           <span v-if="!order?.client?.avatar" class="h-full w-[1px] bg-grey-8"></span>
           <p class="text-base text-grey-64 flex gap-[6px]">
-            Срок выполнение: <span class="text-black">----</span>
+            Срок выполнение:
+            <span class="text-black">{{ order?.end_of_execution || "----" }}</span>
           </p>
         </div>
       </div>
@@ -91,7 +98,7 @@
       </div>
     </div>
     <div
-      class="offers"
+      class="offers pt-[21px] border-[0] border-t border-solid border-grey-8"
       v-if="$route.params.status == 'offers' || $route.params.status == 'completed'"
     >
       <div
@@ -137,31 +144,21 @@
             </h4>
             <div class="flex gap-[40px]">
               <p class="text-base text-grey-64 flex gap-[6px]">
-                Срок: <span class="text-black">{{ order?.deadline }} дней</span>
+                Срок:
+                <span v-if="order?.deadline" class="text-black"
+                  >{{ order?.deadline }} дней</span
+                >
+                <span v-else class="text-black">По договоренности</span>
               </p>
               <p class="text-base text-grey-64 flex gap-[6px]">
-                Цена: <span class="text-black">{{ order?.price }} сум</span>
+                Цена:
+                <span v-if="order?.price" class="text-black">{{ order?.price }} сум</span>
+                <span v-else class="text-black">По договоренности</span>
               </p>
             </div>
           </div>
-          <span
-            ><svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
-              <path
-                d="M7 10L12 14L17 10"
-                stroke="#020105"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              /></svg
-          ></span>
         </div>
-        <div
+        <!-- <div
           class="flex justify-between offer-body"
           :class="{ inactive: !offersList.includes(1) }"
         >
@@ -176,7 +173,7 @@
               </button>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -216,4 +213,5 @@ export default {
   max-height: 300px;
   transition: 0.3s linear;
 }
+
 </style>

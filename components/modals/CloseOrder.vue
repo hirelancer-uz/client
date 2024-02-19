@@ -50,32 +50,16 @@
               fill="white"
             />
           </svg>
-          <h4 class="text-black text-[24px] font-medium mb-10">
-            Loyihani yopish uchun mijozni tasdig’i kutilmoqda
+          <h4 class="text-[#000] text-[24px] font-semibold mb-6">
+            Loyihani yakunlash uchun mijozni tasdig’i kutilmoqda
           </h4>
         </div>
-        <div class="flex justify-center">
+        <div class="flex justify-center mb-8">
           <button
-            @click="$emit('submit')"
-            class="h-[54px] items-center w-[194px] flex justify-center gap-2 border border-solid border-main-color bg-main-color rounded-[8px] text-base font-medium text-white"
+            @click="visible = false"
+            class="h-[54px] items-center w-[332px] flex justify-center gap-2 border border-solid border-main-color bg-main-color rounded-[8px] text-base font-medium text-white"
           >
-            Yaxshi, yopish 
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="25"
-              height="24"
-              viewBox="0 0 25 24"
-              fill="none"
-            >
-              <path
-                d="M9.56495 11.757L11.938 14.129L16.195 9.87098M20.498 11.999C20.498 16.4161 16.9171 19.997 12.5 19.997C8.08278 19.997 4.50195 16.4161 4.50195 11.999C4.50195 7.5818 8.08278 4.00098 12.5 4.00098C16.9171 4.00098 20.498 7.5818 20.498 11.999Z"
-                stroke="white"
-                stroke-width="1.5"
-                stroke-miterlimit="10"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
+            Tushunarli
           </button>
         </div>
       </div>
@@ -93,7 +77,6 @@ export default {
   methods: {
     handleOk() {
       this.visible = false;
-      this.$emit("handleOkProp");
     },
   },
   watch: {

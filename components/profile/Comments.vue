@@ -32,7 +32,7 @@
         ></nuxt-link>
       </div>
     </div>
-    <div class="xl:hidden">
+    <div class="xl:hidden" v-if="true">
       <div class="comments-swiper swiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
@@ -55,6 +55,9 @@
           </div>
         </div>
       </div>
+    </div>
+    <div v-else class="h-[208px] flex justify-center items-center">
+      <p class="text-[18px] text-grey-64 font-medium">Afuski ma’lumot topilmadi!</p>
     </div>
     <div class="hidden xl:flex gap-3 xl:overflow-x-scroll comments-grid">
       <CommentsCard />

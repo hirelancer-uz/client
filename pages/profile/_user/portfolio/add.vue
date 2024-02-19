@@ -1,8 +1,8 @@
 <template lang="html">
-  <div class="create-order pt-[110px] pb-[120px] max-w-[1200px] mx-auto xl:pt-6 xl:px-4">
+  <div class="create-order pt-[110px] pb-[112px] max-w-[1200px] mx-auto xl:pt-6 xl:px-4">
     <div class="head flex justify-between">
       <h1 class="flex text-[32px] text-black font-semibold xl:text-[18px]">
-        Добавить работу
+        Добавить портфолио
       </h1>
       <div class="buttons flex gap-4 xl:hidden">
         <button
@@ -35,16 +35,16 @@
       </div>
     </div>
     <div
-      class="form-block max-w-[712px] px-8 py-[40px] rounded-[24px] bg-white mt-[40px] border-[2px] border-solid border-grey-light xl:mt-6 xl:py-0 xl:border-0 xl:px-0"
+      class="form-block max-w-[712px] px-8 pt-10 pb-[45px] rounded-[24px] bg-white mt-[40px] border-[2px] border-solid border-grey-light xl:mt-6 xl:py-0 xl:border-0 xl:px-0"
     >
       <a-form-model :model="form" ref="ruleForm" :rules="rules">
         <div class="flex flex-col gap-6">
           <a-form-model-item
             class="order-item w-full mb-0"
-            label="Название работы"
+            label="Название портфолио"
             prop="name"
           >
-            <a-input v-model="form.name" placeholder="Название работы" />
+            <a-input v-model="form.name" placeholder="Название портфолио" />
           </a-form-model-item>
           <a-form-model-item
             class="order-select w-full mb-0 required"
@@ -52,7 +52,7 @@
             :class="{ errorSelect: activeCheckedList.length == 0 && errorSelect }"
           >
             <div
-              class="min-h-[58px] items-center border border-solid flex justify-between border-grey-8 rounded-lg px-4 py-3 modal-select"
+              class="min-h-[58px] max-h-[58px] items-center border border-solid flex justify-between border-grey-8 rounded-lg px-4 py-3 modal-select"
             >
               <p class="text-grey-40 text-base" v-if="activeCheckedList.length == 0">
                 Специальности
@@ -150,7 +150,7 @@
                   :key="item"
                   list-type="picture-card"
                   :file-list="fileList[item]"
-                  @preview="handlePreview"
+                
                   @change="($event) => handleChange($event, item)"
                 >
                   <div v-if="fileList[item].length < 1" class="flex justify-center">
@@ -162,6 +162,7 @@
                   :key="item"
                   list-type="picture-card"
                   :file-list="fileList[item]"
+                  @preview="handlePreview"
                   :remove="($event) => handleRemove($event, item)"
                   :before-upload="handleBeforeUpload"
                   :custom-request="($event) => customRequest($event, item)"
@@ -176,8 +177,12 @@
               <img alt="example" style="width: 100%" :src="previewImage" />
             </a-modal>
           </div>
-          <a-form-model-item class="order-item w-full mb-0" label="Link to work">
+          <a-form-model-item class="order-item w-full mb-0 relative flex items-center" label="Link to work">
             <a-input v-model="form.link" placeholder="Link to work" />
+            <svg class="absolute right-4 top-[-3px] " width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5.54472 14.6902L4.89072 15.3442C3.71872 16.5162 3.71872 18.4152 4.89072 19.5872C6.06272 20.7592 7.96172 20.7592 9.13372 19.5872L13.3757 15.3452C14.5477 14.1732 14.5477 12.2742 13.3757 11.1022M9.57972 14.8982C8.40772 13.7262 8.40772 11.8272 9.57972 10.6552L13.8217 6.41318C14.9937 5.24118 16.8927 5.24118 18.0647 6.41318C19.2367 7.58518 19.2367 9.48418 18.0647 10.6562L17.4097 11.3102" stroke="#5C46E6" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
           </a-form-model-item>
           <a-form-model-item class="order-item w-full mb-0" label="Description">
             <a-input
@@ -466,6 +471,9 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+.modal-select {
+  max-height: 58px;
+}
 .order-item :deep(input),
 .order-item :deep(textarea) {
   padding-left: 16px;

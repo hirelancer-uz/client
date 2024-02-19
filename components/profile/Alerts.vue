@@ -5,21 +5,6 @@
         class="text-black text-[24px] font-semibold flex gap-2 xl:text-[18px] xl:w-full xl:justify-between"
       >
         Оповещение
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="32"
-          height="32"
-          viewBox="0 0 32 32"
-          fill="none"
-        >
-          <path
-            d="M9.33337 13.333L16 18.6663L22.6667 13.333"
-            stroke="#020105"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
       </h1>
       <nuxt-link
         class="flex gap-[6px] text-blue text-base font-medium xl:hidden"
@@ -41,11 +26,17 @@
           /></svg
       ></nuxt-link>
     </div>
-    <div class="alerts-list grid grid-cols-4 gap-2 mt-6 xl:flex xl:overflow-x-scroll xl:mt-4 xl:mx-[-16px]">
-      <AlertsCard class="xl:ml-4"/>
+    <div
+      class="alerts-list grid grid-cols-4 gap-2 mt-6 xl:flex xl:overflow-x-scroll xl:mt-4 xl:mx-[-16px]"
+      v-if="true"
+    >
+      <AlertsCard class="xl:ml-4" />
       <AlertsCard />
       <AlertsCard />
-      <AlertsCard class="xl:mr-4"/>
+      <AlertsCard class="xl:mr-4" />
+    </div>
+    <div v-else class="h-[208px] flex justify-center items-center">
+      <p class="text-[18px] text-grey-64 font-medium">Afuski ma’lumot topilmadi!</p>
     </div>
   </div>
 </template>

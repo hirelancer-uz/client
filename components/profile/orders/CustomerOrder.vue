@@ -1,9 +1,9 @@
 <template lang="html">
-  <div class="pt-12 xl:pt-6 order xl:px-4" :class="{ 'pb-10': !order?.status }">
+  <div class="pt-[72px] xl:pt-6 order xl:px-4" :class="{ 'pb-10': !order?.status }">
     <div class="max-w-[1200px] mx-auto">
       <nuxt-link
         to="/profile/customer/orders/active/status"
-        class="flex gap-2 w-[126px] py-3 border border-main-color border-solid rounded-lg justify-center items-center text-base font-medium text-grey-80 hover:text-blue xl:hidden"
+        class="back-btn flex gap-2 w-[126px] py-3 border border-main-color border-solid rounded-lg justify-center items-center text-base font-medium text-grey-80 hover:text-blue xl:hidden"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -29,7 +29,7 @@
         </div>
         <p
           v-if="!order?.status && !order?.end_of_execution"
-          class="text-base text-[#F2994A] font-medium flex fap-2 items-center xl:hidden "
+          class="text-base text-[#F2994A] font-medium flex fap-2 items-center xl:hidden"
         >
           <svg
             width="24"
@@ -54,125 +54,18 @@
             class="info-box rounded-3xl border-solid border-grey-8 border relative overflow-hidden max-h-[430px] xl:rounded-2xl"
             :class="{ active: openBlock == true }"
           >
-            <div class="info px-8 py-8 xl:px-4 xl:py-4">
-              <div class="head flex justify-between xl:flex-col xl:gap-4">
-                <div class="flex gap-4 items-center xl:flex-wrap">
-                  <!-- <span
-                    class="flex gap-[4px] status-red items-center rounded-[8px] px-[8px] py-[4px] text-light-red text-[14px] font-medium xl:hidden"
-                    ><svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                    >
-                      <path
-                        d="M17.9255 14.0455C17.9255 17.3184 15.2723 19.9716 11.9994 19.9716C8.72646 19.9716 6.07324 17.3184 6.07324 14.0455C6.07324 12.9549 6.28062 11.8523 6.6336 10.7859C6.92071 11.9808 7.99626 12.8688 9.27921 12.8688C10.7819 12.8688 12 11.6506 12 10.1479C12 8.64528 10.9755 7.62262 10.9755 6.16181C10.9755 4.26045 12.3526 2.80328 13.9319 2.80328C13.9319 5.08258 14.7668 5.94502 15.6731 7.40827C16.749 9.14528 17.9255 11.0448 17.9255 14.0455Z"
-                        stroke="#F2154A"
-                        stroke-width="1.5"
-                        stroke-miterlimit="10"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      /></svg
-                    >Срочный заказ</span
-                  >
-                  <span
-                    class="hidden xl:flex gap-[4px] xl:gap-4 status-red items-center px-[8px] py-[4px] text-dark-yellow text-[12px] font-medium border border-solid border-dark-yellow rounded-[500px]"
-                    ><svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M11.9503 9.36369C11.9503 11.5456 10.1815 13.3145 7.99958 13.3145C5.81764 13.3145 4.04883 11.5456 4.04883 9.36369C4.04883 8.63663 4.18708 7.9016 4.4224 7.19066C4.6138 7.98724 5.33084 8.57922 6.18614 8.57922C7.18792 8.57922 8.00002 7.76711 8.00002 6.76534C8.00002 5.76356 7.31698 5.08179 7.31698 4.10792C7.31698 2.84034 8.23509 1.8689 9.28796 1.8689C9.28796 3.38843 9.84455 3.96339 10.4488 4.93889C11.166 6.09689 11.9503 7.36322 11.9503 9.36369Z"
-                        stroke="#F2994A"
-                        stroke-miterlimit="10"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                    Срочный заказ</span
-                  >
-                  <span class="h-[19px] w-[1px] bg-grey-8"></span> -->
-                  <span
-                    v-if="order?.selected_request?.id && !order?.end_of_execution"
-                    class="flex gap-[7px] items-center rounded-[8px] px-[8px] py-[4px] text-main-color text-[14px] font-medium"
-                    ><svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M18.5588 19.5488C17.5654 16.8918 15.0036 15 12 15C8.99638 15 6.4346 16.8918 5.44117 19.5488M18.5588 19.5488C20.6672 17.7154 22 15.0134 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 15.0134 3.33285 17.7154 5.44117 19.5488M18.5588 19.5488C16.8031 21.0756 14.5095 22 12 22C9.49052 22 7.19694 21.0756 5.44117 19.5488M15 9C15 10.6569 13.6569 12 12 12C10.3431 12 9 10.6569 9 9C9 7.34315 10.3431 6 12 6C13.6569 6 15 7.34315 15 9Z"
-                        stroke="#5C46E6"
-                        stroke-width="1.5"
-                        stroke-linejoin="round"
-                      />
-                    </svg>
-                    Испольнитель выбран</span
-                  >
-                  <span
-                    v-if="!order?.status && !order?.end_of_execution"
-                    class="flex gap-[7px] items-center rounded-[8px] px-[8px] py-[4px] text-grey-40 text-[14px] font-medium"
-                    ><svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        opacity="0.4"
-                        d="M10.3741 2.72171L5.37624 4.94296C3.93062 5.58546 2.97663 7.0243 3.06862 8.6036C3.42825 14.7778 5.23629 17.496 9.93442 20.6766C11.179 21.5192 12.8196 21.5213 14.0633 20.6773C18.7758 17.4793 20.5192 14.7228 20.9104 8.62498C21.0124 7.03525 20.0569 5.58113 18.6012 4.93415L13.6232 2.72171C12.5889 2.26203 11.4083 2.26204 10.3741 2.72171Z"
-                        fill="#9A999B"
-                      />
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M15.4939 8.43558C15.8056 8.70834 15.8372 9.18216 15.5645 9.49389L12.6946 12.7738C12.0779 13.4786 11.0156 13.5729 10.2843 12.9879L8.53151 11.5857C8.20806 11.3269 8.15562 10.8549 8.41438 10.5315C8.67313 10.208 9.1451 10.1556 9.46855 10.4144L11.2214 11.8166C11.3258 11.9002 11.4776 11.8867 11.5657 11.786L14.4356 8.50613C14.7084 8.1944 15.1822 8.16282 15.4939 8.43558Z"
-                        fill="#9A999B"
-                      />
-                    </svg>
-                    На модерации</span
-                  >
-                  <span
-                    v-else
-                    class="flex gap-[7px] items-center rounded-[8px] px-[8px] py-[4px] text-green text-[14px] font-medium"
-                    ><svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="18"
-                      height="20"
-                      viewBox="0 0 18 20"
-                      fill="none"
-                    >
-                      <path
-                        opacity="0.4"
-                        d="M7.37552 0.722073L2.3777 2.94333C0.932081 3.58583 -0.0219094 5.02467 0.0700804 6.60396C0.429713 12.7782 2.23776 15.4963 6.93588 18.677C8.18048 19.5196 9.82104 19.5217 11.0647 18.6777C15.7773 15.4797 17.5206 12.7231 17.9119 6.62535C18.0139 5.03561 17.0583 3.5815 15.6026 2.93452L10.6246 0.722073C9.59037 0.262401 8.40979 0.262402 7.37552 0.722073Z"
-                        fill="#009A10"
-                      />
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M12.4939 6.43558C12.8056 6.70834 12.8372 7.18216 12.5645 7.49389L9.69455 10.7738C9.07786 11.4786 8.01561 11.5729 7.28433 10.9879L5.53151 9.58566C5.20806 9.3269 5.15562 8.85494 5.41438 8.53149C5.67313 8.20804 6.1451 8.1556 6.46855 8.41436L8.22137 9.81662C8.32584 9.90019 8.47759 9.88671 8.56569 9.78603L11.4356 6.50613C11.7084 6.1944 12.1822 6.16282 12.4939 6.43558Z"
-                        fill="#009A10"
-                      /></svg
-                    >Идет прием заявок</span
-                  >
-                </div>
-
-                <div class="flex gap-6 items-center xl:hidden">
-                  <div class="flex gap-6">
-                    <p class="text-base text-grey-64 flex gap-[6px]">
-                      Заказ:<span class="font-medium text-black">#{{ order?.id }}</span>
-                    </p>
-                    <p class="text-base text-grey-40">{{ orderHours }}</p>
-                  </div>
-                  <span class="h-[19px] w-[1px] bg-grey-8"></span>
-                  <p class="text-base text-grey-40">{{ orderDate }}</p>
+            <div class="info px-6 py-6 xl:px-4 xl:py-4">
+              <div
+                class="status flex justify-center mx-[-24px] mb-6 pb-[18px] border-[0] border-b-[2px] border-solid border-grey-light relative"
+              >
+                <OrderStatus :status="1" />
+              </div>
+              <div class="head flex justify-start xl:flex-col xl:gap-4">
+                <div class="flex gap-6">
+                  <p class="text-base text-grey-64">{{ orderDate }}, {{ orderHours }}</p>
+                  <p class="text-base text-grey-64 flex gap-[6px]">
+                    Заказ:<span class="font-medium text-black">#{{ order?.id }}</span>
+                  </p>
                 </div>
                 <div class="justify-between items-center xl:flex hidden">
                   <div class="flex gap-4">
@@ -291,7 +184,7 @@
                     >{{ order?.request_count }} запросов
                   </p>
                 </div>
-                <p
+                <!-- <p
                   class="underline text-base text-pantone-2023 flex items-center gap-[10px] xl:text-center mx-auto xl:text-[14px] white-space-nowrap"
                 >
                   Сообщить модератору о нарушении
@@ -319,7 +212,7 @@
                       fill="#BB2649"
                     />
                   </svg>
-                </p>
+                </p> -->
               </div>
             </div>
             <div
@@ -365,29 +258,10 @@
                 :freelancer="order?.selected_request?.freelancer"
               />
             </div>
-            <div class="flex flex-col gap-[10px]">
-              <div class="flex flex-col xl:flex-row xl:justify-between xl:items-center">
-                <p
-                  class="text-grey-64 text-[14px] xl:text-base xl:text-grey-64 xl:font-semibold"
-                >
-                  Buyrtma narxi:
-                </p>
-
-                <h2
-                  class="text-blue text-[24px] font-semibold xl:text-[14px]"
-                  v-if="order?.price"
-                >
-                  {{ order?.price.toLocaleString() }} so'm
-                </h2>
-                <h4
-                  v-else
-                  class="text-black text-base font-semibold xl:text-[14px] xl:font-medium"
-                >
-                  По договоренности
-                </h4>
-                <!-- <p class="text-grey-40 text-[15px] line-through xl:hidden">750 000</p> -->
-              </div>
-              <div class="flex flex-col xl:flex-row xl:items-center xl:justify-between">
+            <div class="flex flex-col gap-6">
+              <div
+                class="flex justify-between xl:flex-row xl:items-center xl:justify-between"
+              >
                 <p class="text-grey-64 text-[14px] xl:font-semibold">Срок:</p>
                 <h2
                   class="text-blue text-[24px] font-semibold xl:text-[14px]"
@@ -401,6 +275,30 @@
                 >
                   По договоренности
                 </h4>
+              </div>
+              <div
+                class="flex justify-between items-center xl:flex-row xl:justify-between xl:items-center"
+              >
+                <p
+                  class="text-grey-64 text-[18px] font-medium xl:text-base xl:text-grey-64 xl:font-semibold"
+                >
+                  Buyrtma narxi:
+                </p>
+
+                <h2
+                  class="text-main-color text-[18px] font-semibold xl:text-[14px]"
+                  v-if="order?.price"
+                >
+                  {{ order?.price.toLocaleString() }} so'm
+                </h2>
+
+                <h4
+                  v-else
+                  class="text-black text-base font-semibold xl:text-[14px] xl:font-medium"
+                >
+                  По договоренности
+                </h4>
+                <!-- <p class="text-grey-40 text-[15px] line-through xl:hidden">750 000</p> -->
               </div>
             </div>
             <div class="buttons flex flex-col gap-4" v-if="!order?.end_of_execution">
@@ -513,9 +411,11 @@
             Предложений ({{ order?.requests?.length }})
           </h4>
         </div>
-        <div class="order-left-chat" >
-        
-          <div class="list flex flex-col gap-4" v-if="!order?.selected_request?.id && order?.status">
+        <div class="order-left-chat">
+          <div
+            class="list flex flex-col gap-4"
+            v-if="!order?.selected_request?.id && order?.status"
+          >
             <OffersOrderCard
               v-for="request in order?.requests"
               :key="request?.id"
@@ -549,38 +449,37 @@
             <OffersChat />
           </div>
           <div
-          v-else
-          class="flex gap-6 items-center justify-center py-4 xl:py-2 w-full border border-solid border-[#EDE5E0] bg-[#FFF5EC] rounded-[12px]"
-        >
-          <svg
-          class="xl:hidden"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+            v-else
+            class="flex gap-6 items-center justify-center py-4 xl:py-2 w-full border border-solid border-[#EDE5E0] bg-[#FFF5EC] rounded-[12px]"
           >
-            <path
-              d="M6 2L18 2C20.2091 2 22 3.79086 22 6V18C22 20.2091 20.2091 22 18 22H6C3.79086 22 2 20.2091 2 18L2 6C2 3.79086 3.79086 2 6 2Z"
-              stroke="#F2994A"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M13 8H16M16 8V11M16 8L8 16M8 16L8 13M8 16H11"
-              stroke="#F2994A"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-          <p class="text-[#F2994A] text-base font-medium xl:text-[12px] text-center">
-            Вы можете получать заявка после успешной прохождение модерации
-          </p>
+            <svg
+              class="xl:hidden"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6 2L18 2C20.2091 2 22 3.79086 22 6V18C22 20.2091 20.2091 22 18 22H6C3.79086 22 2 20.2091 2 18L2 6C2 3.79086 3.79086 2 6 2Z"
+                stroke="#F2994A"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M13 8H16M16 8V11M16 8L8 16M8 16L8 13M8 16H11"
+                stroke="#F2994A"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <p class="text-[#F2994A] text-base font-medium xl:text-[12px] text-center">
+              Вы можете получать заявка после успешной прохождение модерации
+            </p>
+          </div>
         </div>
-        </div>
-       
       </div>
     </div>
     <div>
@@ -671,7 +570,7 @@ export default {
   },
   computed: {
     orderDate() {
-      return moment(this.order?.created_at).format("DD.MM.YYYY");
+      return moment(this.order?.created_at).format("DD MMM YYYY");
     },
     orderHours() {
       return moment(this.order?.created_at).format("HH:mm");
@@ -766,6 +665,14 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+.back-btn {
+  transition: 0.3s;
+}
+.back-btn:hover {
+  border: 1px solid var(--main-color);
+  background: #f5f3ff;
+  box-shadow: 0px 12px 16px 0px rgba(92, 70, 229, 0.08);
+}
 /* 1200px */
 .content-box {
   display: grid;

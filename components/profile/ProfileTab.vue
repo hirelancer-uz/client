@@ -28,21 +28,21 @@
         :class="{ active: $route.name.includes('orders') }"
         class="text-black text-base font-medium flex flex-col gap-2 items-center bg-white px-4 justify-center min-w-[120px] min-h-[79px] rounded-[12px] hover:text-black"
         ><svg
-          xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="25"
           viewBox="0 0 24 25"
           fill="none"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M18.667 20.4139L12 16.5839L5.33301 20.4139V7.58594C5.33301 5.92894 6.67601 4.58594 8.33301 4.58594H15.666C17.323 4.58594 18.666 5.92894 18.666 7.58594V20.4139H18.667Z"
-            stroke="#020105"
+            d="M8 14.5L9.08225 12.6963C9.72077 11.632 11.2247 11.5309 12 12.5C12.7753 13.4691 14.2792 13.3679 14.9178 12.3037L16 10.5M12 18.5V22.5M4 6.5H20C21.1046 6.5 22 5.60457 22 4.5C22 3.39543 21.1046 2.5 20 2.5H4C2.89543 2.5 2 3.39543 2 4.5C2 5.60457 2.89543 6.5 4 6.5ZM3 6.5H21V16.5C21 17.6046 20.1046 18.5 19 18.5H5C3.89543 18.5 3 17.6046 3 16.5V6.5Z"
+            stroke="black"
             stroke-width="1.5"
-            stroke-miterlimit="10"
             stroke-linecap="round"
             stroke-linejoin="round"
           />
         </svg>
+
         Проект</nuxt-link
       >
 
@@ -162,7 +162,7 @@
         Исполнители</nuxt-link
       > -->
       <nuxt-link
-      :to="`/profile/${$route.params.user}/settings`"
+        :to="`/profile/${$route.params.user}/settings`"
         :class="{ active: $route.name.includes('settings') }"
         class="text-black text-base font-medium flex flex-col gap-2 items-center bg-white px-4 justify-center min-w-[120px] min-h-[79px] rounded-[12px] hover:text-black"
         ><svg

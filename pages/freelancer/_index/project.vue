@@ -8,13 +8,13 @@
         <PersonalInfo :isEdit="true" />
         <Achievements />
       </div>
-      <div class="personal-information mt-[45px]">
+      <div class="personal-information mt-10">
         <Statistics />
       </div>
-      <div class="mt-[45px]">
+      <!-- <div class="mt-[45px]">
         <Events />
-      </div>
-      <div class="mt-[40px]">
+      </div> -->
+      <div class="mt-10">
         <Comments />
       </div>
     </ProfileLayout>

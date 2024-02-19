@@ -9,15 +9,15 @@
         <Achievements :profile="true" />
       </div>
       <div
-        class="personal-information mt-[45px] xl:mt-6 xl:pb-6 xl:border-[0] xl:border-b xl:border-solid xl:border-grey-light"
+        class="personal-information mt-10 xl:mt-6 xl:pb-6 xl:border-[0] xl:border-b xl:border-solid xl:border-grey-light"
         v-if="$route.params.user == 'freelancer'"
       >
         <Statistics />
       </div>
-      <div class="mt-[45px] xl:mt-6">
+      <!-- <div class="mt-[45px] xl:mt-6">
         <Events />
-      </div>
-      <div class="mt-[40px] xl:mt-6" v-if="$route.params.user == 'freelancer'">
+      </div> -->
+      <div class="mt-10 xl:mt-6" v-if="$route.params.user == 'freelancer'">
         <Comments />
       </div>
     </ProfileLayout>

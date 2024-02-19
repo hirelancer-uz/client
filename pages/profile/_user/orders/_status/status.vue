@@ -12,11 +12,12 @@
           Добавить проект
         </button>
       </div>
-      <div class="flex justify-between items-center">
+      <div class="flex justify-between items-center gap-6">
         <OrdersTab />
-        <button
-          class="border border-solid border-grey-8 rounded-[12px] h-12 w-12 flex justify-center items-center xl:hidden"
+        <div
+          class="border border-solid border-grey-8 rounded-[12px] h-12 px-5 w-full flex gap-4 items-center xl:hidden"
         >
+          <input placeholder="Qidirish..." type="text" class="w-full h-full text-base" />
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="18"
@@ -31,7 +32,7 @@
               fill="#020105"
             />
           </svg>
-        </button>
+        </div>
       </div>
     </div>
 

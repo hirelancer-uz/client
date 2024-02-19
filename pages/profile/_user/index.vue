@@ -6,15 +6,15 @@
     </div>
     <div class="personal-information mt-8" v-if="$route.params.user == 'freelancer'">
       <PersonalInfo :isEdit="true" :profile="true" :userInfo="$store.state.userInfo" />
-      <Achievements :profile="true" />
+      <!-- <Achievements :profile="true" /> -->
     </div>
-    <div class="personal-information mt-[45px]" v-if="$route.params.user == 'freelancer'">
+    <div class="personal-information mt-10" v-if="$route.params.user == 'freelancer'">
       <Statistics />
     </div>
-    <div class="mt-[45px]">
+    <!-- <div class="mt-[45px]">
       <Events />
-    </div>
-    <div class="mt-[40px]" v-if="$route.params.user == 'freelancer'">
+    </div> -->
+    <div class="mt-10" v-if="$route.params.user == 'freelancer'">
       <Comments />
     </div>
     <!-- </ProfileLayout> -->
@@ -52,9 +52,9 @@ export default {
 </script>
 <style lang="css" scoped>
 .personal-information {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-gap: 16px;
+  /* display: grid; */
+  /* grid-template-columns: 2fr 1fr; */
+  /* grid-gap: 16px; */
 }
 @media (max-width: 1200px) {
   .personal-information {
