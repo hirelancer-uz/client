@@ -7,17 +7,27 @@
         class="image w-[60px] h-[60px] xl:h-[52px] xl:w-[52px] border-[2px] border-solid border-agro-green rounded-full overflow-hidden"
       >
         <img
+          v-if="request?.freelancer?.avatar"
+          class="w-full h-full object-cover"
+          :src="`${imgUrl}${request?.freelancer?.avatar}`"
+          alt=""
+        />
+        <img
+          v-else
           class="w-full h-full object-cover"
           src="@/assets/images/user-avatar.jpg"
           alt=""
         />
       </div>
-      <div class="info flex justify-between">
+      <div
+        class="info flex justify-between"
+        @click="$router.push(`/freelancer/${request?.freelancer?.id}`)"
+      >
         <div>
           <h4
-            class="text-[18px] font-medium text-black truncate name whitespace-normal flex gap-2 xl:text-[14px]"
+            class="text-[18px] font-medium text-black truncate name whitespace-normal flex gap-2 xl:text-[14px] cursor-pointer"
           >
-            Akmal Egamberdiyev
+            {{ request?.freelancer?.name }} {{ request?.freelancer?.surname }}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -160,7 +170,7 @@
       </p>
     </div>
     <div class="hidden xl:block mt-3">
-      <p class="flex gap-3 text-[12px] text-grey-40 items-center ">
+      <p class="flex gap-3 text-[12px] text-grey-40 items-center">
         {{ moment(request?.created_at).format(hourFormat) }}
         <span class="bg-grey-8 h-4 flex w-[1px]"></span>
         {{ moment(request?.created_at).format(dateFormat) }}
@@ -233,6 +243,7 @@
           </svg>
         </button>
         <button
+          @click="$emit('openChat')"
           class="w-[190px] xl:w-12 h-12 flex items-center justify-center gap-2 rounded-lg border-[2px] border-solid border-main-color bg-bg-grey text-blue text-base font-medium xl:border"
         >
           <span class="xl:hidden">Написать</span
@@ -256,34 +267,62 @@
         </button>
       </div>
     </div>
+    <CancellationOrder
+      @handleOkProp="handleOk"
+      :visibleProp="visible"
+      @submit="submit"
+      title="Vazifani bajarish uchun ushbu frilanser tanlansinmi?"
+      save="Ha, albatta"
+      close="Yo’q"
+      :primary="true"
+    >
+    </CancellationOrder>
   </div>
 </template>
 <script>
 import moment from "moment";
+import CancellationOrder from "../../modals/CancellationOrder.vue";
 export default {
   props: ["request"],
   data() {
     return {
+      visible: false,
       openBlock: false,
       dateFormat: "DD.MM.YYYY",
       hourFormat: "HH:mm",
     };
   },
+  mounted() {},
+  computed: {
+    baseUrl() {
+      return process.env.BASE_URL;
+    },
+    imgUrl() {
+      return this.baseUrl + "/storage/";
+    },
+  },
   methods: {
-    moment,
-    sendRequest(request) {
+    handleOk() {
+      this.visible = false;
+    },
+    submit() {
       const data = {
-        id: request?.order_id,
+        id: this.request?.order_id,
         data: {
-          request_id: request.id,
+          request_id: this.request.id,
         },
       };
       this.__POST_ORDER(data);
+    },
+    moment,
+    sendRequest() {
+      this.visible = true;
     },
     async __POST_ORDER(payload) {
       try {
         await this.$store.dispatch("fetchOrders/postSelectRequest", payload);
         this.$emit("selected");
+        this.visible = false;
       } catch (e) {
         console.log(e.response);
         this.$notification["error"]({
@@ -293,6 +332,7 @@ export default {
       }
     },
   },
+  components: { CancellationOrder },
 };
 </script>
 <style lang="css" scoped>

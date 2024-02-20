@@ -7,6 +7,13 @@
         class="image w-[60px] h-[60px] xl:w-[52px] xl:h-[52px] rounded-full border-[2px] border-solid border-agro-green relative overflow-hidden"
       >
         <img
+          v-if="client?.avatar"
+          class="w-full h-full object-cover"
+          :src="`${imgUrl}${client?.avatar}`"
+          alt=""
+        />
+        <img
+          v-else
           loading="lazy"
           class="w-full h-full"
           src="../../assets/images/user-avatar.jpg"
@@ -68,6 +75,14 @@
 <script>
 export default {
   props: ["client"],
+  computed: {
+    baseUrl() {
+      return process.env.BASE_URL;
+    },
+    imgUrl() {
+      return this.baseUrl + "/storage/";
+    },
+  },
 };
 </script>
 <style lang="css" scoped>

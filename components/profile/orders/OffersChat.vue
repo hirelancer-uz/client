@@ -2,7 +2,7 @@
   <div
     class="offers-chat rounded-[16px] border border-solid border-grey-8 bg-white relative"
   >
-    <button class="absolute top-4 right-4">
+    <button class="absolute top-4 right-4" @click="$emit('close')">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"

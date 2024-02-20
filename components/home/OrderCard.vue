@@ -101,9 +101,11 @@
           class="flex w-[1px] h-[27px] bg-grey-8 xl:hidden"
         ></span>
         <button
+          v-for="special in order?.specialities"
+          :key="special?.id"
           class="whitespace-nowrap h-[36px] xl:h-[32px] flex items-center bg-apple-grey font-tt text-grey-64 py-2 px-4 rounded-[22px] text-[14px] xl:text-[12px]"
         >
-          UI/UX dizayner
+          {{ special?.name_ru }}
         </button>
       </div>
       <div class="flex gap-[28px] items-center xl:justify-between">
@@ -142,7 +144,9 @@
     <div
       class="body flex gap-4 flex-col mt-6 border-[0] border-b border-grey-8 border-solid pb-4 xl:mt-4 xl:gap-[8px]"
     >
-      <h6 class="text-[20px] font-semibold text-black xl:text-base xl:leading-[19px]">
+      <h6
+        class="text-[20px] font-semibold text-black xl:text-base xl:leading-[19px] title"
+      >
         {{ order?.name }}
       </h6>
       <span
@@ -161,7 +165,10 @@
     <div
       class="footer flex items-center justify-between mt-4 xl:flex-row-reverse xl:mt-[20px] xl:gap-[20px]"
     >
-      <h1 class="text-grey-80 text-[24px] font-semibold xl:text-base" v-if="order?.price">
+      <h1
+        class="text-grey-80 text-[24px] font-semibold xl:text-base price"
+        v-if="order?.price"
+      >
         {{ order?.price.toLocaleString() }} sum
       </h1>
       <h1 class="text-grey-80 text-[24px] font-semibold xl:text-base" v-else>
@@ -269,6 +276,19 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+.card:hover {
+  box-shadow: 0px 16px 40px 0px rgba(0, 25, 53, 0.08);
+}
+.card:hover .title,
+.card:hover .price {
+  color: var(--main-color);
+}
+.title,
+.price,
+.card {
+  transition: 0.3s;
+}
+
 .light-yellow {
   background-color: rgba(242, 153, 74, 0.16);
 }

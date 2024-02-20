@@ -52,7 +52,8 @@
             class="flex text-[18px] text-black gap-2 items-center"
             @click="(e) => e.preventDefault()"
           >
-            Eng
+            <span v-html="currentLangObj.icon"></span>
+            {{ currentLangObj.name }}
             <svg
               width="10"
               height="6"
@@ -69,12 +70,40 @@
             </svg>
           </button>
           <a-menu slot="overlay">
-            <a-menu-item key="0">
-              <a href="http://www.alipay.com/">UZ</a>
+            <a-menu-item
+              :key="lang.id"
+              v-for="lang in langList"
+              @click="currentLang = lang.id"
+            >
+              <span class="flex gap-1 items-center justify-center"
+                ><span v-html="lang.icon"></span>{{ lang.name }}</span
+              >
             </a-menu-item>
-            <a-menu-item key="1">
-              <a href="http://www.taobao.com/">RU</a>
-            </a-menu-item>
+            <!-- <a-menu-item key="1">
+              <span class="flex gap-1 items-center"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  width="34px"
+                  height="22px"
+                  viewBox="0 0 36 36"
+                  aria-hidden="true"
+                  role="img"
+                  class="iconify iconify--twemoji"
+                  preserveAspectRatio="xMidYMid meet"
+                >
+                  <path
+                    fill="#CE2028"
+                    d="M36 27a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4v-4h36v4z"
+                  />
+                  <path fill="#22408C" d="M0 13h36v10H0z" />
+                  <path
+                    fill="#EEE"
+                    d="M32 5H4a4 4 0 0 0-4 4v4h36V9a4 4 0 0 0-4-4z"
+                  /></svg
+                >RU</span
+              >
+            </a-menu-item> -->
           </a-menu>
         </a-dropdown>
         <span class="flex bg-grey-40 h-6 w-[1px]"></span>
@@ -406,6 +435,94 @@ export default {
   data() {
     return {
       visible: false,
+      currentLang: 1,
+      langList: [
+        {
+          name: "Uzb",
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="34px" height="22px" viewBox="0 0 36 36" aria-hidden="true" role="img" class="iconify iconify--twemoji" preserveAspectRatio="xMidYMid meet"><script xmlns=""/><path fill="#0099B5" d="M0 9v4h36V9a4 4 0 0 0-4-4H4a4 4 0 0 0-4 4z"/><path fill="#1EB53A" d="M36 27v-4H0v4a4 4 0 0 0 4 4h28a4 4 0 0 0 4-4z"/><path fill="#CE1126" d="M0 13h36v1.5H0zm0 8.5h36V23H0z"/><path fill="#EEE" d="M0 18v3.5h36v-7H0z"/><path fill="#FFF" d="M4.2 9.16a3.12 3.12 0 0 1 2.6-3.076a3.12 3.12 0 1 0 0 6.152A3.12 3.12 0 0 1 4.2 9.16zm4.683 2.303l-.14-.431l-.14.431h-.454l.367.267l-.14.431l.367-.267l.366.267l-.14-.431l.367-.267zm2.702 0l-.14-.431l-.14.431h-.453l.367.267l-.14.431l.366-.267l.367.267l-.14-.431l.367-.267zm-.14-2.927l-.14.431h-.453l.367.267l-.14.431l.366-.267l.367.267l-.14-.431l.367-.267h-.454zm2.843 2.927l-.14-.431l-.14.431h-.453l.366.267l-.14.431l.367-.267l.367.267l-.14-.431l.366-.267zm-.14-2.927l-.14.431h-.453l.366.267l-.14.431l.367-.267l.367.267l-.14-.431l.366-.267h-.453zm0-2.496l-.14.431h-.453l.366.267l-.14.431l.367-.267l.367.267l-.14-.431l.366-.267h-.453zm2.843 5.423l-.14-.431l-.14.431h-.454l.367.267l-.14.431l.367-.267l.366.267l-.14-.431l.367-.267zm-.14-2.927l-.14.431h-.454l.367.267l-.14.431l.367-.267l.366.267l-.14-.431l.367-.267h-.453zm0-2.496l-.14.431h-.454l.367.267l-.14.431l.367-.267l.366.267l-.14-.431l.367-.267h-.453zm2.842 5.423l-.14-.431l-.14.431h-.453l.367.267l-.14.431l.366-.267l.367.267l-.14-.431l.367-.267zm-.14-2.927l-.14.431h-.453l.367.267l-.14.431l.366-.267l.367.267l-.14-.431l.367-.267h-.454zm0-2.496l-.14.431h-.453l.367.267l-.14.431l.366-.267l.367.267l-.14-.431l.367-.267h-.454z"/><script xmlns=""/></svg>`,
+          id: 1,
+        },
+        {
+          name: "Eng",
+          icon: `<svg
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              version="1.1"
+              id="Layer_1"
+              width="22"
+              height="22"
+              x="0px"
+              y="0px"
+              viewBox="0 0 55.2 38.4"
+              style="enable-background: new 0 0 55.2 38.4"
+              xml:space="preserve"
+            >
+              <style type="text/css">
+                .st0 {
+                  fill: #fefefe;
+                }
+                .st1 {
+                  fill: #c8102e;
+                }
+                .st2 {
+                  fill: #012169;
+                }
+              </style>
+              <g>
+                <path
+                  class="st0"
+                  d="M2.87,38.4h49.46c1.59-0.09,2.87-1.42,2.87-3.03V3.03c0-1.66-1.35-3.02-3.01-3.03H3.01 C1.35,0.01,0,1.37,0,3.03v32.33C0,36.98,1.28,38.31,2.87,38.4L2.87,38.4z"
+                />
+                <polygon
+                  class="st1"
+                  points="23.74,23.03 23.74,38.4 31.42,38.4 31.42,23.03 55.2,23.03 55.2,15.35 31.42,15.35 31.42,0 23.74,0 23.74,15.35 0,15.35 0,23.03 23.74,23.03"
+                />
+                <path
+                  class="st2"
+                  d="M33.98,12.43V0h18.23c1.26,0.02,2.34,0.81,2.78,1.92L33.98,12.43L33.98,12.43z"
+                />
+                <path
+                  class="st2"
+                  d="M33.98,25.97V38.4h18.35c1.21-0.07,2.23-0.85,2.66-1.92L33.98,25.97L33.98,25.97z"
+                />
+                <path
+                  class="st2"
+                  d="M21.18,25.97V38.4H2.87c-1.21-0.07-2.24-0.85-2.66-1.94L21.18,25.97L21.18,25.97z"
+                />
+                <path
+                  class="st2"
+                  d="M21.18,12.43V0H2.99C1.73,0.02,0.64,0.82,0.21,1.94L21.18,12.43L21.18,12.43z"
+                />
+                <polygon class="st2" points="0,12.8 7.65,12.8 0,8.97 0,12.8" />
+                <polygon class="st2" points="55.2,12.8 47.51,12.8 55.2,8.95 55.2,12.8" />
+                <polygon class="st2" points="55.2,25.6 47.51,25.6 55.2,29.45 55.2,25.6" />
+                <polygon class="st2" points="0,25.6 7.65,25.6 0,29.43 0,25.6" />
+                <polygon
+                  class="st1"
+                  points="55.2,3.25 36.15,12.8 40.41,12.8 55.2,5.4 55.2,3.25"
+                />
+                <polygon
+                  class="st1"
+                  points="19.01,25.6 14.75,25.6 0,32.98 0,35.13 19.05,25.6 19.01,25.6"
+                />
+                <polygon
+                  class="st1"
+                  points="10.52,12.81 14.78,12.81 0,5.41 0,7.55 10.52,12.81"
+                />
+                <polygon
+                  class="st1"
+                  points="44.63,25.59 40.37,25.59 55.2,33.02 55.2,30.88 44.63,25.59"
+                />
+              </g>
+            </svg>`,
+          id: 2,
+        },
+        {
+          name: "Rus",
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="34px" height="22px" viewBox="0 0 36 36" aria-hidden="true" role="img" class="iconify iconify--twemoji" preserveAspectRatio="xMidYMid meet"><path fill="#CE2028" d="M36 27a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4v-4h36v4z"/><path fill="#22408C" d="M0 13h36v10H0z"/><path fill="#EEE" d="M32 5H4a4 4 0 0 0-4 4v4h36V9a4 4 0 0 0-4-4z"/></svg>`,
+          id: 3,
+        },
+      ],
     };
   },
   computed: {
@@ -414,6 +531,9 @@ export default {
     },
     imgUrl() {
       return this.baseUrl + "/storage/";
+    },
+    currentLangObj() {
+      return this.langList.find((elem) => elem.id == this.currentLang);
     },
   },
   methods: {

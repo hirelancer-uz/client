@@ -68,7 +68,10 @@
         </svg>
       </nuxt-link>
     </div>
-    <div class="offers flex flex-col gap-4 mt-[42px] xl:mt-6">
+    <div
+      class="offers flex flex-col gap-4 mt-[42px] xl:mt-6"
+      v-if="$route.params.status != 'pending'"
+    >
       <!-- <div
         v-if="$route.params.status != 'pending'"
         class="rounded-[8px] border border-solid border-light-yellow-br xl:border-yellow-br bg-light-yellow px-6 xl:pl-4 xl:pr-3 py-[14px] xl:py-3 cursor-pointer overflow-hidden"
@@ -132,7 +135,6 @@
         </h4>
       </div> -->
       <div
-        v-if="$route.params.status != 'pending'"
         class="rounded-[8px] border border-solid border-[#C6CBFF] bg-[#F3F4FF] xl:border-yellow-br px-6 xl:pl-4 xl:pr-3 py-[14px] xl:py-3 cursor-pointer overflow-hidden"
       >
         <h4

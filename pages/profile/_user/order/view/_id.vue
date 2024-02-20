@@ -38,7 +38,6 @@ export default {
           id: this.$route.params.id,
         });
         this.order = data?.content;
-        console.log(data);
       } catch (e) {
       } finally {
         this.loading = false;

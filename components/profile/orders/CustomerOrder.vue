@@ -1,5 +1,8 @@
 <template lang="html">
-  <div class="pt-[72px] xl:pt-6 order xl:px-4" :class="{ 'pb-10': !order?.status }">
+  <div
+    class="pt-[72px] xl:pt-6 order xl:px-4"
+    :class="{ 'pb-10': order?.selected_request?.id }"
+  >
     <div class="max-w-[1200px] mx-auto">
       <nuxt-link
         to="/profile/customer/orders/active/status"
@@ -27,8 +30,8 @@
           <h3 class="text-[24px] text-black font-semibold">Заказ: #{{ order?.id }}</h3>
           <p class="text-base text-grey-64">Заказы / Активные заказы</p>
         </div>
-        <p
-          v-if="status == 1"
+        <!-- <p
+          v-if="status == 0"
           class="text-base text-[#F2994A] font-medium flex gap-2 items-center xl:hidden"
         >
           <svg
@@ -46,7 +49,7 @@
             />
           </svg>
           Ваш заказ ожидание модерации. Скоро ваш заказ опубликуется
-        </p>
+        </p> -->
       </div>
       <div class="content-box mt-6 xl:mt-0">
         <div class="flex flex-col gap-6">
@@ -56,6 +59,7 @@
           >
             <div class="info px-6 py-6 xl:px-4 xl:py-4">
               <div
+                v-if="status != 0"
                 class="status flex justify-center mx-[-24px] mb-6 pb-[18px] border-[0] border-b-[2px] border-solid border-grey-light relative"
               >
                 <OrderStatus :status="status" />
@@ -216,7 +220,7 @@
               </div>
             </div>
             <div
-              class="flex items-center justify-center  xl:pb-2 h-12 w-full bg-bg-grey absolute bottom-0 show-all cursor-pointer xl:h-11 xl:justify-end xl:pr-4"
+              class="flex items-center justify-center xl:pb-2 h-12 w-full bg-bg-grey absolute bottom-0 show-all cursor-pointer xl:h-11 xl:justify-end xl:pr-4"
               v-if="!openBlock"
               @click="openBlock = true"
             >
@@ -303,7 +307,7 @@
             </div>
             <div class="buttons flex flex-col gap-4" v-if="!order?.end_of_execution">
               <button
-                v-if="status == 1"
+                v-if="!status"
                 @click="$router.push(`/profile/customer/order/edit/${order?.id}`)"
                 class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-main-color border-main-color text-base xl:text-[14px] text-white font-medium"
               >
@@ -404,7 +408,7 @@
           </div>
         </div>
       </div>
-      <div class="flex justify-center" v-if="status == 1">
+      <div class="flex justify-center" v-if="status == 0">
         <div
           class="px-[80px] py-4 border border-solid border-[#EDE5E0] bg-[#FFF5EC] rounded-xl mx-auto mt-[185px]"
         >
@@ -430,12 +434,12 @@
         </div>
       </div>
       <div class="mt-6 pb-[120px]" v-if="order?.selected_request?.id">
-        <CustomerChat :order="order" />
+        <CustomerChat :order="order" :status="status" />
       </div>
     </div>
     <div
       class="mt-[57px] bg-bg-grey pt-20 pb-[120px] xl:mx-[-16px] xl:px-4 xl:pt-4 xl:mt-10"
-      v-if="status == 1"
+      v-if="status < 2 && !order?.selected_request?.id"
     >
       <div class="max-w-[1440px] mx-auto">
         <div class="order-left-chat mb-6">
@@ -469,6 +473,7 @@
               :key="request?.id"
               :request="request"
               @selected="$emit('selected')"
+              @openChat="chatHandle = true"
             />
             <button
               class="flex py-4 rounded-lg bg-grey-light w-full items-center justify-center gap-6 text-base font-medium text-blue xl:text-[14px] xl:gap-4 xl:flex-row-reverse"
@@ -493,8 +498,12 @@
               Предложений
             </button>
           </div>
-          <div class="xl:hidden" v-if="!order?.selected_request?.id && order?.status">
-            <OffersChat />
+          <div
+            class="xl:hidden customer-chat"
+            :class="{ activeChat: chatHandle }"
+            v-if="!order?.selected_request?.id && order?.status"
+          >
+            <OffersChat @close="chatHandle = false" />
           </div>
           <div
             v-else
@@ -669,6 +678,7 @@ export default {
   props: ["order", "loading"],
   data() {
     return {
+      chatHandle: false,
       options: [
         {
           label: "Положительный",
@@ -698,7 +708,12 @@ export default {
       return moment(this.order?.created_at).format("HH:mm");
     },
     status() {
-      let status = this.order?.selected_request?.id ? 2 : 1;
+      let status = this.order?.status;
+      if (this.order?.selected_request?.id) {
+        status = 2;
+      }
+      if (this.order?.complete_requests?.length > 0 && this.order?.end_of_execution)
+        status = 3;
       return status;
     },
     selectedDate() {
@@ -754,7 +769,7 @@ export default {
           "fetchOrders/postCompliteCustomer",
           formData
         );
-        this.handleOkComplite();
+        this.visibleComplite = false;
       } catch (e) {
         if (e.response) {
           this.$notification["error"]({
@@ -788,6 +803,15 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+.customer-chat {
+  transition: 0.3s;
+  transform: translateX(100%);
+  opacity: 0;
+}
+.activeChat {
+  transform: translateX(0);
+  opacity: 1;
+}
 :deep(.ant-select-selection__placeholder) {
   color: var(--grey-80);
   font-family: "TT Interfaces";

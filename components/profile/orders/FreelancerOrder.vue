@@ -254,7 +254,10 @@
                 </h4>
               </div>
             </div>
-            <EndingProcess v-if="status == 2" :selected="order?.selected_request" />
+            <EndingProcess
+              v-if="status == 2 && !myRequest"
+              :selected="order?.selected_request"
+            />
             <span
               class="w-full h-[2px] bg-grey-light flex"
               v-if="!order?.end_of_execution"
@@ -262,7 +265,7 @@
             <!-- v-if="!order?.end_of_execution" -->
 
             <div class="buttons flex flex-col gap-4" v-if="!order?.end_of_execution">
-              <!-- <div class="flex flex-col gap-2" >
+              <div class="flex flex-col gap-2" v-if="status == 2 && myRequest">
                 <button
                   class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] bg-grey-light text-base text-grey-80 font-medium"
                 >
@@ -287,9 +290,9 @@
                 <p class="text-grey-80 text-[14px] max-w-[90%] mx-auto text-center">
                   Mijoz ishni bitganligni tasdiqlanishi kutilmoqda
                 </p>
-              </div> -->
+              </div>
               <button
-                v-if="status == 2"
+                v-if="status == 2 && !myRequest"
                 @click="visibleClose = true"
                 class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-main-color border-main-color text-base text-white font-medium"
               >
@@ -550,9 +553,18 @@ export default {
     orderHours() {
       return moment(this.order?.created_at).format("HH:mm");
     },
+    myRequest() {
+      return this.order?.complete_requests.find(
+        (item) => item?.freelancer_id == this.$store.state.userInfo?.id
+      );
+    },
     status() {
-      let status = this.order?.selected_request?.id ? 2 : 1;
-      if (this.order?.complete_requests?.length > 0) status = 3;
+      let status = this.order?.status;
+      if (this.order?.selected_request?.id) {
+        status = 2;
+      }
+      if (this.order?.complete_requests?.length > 0 && this.order?.end_of_execution)
+        status = 3;
       return status;
     },
   },

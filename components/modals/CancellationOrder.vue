@@ -75,7 +75,12 @@
           </button>
           <button
             @click="$emit('submit')"
-            class="h-[54px] items-center flex justify-center border border-solid border-light-red bg-light-red rounded-[8px] text-base font-medium text-white"
+            class="h-[54px] items-center flex justify-center border border-solid rounded-[8px] text-base font-medium text-white"
+            :class="
+              primary
+                ? 'border-main-color bg-main-color'
+                : 'border-light-red bg-light-red'
+            "
           >
             {{ save || "Ha" }}
           </button>
@@ -86,7 +91,7 @@
 </template>
 <script>
 export default {
-  props: ["visibleProp", "title", "save", "close", "width"],
+  props: ["visibleProp", "title", "save", "close", "width", "primary"],
   data() {
     return {
       visible: false,
