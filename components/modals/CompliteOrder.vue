@@ -13,7 +13,7 @@
         <div class="flex flex-col gap-8">
           <div class="flex justify-between">
             <h4 class="text-black text-[24px] font-semibold">
-              Loyihani rostan ham tugatmoqchimisiz?
+              Loyihani rostdan ham tugatmoqchimisiz?
             </h4>
             <button @click="visible = false">
               <svg
@@ -34,12 +34,12 @@
             </button>
           </div>
           <div class="head flex gap-[37px] justify-start items-center">
-            <div class="rating flex flex-col gap-2">
+            <!-- <div class="rating flex flex-col gap-2">
               <p class="text-[14px] text-grey-40 whitespace-nowrap">
                 Frilanserga baho berish
               </p>
               <a-rate v-model="form.stars" />
-            </div>
+            </div> -->
             <a-select
               v-model="form.is_positive"
               placeholder="Положительный"
@@ -68,16 +68,36 @@
           </a-form-model>
           <div class="flex justify-between">
             <span class="flex">
-              <a-radio v-model="done" class="flex">
-                <p class="text-[20px] text-grey-80 font-medium">Ha</p>
-              </a-radio>
+              <a-checkbox v-model="done" class="flex items-center">
+                <p class="text-base text-grey-80 font-regular">
+                  Loyihani rostdan ham tugatmoqchimisiz?
+                </p></a-checkbox
+              >
+              <!-- <a-radio v-model="done" class="flex">
+               
+              </a-radio> -->
             </span>
             <div class="flex gap-4">
               <button
                 @click="handleOk"
-                class="h-[54px] items-center w-[194px] flex justify-center gap-2 border border-solid border-grey-light bg-grey-light rounded-[8px] text-base font-medium text-black"
+                class="h-[54px] gap-2 items-center w-[194px] flex justify-center border border-solid border-grey-24 bg-white rounded-[8px] text-base font-medium text-black"
               >
                 Bekor qilish
+                <svg
+                  width="25"
+                  height="24"
+                  viewBox="0 0 25 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M16.5 12H8.5M12.5 22C18.0228 22 22.5 17.5228 22.5 12C22.5 6.47715 18.0228 2 12.5 2C6.97715 2 2.5 6.47715 2.5 12C2.5 17.5228 6.97715 22 12.5 22Z"
+                    stroke="#5D5D5F"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
               </button>
               <button
                 @click="onSubmit"
@@ -170,6 +190,29 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+:deep(.ant-checkbox-wrapper) {
+  display: flex;
+  align-items: center;
+}
+:deep(.ant-checkbox-checked .ant-checkbox-inner) {
+  border-color: var(--blue);
+  background-color: var(--blue);
+}
+:deep(.ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover
+    .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner) {
+  border-color: var(--blue);
+}
+:deep(.ant-checkbox-checked::after) {
+  border-color: var(--blue);
+}
+:deep(.ant-checkbox + span) {
+  color: var(--grey-80);
+  font-family: "TT Interfaces";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 27px */
+}
 .complaint-modal :deep(.ant-modal-content) {
   border-radius: 16px;
 }

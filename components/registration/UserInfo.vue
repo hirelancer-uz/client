@@ -244,7 +244,7 @@
             label="Mutaxassisligingizni tanlang"
           >
             <div
-              class="min-h-[58px] xl:min-h-[50px] items-center border border-solid flex justify-between border-grey-8 rounded-lg px-4 py-3"
+              class="min-h-[58px] xl:min-h-[50px] items-center border border-solid flex justify-start border-grey-8 rounded-lg px-4 py-3"
             >
               <p
                 class="text-grey-40 text-base xl:text-[14px]"
@@ -252,7 +252,7 @@
               >
                 Mutaxassisligingizni tanlang
               </p>
-              <div v-else class="w-full flex flex-wrap gap-[4px]">
+              <div v-else class="w-auto flex flex-wrap gap-[4px]">
                 <div
                   v-for="listItem in activeCheckedList"
                   :key="listItem?.id"
@@ -278,7 +278,7 @@
                 </div>
               </div>
               <button
-                class="w-6 xl:hidden"
+                class="w-6 xl:hidden h-[34px] flex justify-end items-center flex-auto min-w-10"
                 @click="
                   (visible = true), (checkedList = [...activeCheckedList])
                 "

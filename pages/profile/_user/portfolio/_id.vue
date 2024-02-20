@@ -51,13 +51,13 @@
             :class="{ errorSelect: activeCheckedList.length == 0 && errorSelect }"
           >
             <div
-              class="min-h-[58px] items-center border border-solid flex justify-between border-grey-8 rounded-lg px-4 py-3 modal-select"
+              class="min-h-[58px] items-center border border-solid flex justify-start border-grey-8 rounded-lg px-4 py-3 modal-select"
             >
               <p class="text-grey-40 text-base" v-if="activeCheckedList.length == 0">
                 Специальности
               </p>
 
-              <div v-else class="w-full flex flex-wrap gap-[4px]">
+              <div v-else class="w-auto flex flex-wrap gap-[4px]">
                 <div
                   v-for="listItem in activeCheckedList"
                   :key="listItem?.id"
@@ -85,7 +85,7 @@
               </div>
 
               <button
-                class="w-6 xl:hidden"
+                class="w-6 xl:hidden h-[34px] items-center flex-auto flex justify-end"
                 @click="(visible = true), (checkedList = [...activeCheckedList])"
               >
                 <svg

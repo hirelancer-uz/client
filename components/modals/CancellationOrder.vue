@@ -6,11 +6,13 @@
       :body-style="{ padding: '16px', paddingLrft: '32px', borderRadius: '24px' }"
       centered
       :closable="false"
-      width="712px"
+      :width="width || 712"
       @ok="handleOk"
     >
-      <div class="flex flex-col gap-8 pl-4 items-center">
-        <div class="w-[106px] h-[106px] rounded-full flex items-center justify-center bg-main-color mt-[50px]">
+      <div class="flex flex-col gap-8 items-center">
+        <div
+          class="w-[106px] h-[106px] rounded-full flex items-center justify-center bg-main-color mt-[50px]"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="41"
@@ -41,7 +43,7 @@
             />
           </svg>
         </div>
-        <div class="flex justify-between">
+        <div class="flex justify-between flex-col items-center w-full">
           <h4 class="text-black text-[24px] font-semibold">
             {{ title }}
           </h4>
@@ -62,19 +64,20 @@
               />
             </svg>
           </button>
+          <slot></slot>
         </div>
         <div class="grid grid-cols-2 gap-4 w-full mt-4">
           <button
             @click="handleOk"
             class="h-[54px] items-center flex justify-center border border-solid border-grey-light rounded-[8px] text-base font-medium text-grey-64"
           >
-            Yo’q
+            {{ close || "Yo'q" }}
           </button>
           <button
             @click="$emit('submit')"
             class="h-[54px] items-center flex justify-center border border-solid border-light-red bg-light-red rounded-[8px] text-base font-medium text-white"
           >
-            Ha
+            {{ save || "Ha" }}
           </button>
         </div>
       </div>
@@ -83,7 +86,7 @@
 </template>
 <script>
 export default {
-  props: ["visibleProp", "title"],
+  props: ["visibleProp", "title", "save", "close", "width"],
   data() {
     return {
       visible: false,

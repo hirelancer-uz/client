@@ -52,13 +52,13 @@
             :class="{ errorSelect: activeCheckedList.length == 0 && errorSelect }"
           >
             <div
-              class="min-h-[58px] max-h-[58px] items-center border border-solid flex justify-between border-grey-8 rounded-lg px-4 py-3 modal-select"
+              class="min-h-[58px] max-h-[58px] items-center border border-solid flex justify-start border-grey-8 rounded-lg px-4 py-3 modal-select"
             >
               <p class="text-grey-40 text-base" v-if="activeCheckedList.length == 0">
                 Специальности
               </p>
 
-              <div v-else class="w-full flex flex-wrap gap-[4px]">
+              <div v-else class="w-auto flex flex-wrap gap-[4px]">
                 <div
                   v-for="listItem in activeCheckedList"
                   :key="listItem?.id"
@@ -86,7 +86,7 @@
               </div>
 
               <button
-                class="w-10 flex justify-center items-center xl:hidden h-10 "
+                class="w-10 h-[34px] flex justify-end items-center flex-auto xl:hidden"
                 @click="(visible = true), (checkedList = [...activeCheckedList])"
               >
                 <svg
@@ -177,12 +177,28 @@
               <img alt="example" style="width: 100%" :src="previewImage" />
             </a-modal>
           </div>
-          <a-form-model-item class="order-item w-full mb-0 relative flex items-center" label="Link to work">
+          <a-form-model-item
+            class="order-item w-full mb-0 relative flex items-center"
+            label="Link to work"
+          >
             <a-input v-model="form.link" placeholder="Link to work" />
-            <svg class="absolute right-4 top-[-3px] " width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M5.54472 14.6902L4.89072 15.3442C3.71872 16.5162 3.71872 18.4152 4.89072 19.5872C6.06272 20.7592 7.96172 20.7592 9.13372 19.5872L13.3757 15.3452C14.5477 14.1732 14.5477 12.2742 13.3757 11.1022M9.57972 14.8982C8.40772 13.7262 8.40772 11.8272 9.57972 10.6552L13.8217 6.41318C14.9937 5.24118 16.8927 5.24118 18.0647 6.41318C19.2367 7.58518 19.2367 9.48418 18.0647 10.6562L17.4097 11.3102" stroke="#5C46E6" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-
+            <svg
+              class="absolute right-4 top-[-3px]"
+              width="24"
+              height="25"
+              viewBox="0 0 24 25"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5.54472 14.6902L4.89072 15.3442C3.71872 16.5162 3.71872 18.4152 4.89072 19.5872C6.06272 20.7592 7.96172 20.7592 9.13372 19.5872L13.3757 15.3452C14.5477 14.1732 14.5477 12.2742 13.3757 11.1022M9.57972 14.8982C8.40772 13.7262 8.40772 11.8272 9.57972 10.6552L13.8217 6.41318C14.9937 5.24118 16.8927 5.24118 18.0647 6.41318C19.2367 7.58518 19.2367 9.48418 18.0647 10.6562L17.4097 11.3102"
+                stroke="#5C46E6"
+                stroke-width="1.5"
+                stroke-miterlimit="10"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
           </a-form-model-item>
           <a-form-model-item class="order-item w-full mb-0" label="Description">
             <a-input

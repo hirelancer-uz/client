@@ -28,8 +28,8 @@
           <p class="text-base text-grey-64">Заказы / Активные заказы</p>
         </div>
         <p
-          v-if="!order?.status && !order?.end_of_execution"
-          class="text-base text-[#F2994A] font-medium flex fap-2 items-center xl:hidden"
+          v-if="status == 1"
+          class="text-base text-[#F2994A] font-medium flex gap-2 items-center xl:hidden"
         >
           <svg
             width="24"
@@ -58,7 +58,7 @@
               <div
                 class="status flex justify-center mx-[-24px] mb-6 pb-[18px] border-[0] border-b-[2px] border-solid border-grey-light relative"
               >
-                <OrderStatus :status="1" />
+                <OrderStatus :status="status" />
               </div>
               <div class="head flex justify-start xl:flex-col xl:gap-4">
                 <div class="flex gap-6">
@@ -216,7 +216,7 @@
               </div>
             </div>
             <div
-              class="flex items-end justify-center pb-6 xl:pb-2 h-[113px] w-full bg-bg-grey absolute bottom-0 show-all cursor-pointer xl:h-11 xl:justify-end xl:pr-4"
+              class="flex items-center justify-center  xl:pb-2 h-12 w-full bg-bg-grey absolute bottom-0 show-all cursor-pointer xl:h-11 xl:justify-end xl:pr-4"
               v-if="!openBlock"
               @click="openBlock = true"
             >
@@ -325,29 +325,33 @@
                   />
                 </svg>
               </button>
-              <button
-                v-if="status == 2"
-                @click="visibleComplite = true"
-                class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-main-color border-main-color text-base xl:text-[14px] text-white font-medium"
-              >
-                Завершить заказ
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="25"
-                  height="24"
-                  viewBox="0 0 25 24"
-                  fill="none"
+              <a-tooltip placement="bottom" v-if="status == 2">
+                <!-- <template slot="title">
+                  <span>Frilanser tarafidan ish yakunlanishi kutilyapti</span>
+                </template> -->
+                <button
+                  @click="visibleComplite = true"
+                  class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-main-color border-main-color text-base xl:text-[14px] text-white font-medium"
                 >
-                  <path
-                    d="M9.56495 11.757L11.938 14.129L16.195 9.87098M20.498 11.999C20.498 16.4161 16.9171 19.997 12.5 19.997C8.08278 19.997 4.50195 16.4161 4.50195 11.999C4.50195 7.5818 8.08278 4.00098 12.5 4.00098C16.9171 4.00098 20.498 7.5818 20.498 11.999Z"
-                    stroke="white"
-                    stroke-width="1.5"
-                    stroke-miterlimit="10"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </button>
+                  Завершить заказ
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="25"
+                    height="24"
+                    viewBox="0 0 25 24"
+                    fill="none"
+                  >
+                    <path
+                      d="M9.56495 11.757L11.938 14.129L16.195 9.87098M20.498 11.999C20.498 16.4161 16.9171 19.997 12.5 19.997C8.08278 19.997 4.50195 16.4161 4.50195 11.999C4.50195 7.5818 8.08278 4.00098 12.5 4.00098C16.9171 4.00098 20.498 7.5818 20.498 11.999Z"
+                      stroke="white"
+                      stroke-width="1.5"
+                      stroke-miterlimit="10"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+              </a-tooltip>
               <button
                 @click="visibleCancel = true"
                 class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-white border-grey-24 text-base xl:text-[14px] text-light-red font-medium"
@@ -400,17 +404,61 @@
           </div>
         </div>
       </div>
+      <div class="flex justify-center" v-if="status == 1">
+        <div
+          class="px-[80px] py-4 border border-solid border-[#EDE5E0] bg-[#FFF5EC] rounded-xl mx-auto mt-[185px]"
+        >
+          <p
+            class="text-base text-[#F2994A] font-medium flex gap-2 items-center xl:hidden"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M9.92154 2.57125C11.2077 1.80958 12.7923 1.80958 14.0785 2.57125L18.9215 5.43932C20.2077 6.20099 21 7.6086 21 9.13192V14.8681C21 16.3914 20.2077 17.799 18.9215 18.5607L18.301 18.9281L14.0785 21.4288C12.7923 22.1904 11.2077 22.1904 9.92154 21.4288L5.69896 18.9281L5.07846 18.5607C3.7923 17.799 3 16.3914 3 14.8681V9.13192C3 7.6086 3.7923 6.20099 5.07846 5.43932L9.92154 2.57125ZM16.0952 15.2041C15.023 14.4572 13.5831 14 12 14C10.4169 14 8.97703 14.4572 7.90484 15.2041C7.39026 15.5626 7.49802 16.2988 8.03578 16.6215L11.4855 18.6913C11.8022 18.8813 12.1978 18.8813 12.5145 18.6913L15.9642 16.6215C16.502 16.2988 16.6097 15.5626 16.0952 15.2041ZM12 6C13.6569 6 15 7.34315 15 9C15 10.6569 13.6569 12 12 12C10.3431 12 9 10.6569 9 9C9 7.34315 10.3431 6 12 6Z"
+                fill="#F2994A"
+              />
+            </svg>
+            Ваш заказ ожидание модерации. Скоро ваш заказ опубликуется
+          </p>
+        </div>
+      </div>
       <div class="mt-6 pb-[120px]" v-if="order?.selected_request?.id">
         <CustomerChat :order="order" />
       </div>
     </div>
-    <div class="mt-20 bg-bg-grey pt-20 pb-[120px] xl:mx-[-16px] xl:px-4 xl:pt-4 xl:mt-10">
+    <div
+      class="mt-[57px] bg-bg-grey pt-20 pb-[120px] xl:mx-[-16px] xl:px-4 xl:pt-4 xl:mt-10"
+      v-if="status == 1"
+    >
       <div class="max-w-[1440px] mx-auto">
         <div class="order-left-chat mb-6">
-          <h4 class="text-[24px] font-semibold text-black xl:text-[18px]">
-            Предложений ({{ order?.requests?.length }})
-          </h4>
+          <div class="flex justify-between">
+            <h4 class="text-[24px] font-semibold text-black xl:text-[18px]">
+              Предложений ({{ order?.requests?.length }})
+            </h4>
+            <a-select
+              v-model="is_positive"
+              placeholder="Сортировка"
+              class="min-w-[280px]"
+            >
+              <a-select-option
+                :value="optin.value"
+                v-for="optin in options"
+                :key="optin.value"
+              >
+                {{ optin.label }}</a-select-option
+              >
+            </a-select>
+          </div>
         </div>
+
         <div class="order-left-chat">
           <div
             class="list flex flex-col gap-4"
@@ -496,16 +544,76 @@
         </div>
       </Transition>
       <CloseOrder @handleOkProp="handleOk" :visibleProp="visibleClose" />
-      <!-- <CancellationOrder
-        @handleOkProp="handleOkCancel"
+      <CancellationOrder
+        @handleOkProp="handleOk"
         :visibleProp="visibleCancel"
         @submit="submitCancel"
-        title="Loyihani yopish uchun mijozni tasdig’i kutilmoqda"
-      /> -->
+        title="Siz so'rovni bekor qilmoqchimisiz?"
+        save="Ha, albatta"
+        close="Yo’q"
+      >
+        <p class="text-base text-grey-64 mt-2">
+          Agar buyurtmani bekor qilsangiz bu buyurtmani davom ettira olmaysiz
+        </p>
+
+        <span
+          class="reyting mb-[10px] rounded-[15px] px-6 py-[10px] text-light-red text-base mx-auto mt-3"
+        >
+          Vash reyting upadyot na -16 ballov
+        </span>
+      </CancellationOrder>
+      <CancellationOrder
+        @handleOkProp="handleOk"
+        :visibleProp="visibleCancel2"
+        @submit="submitCancel2"
+        title="Siz haqiqatdan buyurtmani bekor qilmoqchimisiz?"
+        save="Ha, albatta"
+        close="Yo’q"
+        :width="584"
+      >
+        <p class="text-base text-grey-64 mt-2">
+          Agar buyurtmani bekor qilsangiz bu buyurtmani davom ettira olmaysiz
+        </p>
+
+        <span
+          class="reyting mb-[10px] rounded-[15px] px-6 py-[10px] text-light-red text-base mx-auto mt-3"
+        >
+          Vash reyting upadyot na -16 ballov
+        </span>
+        <div class="px-4 py-4 rounded-[16px] bg-bg-grey w-full mt-4 mb-[-32px]">
+          <h5 class="text-[18px] text-grey-80 font-bold">Prichina otmeni</h5>
+          <ul class="flex flex-col gap-6 mt-6">
+            <li>
+              <a-checkbox class="text-[18px]"> Klient ne otvechaet</a-checkbox>
+            </li>
+            <li>
+              <a-checkbox class="text-[18px]"> Klient ne otvechaet</a-checkbox>
+            </li>
+            <li>
+              <a-checkbox class="text-[18px]"> Klient ne otvechaet</a-checkbox>
+            </li>
+            <li>
+              <a-checkbox class="text-[18px]"> Klient ne otvechaet</a-checkbox>
+            </li>
+            <li>
+              <a-checkbox class="text-[18px]"> Klient ne otvechaet</a-checkbox>
+            </li>
+          </ul>
+        </div>
+      </CancellationOrder>
+
       <CompliteOrder
-        @handleOkProp="handleOkComplite"
+        @handleOkProp="handleOk"
         :visibleProp="visibleComplite"
         @submit="submitComplite"
+      />
+      <FreelancerComplite
+        @handleOkProp="handleOk"
+        :visibleProp="visibleSelect"
+        @submit="submitSelect"
+        title="Vazifani bajarish uchun ushbu frilanser tanlansinmi?"
+        save="Ha, albatta"
+        cancel="Yo’q"
       />
     </div>
     <div
@@ -556,16 +664,30 @@ import OffersChat from "./OffersChat.vue";
 import moment from "moment";
 import SelectedFreelancer from "./SelectedFreelancer.vue";
 import CompliteOrder from "../../modals/CompliteOrder.vue";
+import FreelancerComplite from "../../modals/FreelancerComplite.vue";
 export default {
   props: ["order", "loading"],
   data() {
     return {
+      options: [
+        {
+          label: "Положительный",
+          value: 1,
+        },
+        {
+          label: "Отрицательный",
+          value: 0,
+        },
+      ],
+      is_positive: undefined,
       bottomModal: false,
       step: 1,
       openBlock: false,
+      visibleSelect: false,
       visibleClose: false,
       visibleCancel: false,
       visibleComplite: false,
+      visibleCancel2: false,
     };
   },
   computed: {
@@ -590,14 +712,14 @@ export default {
   },
   methods: {
     moment,
+    submitSelect() {},
+    submitCancel2() {},
     handleOk() {
+      this.visibleSelect = false;
       this.visibleClose = false;
-    },
-    handleOkCancel() {
       this.visibleCancel = false;
-    },
-    handleOkComplite() {
       this.visibleComplite = false;
+      this.visibleCancel2 = false;
     },
     openModal() {
       this.bottomModal = true;
@@ -661,10 +783,90 @@ export default {
     OffersChat,
     SelectedFreelancer,
     CompliteOrder,
+    FreelancerComplite,
   },
 };
 </script>
 <style lang="css" scoped>
+:deep(.ant-select-selection__placeholder) {
+  color: var(--grey-80);
+  font-family: "TT Interfaces";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+}
+:deep(.ant-select-selection--single) {
+  height: 50px;
+  border-radius: 8px;
+  border: 1px solid var(--grey-8);
+  background: #fff;
+  max-width: 280px;
+  font-family: "TT Interfaces";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+}
+:deep(.ant-rate) {
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+:deep(.ant-select-selection__rendered),
+:deep(.ant-select-selection-selected-value) {
+  height: 100%;
+}
+:deep(.ant-select-selection-selected-value) {
+  display: flex !important;
+  align-items: center;
+  color: var(--grey-80);
+  font-family: "TT Interfaces";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+
+  line-height: 150%;
+}
+:deep(.ant-checkbox-checked .ant-checkbox-inner) {
+  border-color: var(--blue);
+  background-color: var(--blue);
+}
+:deep(.ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover
+    .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner) {
+  border-color: var(--blue);
+}
+:deep(.ant-checkbox-checked::after) {
+  border-color: var(--blue);
+}
+:deep(.ant-checkbox + span) {
+  color: var(--grey-80);
+  font-family: "TT Interfaces";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 27px */
+}
+:deep(.ant-checkbox-checked .ant-checkbox-inner) {
+  border-color: var(--blue);
+  background-color: var(--blue);
+}
+:deep(.ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover
+    .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner) {
+  border-color: var(--blue);
+}
+:deep(.ant-checkbox-checked::after) {
+  border-color: var(--blue);
+}
+:deep(.ant-checkbox + span) {
+  color: var(--grey-80);
+  font-family: "TT Interfaces";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 27px */
+}
+.reyting {
+  background: rgba(237, 50, 55, 0.13);
+}
 .back-btn {
   transition: 0.3s;
 }
@@ -730,12 +932,12 @@ export default {
   gap: 16px;
 }
 .show-all {
-  background: linear-gradient(
+  /* background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0) 0%,
     rgba(255, 255, 255, 0.86) 46.88%,
     #fff 100%
-  );
+  ); */
 }
 @media (max-width: 1200px) {
   .content-box {

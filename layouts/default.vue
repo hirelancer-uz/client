@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="layout W-100">
+  <div class="layout W-100 min-h-[100vh] flex flex-col">
     <div class="fixed top-0 left-0 w-full z-50" ref="mHeader">
       <MobileHeader class="xl:block" />
     </div>
@@ -12,7 +12,9 @@
     <!-- <h1>
       {{ layoutData }}
     </h1> -->
-    <Nuxt />
+    <div class="flex-auto">
+      <Nuxt />
+    </div>
     <TheFooter />
     <BottomBar v-if="routes.includes($route.name)" />
   </div>

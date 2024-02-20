@@ -7,10 +7,25 @@
 
       <div class="buttons flex gap-4 md:hidden">
         <button
-          @click="$router.go(-1)"
-          class="border-[2px] border-solid border-border-darik rounded-[12px] h-[60px] w-[204px] flex justify-center items-center text-[18px] text-grey-64 font-medium"
+          @click="visibleCancel = true"
+          class="border-[2px] border-solid border-grey-24 rounded-[8px] h-[54px] w-[194px] flex justify-center items-center gap-2 text-base text-grey-64 font-medium"
         >
-          Отмена
+          Bekor qilish
+          <svg
+            width="25"
+            height="24"
+            viewBox="0 0 25 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M16.5 12H8.5M12.5 22C18.0228 22 22.5 17.5228 22.5 12C22.5 6.47715 18.0228 2 12.5 2C6.97715 2 2.5 6.47715 2.5 12C2.5 17.5228 6.97715 22 12.5 22Z"
+              stroke="#5D5D5F"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
         </button>
       </div>
     </div>
@@ -39,13 +54,14 @@
             :class="{ errorSelect: activeCheckedList.length == 0 && errorSelect }"
           >
             <div
-              class="min-h-[58px] items-center border border-solid flex justify-between border-grey-8 rounded-lg px-4 py-3 modal-select"
+              ref="spicial"
+              class="min-h-[58px] items-center border border-solid flex justify-start border-grey-8 rounded-lg px-4 py-3 modal-select"
             >
               <p class="text-grey-40 text-base" v-if="activeCheckedList.length == 0">
                 Специальности
               </p>
 
-              <div v-else class="w-full flex flex-wrap gap-[4px]">
+              <div v-else class="w-auto flex flex-wrap gap-[4px]">
                 <div
                   v-for="listItem in activeCheckedList"
                   :key="listItem?.id"
@@ -73,7 +89,7 @@
               </div>
 
               <button
-                class="w-6 md:hidden"
+                class="w-6 md:hidden h-[34px] flex-auto flex justify-end items-center"
                 @click="(visible = true), (checkedList = [...activeCheckedList])"
               >
                 <svg
@@ -446,6 +462,18 @@
         </button>
       </div>
     </div>
+    <CancellationOrder
+      @handleOkProp="handleOk"
+      :visibleProp="visibleCancel"
+      @submit="submitCancel"
+      title="Bekor qilsangiz ma'lumotlaringiz saqlanmaydi! "
+      save="Ha, albatta"
+      close="Yo’q"
+    >
+      <h5 class="text-[24px] font-semibold text-black text-center">
+        Ma'lumotlar bekor bo'lsinmi?
+      </h5>
+    </CancellationOrder>
     <SpicialsticsCheck
       @saveChecked="saveChecked"
       :visible="visible"
@@ -463,6 +491,7 @@ import SpicialsticsCheck from "@/components/modals/SpicialsticsCheck.vue";
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
+import CancellationOrder from "@/components/modals/CancellationOrder.vue";
 function getBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -474,6 +503,7 @@ function getBase64(file) {
 export default {
   data() {
     return {
+      visibleCancel: false,
       editorOption: {
         theme: "snow",
       },
@@ -518,6 +548,7 @@ export default {
     },
   },
   mounted() {
+    console.log(this.$refs.spicial);
     this.loading = true;
     if (!localStorage.getItem("auth-token")) {
       this.$router.push("/");
@@ -536,6 +567,9 @@ export default {
     };
   },
   methods: {
+    submitCancel() {
+      this.$router.go(-1);
+    },
     closeChecked() {
       this.checkedList = [];
       this.visible = false;
@@ -697,6 +731,7 @@ export default {
     },
     handleOk() {
       this.visible = false;
+      this.visibleCancel = false;
     },
   },
   watch: {
@@ -719,7 +754,7 @@ export default {
       }
     },
   },
-  components: { Loader, SpicialsticsCheck },
+  components: { Loader, SpicialsticsCheck, CancellationOrder },
 };
 </script>
 <style lang="css" scoped>

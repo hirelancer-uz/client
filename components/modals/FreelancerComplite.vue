@@ -62,7 +62,7 @@
           </svg>
 
           <h4 class="text-black text-[24px] font-semibold mb-8">
-            Loyihani rostdan ham yakunlamoqchimisiz?
+            {{ title }}
           </h4>
         </div>
         <div class="grid grid-cols-2 gap-4">
@@ -70,13 +70,13 @@
             @click="visible = false"
             class="h-[54px] items-center w-full flex justify-center gap-2 border border-solid border-grey-light rounded-[8px] text-base font-medium text-grey-64"
           >
-            Yo’q
+            {{ cancel || "Yo'q" }}
           </button>
           <button
             @click="$emit('submit')"
             class="h-[54px] items-center w-full flex justify-center gap-2 border border-solid border-main-color bg-main-color rounded-[8px] text-base font-medium text-white"
           >
-            Ha, albatta
+            {{ save || "Ha" }}
           </button>
         </div>
       </div>
@@ -85,7 +85,7 @@
 </template>
 <script>
 export default {
-  props: ["visibleProp"],
+  props: ["visibleProp", "title", "save", "cancel"],
   data() {
     return {
       visible: false,

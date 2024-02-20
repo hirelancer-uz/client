@@ -12,14 +12,16 @@
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M17.5 1.875L12.5 1.875C12.1548 1.875 11.875 2.15482 11.875 2.5C11.875 2.84518 12.1548 3.125 12.5 3.125L15.9911 3.125L7.89139 11.2247C7.64731 11.4688 7.64731 11.8645 7.89139 12.1086C8.13547 12.3527 8.5312 12.3527 8.77528 12.1086L16.875 4.00888L16.875 7.49999C16.875 7.84517 17.1548 8.12499 17.5 8.12499C17.8452 8.12499 18.125 7.84517 18.125 7.49999L18.125 2.5C18.125 2.15482 17.8452 1.875 17.5 1.875ZM5.83333 3.54167C3.64721 3.54167 1.875 5.31387 1.875 7.5V14.1667C1.875 16.3528 3.64721 18.125 5.83333 18.125H12.5C14.6861 18.125 16.4583 16.3528 16.4583 14.1667V10C16.4583 9.65482 16.1785 9.375 15.8333 9.375C15.4882 9.375 15.2083 9.65482 15.2083 10V14.1667C15.2083 15.6624 13.9958 16.875 12.5 16.875H5.83333C4.33756 16.875 3.125 15.6624 3.125 14.1667V7.5C3.125 6.00423 4.33756 4.79167 5.83333 4.79167H10C10.3452 4.79167 10.625 4.51184 10.625 4.16667C10.625 3.82149 10.3452 3.54167 10 3.54167H5.83333Z"
-            fill="#5C46E6"
+            d="M7.19956 6.07764H13.9329V12.8101M6.08789 13.9226L13.9229 6.08764"
+            stroke="#5C46E6"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
           />
         </svg>
       </nuxt-link>
-      <div class="head flex justify-center">
+      <div class="head flex justify-start gap-4">
         <div class="w-[60px] h-[60px] relative">
           <div
             class="image relative w-[60px] h-[60px] border-[2px] border-solid border-agro-green rounded-full overflow-hidden"
@@ -30,6 +32,7 @@
               alt=""
             />
           </div>
+
           <span class="absolute right-0 bottom-0">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -52,33 +55,20 @@
             </svg>
           </span>
         </div>
+        <div class="flex flex-col gap-1 justify-center">
+          <h5
+            class="text-base font-medium text-black flex gap-2 items-center cursor-pointer"
+            @click="$router.push(`/freelancer/${freelancer?.id}`)"
+          >
+            {{ freelancer?.name }}
+          </h5>
+          <p class="text-[14px] text-grey-64">+998 99 888 5544</p>
+        </div>
       </div>
       <div class="body flex flex-col gap-4">
-        <h5
-          class="text-base font-medium text-black flex gap-2 mx-auto items-center cursor-pointer"
-          @click="$router.push(`/freelancer/${freelancer?.id}`)"
-        >
-          {{ freelancer?.name }}
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M7.1976 6.07715H13.9309V12.8096M6.08594 13.9221L13.9209 6.08715"
-              stroke="#5C46E6"
-              stroke-width="1.5"
-              stroke-miterlimit="10"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </h5>
         <a
           href=""
-          class="border border-solid border-[#1878F3] rounded-lg flex gap-2 justify-center h-12 items-center text-base font-medium text-[#1878F3]"
+          class="border border-solid border-[#1878F3] rounded-lg flex gap-2 justify-center h-[43px] items-center text-base font-medium text-[#1878F3]"
           ><svg
             width="21"
             height="20"
@@ -98,7 +88,7 @@
               </clipPath>
             </defs>
           </svg>
-          @arcsobirov
+          Telegram
         </a>
       </div>
     </div>

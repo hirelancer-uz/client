@@ -199,7 +199,7 @@
               </div>
             </div>
             <div
-              class="flex items-end justify-center pb-6 xl:pb-2 h-[113px] w-full bg-bg-grey absolute bottom-0 show-all cursor-pointer xl:h-11 xl:justify-end xl:pr-4"
+              class="flex items-center justify-center xl:pb-2 h-12 w-full bg-bg-grey absolute bottom-0 cursor-pointer xl:h-11 xl:justify-end xl:pr-4"
               v-if="!openBlock"
               @click="openBlock = true"
             >
@@ -451,12 +451,50 @@
         @handleOkProp="handleOk"
         :visibleProp="visibleClose"
         @submit="submitFinish"
+        title="Loyihani rostdan ham yakunlamoqchimisiz?"
+        save="Ha, albatta"
+        cancel="Yo’q"
       />
-      <FreelancerCancel
+
+      <CancellationOrder
         @handleOkProp="handleOk"
-        :visibleProp="visibleClose"
+        :visibleProp="visibleClose2"
         @submit="submitFinish"
-      />
+        title="Siz haqiqatdan buyurtmani bekor qilmoqchimisiz?"
+        save="Ha, albatta"
+        close="Yo’q"
+        :width="584"
+      >
+        <p class="text-base text-grey-64 mt-2">
+          Agar buyurtmani bekor qilsangiz bu buyurtmani davom ettira olmaysiz
+        </p>
+
+        <span
+          class="reyting mb-[10px] rounded-[15px] px-6 py-[10px] text-light-red text-base mx-auto mt-3"
+        >
+          Vash reyting upadyot na -16 ballov
+        </span>
+        <div class="px-4 py-4 rounded-[16px] bg-bg-grey w-full mt-4 mb-[-32px]">
+          <h5 class="text-[18px] text-grey-80 font-bold">Prichina otmeni</h5>
+          <ul class="flex flex-col gap-6 mt-6">
+            <li>
+              <a-checkbox class="text-[18px]"> Klient ne otvechaet</a-checkbox>
+            </li>
+            <li>
+              <a-checkbox class="text-[18px]"> Klient ne otvechaet</a-checkbox>
+            </li>
+            <li>
+              <a-checkbox class="text-[18px]"> Klient ne otvechaet</a-checkbox>
+            </li>
+            <li>
+              <a-checkbox class="text-[18px]"> Klient ne otvechaet</a-checkbox>
+            </li>
+            <li>
+              <a-checkbox class="text-[18px]"> Klient ne otvechaet</a-checkbox>
+            </li>
+          </ul>
+        </div>
+      </CancellationOrder>
       <CancellationOrder
         @handleOkProp="handleOkCancel"
         :visibleProp="visibleCancel"
@@ -489,7 +527,6 @@ import OrderChat from "@/components/orders/OrderChat.vue";
 import Loader from "@/components/Loader.vue";
 import moment from "moment";
 import FreelancerComplite from "../../modals/FreelancerComplite.vue";
-import FreelancerCancel from "../../modals/FreelancerCancel.vue";
 export default {
   props: ["order"],
   data() {
@@ -501,6 +538,7 @@ export default {
       visibleClose: false,
       visibleCancel: false,
       visibleComplaint: false,
+      visibleClose2: false,
       loading: true,
     };
   },
@@ -615,11 +653,29 @@ export default {
     OrderChat,
     Loader,
     FreelancerComplite,
-    FreelancerCancel,
   },
 };
 </script>
 <style lang="css" scoped>
+:deep(.ant-checkbox-checked .ant-checkbox-inner) {
+  border-color: var(--blue);
+  background-color: var(--blue);
+}
+:deep(.ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover
+    .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner) {
+  border-color: var(--blue);
+}
+:deep(.ant-checkbox-checked::after) {
+  border-color: var(--blue);
+}
+:deep(.ant-checkbox + span) {
+  color: var(--grey-80);
+  font-family: "TT Interfaces";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 27px */
+}
 .back-btn {
   transition: 0.3s;
 }
