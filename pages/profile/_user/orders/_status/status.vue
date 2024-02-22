@@ -85,7 +85,7 @@
       <ProfileOrderCardMobile v-for="order in orders" :order="order" :key="order?.id" />
     </div>
     <div
-      class="w-full h-[150px] flex justify-center items-center"
+      class="w-full h-[300px] flex justify-center items-center"
       v-if="!loading && orders.length == 0"
     >
       <a-empty />
@@ -126,9 +126,10 @@ export default {
       loading: true,
       status: {
         active: 1,
-        completed: 0,
+        completed: 4,
         pending: 0,
-        cancel: -1,
+        cancel: 6,
+        in_progress: 2,
       },
     };
   },

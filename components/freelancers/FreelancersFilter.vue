@@ -148,13 +148,18 @@
         </div>
         <div class="xl:hidden">
           <a-select v-model="sort" placeholder="Barcha viloyatlar" class="w-full">
-            <a-select-option :value="region" v-for="region in [1, 2, 3, 4]" :key="region">
-              {{ region }}</a-select-option
+            <a-select-option
+              :value="region?.id"
+              v-for="region in regions"
+              :key="region?.id"
+            >
+              {{ region?.name_ru }} {{ region?.id }}</a-select-option
             >
           </a-select>
         </div>
         <div class="flex gap-4 xl:flex-col">
           <button
+            @click="sendFilter"
             class="flex w-full justify-center xl:h-[52px] py-[15px] rounded-lg border border-blue border-solid text-[14px] font-tt font-semibold xl:font-medium text-white bg-blue"
           >
             Ko'rsatish
@@ -174,7 +179,7 @@
 import TelegramCard from "../TelegramCard.vue";
 
 export default {
-  props: ["specialities"],
+  props: ["specialities", "regions"],
   data() {
     return {
       dropdown: false,
@@ -188,13 +193,12 @@ export default {
     };
   },
   methods: {
-    // sendFilter() {
-    //   Object.keys(this.filterForm).forEach((elem) => {
-    //     if (this.filterForm[elem]) {
-    //       this.$emit("filter", `${elem}`, 1);
-    //     }
-    //   });
-    // },
+    async sendFilter() {
+      await this.$emit("filter", `region`, this.sort);
+      if (!this.$route.query?.region) {
+        this.sort = undefined;
+      }
+    },
     filterHandle(e, name) {
       this.filterForm[name] = e.target.checked;
       this.$emit("filter", `${name}`, 1);

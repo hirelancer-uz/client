@@ -70,13 +70,15 @@
     </div>
     <div
       class="offers flex flex-col gap-4 mt-[42px] xl:mt-6"
-      v-if="$route.params.status != 'pending'"
+      v-if="accessStatus.includes(order?.status)"
     >
-      <!-- <div
-        v-if="$route.params.status != 'pending'"
+      <div
+        v-if="order?.status == 0"
         class="rounded-[8px] border border-solid border-light-yellow-br xl:border-yellow-br bg-light-yellow px-6 xl:pl-4 xl:pr-3 py-[14px] xl:py-3 cursor-pointer overflow-hidden"
       >
-        <h4 class="text-base font-regular flex gap-2 text-grey-64 xl:text-dark-yellow xl:text-[14px]">
+        <h4
+          class="text-base font-regular flex gap-2 text-grey-64 xl:text-dark-yellow xl:text-[14px]"
+        >
           <svg
             width="24"
             height="24"
@@ -93,9 +95,9 @@
           </svg>
           Ожидание ответа модератора
         </h4>
-      </div> -->
-      <!-- <div
-        v-if="$route.params.status != 'pending'"
+      </div>
+      <div
+        v-if="order?.status == 1"
         class="rounded-[8px] border border-solid border-[#DFEEDF] bg-[#FAFFFA] xl:border-yellow-br px-6 xl:pl-4 xl:pr-3 py-[14px] xl:py-3 cursor-pointer overflow-hidden"
       >
         <h4
@@ -133,8 +135,9 @@
             >{{ order?.request_count }}</span
           >
         </h4>
-      </div> -->
+      </div>
       <div
+        v-if="order?.status == 2"
         class="rounded-[8px] border border-solid border-[#C6CBFF] bg-[#F3F4FF] xl:border-yellow-br px-6 xl:pl-4 xl:pr-3 py-[14px] xl:py-3 cursor-pointer overflow-hidden"
       >
         <h4
@@ -171,6 +174,7 @@ export default {
   data() {
     return {
       offersList: [],
+      accessStatus: [0, 1, 2],
     };
   },
   methods: {

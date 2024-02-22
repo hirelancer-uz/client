@@ -29,16 +29,9 @@
               fill="#5C46E6"
             />
             <circle cx="81.8028" cy="7.87821" r="4.14823" fill="white" />
-            <circle
-              cx="119.966"
-              cy="7.87821"
-              r="4.14823"
-              fill="white"
-            /></svg></span
+            <circle cx="119.966" cy="7.87821" r="4.14823" fill="white" /></svg></span
       ></nuxt-link>
-      <h4
-        class="flex text-black text-[24px] font-semibold mt-[31px] xl:text-[20px]"
-      >
+      <h4 class="flex text-black text-[24px] font-semibold mt-[31px] xl:text-[20px]">
         Kirish yoki ro'yxatdan o'tish
       </h4>
       <p class="flex text-base text-grey-64 mt-2 xl:text-[14px]">
@@ -158,6 +151,7 @@ export default {
   font-weight: 400;
   line-height: 150%; /* 24px */
   border-color: transparent;
+  width: 100%;
 }
 @media (max-width: 1200px) {
   .auth-item .input-block {

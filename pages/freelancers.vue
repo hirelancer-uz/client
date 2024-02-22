@@ -143,6 +143,7 @@
         </div> -->
         <div class="body mt-[30px] xl:mt-4">
           <FreelancersFilter
+          :regions="regions"
             class="xl:hidden"
             :specialities="specialities"
             @filter="queryCreater"
@@ -161,6 +162,7 @@
             class="hidden xl:flex pb-6"
             :specialities="specialities"
             @filter="queryCreater"
+            :regions="regions"
           />
         </vue-bottom-sheet-vue2>
       </div>
@@ -204,6 +206,7 @@ export default {
       freelancers,
       specialities,
       totalPage,
+      regions
     };
   },
   mounted() {

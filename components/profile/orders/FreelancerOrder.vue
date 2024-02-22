@@ -255,7 +255,7 @@
               </div>
             </div>
             <EndingProcess
-              v-if="status == 2 && !myRequest"
+              v-if="order?.status == 2 && !myRequest"
               :selected="order?.selected_request"
             />
             <span
@@ -265,7 +265,7 @@
             <!-- v-if="!order?.end_of_execution" -->
 
             <div class="buttons flex flex-col gap-4" v-if="!order?.end_of_execution">
-              <div class="flex flex-col gap-2" v-if="status == 2 && myRequest">
+              <div class="flex flex-col gap-2" v-if="order?.status == 2 && myRequest">
                 <button
                   class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] bg-grey-light text-base text-grey-80 font-medium"
                 >
@@ -292,7 +292,7 @@
                 </p>
               </div>
               <button
-                v-if="status == 2 && !myRequest"
+                v-if="order?.status == 2 && !myRequest"
                 @click="visibleClose = true"
                 class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-main-color border-main-color text-base text-white font-medium"
               >
@@ -316,7 +316,7 @@
               </button>
               <!-- v-if="status != 3" -->
               <button
-                v-if="status != 3"
+                v-if="order?.status != 4"
                 @click="visibleCancel = true"
                 class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] bg-[#667B8C] text-base text-white font-medium"
               >
@@ -356,7 +356,7 @@
                   />
                 </svg>
               </button> -->
-              <button
+              <!-- <button
                 v-if="status == 3"
                 @click="visibleComplaint = true"
                 class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-light-red2 border-light-red text-base text-light-red font-medium"
@@ -384,7 +384,7 @@
                     fill="#F2154A"
                   />
                 </svg>
-              </button>
+              </button> -->
             </div>
           </div>
           <!-- <div
