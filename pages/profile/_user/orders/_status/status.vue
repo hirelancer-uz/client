@@ -121,11 +121,19 @@ export default {
       orders: [],
       loading: true,
       status: {
-        active: 1,
-        completed: 4,
-        pending: 0,
-        cancel: 6,
-        in_progress: 2,
+        customer: {
+          active: 1,
+          completed: 4,
+          pending: 0,
+          cancel: 6,
+          in_progress: 2,
+        },
+        freelancer: {
+          active: 2,
+          offers: 1,
+          completed: 4,
+          cancel: 5,
+        },
       },
     };
   },
@@ -140,7 +148,7 @@ export default {
   methods: {
     async __GET_ORDERS() {
       const params = {
-        status: this.status[this.$route.params.status],
+        status: this.status[this.$route.params.user][this.$route.params.status],
       };
       this.$route.params.user == "customer"
         ? (params.client = this.$store.state.userInfo["id"])

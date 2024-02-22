@@ -333,15 +333,14 @@
                 placement="bottom"
                 v-if="order?.status == 2 || order?.status == 3"
               >
-                <template slot="title" v-if="order?.complete_requests?.length == 0">
+                <template slot="title" v-if="!order?.complete_requests">
                   <span>Frilanser tarafidan ish yakunlanishi kutilyapti</span>
                 </template>
-                <!-- order?.complete_requests?.length == 0 -->
+                <!-- !order?.complete_requests -->
                 <span class="flex w-full">
                   <button
                     :class="{
-                      'pointer-events-none opacity-50':
-                        order?.complete_requests?.length == 0,
+                      'pointer-events-none opacity-50': !order?.complete_requests,
                     }"
                     @click="visibleComplite = true"
                     class="w-full h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-main-color border-main-color text-base xl:text-[14px] text-white font-medium"

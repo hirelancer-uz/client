@@ -30,7 +30,7 @@
             <div
               class="status flex justify-center pt-[18px] pb-[18px] border-[0] border-b-[2px] border-solid border-grey-light relative"
             >
-              <OrderStatus :status="status" />
+              <OrderStatus :status="order?.status" />
             </div>
             <div class="info px-6 py-6 xl:px-4 xl:py-4">
               <div class="head flex justify-start">
@@ -222,7 +222,7 @@
               </button>
             </div>
           </div>
-          <OrderChat :status="status" />
+          <OrderChat :status="order?.status" />
         </div>
         <div class="flex flex-col gap-4">
           <ClientCard :client="order?.client" />
@@ -265,7 +265,7 @@
             <!-- v-if="!order?.end_of_execution" -->
 
             <div class="buttons flex flex-col gap-4" v-if="!order?.end_of_execution">
-              <div class="flex flex-col gap-2" v-if="order?.status == 2 && myRequest">
+              <div class="flex flex-col gap-2" v-if="order?.status == 3 && myRequest">
                 <button
                   class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] bg-grey-light text-base text-grey-80 font-medium"
                 >
