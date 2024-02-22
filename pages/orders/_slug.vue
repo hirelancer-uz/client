@@ -445,7 +445,7 @@ export default {
         }),
         store.dispatch("fetchOrders/getOrders", {
           params: {
-            // similar: 1,
+            similar: params.slug,
           },
         }),
         store.dispatch("fetchSpecialities/getSpecialities"),

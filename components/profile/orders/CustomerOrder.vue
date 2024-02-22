@@ -62,7 +62,7 @@
                 v-if="status != 0"
                 class="status flex justify-center mx-[-24px] mb-6 pb-[18px] border-[0] border-b-[2px] border-solid border-grey-light relative"
               >
-                <OrderStatus :status="status" />
+                <OrderStatus :status="order?.status" />
               </div>
               <div class="head flex justify-start xl:flex-col xl:gap-4">
                 <div class="flex gap-6">
@@ -329,32 +329,42 @@
                   />
                 </svg>
               </button>
-              <a-tooltip placement="bottom" v-if="status == 2">
-                <!-- <template slot="title">
+              <a-tooltip
+                placement="bottom"
+                v-if="order?.status == 2 || order?.status == 3"
+              >
+                <template slot="title" v-if="order?.complete_requests?.length == 0">
                   <span>Frilanser tarafidan ish yakunlanishi kutilyapti</span>
-                </template> -->
-                <button
-                  @click="visibleComplite = true"
-                  class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-main-color border-main-color text-base xl:text-[14px] text-white font-medium"
-                >
-                  Завершить заказ
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="25"
-                    height="24"
-                    viewBox="0 0 25 24"
-                    fill="none"
+                </template>
+                <!-- order?.complete_requests?.length == 0 -->
+                <span class="flex w-full">
+                  <button
+                    :class="{
+                      'pointer-events-none opacity-50':
+                        order?.complete_requests?.length == 0,
+                    }"
+                    @click="visibleComplite = true"
+                    class="w-full h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-main-color border-main-color text-base xl:text-[14px] text-white font-medium"
                   >
-                    <path
-                      d="M9.56495 11.757L11.938 14.129L16.195 9.87098M20.498 11.999C20.498 16.4161 16.9171 19.997 12.5 19.997C8.08278 19.997 4.50195 16.4161 4.50195 11.999C4.50195 7.5818 8.08278 4.00098 12.5 4.00098C16.9171 4.00098 20.498 7.5818 20.498 11.999Z"
-                      stroke="white"
-                      stroke-width="1.5"
-                      stroke-miterlimit="10"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </button>
+                    Завершить заказ
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="24"
+                      viewBox="0 0 25 24"
+                      fill="none"
+                    >
+                      <path
+                        d="M9.56495 11.757L11.938 14.129L16.195 9.87098M20.498 11.999C20.498 16.4161 16.9171 19.997 12.5 19.997C8.08278 19.997 4.50195 16.4161 4.50195 11.999C4.50195 7.5818 8.08278 4.00098 12.5 4.00098C16.9171 4.00098 20.498 7.5818 20.498 11.999Z"
+                        stroke="white"
+                        stroke-width="1.5"
+                        stroke-miterlimit="10"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </span>
               </a-tooltip>
               <button
                 @click="visibleCancel = true"
@@ -752,6 +762,7 @@ export default {
         const data = await this.$store.dispatch("fetchOrders/postCanceledOrder", {
           id: this.$route.params.id,
         });
+
         this.$router.go(-1);
       } catch (e) {
         if (e.response) {
@@ -769,6 +780,7 @@ export default {
           formData
         );
         this.visibleComplite = false;
+        this.$emit("selected");
       } catch (e) {
         if (e.response) {
           this.$notification["error"]({

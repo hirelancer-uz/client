@@ -553,7 +553,7 @@ export default {
       return moment(this.order?.created_at).format("HH:mm");
     },
     myRequest() {
-      return this.order?.complete_requests.find(
+      return this.order?.complete_requests?.find(
         (item) => item?.freelancer_id == this.$store.state.userInfo?.id
       );
     },

@@ -215,14 +215,14 @@
     </svg>
     <div
       class="flex gap-[10px] items-center relative z-10"
-      :class="{ active: status == 3 }"
+      :class="{ active: status == 4 }"
     >
       <span class="flex justify-center items-center relative">
         <span
           class="icon w-full h-full z-10 flex relative justify-center items-center rounded-full"
         >
           <svg
-            v-if="status == 3"
+            v-if="status == 4"
             width="24"
             height="24"
             viewBox="0 0 24 24"
