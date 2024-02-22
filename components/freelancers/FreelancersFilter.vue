@@ -23,9 +23,16 @@
               class="drop-head xl:px-0 xl:py-0 bg-white relative z-20 w-full flex justify-between items-center px-[20px] py-[12px]"
             >
               <h2
+                @click="$emit('filter', `specialities[${dropItem?.id}]`, dropItem?.id)"
                 class="text-base text-blue-night flex gap-2 items-center"
                 :class="{
-                  'text-main-color': dropdownOpens.includes(dropItem?.id),
+                  'text-main-color':
+                    dropdownOpens.includes(dropItem?.id) ||
+                    Boolean(
+                      Object.entries($route.query)
+                        .filter((filterItem) => filterItem[0].includes('specialities'))
+                        .find((findItem) => findItem[1] == dropItem?.id)
+                    ),
                 }"
               >
                 {{ dropItem?.name_ru }}
@@ -34,7 +41,9 @@
               </h2>
               <span
                 @click="handleDropdown(dropItem?.id)"
-                :class="{ 'rotate-180': dropdownOpens.includes(dropItem?.id) }"
+                :class="{
+                  'rotate-180': dropdownOpens.includes(dropItem?.id),
+                }"
                 class="drop-icon w-[24px] h-[24px] rounded-[50%] bg-[#F8F9FF] flex items-center justify-center"
               >
                 <svg
@@ -147,7 +156,12 @@
           </div>
         </div>
         <div class="xl:hidden">
-          <a-select v-model="sort" placeholder="Barcha viloyatlar" class="w-full">
+          <a-select
+            v-if="regions.length > 0"
+            v-model="filterForm.region"
+            placeholder="Barcha viloyatlar"
+            class="w-full"
+          >
             <a-select-option
               :value="region?.id"
               v-for="region in regions"
@@ -159,12 +173,17 @@
         </div>
         <div class="flex gap-4 xl:flex-col">
           <button
+            :class="{ 'pointer-events-none opacity-50': !disabledFilter }"
             @click="sendFilter"
             class="flex w-full justify-center xl:h-[52px] py-[15px] rounded-lg border border-blue border-solid text-[14px] font-tt font-semibold xl:font-medium text-white bg-blue"
           >
             Ko'rsatish
           </button>
           <button
+            :class="{
+              'pointer-events-none opacity-50': Object.keys($route.query).length < 3,
+            }"
+            @click="clearFilter"
             class="flex w-full justify-center xl:h-[52px] py-[15px] rounded-lg border border-blue border-solid text-[14px] font-tt font-semibold xl:font-medium text-blue bg-white"
           >
             Bekor qilish
@@ -183,21 +202,48 @@ export default {
   data() {
     return {
       dropdown: false,
-      sort: undefined,
       dropdownOpens: [],
       filterForm: {
-        region: false,
+        region: undefined,
         works: false,
         orders: false,
       },
     };
   },
-  methods: {
-    async sendFilter() {
-      await this.$emit("filter", `region`, this.sort);
-      if (!this.$route.query?.region) {
-        this.sort = undefined;
+  mounted() {
+    Object.keys(this.$route.query).forEach((elem) => {
+      if (Object.keys(this.filterForm).includes(elem)) {
+        if (elem == "region") {
+          this.filterForm[elem] = Number(this.$route.query[elem]);
+        } else {
+          this.filterForm[elem] = this.$route.query[elem] ? true : false;
+        }
       }
+    });
+    console.log(this.filterForm);
+  },
+  computed: {
+    disabledFilter() {
+      return (
+        this.filterForm.region &&
+        Number(this.filterForm.region) != Number(this.$route.query?.region)
+      );
+    },
+  },
+  methods: {
+    async clearFilter() {
+      await this.$emit("clear");
+      this.filterForm = {
+        region: undefined,
+        works: false,
+        orders: false,
+      };
+    },
+    async sendFilter() {
+      await this.$emit("filter", `region`, this.filterForm.region);
+      // if (!this.$route.query?.region) {
+      //   this.filterForm.region = undefined;
+      // }
     },
     filterHandle(e, name) {
       this.filterForm[name] = e.target.checked;

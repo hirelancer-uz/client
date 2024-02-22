@@ -69,7 +69,7 @@
             </div>
           </div>
           <div class="modal-board flex flex-col justify-between gap-4">
-            <div class="flex gap-3 flex-wrap min-h-[200px] items-start">
+            <div class="flex gap-3 flex-wrap  items-start">
               <button
                 :disabled="
                   !Boolean(checkedList.find((elemChild) => elemChild.id == child.id)) &&

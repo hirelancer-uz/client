@@ -9,7 +9,7 @@
       <!-- <Achievements :profile="true" /> -->
     </div>
     <div class="personal-information mt-10" v-if="$route.params.user == 'freelancer'">
-      <Statistics />
+      <Statistics :userInfo="$store.state.userInfo" />
     </div>
     <!-- <div class="mt-[45px]">
       <Events />

@@ -1,10 +1,14 @@
 <template lang="html">
   <div
     class="card relative order-card px-8 py-6 rounded-3xl bg-white cursor-pointer xl:border-[1px] xl:border-solid xl:border-grey-8 xl:rounded-[16px] xl:p-[16px]"
-    @click="$router.push(myRequest ? `/profile/freelancer/order/view/${order?.id}`:`/orders/${order?.id}`)"
+    @click="
+      $router.push(
+        myRequest ? `/profile/freelancer/order/view/${order?.id}` : `/orders/${order?.id}`
+      )
+    "
   >
     <div class="header flex justify-between xl:flex-col-reverse xl:gap-2">
-      <div class="flex gap-6 items-center xl:gap-[12px]">
+      <div class="flex gap-6 items-center xl:gap-[12px] w-full">
         <span
           v-if="order?.urgent"
           class="border light-yellow rounded-[500px] border-solid border-dark-yellow text-dark-yellow h-[36px] xl:h-[32px] px-[20px] xl:pl-2 xl:pr-3 flex items-center xl:text-[12px] xl:gap-1"
@@ -100,13 +104,22 @@
           v-if="order?.urgent"
           class="flex w-[1px] h-[27px] bg-grey-8 xl:hidden"
         ></span>
-        <button
-          v-for="special in order?.specialities"
-          :key="special?.id"
-          class="whitespace-nowrap h-[36px] xl:h-[32px] flex items-center bg-apple-grey font-tt text-grey-64 py-2 px-4 rounded-[22px] text-[14px] xl:text-[12px]"
-        >
-          {{ special?.name_ru }}
-        </button>
+        <div ref="widthHandle" class="flex-auto flex gap-6 items-center xl:gap-[12px]">
+          <button
+            v-for="(special, index) in visibleButtons"
+            :key="special?.id"
+            :ref="`button${index}`"
+            class="whitespace-nowrap h-[36px] xl:h-[32px] flex items-center bg-apple-grey font-tt text-grey-64 py-2 px-4 rounded-[22px] text-[14px] xl:text-[12px]"
+          >
+            {{ special?.name_ru }}
+          </button>
+          <button
+            v-if="hiddenButtonsCount"
+            class="whitespace-nowrap h-[36px] xl:h-[32px] flex items-center bg-apple-grey font-tt text-grey-64 py-2 px-4 rounded-[22px] text-[14px] xl:text-[12px]"
+          >
+            + {{ hiddenButtonsCount }}
+          </button>
+        </div>
       </div>
       <div class="flex gap-[28px] items-center xl:justify-between">
         <div class="flex gap-[16px] items-center xl:gap-[12px]">
@@ -249,9 +262,18 @@ export default {
     return {
       dateFormat: "DD.MM.YYYY",
       hourFormat: "HH:mm",
+      visibleButtons: [],
+      currentWidth: 0,
     };
   },
+  async mounted() {
+    this.visibleButtons = await this.order?.specialities;
+    this.widthHandle();
+  },
   computed: {
+    hiddenButtonsCount() {
+      return this.order?.specialities.length - this.visibleButtons.length;
+    },
     myRequest() {
       return Boolean(
         this.order?.requests.find(
@@ -279,6 +301,26 @@ export default {
   },
   methods: {
     moment,
+    widthHandle() {
+      if (this.$refs.widthHandle) {
+        let containerWidth = this.$refs.widthHandle.offsetWidth;
+        let totalWidth = 0;
+        let visibleButtonsCount = 0;
+        if (this.order?.specialities.length > 0) {
+          setTimeout(() => {
+            for (let i = 0; i < this.order?.specialities.length; i++) {
+              totalWidth += this.$refs[`button${i}`][0]?.offsetWidth;
+              if (totalWidth <= containerWidth) {
+                visibleButtonsCount++;
+              } else {
+                break;
+              }
+            }
+            this.visibleButtons = this.order?.specialities.slice(0, visibleButtonsCount);
+          }, 0);
+        }
+      }
+    },
   },
 };
 </script>

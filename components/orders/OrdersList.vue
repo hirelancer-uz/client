@@ -133,9 +133,16 @@
                 class="drop-head xl:px-0 xl:py-0 bg-white relative z-20 w-full flex justify-between items-center px-4 py-[12px]"
               >
                 <h2
+                  @click="$emit('filter', `specialities[${dropItem?.id}]`, dropItem?.id)"
                   class="text-base text-blue-night flex gap-2 items-center"
                   :class="{
-                    'text-main-color': dropdownOpens.includes(dropItem?.id),
+                    'text-main-color':
+                      dropdownOpens.includes(dropItem?.id) ||
+                      Boolean(
+                        Object.entries($route.query)
+                          .filter((filterItem) => filterItem[0].includes('specialities'))
+                          .find((findItem) => findItem[1] == dropItem?.id)
+                      ),
                   }"
                 >
                   {{ dropItem?.name_ru }}
@@ -201,7 +208,7 @@
           <h4 class="text-[20px] font-semibold text-grey-80">Статус заказов</h4>
           <div class="flex flex-col gap-6">
             <a-checkbox :checked="Boolean(status)" @change="filterStatus"
-              >Online</a-checkbox
+              >Прием заявок</a-checkbox
             >
           </div>
         </div>

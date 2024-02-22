@@ -658,7 +658,6 @@
 import ClientCard from "@/components/orders/ClientCard.vue";
 import FileCard from "@/components/orders/FileCard.vue";
 import InfoCard from "@/components/orders/InfoCard.vue";
-import SimilarOrders from "@/components/orders/SimilarOrders.vue";
 import PriceCard from "@/components/orders/PriceCard.vue";
 import BottomModal from "@/components/orders/BottomModal.vue";
 import OrderStatus from "@/components/profile/orders/OrderStatus.vue";
@@ -783,7 +782,6 @@ export default {
   components: {
     FileCard,
     InfoCard,
-    SimilarOrders,
     ClientCard,
     PriceCard,
     BottomModal,

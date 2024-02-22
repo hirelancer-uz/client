@@ -143,10 +143,11 @@
         </div> -->
         <div class="body mt-[30px] xl:mt-4">
           <FreelancersFilter
-          :regions="regions"
+            :regions="regions"
             class="xl:hidden"
             :specialities="specialities"
             @filter="queryCreater"
+            @clear="clearFilter"
           />
           <FreelancersContainer
             :freelancers="freelancers"
@@ -163,6 +164,7 @@
             :specialities="specialities"
             @filter="queryCreater"
             :regions="regions"
+            @clear="clearFilter"
           />
         </vue-bottom-sheet-vue2>
       </div>
@@ -201,12 +203,11 @@ export default {
     const specialities = specialitiesData.content;
     const regions = regionsData.content;
     const totalPage = freeLancersData?.meta?.total;
-    console.log(regions);
     return {
       freelancers,
       specialities,
       totalPage,
-      regions
+      regions,
     };
   },
   mounted() {
@@ -222,9 +223,21 @@ export default {
     close() {
       this.$refs.myBottomSheet.close();
     },
+    async clearFilter() {
+      if (Object.keys(this.$route.query).length > 2) {
+        await this.$router.replace({
+          path: "freelancers",
+          query: {
+            page: 1,
+            page_size: this.$route.query.page_size,
+          },
+        });
+        this.__GET_FREELANCERS();
+      }
+    },
     async queryCreater(name, id) {
       let query = { ...this.$route.query };
-      if (!this.$route.query[name]) {
+      if (this.$route.query[name] != id) {
         await this.$router.replace({
           path: "freelancers",
           query: {

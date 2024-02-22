@@ -184,6 +184,30 @@
         </svg>
         Sozlamalar</nuxt-link
       >
+      <nuxt-link
+        :to="`/profile/freelancer/comments`"
+        :class="{ active: $route.name.includes('comments') }"
+        class="text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[96px] xl:min-h-[68px] rounded-[12px] hover:text-black"
+        ><svg
+          width="24"
+          height="25"
+          viewBox="0 0 24 25"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13 3.5H11C6.02944 3.5 2 7.52944 2 12.5V17.5C2 19.7091 3.79086 21.5 6 21.5H13C17.9706 21.5 22 17.4706 22 12.5C22 7.52944 17.9706 3.5 13 3.5Z"
+            stroke="#353437"
+            stroke-width="1.5"
+            stroke-linejoin="round"
+          />
+          <circle cx="12" cy="12.5" r="1" fill="#353437" />
+          <circle cx="16" cy="12.5" r="1" fill="#353437" />
+          <circle cx="8" cy="12.5" r="1" fill="#353437" />
+        </svg>
+
+        Izohlar</nuxt-link
+      >
     </div>
   </div>
 </template>

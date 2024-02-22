@@ -7,15 +7,16 @@
 </span></h1>
     </div>
     <div class="list statistics-list grid grid-cols-3 gap-4 xl:grid-cols-2 xl:gap-2">
-      <StatisticCard />
-      <StatisticCard />
-      <StatisticCard />
+      <StatisticCard :count="userInfo?.view_count" title="Просмотры профиля"/>
+      <StatisticCard :count="userInfo?.stars" title="Рейтинге"/>
+      <!-- <StatisticCard :count="userInfo"/> -->
     </div>
   </div>
 </template>
 <script>
 import StatisticCard from "./StatisticCard.vue";
 export default {
+  props: ['userInfo'],
   components: { StatisticCard },
 };
 </script>
