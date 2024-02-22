@@ -184,20 +184,22 @@ export default {
   },
   async asyncData({ store, query }) {
     store.commit("setPageData", { title: "TitleQul" });
-    const [freeLancersData, specialitiesData] = await Promise.all([
+    const [freeLancersData, specialitiesData, regionsData] = await Promise.all([
       store.dispatch("fetchFreelancers/getFreelancers", {
         params: {
           page: query.page || 1,
-          page_size: query.page_size || 5,
+          page_size: query.page_size || 15,
           ...query,
         },
       }),
       store.dispatch("fetchSpecialities/getSpecialities"),
+      store.dispatch("fetchRegions/getRegions"),
     ]);
     const freelancers = freeLancersData.data;
     const specialities = specialitiesData.content;
+    const regions = regionsData.content;
     const totalPage = freeLancersData?.meta?.total;
-    console.log(freelancers);
+    console.log(regions);
     return {
       freelancers,
       specialities,
@@ -241,12 +243,9 @@ export default {
     async __GET_FREELANCERS() {
       this.loading = true;
       try {
-        const data = await this.$store.dispatch(
-          "fetchFreelancers/getFreelancers",
-          {
-            params: { ...this.$route.query },
-          }
-        );
+        const data = await this.$store.dispatch("fetchFreelancers/getFreelancers", {
+          params: { ...this.$route.query },
+        });
         this.freelancers = data.data;
         this.totalPage = data?.meta?.total;
         this.loading = false;

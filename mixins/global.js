@@ -5,7 +5,7 @@ export default {
       current: 1,
       params: {
         page: 1,
-        pageSize: 5,
+        pageSize: 15,
       },
       value: "",
     };
@@ -35,7 +35,7 @@ export default {
         });
       }
       this.current = Number(this.$route.query.page);
-      this.params.pageSize = Number(this.$route.query.page_size) || 5;
+      this.params.pageSize = Number(this.$route.query.page_size) || 15;
       this.params.page = Number(this.$route.query.page) || 1;
     },
   },

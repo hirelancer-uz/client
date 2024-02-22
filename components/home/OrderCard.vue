@@ -1,7 +1,7 @@
 <template lang="html">
   <div
     class="card relative order-card px-8 py-6 rounded-3xl bg-white cursor-pointer xl:border-[1px] xl:border-solid xl:border-grey-8 xl:rounded-[16px] xl:p-[16px]"
-    @click="$router.push(`/orders/${order?.id}`)"
+    @click="$router.push(myRequest ? `/profile/freelancer/order/view/${order?.id}`:`/orders/${order?.id}`)"
   >
     <div class="header flex justify-between xl:flex-col-reverse xl:gap-2">
       <div class="flex gap-6 items-center xl:gap-[12px]">
@@ -252,6 +252,13 @@ export default {
     };
   },
   computed: {
+    myRequest() {
+      return Boolean(
+        this.order?.requests.find(
+          (item) => item.freelancer_id == this.$store.state.userInfo?.id
+        )
+      );
+    },
     step1() {
       return !this.order?.selected_request && !this.order?.start_of_execution;
     },

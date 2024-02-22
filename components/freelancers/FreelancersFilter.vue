@@ -21,7 +21,6 @@
           >
             <button
               class="drop-head xl:px-0 xl:py-0 bg-white relative z-20 w-full flex justify-between items-center px-[20px] py-[12px]"
-              @click="handleDropdown(dropItem?.id)"
             >
               <h2
                 class="text-base text-blue-night flex gap-2 items-center"
@@ -31,11 +30,10 @@
               >
                 {{ dropItem?.name_ru }}
 
-                <div class="count text-[#9A999B]">
-                  ({{ dropItem?.children.length }})
-                </div>
+                <div class="count text-[#9A999B]">({{ dropItem?.children.length }})</div>
               </h2>
               <span
+                @click="handleDropdown(dropItem?.id)"
                 :class="{ 'rotate-180': dropdownOpens.includes(dropItem?.id) }"
                 class="drop-icon w-[24px] h-[24px] rounded-[50%] bg-[#F8F9FF] flex items-center justify-center"
               >
@@ -57,27 +55,26 @@
 
             <!-- <Transition name="bounce"> -->
             <div class="drop-body relative z-10">
-              <div
-                class="px-4 py-4 pt-[0] pb-[8px] flex flex-col gap-4 xl:gap-8"
-              >
+              <div class="px-4 py-4 pt-[0] pb-[8px] flex flex-col gap-4 xl:gap-8">
                 <button
-                  class="text-[14px] text-grey-80 flex gap-2 items-center"
+                  class="text-[14px] text-grey-80 flex gap-2 items-center hover:text-main-color"
                   v-for="dropIn in dropItem.children"
                   :key="dropIn?.id"
-                  @click="
-                    $emit('filter', `specialities[${dropIn?.id}]`, dropIn?.id)
-                  "
+                  @click="$emit('filter', `specialities[${dropIn?.id}]`, dropIn?.id)"
                   :class="{
                     'text-main-color': Boolean(
                       Object.entries($route.query)
-                        .filter((filterItem) =>
-                          filterItem[0].includes('specialities')
-                        )
+                        .filter((filterItem) => filterItem[0].includes('specialities'))
                         .find((findItem) => findItem[1] == dropIn?.id)
                     ),
                   }"
                 >
-                  {{ dropIn?.name_ru }}
+                  <a-tooltip placement="right">
+                    <template slot="title">
+                      <span>{{ dropIn?.name_ru }}</span>
+                    </template>
+                    <span> {{ dropIn?.name_ru }}</span>
+                  </a-tooltip>
                   <span class="text-[12px] text-grey-40">(24k)</span>
                 </button>
               </div>
@@ -95,10 +92,17 @@
           <h4 class="text-[20px] font-semibold text-black">Filtr</h4>
           <div class="flex flex-col gap-6">
             <span class="text-base text-blue-night flex items-center">
-              <a-checkbox>Online</a-checkbox>
+              <a-checkbox
+                :checked="filterForm['works']"
+                @change="($event) => filterHandle($event, 'works')"
+                >Portfolio</a-checkbox
+              >
             </span>
             <span class="text-base text-blue-night flex items-center">
-              <a-checkbox>Tekshirilgan </a-checkbox
+              <a-checkbox
+                :checked="filterForm['orders']"
+                @change="($event) => filterHandle($event, 'orders')"
+                >Tekshirilgan </a-checkbox
               ><svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="22"
@@ -119,7 +123,7 @@
               </svg>
             </span>
             <span class="text-base text-blue-night flex items-center">
-              <a-checkbox>Tavsif bilan</a-checkbox
+              <a-checkbox>Otzivlari bilan</a-checkbox
               ><svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -143,12 +147,8 @@
           </div>
         </div>
         <div class="xl:hidden">
-          <a-select v-model="sort" placeholder="Положительный" class="w-full">
-            <a-select-option
-              :value="region"
-              v-for="region in [1, 2, 3, 4]"
-              :key="region"
-            >
+          <a-select v-model="sort" placeholder="Barcha viloyatlar" class="w-full">
+            <a-select-option :value="region" v-for="region in [1, 2, 3, 4]" :key="region">
               {{ region }}</a-select-option
             >
           </a-select>
@@ -180,9 +180,25 @@ export default {
       dropdown: false,
       sort: undefined,
       dropdownOpens: [],
+      filterForm: {
+        region: false,
+        works: false,
+        orders: false,
+      },
     };
   },
   methods: {
+    // sendFilter() {
+    //   Object.keys(this.filterForm).forEach((elem) => {
+    //     if (this.filterForm[elem]) {
+    //       this.$emit("filter", `${elem}`, 1);
+    //     }
+    //   });
+    // },
+    filterHandle(e, name) {
+      this.filterForm[name] = e.target.checked;
+      this.$emit("filter", `${name}`, 1);
+    },
     handleDropdown(id) {
       this.dropdownOpens.includes(id)
         ? (this.dropdownOpens = this.dropdownOpens.filter((item) => item != id))
@@ -252,11 +268,8 @@ export default {
   background-color: var(--blue);
 }
 .filter-container
-  :deep(
-    .ant-checkbox-wrapper:hover .ant-checkbox-inner,
-    .ant-checkbox:hover .ant-checkbox-inner,
-    .ant-checkbox-input:focus + .ant-checkbox-inner
-  ) {
+  :deep(.ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover
+    .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner) {
   border-color: var(--blue);
 }
 .filter-container :deep(.ant-checkbox-checked::after) {
@@ -274,11 +287,7 @@ export default {
 
   background: var(--bg-grey);
 }
-:deep(
-    .ant-select-selection__placeholder,
-    .ant-select-search__field__placeholder,
-    .ant-select-selection-selected-value
-  ) {
+:deep(.ant-select-selection__placeholder, .ant-select-search__field__placeholder, .ant-select-selection-selected-value) {
   color: var(--grey-80);
   font-family: "TT Interfaces";
   font-size: 16px;
@@ -291,11 +300,8 @@ export default {
 :deep(.ant-select-selection__placeholder) {
   margin-top: -14px;
 }
-:deep(
-    .ant-select-focused .ant-select-selection,
-    .ant-select-selection:focus,
-    .ant-select-selection:active
-  ) {
+:deep(.ant-select-focused
+    .ant-select-selection, .ant-select-selection:focus, .ant-select-selection:active) {
   box-shadow: 0 0 0 2px rgba(92, 70, 229, 0.2);
 }
 @media (max-width: 1200px) {

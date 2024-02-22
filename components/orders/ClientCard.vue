@@ -43,12 +43,9 @@
       </span>
     </div>
     <div class="body flex flex-col justify-center">
-      <div
-        class="flex justify-between mb-[2px] xl:mb-[6px] xl:relative cursor-pointer"
-        @click="$router.push(`/freelancer/${client?.id}`)"
-      >
+      <div class="flex justify-between mb-[2px] xl:mb-[6px] xl:relative cursor-pointer">
         <p class="text-[14px] xl:text-[12px] text-grey-64 leading-[15px]">Клиент:</p>
-        <svg
+        <!-- <svg
           class="xl:absolute xl:right-0"
           xmlns="http://www.w3.org/2000/svg"
           width="20"
@@ -64,7 +61,7 @@
             stroke-linecap="round"
             stroke-linejoin="round"
           />
-        </svg>
+        </svg> -->
       </div>
       <h4 class="text-black text-base font-medium xl:text-[14px]">
         {{ client?.name }} {{ client?.surname }}
