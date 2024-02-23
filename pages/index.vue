@@ -5,8 +5,8 @@
       <PlaceOrder />
       <PlaceSpecialists :specialities="specialities" />
     </div>
-    <Orders :orders="orders" />
-    <TheFreelancers :freelancers="freelancers" />
+    <Orders :orders="orders" :totalOrder="totalOrder" />
+    <TheFreelancers :freelancers="freelancers" :totalFreelancer="totalFreelancer" />
     <!-- <OrderBanner /> -->
   </div>
 </template>
@@ -24,21 +24,33 @@ export default {
   middleware: "auth",
   async asyncData({ store }) {
     const [freeLancersData, specialitiesData, ordersData] = await Promise.all([
-      store.dispatch("fetchFreelancers/getFreelancers"),
+      store.dispatch("fetchFreelancers/getFreelancers", {
+        params: {
+          page_size: 12,
+        },
+      }),
+
       store.dispatch("fetchSpecialities/getSpecialities"),
-      store.dispatch("fetchOrders/getOrders"),
+      store.dispatch("fetchOrders/getOrders", {
+        params: {
+          page_size: 10,
+        },
+      }),
     ]);
     const freelancers = freeLancersData.data;
     const specialities = specialitiesData.content;
     const orders = ordersData.data;
+    const totalOrder = ordersData?.meta?.total;
+    const totalFreelancer = freeLancersData?.meta?.total;
     return {
       freelancers,
       specialities,
       orders,
+      totalOrder,
+      totalFreelancer,
     };
   },
   async mounted() {
-    console.log("Test branch");
     this.$store.dispatch("fetchOrders/getOrders");
   },
 

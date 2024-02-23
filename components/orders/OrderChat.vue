@@ -55,7 +55,7 @@
         </div>
       </div>
       <div
-        v-if="status == 3"
+        v-if="status > 3"
         class="chat-footer flex justify-center px-6 py-6 border-[0] border-t border-solid border-grey-light text-grey-80 text-base italic"
       >
         Chat yopilgan

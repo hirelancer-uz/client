@@ -21,31 +21,31 @@
           berishga tayyor!
         </p>
         <div class="list flex gap-3 mt-8 xl:hidden">
-          <button
+          <span
             class="whitespace-nowrap bg-white font-tt text-black py-2 px-4 rounded-[500px] text-[14px]"
           >
             UI/UX dizayner
-          </button>
-          <button
+          </span>
+          <span
             class="whitespace-nowrap bg-white font-tt text-black py-2 px-4 rounded-[500px] text-[14px]"
           >
             IOS developer
-          </button>
-          <button
+          </span>
+          <span
             class="whitespace-nowrap bg-white font-tt text-black py-2 px-4 rounded-[500px] text-[14px]"
           >
             Grafik dizayner
-          </button>
-          <button
+          </span>
+          <span
             class="whitespace-nowrap bg-white font-tt text-black py-2 px-4 rounded-[500px] text-[14px]"
           >
             Copy-writer
-          </button>
-          <button
+          </span>
+          <span
             class="whitespace-nowrap bg-white font-tt text-black py-2 px-4 rounded-[500px] text-[14px] flex gap-2"
           >
             Все фрилансеры
-          </button>
+          </span>
         </div>
       </div>
       <div class="buttons flex gap-4 xl:hidden">
@@ -53,7 +53,7 @@
           @click="
             $router.push(
               $store.state.auth && Boolean($store.state.userInfo['name'])
-                ? 'profile/customer/orders/active/status'
+                ? 'profile/orders/add'
                 : 'registration'
             )
           "
@@ -78,7 +78,7 @@
           @click="
             $router.push(
               $store.state.auth && Boolean($store.state.userInfo['name'])
-                ? 'profile/freelancer'
+                ? 'orders'
                 : 'registration'
             )
           "

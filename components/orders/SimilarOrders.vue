@@ -3,7 +3,7 @@
     <div class="max-w-[1286px] mx-auto list-grid mb-8 xl:mb-4">
       <div class="flex justify-between">
         <h1 class="text-black text-[32px] font-semibold xl:text-[18px]">
-          O’xshash buytmalar
+          O’xshash buyurtmalar
         </h1>
         <nuxt-link
           class="flex gap-[6px] xl:gap-1 text-blue text-[18px] font-medium xl:text-[14px] leading-[19px] xl:items-center"

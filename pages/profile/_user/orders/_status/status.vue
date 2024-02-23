@@ -36,15 +36,7 @@
       </div>
     </div>
 
-    <div
-      class="list gap-4 mt-6 mb-[40px]"
-      v-if="loading"
-      :class="
-        $route.params.user == 'customer' && $route.params.status == 'completed'
-          ? 'grid grid-cols-2 xl:grid-cols-1'
-          : 'flex flex-col'
-      "
-    >
+    <div class="list gap-4 mt-6 mb-[40px] flex flex-col" v-if="loading">
       <a-skeleton
         :paragraph="false"
         class="loading-card"
@@ -54,15 +46,11 @@
     </div>
     <div
       class="list flex flex-col gap-4 mt-6 mb-[40px]"
-      v-if="
-        $route.params.user == 'customer' &&
-        !loading &&
-        ($route.params.status == 'active' || $route.params.status == 'pending')
-      "
+      v-if="$route.params.user == 'customer'"
     >
       <CompletedOrdersCard v-for="order in orders" :order="order" :key="order?.id" />
     </div>
-    <div
+    <!-- <div
       class="list grid grid-cols-2 gap-4 mt-6 mb-[40px] xl:grid-cols-1"
       v-if="
         $route.params.user == 'customer' &&
@@ -71,7 +59,7 @@
       "
     >
       <ComplitedCard v-for="order in orders" :order="order" :key="order?.id" />
-    </div>
+    </div> -->
     <div
       class="list flex flex-col gap-4 mt-6 mb-[40px] xl:hidden"
       v-if="$route.params.user == 'freelancer' && !loading"
@@ -85,7 +73,7 @@
       <ProfileOrderCardMobile v-for="order in orders" :order="order" :key="order?.id" />
     </div>
     <div
-      class="w-full h-[150px] flex justify-center items-center"
+      class="w-full h-[300px] flex justify-center items-center"
       v-if="!loading && orders.length == 0"
     >
       <a-empty />
@@ -125,10 +113,19 @@ export default {
       orders: [],
       loading: true,
       status: {
-        active: 1,
-        completed: 0,
-        pending: 0,
-        cancel: -1,
+        customer: {
+          active: 1,
+          completed: 4,
+          pending: 0,
+          cancel: 6,
+          in_progress: 2,
+        },
+        freelancer: {
+          active: 2,
+          offers: 1,
+          completed: 4,
+          cancel: 5,
+        },
       },
     };
   },
@@ -143,7 +140,7 @@ export default {
   methods: {
     async __GET_ORDERS() {
       const params = {
-        status: this.status[this.$route.params.status],
+        status: this.status[this.$route.params.user][this.$route.params.status],
       };
       this.$route.params.user == "customer"
         ? (params.client = this.$store.state.userInfo["id"])

@@ -10,7 +10,7 @@
           class="rounded-full overflow-hidden h-full w-full border-[2px] border-solid border-[#00CD69]"
         >
           <img
-            v-if="false"
+            v-if="freelancer?.avatar"
             class="w-full h-full object-cover"
             :src="`${imgUrl}${freelancer?.avatar}`"
             alt=""
@@ -43,9 +43,9 @@
         ></span>
       </div>
       <div
-        class="body flex flex-col justify-between items-center xl:w-[70%] xl:gap-[8px] gap-3"
+        class="body flex flex-col justify-between items-center xl:w-[70%] xl:gap-[8px] gap-3 w-full"
       >
-        <div>
+        <div class="flex flex-col items-center">
           <h4
             class="text-base font-medium text-black truncate name whitespace-normal text-center"
           >
@@ -64,9 +64,8 @@
                   d="M5.85246 1.90841C6.32186 0.91953 7.67811 0.919528 8.14751 1.9084L8.95876 3.61743C9.14516 4.01012 9.50547 4.28229 9.92227 4.34526L11.7363 4.61932C12.7859 4.77789 13.205 6.11898 12.4455 6.88871L11.1329 8.21901C10.8313 8.52467 10.6936 8.96506 10.7648 9.39666L11.0747 11.2751C11.254 12.3619 10.1568 13.1908 9.21796 12.6776L7.59547 11.7908C7.22267 11.587 6.7773 11.587 6.40451 11.7908L4.78202 12.6776C3.84322 13.1908 2.74599 12.3619 2.92528 11.2751L3.23515 9.39666C3.30635 8.96506 3.16872 8.52467 2.86712 8.21901L1.5545 6.88871C0.794995 6.11898 1.2141 4.77789 2.26371 4.61932L4.07771 4.34526C4.49451 4.28229 4.85482 4.01012 5.04122 3.61744L5.85246 1.90841Z"
                   fill="#F2C94C"
                 /></svg
-              >{{ Math.ceil(freelancer?.rating) }} ({{
-                freelancer?.rating_count
-              }})
+              >{{ freelancer?.stars }}
+              <!-- ({{ freelancer?.rating_count }}) -->
             </p>
             <p class="text-[14px] flex gap-1 items-center">
               <svg
@@ -88,9 +87,9 @@
                   stroke-linecap="round"
                   stroke-linejoin="round"
                 /></svg
-              ><span class="text-green">26</span
+              ><span class="text-green">{{ freelancer?.likes_count }}</span
               ><span class="text-grey-40">/</span
-              ><span class="text-pantone-2023">2</span
+              ><span class="text-pantone-2023">{{ freelancer?.dislikes_count }}</span
               ><svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="14"
@@ -126,13 +125,15 @@
             </p>
           </div>
         </div>
-        <div class="flex justify-between">
-          <div>
+        <div class="flex justify-between w-full">
+          <div class="w-full flex flex-wrap justify-center gap-3">
             <div
+              v-for="specialit in freelancer?.specialities"
+              :key="specialit?.id"
               class="bg-apple-grey text-xs font-medium text-grey-64 px-4 flex items-center rounded-[22px] h-[28px]"
             >
               <!-- {{ freelancer?.specialities[0]?.name_ru }} -->
-              Adobe Photoshop
+              {{ specialit?.name_ru }}
             </div>
           </div>
           <!-- <p
@@ -154,12 +155,10 @@
     </div>
 
     <div class="justify-between hidden xl:flex mt-4">
-      <div
-        class="flex jsutify-start gap-1"
-        v-if="freelancer?.specialities.length > 0"
-      >
+      <div class="flex jsutify-start gap-1" v-if="freelancer?.specialities.length > 0">
         <div
           v-for="specialit in freelancer?.specialities.slice(0, 1)"
+          :key="specialit?.id"
           class="bg-apple-grey text-xs font-medium text-grey-64 px-4 flex items-center rounded-[22px] h-[28px]"
         >
           {{ specialit?.name_ru }}

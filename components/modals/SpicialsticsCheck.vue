@@ -68,8 +68,8 @@
               {{ item?.name_ru }}
             </div>
           </div>
-          <div class="modal-board flex flex-col justify-between">
-            <div class="flex gap-3 flex-wrap">
+          <div class="modal-board flex flex-col justify-between gap-4">
+            <div class="flex gap-3 flex-wrap  items-start">
               <button
                 :disabled="
                   !Boolean(checkedList.find((elemChild) => elemChild.id == child.id)) &&

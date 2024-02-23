@@ -52,7 +52,7 @@
                 <span v-if="order?.urgent" class="h-[19px] w-[1px] bg-grey-8"></span>
                 <span
                   v-if="step1"
-                  class="flex gap-[7px] items-center rounded-[8px]  text-dark-yellow text-[14px] font-medium"
+                  class="flex gap-[7px] items-center rounded-[8px] text-dark-yellow text-[14px] font-medium"
                   ><svg
                     width="24"
                     height="24"
@@ -76,7 +76,7 @@
                 >
                 <span
                   v-if="step2"
-                  class="flex gap-[7px] items-center rounded-[8px]  text-main-color text-[14px] font-medium"
+                  class="flex gap-[7px] items-center rounded-[8px] text-main-color text-[14px] font-medium"
                   ><svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -103,7 +103,7 @@
                 >
                 <span
                   v-if="step3"
-                  class="flex gap-[7px] items-center rounded-[8px]  text-green text-[14px] font-medium"
+                  class="flex gap-[7px] items-center rounded-[8px] text-green text-[14px] font-medium"
                   ><svg
                     width="24"
                     height="24"
@@ -443,7 +443,11 @@ export default {
         store.dispatch("fetchOrders/getOrderById", {
           id: params.slug,
         }),
-        store.dispatch("fetchOrders/getOrders"),
+        store.dispatch("fetchOrders/getOrders", {
+          params: {
+            similar: params.slug,
+          },
+        }),
         store.dispatch("fetchSpecialities/getSpecialities"),
       ]);
       const order = orderData?.content;
@@ -456,6 +460,7 @@ export default {
         specialities,
       };
     } catch (e) {
+      console.log(e);
     } finally {
     }
   },

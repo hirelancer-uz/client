@@ -114,60 +114,105 @@
     </div>
     <div class="right flex flex-col gap-6">
       <div
-        class="filter px-6 py-6 border border-solid border-grey-8 rounded-3xl flex flex-col gap-6"
+        class="filter px-6 py-6 border border-solid border-grey-8 rounded-3xl flex flex-col"
       >
-        <div class="flex flex-col gap-6">
-          <h4 class="text-[20px] font-semibold text-black">Тип работы</h4>
-          <div
-            class="flex flex-col gap-6 border-[0] border-b border-solid border-grey-8 pb-6"
+        <div class="flex flex-col">
+          <h4
+            class="text-[20px] font-semibold text-grey-80 pb-4 border-[0] border-b border-grey-8 border-solid"
           >
-            <span class="text-[18px] text-grey-80 flex gap-4 items-end">
-              <a-checkbox />Дизайн</span
+            Тип работы
+          </h4>
+          <div class="drop-list flex flex-col mt-[4px] mx-[-16px]">
+            <div
+              class="dropdown overflow-hidden"
+              :class="{ active: dropdownOpens.includes(dropItem?.id) }"
+              v-for="dropItem in specialities"
+              :key="dropItem?.id"
             >
-            <span class="text-[18px] text-grey-80 flex gap-4 items-end">
-              <a-checkbox />Разработка и IT</span
-            >
-            <span class="text-[18px] text-grey-80 flex gap-4 items-end">
-              <a-checkbox />Тексты и переводы</span
-            >
-            <span class="text-[18px] text-grey-80 flex gap-4 items-end">
-              <a-checkbox />СЕО и трафик</span
-            >
-            <span class="text-[18px] text-grey-80 flex gap-4 items-end">
-              <a-checkbox />Соцсети и реклама</span
-            >
-            <span class="text-[18px] text-grey-80 flex gap-4 items-end">
-              <a-checkbox />Аудио, видео, съёмка</span
-            >
-            <span class="text-[18px] text-grey-80 flex gap-4 items-end">
-              <a-checkbox />Бизнес и жизнь</span
-            >
+              <button
+                class="drop-head xl:px-0 xl:py-0 bg-white relative z-20 w-full flex justify-between items-center px-4 py-[12px]"
+              >
+                <h2
+                  @click="$emit('filter', `specialities[${dropItem?.id}]`, dropItem?.id)"
+                  class="text-base text-blue-night flex gap-2 items-center"
+                  :class="{
+                    'text-main-color':
+                      dropdownOpens.includes(dropItem?.id) ||
+                      Boolean(
+                        Object.entries($route.query)
+                          .filter((filterItem) => filterItem[0].includes('specialities'))
+                          .find((findItem) => findItem[1] == dropItem?.id)
+                      ),
+                  }"
+                >
+                  {{ dropItem?.name_ru }}
+
+                  <div class="count text-[#9A999B]">
+                    ({{ dropItem?.children.length }})
+                  </div>
+                </h2>
+                <span
+                  @click="handleDropdown(dropItem?.id)"
+                  :class="{ 'rotate-180': dropdownOpens.includes(dropItem?.id) }"
+                  class="drop-icon w-[24px] h-[24px] rounded-[50%] bg-[#F8F9FF] flex items-center justify-center"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="6"
+                    viewBox="0 0 12 6"
+                    fill="none"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M0.414376 0.531506C0.673133 0.20806 1.1451 0.155619 1.46855 0.414376L6.00003 4.03956L10.5315 0.414376C10.855 0.155619 11.3269 0.20806 11.5857 0.531506C11.8444 0.854953 11.792 1.32692 11.4685 1.58568L6.46855 5.58568C6.19464 5.80481 5.80542 5.80481 5.53151 5.58568L0.531506 1.58568C0.20806 1.32692 0.155619 0.854953 0.414376 0.531506Z"
+                      fill="#28303F"
+                    /></svg
+                ></span>
+              </button>
+
+              <!-- <Transition name="bounce"> -->
+              <div class="drop-body relative z-10">
+                <div class="px-4 py-4 pt-[0] pb-[8px] flex flex-col gap-4 xl:gap-8">
+                  <button
+                    class="text-[14px] text-grey-80 flex gap-2 items-center hover:text-main-color"
+                    v-for="dropIn in dropItem.children"
+                    :key="dropIn?.id"
+                    @click="$emit('filter', `specialities[${dropIn?.id}]`, dropIn?.id)"
+                    :class="{
+                      'text-main-color': Boolean(
+                        Object.entries($route.query)
+                          .filter((filterItem) => filterItem[0].includes('specialities'))
+                          .find((findItem) => findItem[1] == dropIn?.id)
+                      ),
+                    }"
+                  >
+                    <a-tooltip placement="right">
+                      <template slot="title">
+                        <span>{{ dropIn?.name_ru }}</span>
+                      </template>
+                      <span> {{ dropIn?.name_ru }}</span>
+                    </a-tooltip>
+                    <span class="text-[12px] text-grey-40">(24k)</span>
+                  </button>
+                </div>
+              </div>
+              <!-- </Transition> -->
+            </div>
           </div>
         </div>
-        <div class="flex flex-col gap-6">
-          <h4 class="text-[20px] font-semibold text-black">Тип заказов</h4>
+        <div
+          class="flex flex-col gap-4 border-[0] border-t border-grey-8 border-solid pt-4 mt-2"
+        >
+          <h4 class="text-[20px] font-semibold text-grey-80">Статус заказов</h4>
           <div class="flex flex-col gap-6">
-            <span class="text-[18px] text-grey-80 flex gap-4 items-end">
-              <a-checkbox />Все типы</span
-            >
-            <span class="text-[18px] text-grey-80 flex gap-4 items-end">
-              <a-checkbox />Открытие</span
-            >
-            <span class="text-[18px] text-grey-80 flex gap-4 items-end">
-              <a-checkbox />Тексты и переводы</span
-            >
-            <span class="text-[18px] text-grey-80 flex gap-4 items-end">
-              <a-checkbox />PRO заказы</span
-            >
-            <span class="text-[18px] text-grey-80 flex gap-4 items-end">
-              <a-checkbox />Безопасная сделка</span
-            >
-            <span class="text-[18px] text-grey-80 flex gap-4 items-end">
-              <a-checkbox />Срочный заказ</span
+            <a-checkbox :checked="Boolean(status)" @change="filterStatus"
+              >Прием заявок</a-checkbox
             >
           </div>
         </div>
-        <div class="flex gap-4">
+        <!-- <div class="flex gap-4">
           <button
             class="flex w-full justify-center py-[15px] rounded-lg border border-blue border-solid text-[14px] font-tt font-semibold text-white bg-blue"
           >
@@ -178,7 +223,7 @@
           >
             Сбросить
           </button>
-        </div>
+        </div> -->
       </div>
       <vue-bottom-sheet-vue2 ref="myBottomSheet" class="bottom-drawer">
         <div
@@ -263,8 +308,28 @@ import VPagination from "../VPagination.vue";
 import OrderCard from "../home/OrderCard.vue";
 
 export default {
-  props: ["orders"],
+  props: ["orders", "specialities"],
+  data() {
+    return {
+      dropdown: false,
+      sort: undefined,
+      dropdownOpens: [],
+      status: false,
+    };
+  },
+  mounted() {
+    this.status = this.$route.query?.status ? true : false;
+  },
   methods: {
+    filterStatus() {
+      this.status = !this.status;
+      this.$emit("filter", `status`, 1);
+    },
+    handleDropdown(id) {
+      this.dropdownOpens.includes(id)
+        ? (this.dropdownOpens = this.dropdownOpens.filter((item) => item != id))
+        : this.dropdownOpens.push(id);
+    },
     open() {
       this.$refs.myBottomSheet.open();
     },
@@ -276,6 +341,36 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+.drop-body {
+  max-height: 0;
+  /* height: 0; */
+  overflow: hidden;
+  transition: max-height 0.2s linear;
+}
+.drop-icon {
+  transition: 0.2s linear;
+}
+.drop-list .active .drop-body {
+  max-height: 200px;
+  /* height: auto; */
+}
+.drop-head {
+  transition: 0.2s linear;
+}
+.drop-list .active {
+  border-radius: 16px;
+  border: 1px solid var(--Border-darik, #e0e0ed);
+  background: var(--BG-grey, #f8f9ff);
+  margin-bottom: 4px;
+}
+.drop-list .dropdown:last-child.active {
+  margin-bottom: 0;
+}
+.drop-list .active .drop-head {
+  padding: 16px;
+  padding-top: 8px;
+  background-color: var(--bg-grey);
+}
 .orders-list {
   display: grid;
   grid-template-columns: 1fr 332px;

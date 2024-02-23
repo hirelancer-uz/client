@@ -7,6 +7,13 @@
         class="image w-[60px] h-[60px] border-[2px] border-solid border-agro-green rounded-full overflow-hidden"
       >
         <img
+          v-if="order?.selected_request?.freelancer?.avatar"
+          class="w-full h-full object-cover"
+          :src="`${imgUrl}${order?.selected_request?.freelancer?.avatar}`"
+          alt=""
+        />
+        <img
+          v-else
           class="w-full h-full object-cover"
           src="@/assets/images/user-avatar.jpg"
           alt=""
@@ -83,7 +90,13 @@
         </div>
       </div>
     </div>
-    <div class="footer px-6 py-6">
+    <div
+      class="px-6 py-6 flex justify-center items-center italic text-base text-grey-80"
+      v-if="status == 3"
+    >
+      Chat yopilgan
+    </div>
+    <div class="footer px-6 py-6" v-else>
       <input type="text" placeholder="Напишите сообщение ..." />
       <div class="flex items-center gap-6">
         <button>
@@ -128,7 +141,15 @@
 </template>
 <script>
 export default {
-  props: ["order"],
+  props: ["order", "status"],
+  computed: {
+    baseUrl() {
+      return process.env.BASE_URL;
+    },
+    imgUrl() {
+      return this.baseUrl + "/storage/";
+    },
+  },
 };
 </script>
 <style lang="css" scoped>

@@ -1,7 +1,7 @@
 <template lang="html">
   <div
     class="freelancer-card px-4 py-4 border border-solid border-grey-8 rounded-2xl cursor-pointer xl:rounded-[16px] xl:p-[16px]"
-    @click="$router.push(`/freelancer/${order?.selected_request?.freelancer?.id}`)"
+    @click="$router.push(`/profile/customer/order/view/${order?.id}`)"
   >
     <div>
       <div class="card">
@@ -148,7 +148,7 @@
             </div>
             <nuxt-link
               class="text-blue text-[12px] font-semibold uppercase flex gap-1 items-center"
-              :to="`/freelancer/${order?.selected_request?.freelancer?.id}`"
+              :to="`/profile/customer/order/view/${order?.id}`"
               >Узнать больше<svg
                 width="20"
                 height="20"
@@ -192,7 +192,7 @@
       </div>
       <div class="mt-4 hidden xl:block">
         <nuxt-link
-          class="text-blue text-[14px] font-semibold uppercase flex gap-2 items-center h-11 rounded-lg border border-solid border-main-color  justify-center"
+          class="text-blue text-[14px] font-semibold uppercase flex gap-2 items-center h-11 rounded-lg border border-solid border-main-color justify-center"
           :to="`/freelancer/${order?.selected_request?.freelancer?.id}`"
           >Подробнее<svg
             width="24"

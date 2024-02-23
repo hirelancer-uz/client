@@ -21,9 +21,9 @@ export const mutations = {
   },
 };
 export const actions = {
-  logout({ commit }, payload) {
+  async logout({ commit, $router }, payload) {
     try {
-      this.$axiosInstance.$get("/api/auth/logout");
+      await this.$axiosInstance.$get("/api/auth/logout");
       commit("logout");
     } catch (e) {
       commit("logout");

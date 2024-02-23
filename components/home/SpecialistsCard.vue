@@ -3,7 +3,7 @@
     class="card specialists-card px-6 py-6 flex flex-col gap-3 bg-bg-f9 xl:bg-white xl:border-[1px] xl:border-grey-8 xl:border-solid xl:rounded-[12px] xl:p-4"
   >
     <img
-      class="w-[56px] h-[56px] xl:w-[32px] xl:h-[32px]"
+      class="w-[56px] h-[56px] xl:w-[32px] xl:h-[32px] object-contain"
       :src="`${baseUrl}/storage/${obj?.icon}`"
       v-if="obj?.icon"
       alt=""

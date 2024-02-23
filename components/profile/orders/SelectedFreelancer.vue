@@ -69,6 +69,7 @@
         <a
           href=""
           class="border border-solid border-[#1878F3] rounded-lg flex gap-2 justify-center h-[43px] items-center text-base font-medium text-[#1878F3]"
+          :class="{'pointer-events-none opacity-50': true}"
           ><svg
             width="21"
             height="20"

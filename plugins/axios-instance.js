@@ -1,6 +1,6 @@
 export default ({ $axios, redirect, error }, inject) => {
   const axiosInstance = $axios.create({
-    baseURL: process.env.BASE_URL || 'https://api.hirelancer.ndc.uz',
+    baseURL: process.env.BASE_URL || "https://api.hirelancer.ndc.uz",
   });
   // axiosInstance.setHeader("Content-Type", "application/json");
 
@@ -16,6 +16,7 @@ export default ({ $axios, redirect, error }, inject) => {
   });
 
   axiosInstance.onError(async (e) => {
+    console.log(e);
     return Promise.reject(e);
   });
   inject("axiosInstance", axiosInstance);

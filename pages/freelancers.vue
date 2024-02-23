@@ -143,9 +143,11 @@
         </div> -->
         <div class="body mt-[30px] xl:mt-4">
           <FreelancersFilter
+            :regions="regions"
             class="xl:hidden"
             :specialities="specialities"
             @filter="queryCreater"
+            @clear="clearFilter"
           />
           <FreelancersContainer
             :freelancers="freelancers"
@@ -161,6 +163,8 @@
             class="hidden xl:flex pb-6"
             :specialities="specialities"
             @filter="queryCreater"
+            :regions="regions"
+            @clear="clearFilter"
           />
         </vue-bottom-sheet-vue2>
       </div>
@@ -184,24 +188,26 @@ export default {
   },
   async asyncData({ store, query }) {
     store.commit("setPageData", { title: "TitleQul" });
-    const [freeLancersData, specialitiesData] = await Promise.all([
+    const [freeLancersData, specialitiesData, regionsData] = await Promise.all([
       store.dispatch("fetchFreelancers/getFreelancers", {
         params: {
           page: query.page || 1,
-          page_size: query.page_size || 5,
+          page_size: query.page_size || 15,
           ...query,
         },
       }),
       store.dispatch("fetchSpecialities/getSpecialities"),
+      store.dispatch("fetchRegions/getRegions"),
     ]);
     const freelancers = freeLancersData.data;
     const specialities = specialitiesData.content;
+    const regions = regionsData.content;
     const totalPage = freeLancersData?.meta?.total;
-    console.log(freelancers);
     return {
       freelancers,
       specialities,
       totalPage,
+      regions,
     };
   },
   mounted() {
@@ -217,9 +223,21 @@ export default {
     close() {
       this.$refs.myBottomSheet.close();
     },
+    async clearFilter() {
+      if (Object.keys(this.$route.query).length > 2) {
+        await this.$router.replace({
+          path: "freelancers",
+          query: {
+            page: 1,
+            page_size: this.$route.query.page_size,
+          },
+        });
+        this.__GET_FREELANCERS();
+      }
+    },
     async queryCreater(name, id) {
       let query = { ...this.$route.query };
-      if (!this.$route.query[name]) {
+      if (this.$route.query[name] != id) {
         await this.$router.replace({
           path: "freelancers",
           query: {
@@ -241,12 +259,9 @@ export default {
     async __GET_FREELANCERS() {
       this.loading = true;
       try {
-        const data = await this.$store.dispatch(
-          "fetchFreelancers/getFreelancers",
-          {
-            params: { ...this.$route.query },
-          }
-        );
+        const data = await this.$store.dispatch("fetchFreelancers/getFreelancers", {
+          params: { ...this.$route.query },
+        });
         this.freelancers = data.data;
         this.totalPage = data?.meta?.total;
         this.loading = false;

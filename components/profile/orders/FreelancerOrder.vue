@@ -30,7 +30,7 @@
             <div
               class="status flex justify-center pt-[18px] pb-[18px] border-[0] border-b-[2px] border-solid border-grey-light relative"
             >
-              <OrderStatus :status="status" />
+              <OrderStatus :status="order?.status" />
             </div>
             <div class="info px-6 py-6 xl:px-4 xl:py-4">
               <div class="head flex justify-start">
@@ -222,7 +222,7 @@
               </button>
             </div>
           </div>
-          <OrderChat :status="status" />
+          <OrderChat :status="order?.status" />
         </div>
         <div class="flex flex-col gap-4">
           <ClientCard :client="order?.client" />
@@ -254,7 +254,10 @@
                 </h4>
               </div>
             </div>
-            <EndingProcess v-if="status == 2" :selected="order?.selected_request" />
+            <EndingProcess
+              v-if="order?.status == 2 && !myRequest"
+              :selected="order?.selected_request"
+            />
             <span
               class="w-full h-[2px] bg-grey-light flex"
               v-if="!order?.end_of_execution"
@@ -262,7 +265,7 @@
             <!-- v-if="!order?.end_of_execution" -->
 
             <div class="buttons flex flex-col gap-4" v-if="!order?.end_of_execution">
-              <!-- <div class="flex flex-col gap-2" >
+              <div class="flex flex-col gap-2" v-if="order?.status == 3 && myRequest">
                 <button
                   class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] bg-grey-light text-base text-grey-80 font-medium"
                 >
@@ -287,9 +290,9 @@
                 <p class="text-grey-80 text-[14px] max-w-[90%] mx-auto text-center">
                   Mijoz ishni bitganligni tasdiqlanishi kutilmoqda
                 </p>
-              </div> -->
+              </div>
               <button
-                v-if="status == 2"
+                v-if="order?.status == 2 && !myRequest"
                 @click="visibleClose = true"
                 class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-main-color border-main-color text-base text-white font-medium"
               >
@@ -313,7 +316,7 @@
               </button>
               <!-- v-if="status != 3" -->
               <button
-                v-if="status != 3"
+                v-if="order?.status != 4"
                 @click="visibleCancel = true"
                 class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] bg-[#667B8C] text-base text-white font-medium"
               >
@@ -353,7 +356,7 @@
                   />
                 </svg>
               </button> -->
-              <button
+              <!-- <button
                 v-if="status == 3"
                 @click="visibleComplaint = true"
                 class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-light-red2 border-light-red text-base text-light-red font-medium"
@@ -381,7 +384,7 @@
                     fill="#F2154A"
                   />
                 </svg>
-              </button>
+              </button> -->
             </div>
           </div>
           <!-- <div
@@ -515,7 +518,6 @@
 import ClientCard from "@/components/orders/ClientCard.vue";
 import FileCard from "@/components/orders/FileCard.vue";
 import InfoCard from "@/components/orders/InfoCard.vue";
-import SimilarOrders from "@/components/orders/SimilarOrders.vue";
 import PriceCard from "@/components/orders/PriceCard.vue";
 import BottomModal from "@/components/orders/BottomModal.vue";
 import OrderStatus from "@/components/profile/orders/OrderStatus.vue";
@@ -550,9 +552,18 @@ export default {
     orderHours() {
       return moment(this.order?.created_at).format("HH:mm");
     },
+    myRequest() {
+      return this.order?.complete_requests?.find(
+        (item) => item?.freelancer_id == this.$store.state.userInfo?.id
+      );
+    },
     status() {
-      let status = this.order?.selected_request?.id ? 2 : 1;
-      if (this.order?.complete_requests?.length > 0) status = 3;
+      let status = this.order?.status;
+      if (this.order?.selected_request?.id) {
+        status = 2;
+      }
+      if (this.order?.complete_requests?.length > 0 && this.order?.end_of_execution)
+        status = 3;
       return status;
     },
   },
@@ -641,7 +652,6 @@ export default {
   components: {
     FileCard,
     InfoCard,
-    SimilarOrders,
     ClientCard,
     PriceCard,
     BottomModal,

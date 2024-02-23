@@ -5,9 +5,7 @@
         <Banner class="xl:hidden" />
         <div class="flex justify-between items-end mt-8 xl:mt-0">
           <div class="flex flex-col gap-4 xl:w-full">
-            <h1 class="text-[32px] font-semibold xl:hidden text-black">
-              Buyurtmalar
-            </h1>
+            <h1 class="text-[32px] font-semibold xl:hidden text-black">Buyurtmalar</h1>
             <!-- <div class="buttons flex gap-4 xl:grid xl:grid-cols-2 xl:w-full">
               <button
                 :class="{ active: tab }"
@@ -40,7 +38,12 @@
           ></a>
         </div>
 
-        <OrdersList class="xl:mt-0" :orders="orders" />
+        <OrdersList
+          class="xl:mt-0"
+          :orders="orders"
+          :specialities="specialities"
+          @filter="queryCreater"
+        />
       </div>
     </transition>
   </div>
@@ -60,11 +63,52 @@ export default {
     };
   },
   async asyncData({ store }) {
-    const [ordersData] = await Promise.all([store.dispatch("fetchOrders/getOrders")]);
+    const [ordersData, specialitiesData] = await Promise.all([
+      store.dispatch("fetchOrders/getOrders"),
+      store.dispatch("fetchSpecialities/getSpecialities"),
+    ]);
     const orders = ordersData.data;
+    const specialities = specialitiesData.content;
     return {
       orders,
+      specialities,
     };
+  },
+  methods: {
+    async queryCreater(name, id) {
+      let query = { ...this.$route.query };
+      if (!this.$route.query[name]) {
+        await this.$router.replace({
+          path: this.$route.path,
+          query: {
+            ...query,
+            page: 1,
+            [`${name}`]: id,
+          },
+        });
+      } else {
+        delete query[name];
+        await this.$router.replace({
+          path: this.$route.path,
+          query: { ...query },
+        });
+      }
+      this.__GET_ORDERS();
+    },
+    async __GET_ORDERS() {
+      this.loading = true;
+      try {
+        const data = await this.$store.dispatch("fetchOrders/getOrders", {
+          params: { ...this.$route.query },
+        });
+        this.orders = data.data;
+        this.totalPage = data?.meta?.total;
+        this.loading = false;
+      } catch (e) {
+      } finally {
+        this.loading = false;
+      }
+    },
   },
   components: { Banner, OrdersList },
 };

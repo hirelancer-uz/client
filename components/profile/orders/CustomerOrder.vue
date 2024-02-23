@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="pt-[72px] xl:pt-6 order xl:px-4" :class="{ 'pb-10': !order?.status }">
+  <div class="pt-[72px] xl:pt-6 order xl:px-4" :class="{ 'pb-10': order?.status != 1 }">
     <div class="max-w-[1200px] mx-auto">
       <nuxt-link
         to="/profile/customer/orders/active/status"
@@ -27,8 +27,8 @@
           <h3 class="text-[24px] text-black font-semibold">Заказ: #{{ order?.id }}</h3>
           <p class="text-base text-grey-64">Заказы / Активные заказы</p>
         </div>
-        <p
-          v-if="status == 1"
+        <!-- <p
+          v-if="status == 0"
           class="text-base text-[#F2994A] font-medium flex gap-2 items-center xl:hidden"
         >
           <svg
@@ -46,7 +46,7 @@
             />
           </svg>
           Ваш заказ ожидание модерации. Скоро ваш заказ опубликуется
-        </p>
+        </p> -->
       </div>
       <div class="content-box mt-6 xl:mt-0">
         <div class="flex flex-col gap-6">
@@ -56,9 +56,10 @@
           >
             <div class="info px-6 py-6 xl:px-4 xl:py-4">
               <div
+                v-if="status != 0"
                 class="status flex justify-center mx-[-24px] mb-6 pb-[18px] border-[0] border-b-[2px] border-solid border-grey-light relative"
               >
-                <OrderStatus :status="status" />
+                <OrderStatus :status="order?.status" />
               </div>
               <div class="head flex justify-start xl:flex-col xl:gap-4">
                 <div class="flex gap-6">
@@ -216,7 +217,7 @@
               </div>
             </div>
             <div
-              class="flex items-center justify-center  xl:pb-2 h-12 w-full bg-bg-grey absolute bottom-0 show-all cursor-pointer xl:h-11 xl:justify-end xl:pr-4"
+              class="flex items-center justify-center xl:pb-2 h-12 w-full bg-bg-grey absolute bottom-0 show-all cursor-pointer xl:h-11 xl:justify-end xl:pr-4"
               v-if="!openBlock"
               @click="openBlock = true"
             >
@@ -301,9 +302,12 @@
                 <!-- <p class="text-grey-40 text-[15px] line-through xl:hidden">750 000</p> -->
               </div>
             </div>
-            <div class="buttons flex flex-col gap-4" v-if="!order?.end_of_execution">
+            <div
+              class="buttons flex flex-col gap-4"
+              v-if="!order?.end_of_execution && order?.status < 4"
+            >
               <button
-                v-if="status == 1"
+                v-if="!status"
                 @click="$router.push(`/profile/customer/order/edit/${order?.id}`)"
                 class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-main-color border-main-color text-base xl:text-[14px] text-white font-medium"
               >
@@ -325,35 +329,44 @@
                   />
                 </svg>
               </button>
-              <a-tooltip placement="bottom" v-if="status == 2">
-                <!-- <template slot="title">
+              <a-tooltip
+                placement="bottom"
+                v-if="order?.status == 2 || order?.status == 3"
+              >
+                <template slot="title" v-if="!order?.complete_requests">
                   <span>Frilanser tarafidan ish yakunlanishi kutilyapti</span>
-                </template> -->
-                <button
-                  @click="visibleComplite = true"
-                  class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-main-color border-main-color text-base xl:text-[14px] text-white font-medium"
-                >
-                  Завершить заказ
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="25"
-                    height="24"
-                    viewBox="0 0 25 24"
-                    fill="none"
+                </template>
+                <!-- !order?.complete_requests -->
+                <span class="flex w-full">
+                  <button
+                    :class="{
+                      'pointer-events-none opacity-50': !order?.complete_requests,
+                    }"
+                    @click="visibleComplite = true"
+                    class="w-full h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-main-color border-main-color text-base xl:text-[14px] text-white font-medium"
                   >
-                    <path
-                      d="M9.56495 11.757L11.938 14.129L16.195 9.87098M20.498 11.999C20.498 16.4161 16.9171 19.997 12.5 19.997C8.08278 19.997 4.50195 16.4161 4.50195 11.999C4.50195 7.5818 8.08278 4.00098 12.5 4.00098C16.9171 4.00098 20.498 7.5818 20.498 11.999Z"
-                      stroke="white"
-                      stroke-width="1.5"
-                      stroke-miterlimit="10"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </button>
+                    Завершить заказ
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="24"
+                      viewBox="0 0 25 24"
+                      fill="none"
+                    >
+                      <path
+                        d="M9.56495 11.757L11.938 14.129L16.195 9.87098M20.498 11.999C20.498 16.4161 16.9171 19.997 12.5 19.997C8.08278 19.997 4.50195 16.4161 4.50195 11.999C4.50195 7.5818 8.08278 4.00098 12.5 4.00098C16.9171 4.00098 20.498 7.5818 20.498 11.999Z"
+                        stroke="white"
+                        stroke-width="1.5"
+                        stroke-miterlimit="10"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </span>
               </a-tooltip>
               <button
-                @click="visibleCancel = true"
+                @click="cancelOrder"
                 class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-white border-grey-24 text-base xl:text-[14px] text-light-red font-medium"
               >
                 Отменить заказ
@@ -404,7 +417,7 @@
           </div>
         </div>
       </div>
-      <div class="flex justify-center" v-if="status == 1">
+      <div class="flex justify-center" v-if="status == 0">
         <div
           class="px-[80px] py-4 border border-solid border-[#EDE5E0] bg-[#FFF5EC] rounded-xl mx-auto mt-[185px]"
         >
@@ -430,12 +443,12 @@
         </div>
       </div>
       <div class="mt-6 pb-[120px]" v-if="order?.selected_request?.id">
-        <CustomerChat :order="order" />
+        <CustomerChat :order="order" :status="status" />
       </div>
     </div>
     <div
       class="mt-[57px] bg-bg-grey pt-20 pb-[120px] xl:mx-[-16px] xl:px-4 xl:pt-4 xl:mt-10"
-      v-if="status == 1"
+      v-if="status < 2 && !order?.selected_request?.id"
     >
       <div class="max-w-[1440px] mx-auto">
         <div class="order-left-chat mb-6">
@@ -469,6 +482,7 @@
               :key="request?.id"
               :request="request"
               @selected="$emit('selected')"
+              @openChat="chatHandle = true"
             />
             <button
               class="flex py-4 rounded-lg bg-grey-light w-full items-center justify-center gap-6 text-base font-medium text-blue xl:text-[14px] xl:gap-4 xl:flex-row-reverse"
@@ -493,8 +507,12 @@
               Предложений
             </button>
           </div>
-          <div class="xl:hidden" v-if="!order?.selected_request?.id && order?.status">
-            <OffersChat />
+          <div
+            class="xl:hidden customer-chat"
+            :class="{ activeChat: chatHandle }"
+            v-if="!order?.selected_request?.id && order?.status"
+          >
+            <OffersChat @close="chatHandle = false" />
           </div>
           <div
             v-else
@@ -601,7 +619,15 @@
           </ul>
         </div>
       </CancellationOrder>
-
+      <CancellationOrder
+        @handleOkProp="handleOk"
+        :visibleProp="visibleCancel3"
+        @submit="submitCancel"
+        title="Siz so'rovni bekor qilmoqchimisiz?"
+        save="Ha, albatta"
+        close="Yo’q"
+      >
+      </CancellationOrder>
       <CompliteOrder
         @handleOkProp="handleOk"
         :visibleProp="visibleComplite"
@@ -649,7 +675,6 @@
 import ClientCard from "@/components/orders/ClientCard.vue";
 import FileCard from "@/components/orders/FileCard.vue";
 import InfoCard from "@/components/orders/InfoCard.vue";
-import SimilarOrders from "@/components/orders/SimilarOrders.vue";
 import PriceCard from "@/components/orders/PriceCard.vue";
 import BottomModal from "@/components/orders/BottomModal.vue";
 import OrderStatus from "@/components/profile/orders/OrderStatus.vue";
@@ -669,6 +694,7 @@ export default {
   props: ["order", "loading"],
   data() {
     return {
+      chatHandle: false,
       options: [
         {
           label: "Положительный",
@@ -688,6 +714,7 @@ export default {
       visibleCancel: false,
       visibleComplite: false,
       visibleCancel2: false,
+      visibleCancel3: false,
     };
   },
   computed: {
@@ -698,7 +725,12 @@ export default {
       return moment(this.order?.created_at).format("HH:mm");
     },
     status() {
-      let status = this.order?.selected_request?.id ? 2 : 1;
+      let status = this.order?.status;
+      if (this.order?.selected_request?.id) {
+        status = 2;
+      }
+      if (this.order?.complete_requests?.length > 0 && this.order?.end_of_execution)
+        status = 3;
       return status;
     },
     selectedDate() {
@@ -712,6 +744,11 @@ export default {
   },
   methods: {
     moment,
+    cancelOrder() {
+      // this.visibleCancel = true;
+      // this.visibleClose = true
+      this.visibleCancel3 = true;
+    },
     submitSelect() {},
     submitCancel2() {},
     handleOk() {
@@ -738,6 +775,7 @@ export default {
         const data = await this.$store.dispatch("fetchOrders/postCanceledOrder", {
           id: this.$route.params.id,
         });
+
         this.$router.go(-1);
       } catch (e) {
         if (e.response) {
@@ -754,7 +792,8 @@ export default {
           "fetchOrders/postCompliteCustomer",
           formData
         );
-        this.handleOkComplite();
+        this.visibleComplite = false;
+        this.$emit("selected");
       } catch (e) {
         if (e.response) {
           this.$notification["error"]({
@@ -768,7 +807,6 @@ export default {
   components: {
     FileCard,
     InfoCard,
-    SimilarOrders,
     ClientCard,
     PriceCard,
     BottomModal,
@@ -788,6 +826,15 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+.customer-chat {
+  transition: 0.3s;
+  transform: translateX(100%);
+  opacity: 0;
+}
+.activeChat {
+  transform: translateX(0);
+  opacity: 1;
+}
 :deep(.ant-select-selection__placeholder) {
   color: var(--grey-80);
   font-family: "TT Interfaces";

@@ -2,10 +2,9 @@
   <div class="orders bg-bg-grey py-[120px] xl:py-6 xl:px-4">
     <div class="max-w-[954px] mx-auto">
       <div class="flex justify-between">
-        <h1 class="text-black text-[32px] font-semibold xl:text-[18px]">
-          Buyurtmalar
-        </h1>
+        <h1 class="text-black text-[32px] font-semibold xl:text-[18px]">Buyurtmalar</h1>
         <nuxt-link
+          v-if="totalOrder > 10"
           class="flex gap-[6px] text-blue text-[18px] items-center font-medium xl:text-[14px]"
           to="/orders"
           >Ko’proq ko’rish
@@ -26,7 +25,7 @@
         ></nuxt-link>
       </div>
       <div class="list flex flex-col gap-4 mt-8 xl:mt-[16px]">
-        <OrderCard v-for="order in orders" :order="order" :key="order.id"/>
+        <OrderCard v-for="order in orders" :order="order" :key="order.id" />
       </div>
     </div>
   </div>
@@ -34,6 +33,6 @@
 <script>
 import OrderCard from "./OrderCard.vue";
 
-export default { props: ["orders"], components: { OrderCard } };
+export default { props: ["orders", "totalOrder"], components: { OrderCard } };
 </script>
 <style lang="css" scoped></style>

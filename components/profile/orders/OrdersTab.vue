@@ -1,13 +1,5 @@
 <template lang="html">
   <div class="buttons flex gap-6 xl:overflow-y-scroll xl:gap-2 xl:mx-[-16px] scroll-none">
-  
-    <button
-      @click="$router.push(`/profile/${$route.params.user}/orders/active/status`)"
-      :class="{ active: $route.params.status == 'active' }"
-      class="xl:ml-4 px-6 py-3 rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey whitespace-nowrap text-base text-grey-64 font-medium xl:whitespace-nowrap xl:border xl:h-9 xl:py-0 xl:flex xl:items-center xl:rounded-[8px] xl:text-[14px]"
-    >
-      Активные заказы (0)
-    </button>
     <button
       v-if="$route.params.user == 'customer'"
       @click="$router.push(`/profile/${$route.params.user}/orders/pending/status`)"
@@ -17,6 +9,14 @@
       Ожидание модерации (0)
     </button>
     <button
+      @click="$router.push(`/profile/${$route.params.user}/orders/active/status`)"
+      :class="{ active: $route.params.status == 'active' }"
+      class="xl:ml-4 px-6 py-3 rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey whitespace-nowrap text-base text-grey-64 font-medium xl:whitespace-nowrap xl:border xl:h-9 xl:py-0 xl:flex xl:items-center xl:rounded-[8px] xl:text-[14px]"
+    >
+      Активные заказы (0)
+    </button>
+
+    <button
       v-if="$route.params.user == 'freelancer'"
       @click="$router.push(`/profile/${$route.params.user}/orders/offers/status`)"
       :class="{ active: $route.params.status == 'offers' }"
@@ -24,7 +24,14 @@
     >
       Ожидания подверждения (0)
     </button>
-
+    <button
+      v-if="$route.params.user == 'customer'"
+      @click="$router.push(`/profile/${$route.params.user}/orders/in_progress/status`)"
+      :class="{ active: $route.params.status == 'in_progress' }"
+      class="px-6 py-3 rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey whitespace-nowrap text-base text-grey-64 font-medium xl:whitespace-nowrap xl:border xl:h-9 xl:py-0 xl:flex xl:items-center xl:rounded-[8px] xl:text-[14px]"
+    >
+      В процессе (0)
+    </button>
     <button
       @click="$router.push(`/profile/${$route.params.user}/orders/completed/status`)"
       :class="{ active: $route.params.status == 'completed' }"
@@ -44,13 +51,9 @@
 <script>
 export default {
   data() {
-    return {
-     
-    };
+    return {};
   },
-  methods: {
-  
-  },
+  methods: {},
 };
 </script>
 <style lang="css" scoped>

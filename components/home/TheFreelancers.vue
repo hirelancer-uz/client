@@ -5,6 +5,7 @@
         Eng yaxshi frilanserlar
       </h1>
       <nuxt-link
+        v-if="totalFreelancer > 10"
         class="flex gap-[6px] items-center text-blue text-[18px] font-medium xl:text-[14px]"
         to="/freelancers"
         >Ko’proq ko’rish
@@ -32,6 +33,7 @@
       />
     </div>
     <button
+    v-if="totalFreelancer > 10"
       class="hidden xl:flex mx-auto mt-4 rounded-lg gap-4 w-[352px] h-16 items-center justify-center border border-grey-8 border-solid text-blue font-medium text-[18px] font-tt xl:mx-0 xl:w-[100%] xl:mt-[12px] xl:h-12 xl:text-[14px] xl:border-main-color"
     >
       Ko’proq ko’rish
@@ -57,7 +59,7 @@
 <script>
 import FreeLancerCard from "./FreelancerCard.vue";
 export default {
-  props: ["freelancers"],
+  props: ["freelancers", "totalFreelancer"],
   components: {
     FreeLancerCard,
   },
