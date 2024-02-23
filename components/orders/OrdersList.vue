@@ -1,12 +1,15 @@
-<template lang="html">
+<template>
   <div class="orders-list mt-[37px]">
     <div class="filter-head hidden xl:flex justify-between">
-      <h4 class="text-black text-[14px] font-medium">13 630 результатов</h4>
+      <h4 class="text-black text-[14px] font-medium xl:hidden">
+        13 630 результатов
+      </h4>
       <button
         @click="open"
-        class="flex items-center gap-2 text-blue text-[14px] font-medium"
+        class="flex items-center gap-2 text-blue text-[14px] font-medium taeyeon"
       >
-        Фильтры<svg
+        <span class="xl:hidden"> Фильтры </span>
+        <svg
           xmlns="http://www.w3.org/2000/svg"
           width="20"
           height="20"
@@ -55,7 +58,13 @@
             stroke-linecap="round"
             stroke-linejoin="round"
           />
-          <circle cx="6.66667" cy="15" r="1.66667" stroke="#5C46E6" stroke-width="1.5" />
+          <circle
+            cx="6.66667"
+            cy="15"
+            r="1.66667"
+            stroke="#5C46E6"
+            stroke-width="1.5"
+          />
           <ellipse
             cx="14.1667"
             cy="10"
@@ -76,7 +85,10 @@
       </button>
     </div>
     <div class="left">
-      <div class="flex flex-col gap-4 mb-[100px]" v-if="orders?.length > 0">
+      <div
+        class="flex flex-col gap-4 mb-[100px] xl:mb-[24px]"
+        v-if="orders?.length > 0"
+      >
         <OrderCard
           class="border border-solid border-grey-8"
           v-for="order in orders"
@@ -84,7 +96,10 @@
           :key="order.id"
         />
       </div>
-      <div class="flex flex-col gap-4 items-center justify-center h-[300px]" v-else>
+      <div
+        class="flex flex-col gap-4 items-center justify-center h-[300px]"
+        v-else
+      >
         <svg
           width="80"
           height="80"
@@ -108,13 +123,15 @@
             fill="#5C46E6"
           />
         </svg>
-        <p class="text-[18px] font-medium text-grey-64">Afuski buyurtma topilmadi!</p>
+        <p class="text-[18px] font-medium text-grey-64">
+          Afuski buyurtma topilmadi!
+        </p>
       </div>
       <VPagination />
     </div>
     <div class="right flex flex-col gap-6">
       <div
-        class="filter px-6 py-6 border border-solid border-grey-8 rounded-3xl flex flex-col"
+        class="filter px-6 py-6 border border-solid border-grey-8 rounded-3xl flex flex-col xl:hidden"
       >
         <div class="flex flex-col">
           <h4
@@ -133,14 +150,22 @@
                 class="drop-head xl:px-0 xl:py-0 bg-white relative z-20 w-full flex justify-between items-center px-4 py-[12px]"
               >
                 <h2
-                  @click="$emit('filter', `specialities[${dropItem?.id}]`, dropItem?.id)"
+                  @click="
+                    $emit(
+                      'filter',
+                      `specialities[${dropItem?.id}]`,
+                      dropItem?.id
+                    )
+                  "
                   class="text-base text-blue-night flex gap-2 items-center"
                   :class="{
                     'text-main-color':
                       dropdownOpens.includes(dropItem?.id) ||
                       Boolean(
                         Object.entries($route.query)
-                          .filter((filterItem) => filterItem[0].includes('specialities'))
+                          .filter((filterItem) =>
+                            filterItem[0].includes('specialities')
+                          )
                           .find((findItem) => findItem[1] == dropItem?.id)
                       ),
                   }"
@@ -153,7 +178,9 @@
                 </h2>
                 <span
                   @click="handleDropdown(dropItem?.id)"
-                  :class="{ 'rotate-180': dropdownOpens.includes(dropItem?.id) }"
+                  :class="{
+                    'rotate-180': dropdownOpens.includes(dropItem?.id),
+                  }"
                   class="drop-icon w-[24px] h-[24px] rounded-[50%] bg-[#F8F9FF] flex items-center justify-center"
                 >
                   <svg
@@ -174,16 +201,22 @@
 
               <!-- <Transition name="bounce"> -->
               <div class="drop-body relative z-10">
-                <div class="px-4 py-4 pt-[0] pb-[8px] flex flex-col gap-4 xl:gap-8">
+                <div
+                  class="px-4 py-4 pt-[0] pb-[8px] flex flex-col gap-4 xl:gap-8"
+                >
                   <button
                     class="text-[14px] text-grey-80 flex gap-2 items-center hover:text-main-color"
                     v-for="dropIn in dropItem.children"
                     :key="dropIn?.id"
-                    @click="$emit('filter', `specialities[${dropIn?.id}]`, dropIn?.id)"
+                    @click="
+                      $emit('filter', `specialities[${dropIn?.id}]`, dropIn?.id)
+                    "
                     :class="{
                       'text-main-color': Boolean(
                         Object.entries($route.query)
-                          .filter((filterItem) => filterItem[0].includes('specialities'))
+                          .filter((filterItem) =>
+                            filterItem[0].includes('specialities')
+                          )
                           .find((findItem) => findItem[1] == dropIn?.id)
                       ),
                     }"
@@ -225,80 +258,162 @@
           </button>
         </div> -->
       </div>
-      <vue-bottom-sheet-vue2 ref="myBottomSheet" class="bottom-drawer">
+      <vue-bottom-sheet-vue2
+        ref="myBottomSheet"
+        class="bottom-drawer"
+        :can-swipe="false"
+      >
         <div
-          class="filter px-6 xl:border-0 py-6 xl:px-4 xl:pb-4 xl:py-4 border border-solid border-grey-8 rounded-3xl flex flex-col gap-6"
+          class="filter px-6 xl:border-0 py-6 xl:px-4 xl:pb-4 xl:py-4 border border-solid border-grey-8 rounded-3xl flex flex-col gap-6 xl:justify-between h-full"
         >
-          <div class="flex flex-col gap-6">
+          <div class="x absolute top-[16px] right-[16px]" @click="close()">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M16.2427 7.75738L7.75745 16.2427M16.2427 16.2426L7.75745 7.75732"
+                stroke="#353437"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+          <div class="flex flex-col gap-6 xl:gap-[16px]">
+            <h2 class="mt-[24px] text-[24px] xl:font-bold">Filtr</h2>
             <h4 class="text-[20px] xl:text-[18px] font-semibold text-black">
               Тип работы
             </h4>
+            <div class="drop-list flex flex-col gap-[16px]">
+              <div
+                class="dropdown overflow-hidden"
+                :class="{ active: dropdownOpens.includes(dropItem?.id) }"
+                v-for="dropItem in specialities"
+                :key="dropItem?.id"
+              >
+                <button
+                  class="drop-head xl:px-0 xl:py-0 bg-white relative z-20 w-full flex justify-between items-center px-4 py-[12px]"
+                >
+                  <h2
+                    @click="
+                      $emit(
+                        'filter',
+                        `specialities[${dropItem?.id}]`,
+                        dropItem?.id
+                      )
+                    "
+                    class="text-base text-blue-night flex gap-2 items-center"
+                    :class="{
+                      'text-main-color':
+                        dropdownOpens.includes(dropItem?.id) ||
+                        Boolean(
+                          Object.entries($route.query)
+                            .filter((filterItem) =>
+                              filterItem[0].includes('specialities')
+                            )
+                            .find((findItem) => findItem[1] == dropItem?.id)
+                        ),
+                    }"
+                  >
+                    {{ dropItem?.name_ru }}
+
+                    <div class="count text-[#9A999B]">
+                      ({{ dropItem?.children.length }})
+                    </div>
+                  </h2>
+                  <span
+                    @click="handleDropdown(dropItem?.id)"
+                    :class="{
+                      'rotate-180': dropdownOpens.includes(dropItem?.id),
+                    }"
+                    class="drop-icon w-[24px] h-[24px] rounded-[50%] bg-[#F8F9FF] flex items-center justify-center"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="6"
+                      viewBox="0 0 12 6"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M0.414376 0.531506C0.673133 0.20806 1.1451 0.155619 1.46855 0.414376L6.00003 4.03956L10.5315 0.414376C10.855 0.155619 11.3269 0.20806 11.5857 0.531506C11.8444 0.854953 11.792 1.32692 11.4685 1.58568L6.46855 5.58568C6.19464 5.80481 5.80542 5.80481 5.53151 5.58568L0.531506 1.58568C0.20806 1.32692 0.155619 0.854953 0.414376 0.531506Z"
+                        fill="#28303F"
+                      /></svg
+                  ></span>
+                </button>
+
+                <!-- <Transition name="bounce"> -->
+                <div class="drop-body relative z-10">
+                  <div
+                    class="px-4 py-4 pt-[0] pb-[8px] flex flex-col gap-4 xl:gap-[12px]"
+                  >
+                    <button
+                      class="text-[14px] text-grey-80 flex gap-2 items-center hover:text-main-color"
+                      v-for="dropIn in dropItem.children"
+                      :key="dropIn?.id"
+                      @click="
+                        $emit(
+                          'filter',
+                          `specialities[${dropIn?.id}]`,
+                          dropIn?.id
+                        )
+                      "
+                      :class="{
+                        'text-main-color': Boolean(
+                          Object.entries($route.query)
+                            .filter((filterItem) =>
+                              filterItem[0].includes('specialities')
+                            )
+                            .find((findItem) => findItem[1] == dropIn?.id)
+                        ),
+                      }"
+                    >
+                      <a-tooltip placement="right">
+                        <template slot="title">
+                          <span>{{ dropIn?.name_ru }}</span>
+                        </template>
+                        <span> {{ dropIn?.name_ru }}</span>
+                      </a-tooltip>
+                      <span class="text-[12px] text-grey-40">(24k)</span>
+                    </button>
+                  </div>
+                </div>
+                <!-- </Transition> -->
+              </div>
+            </div>
             <div
-              class="flex flex-col gap-6 border-[0] xl:border-0 border-b border-solid border-grey-8 pb-6 xl:pb-0"
+              class="flex flex-col gap-4 border-[0] border-t border-grey-8 border-solid pt-4 mt-2"
             >
-              <span class="xl:text-base text-[18px] text-grey-80 flex gap-4 items-end">
-                <a-checkbox />Дизайн</span
-              >
-              <span class="xl:text-base text-[18px] text-grey-80 flex gap-4 items-end">
-                <a-checkbox />Разработка и IT</span
-              >
-              <span class="xl:text-base text-[18px] text-grey-80 flex gap-4 items-end">
-                <a-checkbox />Тексты и переводы</span
-              >
-              <span class="xl:text-base text-[18px] text-grey-80 flex gap-4 items-end">
-                <a-checkbox />СЕО и трафик</span
-              >
-              <span class="xl:text-base text-[18px] text-grey-80 flex gap-4 items-end">
-                <a-checkbox />Соцсети и реклама</span
-              >
-              <span class="xl:text-base text-[18px] text-grey-80 flex gap-4 items-end">
-                <a-checkbox />Аудио, видео, съёмка</span
-              >
-              <span class="xl:text-base text-[18px] text-grey-80 flex gap-4 items-end">
-                <a-checkbox />Бизнес и жизнь</span
-              >
+              <h4 class="text-[20px] font-semibold text-grey-80">
+                Статус заказов
+              </h4>
+              <div class="flex flex-col gap-6">
+                <a-checkbox :checked="Boolean(status)" @change="filterStatus"
+                  >Прием заявок</a-checkbox
+                >
+              </div>
             </div>
           </div>
-          <div class="flex flex-col gap-6">
-            <h4 class="text-[20px] xl:text-[18px] font-semibold text-black">
-              Тип заказов
-            </h4>
-            <div class="flex flex-col gap-6">
-              <span class="xl:text-base text-[18px] text-grey-80 flex gap-4 items-end">
-                <a-checkbox />Все типы</span
-              >
-              <span class="xl:text-base text-[18px] text-grey-80 flex gap-4 items-end">
-                <a-checkbox />Открытие</span
-              >
-              <span class="xl:text-base text-[18px] text-grey-80 flex gap-4 items-end">
-                <a-checkbox />Тексты и переводы</span
-              >
-              <span class="xl:text-base text-[18px] text-grey-80 flex gap-4 items-end">
-                <a-checkbox />PRO заказы</span
-              >
-              <span class="xl:text-base text-[18px] text-grey-80 flex gap-4 items-end">
-                <a-checkbox />Безопасная сделка</span
-              >
-              <span class="xl:text-base text-[18px] text-grey-80 flex gap-4 items-end">
-                <a-checkbox />Срочный заказ</span
-              >
-            </div>
-          </div>
-          <div class="flex gap-4 xl:flex-col xl:gap-2 xl:mt-4">
-            <button
-              class="flex w-full justify-center py-[15px] rounded-lg xl:rounded-xl border border-blue border-solid text-[14px] font-tt font-semibold text-white bg-blue"
-            >
-              Применить
-            </button>
+          <div class="flex gap-4 xl:grid xl:gap-[12px] xl:grid-cols-2">
             <button
               class="flex w-full justify-center py-[15px] rounded-lg xl:rounded-xl border border-blue border-solid text-[14px] font-tt font-semibold text-blue bg-white"
             >
               Сбросить
             </button>
+            <button
+              class="flex w-full justify-center py-[15px] rounded-lg xl:rounded-xl border border-blue border-solid text-[14px] font-tt font-semibold text-white bg-blue"
+            >
+              Применить
+            </button>
           </div>
         </div>
       </vue-bottom-sheet-vue2>
-      <TelegramCard />
+      <TelegramCard class="cole" />
     </div>
   </div>
 </template>
@@ -395,8 +510,11 @@ export default {
   background-color: var(--blue);
 }
 .orders-list
-  :deep(.ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover
-    .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner) {
+  :deep(
+    .ant-checkbox-wrapper:hover .ant-checkbox-inner,
+    .ant-checkbox:hover .ant-checkbox-inner,
+    .ant-checkbox-input:focus + .ant-checkbox-inner
+  ) {
   border-color: var(--blue);
 }
 .orders-list :deep(.ant-checkbox-checked::after) {
@@ -405,12 +523,38 @@ export default {
 @media (max-width: 1200px) {
   .orders-list {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 0;
+  }
+  .taeyeon {
+    position: fixed;
+    bottom: 100px;
+    right: 16px;
+    z-index: 99;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--White, #fff);
+    box-shadow: 0px 12px 24px 0px rgba(0, 25, 53, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cole {
+    display: none;
   }
 }
 .bottom-drawer :deep(.bottom-sheet__content) {
-  border-radius: 16px 16px 0px 0px;
   overflow: hidden;
-  /* max-height: 90vh !important; */
+}
+.bottom-drawer :deep(.bottom-sheet__header) {
+  display: none;
+}
+.bottom-drawer :deep(.bottom-sheet__main) {
+  height: 100%;
+}
+.bottom-drawer :deep(.bottom-sheet__content) {
+  min-height: 100%;
+  border-radius: 0;
+  height: 100%;
 }
 </style>
