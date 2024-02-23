@@ -1,9 +1,9 @@
-<template lang="html">
+<template>
   <div
     class="freelancer-card px-5 py-5 border border-solid border-[#E7EDFB] rounded-2xl cursor-pointer xl:rounded-[16px] xl:p-[16px]"
     @click="$router.push(`/freelancer/${freelancer?.id}`)"
   >
-    <div class="card flex flex-col items-center gap-4">
+    <div class="card flex flex-col items-center gap-4 xl:flex-row">
       <div class="image w-[108px] h-[108px] relative xl:w-[66px] xl:h-[66px]">
         <!-- <img v-if="freelancer?.avatar" class="w-full h-full object-cover" :src="freelancer?.avatar" alt="" /> -->
         <div
@@ -43,9 +43,9 @@
         ></span>
       </div>
       <div
-        class="body flex flex-col justify-between items-center xl:w-[70%] xl:gap-[8px] gap-3 w-full"
+        class="body flex flex-col justify-between items-center xl:w-[70%] xl:gap-[8px] gap-3 w-full xl:items-start"
       >
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col items-center xl:items-start">
           <h4
             class="text-base font-medium text-black truncate name whitespace-normal text-center"
           >
@@ -89,7 +89,9 @@
                 /></svg
               ><span class="text-green">{{ freelancer?.likes_count }}</span
               ><span class="text-grey-40">/</span
-              ><span class="text-pantone-2023">{{ freelancer?.dislikes_count }}</span
+              ><span class="text-pantone-2023">{{
+                freelancer?.dislikes_count
+              }}</span
               ><svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="14"
@@ -125,66 +127,29 @@
             </p>
           </div>
         </div>
-        <div class="flex justify-between w-full">
-          <div class="w-full flex flex-wrap justify-center gap-3">
-            <div
-              v-for="specialit in freelancer?.specialities"
-              :key="specialit?.id"
-              class="bg-apple-grey text-xs font-medium text-grey-64 px-4 flex items-center rounded-[22px] h-[28px]"
-            >
-              <!-- {{ freelancer?.specialities[0]?.name_ru }} -->
-              {{ specialit?.name_ru }}
-            </div>
-          </div>
-          <!-- <p
-            :class="{ online: freelancer?.online }"
-            class="text-[14px] text-grey-24 flex gap-[4px] items-center"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="6"
-              height="6"
-              viewBox="0 0 6 6"
-              fill="none"
-            >
-              <circle cx="3" cy="3" r="3" fill="#C2C2C3" /></svg
-            >{{ freelancer?.online ? "Online" : "Offline" }}
-          </p> -->
-        </div>
       </div>
     </div>
 
-    <div class="justify-between hidden xl:flex mt-4">
-      <div class="flex jsutify-start gap-1" v-if="freelancer?.specialities.length > 0">
+    <div class="justify-between xl:flex">
+      <div
+        class="flex jsutify-start gap-1 mt-4 flex-wrap"
+        v-if="freelancer?.specialities.length > 0"
+      >
         <div
-          v-for="specialit in freelancer?.specialities.slice(0, 1)"
+          v-for="specialit in freelancer?.specialities"
           :key="specialit?.id"
-          class="bg-apple-grey text-xs font-medium text-grey-64 px-4 flex items-center rounded-[22px] h-[28px]"
+          class="bg-apple-grey text-xs font-medium text-grey-64 px-4 flex items-center rounded-[22px] h-[28px] xl:px-[16px] xl:py-[8px] whitespace-nowrap text-[12px]"
         >
           {{ specialit?.name_ru }}
         </div>
-        <div
+        <!-- <div
           v-if="freelancer?.specialities.length > 1"
           class="bg-apple-grey text-xs font-medium text-purple px-4 flex rounded-[22px] h-[28px] w-[28px] justify-center items-center"
         >
           {{ freelancer?.specialities.length - 1 }}+
-        </div>
+        </div> -->
       </div>
       <span v-else></span>
-      <p
-        :class="{ online: freelancer?.online }"
-        class="text-[14px] text-grey-24 flex gap-[4px] items-center"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="6"
-          height="6"
-          viewBox="0 0 6 6"
-          fill="none"
-        >
-          <circle cx="3" cy="3" r="3" fill="#C2C2C3" /></svg
-        >{{ freelancer?.online ? "Online" : "Offline" }}
-      </p>
     </div>
   </div>
 </template>

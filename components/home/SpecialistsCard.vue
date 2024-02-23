@@ -43,7 +43,9 @@
         fill="#009A10"
       />
     </svg>
-    <p class="font-medium text-[18px] text-black xl:text-[14px] xl:font-semibold">
+    <p
+      class="font-medium text-[18px] text-black xl:text-[14px] xl:font-semibold xl:font-semibold"
+    >
       {{ obj?.name_ru }}
     </p>
   </div>

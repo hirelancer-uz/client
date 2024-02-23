@@ -6,9 +6,13 @@
     <TheHeader class="xl:hidden" ref="header" />
     <div
       v-if="$route.name == 'index'"
-      class="header-bg xl:block hidden w-full h-[104px]"
+      class="header-bg xl:block hidden w-full h-[104px] lg:h-[72px]"
     ></div>
-    <div v-else class="header-bg xl:block hidden w-full" :style="`height: 56px`"></div>
+    <div
+      v-else
+      class="header-bg xl:block hidden w-full"
+      :style="`height: 56px`"
+    ></div>
     <!-- <h1>
       {{ layoutData }}
     </h1> -->
@@ -26,7 +30,7 @@ import TheFooter from "../components/layouts/TheFooter.vue";
 import TheHeader from "../components/layouts/TheHeader.vue";
 
 export default {
-  name:'defalut',
+  name: "defalut",
   head() {
     return {
       meta: [

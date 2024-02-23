@@ -1,14 +1,18 @@
-<template lang="html">
+<template>
   <div
     class="card relative order-card px-8 py-6 rounded-3xl bg-white cursor-pointer xl:border-[1px] xl:border-solid xl:border-grey-8 xl:rounded-[16px] xl:p-[16px]"
     @click="
       $router.push(
-        myRequest ? `/profile/freelancer/order/view/${order?.id}` : `/orders/${order?.id}`
+        myRequest
+          ? `/profile/freelancer/order/view/${order?.id}`
+          : `/orders/${order?.id}`
       )
     "
   >
     <div class="header flex justify-between xl:flex-col-reverse xl:gap-2">
-      <div class="flex gap-6 items-center xl:gap-[12px] w-full">
+      <div
+        class="flex gap-6 items-center xl:gap-[12px] w-full xl:flex-col xl:items-start"
+      >
         <span
           v-if="order?.urgent"
           class="border light-yellow rounded-[500px] border-solid border-dark-yellow text-dark-yellow h-[36px] xl:h-[32px] px-[20px] xl:pl-2 xl:pr-3 flex items-center xl:text-[12px] xl:gap-1"
@@ -64,7 +68,13 @@
             viewBox="0 0 24 24"
             fill="none"
           >
-            <rect width="24" height="24" rx="8" fill="#5C46E6" fill-opacity="0.4" />
+            <rect
+              width="24"
+              height="24"
+              rx="8"
+              fill="#5C46E6"
+              fill-opacity="0.4"
+            />
             <path
               d="M6 18V14.551C6 13.7054 6.66581 13.0205 7.48785 13.0205H14.4309C15.253 13.0205 15.9188 13.7054 15.9188 14.551V18M15.9196 8.25878L17.2862 9.66379L20 6.87213M13.164 8.26746C13.164 9.51974 12.1771 10.5349 10.9598 10.5349C9.74238 10.5349 8.7555 9.51974 8.7555 8.26746C8.7555 7.01518 9.74238 6 10.9598 6C12.1771 6 13.164 7.01518 13.164 8.26746Z"
               stroke="#5C46E6"
@@ -104,7 +114,10 @@
           v-if="order?.urgent"
           class="flex w-[1px] h-[27px] bg-grey-8 xl:hidden"
         ></span>
-        <div ref="widthHandle" class="flex-auto flex gap-6 items-center xl:gap-[12px]">
+        <div
+          ref="widthHandle"
+          class="flex-auto flex gap-6 items-center xl:gap-[12px]"
+        >
           <button
             v-for="(special, index) in visibleButtons"
             :key="special?.id"
@@ -121,7 +134,9 @@
           </button>
         </div>
       </div>
-      <div class="flex gap-[28px] items-center xl:justify-between">
+      <div
+        class="flex gap-[28px] items-center xl:justify-between xl:absolute xl:top-[16px] xl:right-[16px]"
+      >
         <div class="flex gap-[16px] items-center xl:gap-[12px]">
           <p class="text-base text-grey-40 xl:text-[14px]">
             {{ moment(order?.created_at).format(hourFormat) }}
@@ -169,14 +184,14 @@
       </span>
       <div class="justify-start hidden xl:flex mt-[-4px]">
         <button
-          class="underline text-grey-80 text-base font-medium text-center xl:text-main-color"
+          class="underline text-grey-80 text-base font-medium text-center xl:text-main-color xl:text-[14px]"
         >
           Подробнее
         </button>
       </div>
     </div>
     <div
-      class="footer flex items-center justify-between mt-4 xl:flex-row-reverse xl:mt-[20px] xl:gap-[20px]"
+      class="footer flex items-center justify-between mt-4 xl:flex-row-reverse xl:mt-[16px] xl:gap-[20px]"
     >
       <h1
         class="text-grey-80 text-[24px] font-semibold xl:text-base price"
@@ -206,7 +221,13 @@
                 stroke="#9A999B"
                 stroke-width="1.5"
               />
-              <circle cx="12" cy="12.5" r="3" stroke="#9A999B" stroke-width="1.5" /></svg
+              <circle
+                cx="12"
+                cy="12.5"
+                r="3"
+                stroke="#9A999B"
+                stroke-width="1.5"
+              /></svg
             >{{ order?.view_count }}
           </p>
           <span class="flex w-[1px] h-[27px] bg-grey-8"></span>
@@ -248,7 +269,7 @@
       </div>
     </div>
     <button
-      class="py-[12px] text-[14px] w-full justify-center font-semibold font-tt bg-white text-blue rounded-lg border border-solid border-blue hidden xl:flex text-center mt-[20px]"
+      class="py-[12px] text-[14px] w-full justify-center font-semibold font-tt bg-white text-blue rounded-lg border border-solid border-blue hidden xl:flex text-center mt-[20px] xl:mt-[16px] xl:border-[#E0E0ED] xl:text-[14px] xl:text-[#5D5D5F]"
     >
       Отправить заявку
     </button>
@@ -316,7 +337,10 @@ export default {
                 break;
               }
             }
-            this.visibleButtons = this.order?.specialities.slice(0, visibleButtonsCount);
+            this.visibleButtons = this.order?.specialities.slice(
+              0,
+              visibleButtonsCount
+            );
           }, 0);
         }
       }

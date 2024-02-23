@@ -32,10 +32,14 @@
           ></nuxt-link>
         </div>
         <div class="menu flex gap-[40px]">
-          <nuxt-link class="text-[18px] text-black font-tt font-normal" to="/orders"
+          <nuxt-link
+            class="text-[18px] text-black font-tt font-normal"
+            to="/orders"
             >Buyurtmalar</nuxt-link
           >
-          <nuxt-link class="text-[18px] text-black font-tt font-normal" to="/freelancers"
+          <nuxt-link
+            class="text-[18px] text-black font-tt font-normal"
+            to="/freelancers"
             >Frilanserlar</nuxt-link
           >
           <!-- <nuxt-link class="text-[18px] text-black font-tt font-normal" to="/"
@@ -286,7 +290,9 @@
                         $route.path.includes('/profile/freelancer/orders') &&
                         $route.path.includes('status'),
                     }"
-                    @click="$router.push('/profile/freelancer/orders/active/status')"
+                    @click="
+                      $router.push('/profile/freelancer/orders/active/status')
+                    "
                     class="w-full py-2 flex gap-2 rounded-xl bg-bg-grey px-4 font-medium text-base text-black hover:bg-grey-light"
                   >
                     <svg
@@ -463,7 +469,9 @@
                         $route.path.includes('/profile/customer/orders') &&
                         $route.path.includes('status'),
                     }"
-                    @click="$router.push('/profile/customer/orders/active/status')"
+                    @click="
+                      $router.push('/profile/customer/orders/active/status')
+                    "
                     class="w-full py-2 flex gap-2 rounded-xl bg-bg-grey px-4 font-medium text-base text-black hover:bg-grey-light"
                   >
                     <svg
