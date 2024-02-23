@@ -36,15 +36,7 @@
       </div>
     </div>
 
-    <div
-      class="list gap-4 mt-6 mb-[40px]"
-      v-if="loading"
-      :class="
-        $route.params.user == 'customer' && $route.params.status == 'completed'
-          ? 'grid grid-cols-2 xl:grid-cols-1'
-          : 'flex flex-col'
-      "
-    >
+    <div class="list gap-4 mt-6 mb-[40px] flex flex-col" v-if="loading">
       <a-skeleton
         :paragraph="false"
         class="loading-card"

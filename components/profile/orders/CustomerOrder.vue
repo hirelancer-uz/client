@@ -1,8 +1,5 @@
 <template lang="html">
-  <div
-    class="pt-[72px] xl:pt-6 order xl:px-4"
-    :class="{ 'pb-10': order?.selected_request?.id }"
-  >
+  <div class="pt-[72px] xl:pt-6 order xl:px-4" :class="{ 'pb-10': order?.status != 1 }">
     <div class="max-w-[1200px] mx-auto">
       <nuxt-link
         to="/profile/customer/orders/active/status"
@@ -305,7 +302,10 @@
                 <!-- <p class="text-grey-40 text-[15px] line-through xl:hidden">750 000</p> -->
               </div>
             </div>
-            <div class="buttons flex flex-col gap-4" v-if="!order?.end_of_execution">
+            <div
+              class="buttons flex flex-col gap-4"
+              v-if="!order?.end_of_execution && order?.status < 4"
+            >
               <button
                 v-if="!status"
                 @click="$router.push(`/profile/customer/order/edit/${order?.id}`)"
@@ -366,7 +366,7 @@
                 </span>
               </a-tooltip>
               <button
-                @click="visibleCancel = true"
+                @click="cancelOrder"
                 class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-white border-grey-24 text-base xl:text-[14px] text-light-red font-medium"
               >
                 Отменить заказ
@@ -619,7 +619,15 @@
           </ul>
         </div>
       </CancellationOrder>
-
+      <CancellationOrder
+        @handleOkProp="handleOk"
+        :visibleProp="visibleCancel3"
+        @submit="submitCancel"
+        title="Siz so'rovni bekor qilmoqchimisiz?"
+        save="Ha, albatta"
+        close="Yo’q"
+      >
+      </CancellationOrder>
       <CompliteOrder
         @handleOkProp="handleOk"
         :visibleProp="visibleComplite"
@@ -706,6 +714,7 @@ export default {
       visibleCancel: false,
       visibleComplite: false,
       visibleCancel2: false,
+      visibleCancel3: false,
     };
   },
   computed: {
@@ -735,6 +744,11 @@ export default {
   },
   methods: {
     moment,
+    cancelOrder() {
+      // this.visibleCancel = true;
+      // this.visibleClose = true
+      this.visibleCancel3 = true;
+    },
     submitSelect() {},
     submitCancel2() {},
     handleOk() {

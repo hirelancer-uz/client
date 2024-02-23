@@ -1,7 +1,7 @@
 <template lang="html">
   <div
     class="flex w-[90%] items-center relative"
-    :class="false ? 'justify-start gap-5' : 'justify-between'"
+    :class="status == 6 ? 'justify-start gap-5' : 'justify-between'"
   >
     <div class="flex gap-[10px] items-center relative z-10">
       <span class="flex justify-center items-center relative">
@@ -33,6 +33,7 @@
     </div>
 
     <svg
+      v-if="status != 6"
       width="34"
       height="8"
       viewBox="0 0 34 8"
@@ -46,6 +47,7 @@
     </svg>
 
     <div
+      v-if="status != 6"
       class="flex gap-[10px] items-center relative z-10"
       :class="{ active: status >= 2 }"
     >
@@ -214,6 +216,7 @@
       />
     </svg>
     <div
+      v-if="status != 6"
       class="flex gap-[10px] items-center relative z-10"
       :class="{ active: status == 4 }"
     >
@@ -266,7 +269,7 @@
       </span>
       <p class="text-base font-medium text-grey-40">Выполненно</p>
     </div>
-    <!-- <div class="flex gap-[10px] items-center relative z-10">
+    <div class="flex gap-[10px] items-center relative z-10" v-if="status == 6">
       <span class="flex justify-center items-center relative">
         <span
           class="icon w-full h-full z-10 flex relative justify-center items-center rounded-full"
@@ -293,7 +296,7 @@
         </span>
       </span>
       <p class="text-base font-medium text-black">Отменено</p>
-    </div> -->
+    </div>
   </div>
 </template>
 <script>

@@ -201,7 +201,7 @@ export default {
             message: "This field is required",
             trigger: "blur",
           },
-          { min: 9, message: "Length should 9", trigger: "blur" },
+          { min: 9, message: "Raqam 9 xonali bo'lishi kerak", trigger: "blur" },
         ],
       },
     };
