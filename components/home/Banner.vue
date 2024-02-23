@@ -26,7 +26,7 @@
           Eski qoidalarni unuting. Siz eng yaxshi frilanserlarni mana shu yerda
           ega chiqishingiz mumkin.
         </p>
-        <div class="list flex gap-3 mt-8 xl:hidden">
+        <div class="list flex gap-3 mt-8 xl:hidden mb-[84px]">
           <span
             class="whitespace-nowrap bg-white font-tt text-black py-2 px-4 rounded-[500px] text-[14px]"
           >
@@ -94,7 +94,7 @@
         </button>
       </div>
     </div>
-    <div class="right h-[540px] xl:h-[100%] absolute right-0">
+    <div class="right h-[100%] xl:h-[100%] absolute right-0 overflow-hidden">
       <img
         src="@/assets/images/banner.png"
         width="100%"
