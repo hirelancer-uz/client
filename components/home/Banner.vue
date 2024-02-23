@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div
     class="banner bg-bg-grey rounded-[32px] mb-[120px] xl:bg-blue xl:rounded-[12px] xl:mb-[40px]"
   >
@@ -6,15 +6,19 @@
       class="left pt-16 pl-[80px] pb-[50px] flex flex-col justify-between xl:py-[28px] xl:px-[20px] xl:justify-center h-full"
     >
       <div class="flex flex-col">
-        <h3 class="font-semibold text-black text-[48px] xl:text-[16px] xl:text-white">
-          <span class="text-blue xl:text-yellow">Frilanserlar</span> sizga xizmat
-          ko‘rsatishga tayyor
+        <h3
+          class="font-semibold text-black text-[48px] xl:text-[16px] xl:text-white"
+        >
+          <span class="text-blue xl:text-yellow">Frilanserlar</span> sizga
+          xizmat ko‘rsatishga tayyor
         </h3>
-        <p class="text-black text-[18px] mt-4 xl:mt-[6px] xl:text-[12px] xl:text-white">
-          1000+ ortiq
-          <span class="text-blue">dizaynerlar, dasturchilar, marketologlar</span> va
-          boshqa yo‘nalishdagi frilanserlar sizning buyurtmangizni bajarib berishga
-          tayyor!
+        <p
+          class="text-black text-[18px] mt-4 xl:mt-[6px] xl:text-[12px] xl:text-white"
+        >
+          1000+ ortiq<span class="text-blue"
+            >dizaynerlar, dasturchilar, marketologlar</span
+          >va boshqa yo‘nalishdagi frilanserlar sizning buyurtmangizni bajarib
+          berishga tayyor!
         </p>
         <div class="list flex gap-3 mt-8 xl:hidden">
           <button
