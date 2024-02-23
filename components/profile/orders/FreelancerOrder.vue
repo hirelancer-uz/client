@@ -25,7 +25,7 @@
         <div class="flex flex-col gap-6">
           <div
             class="info-box rounded-3xl border-solid border-grey-light border-[2px] relative overflow-hidden max-h-[430px]"
-            :class="{ active: openBlock == true }"
+            :class="{ active: openBlock || order?.status < 3 }"
           >
             <div
               class="status flex justify-center pt-[18px] pb-[18px] border-[0] border-b-[2px] border-solid border-grey-light relative"
@@ -76,7 +76,7 @@
                 >
                 </span>
               </div>
-              <div class="files flex flex-col gap-4 mt-4">
+              <div class="files flex flex-col gap-4 mt-4" v-if="order?.files?.length > 0">
                 <h6 class="text-black text-[20px] font-semibold xl:text-[18px]">
                   Файлы к задаче
                 </h6>
@@ -200,7 +200,7 @@
             </div>
             <div
               class="flex items-center justify-center xl:pb-2 h-12 w-full bg-bg-grey absolute bottom-0 cursor-pointer xl:h-11 xl:justify-end xl:pr-4"
-              v-if="!openBlock"
+              v-if="!openBlock && order?.status > 2"
               @click="openBlock = true"
             >
               <button class="flex gap-2 text-purple text-base font-medium items-center">

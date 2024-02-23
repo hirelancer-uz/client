@@ -179,13 +179,13 @@
     <div class="text mt-4 pb-6 xl:mt-3 xl:pb-0">
       <p
         class="text-grey-64 text-base leading-6 max-h-[96px] overflow-hidden xl:text-[14px]"
-        :class="{ active: openBlock == true }"
+        :class="{ active: openBlock || order?.status < 3 }"
       >
         {{ request?.additional_info }}
       </p>
       <button
         @click="openBlock = true"
-        v-if="!openBlock && request?.additional_info?.length > 400"
+        v-if="!openBlock && request?.additional_info?.length > 400 && order?.status > 2"
         class="text-main-color text-base flex gap-1 mt-1"
       >
         Раскрыть<svg
