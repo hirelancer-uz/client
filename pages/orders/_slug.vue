@@ -155,7 +155,7 @@
                 specific assigned tasks and billing hours to ASU Prep.
               </p> -->
             </div>
-            <div class="files flex flex-col gap-4 mt-4 pl-2">
+            <div class="files flex flex-col gap-4 mt-4 pl-2" v-if="order?.files?.length > 0">
               <h6 class="text-black text-[20px] font-semibold xl:text-[18px]">
                 Файлы к задаче
               </h6>
