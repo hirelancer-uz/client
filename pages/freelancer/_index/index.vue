@@ -1,5 +1,5 @@
 <template>
-  <div class="profile xl:px-4">
+  <div class="profile xl:px-4 xl:mt-[4px]">
     <ProfileLayout :profile="false" :freelancer="freelancer" :show="true">
       <div class="personal-information mt-8 xl:mt-6">
         <PersonalInfo
@@ -13,9 +13,9 @@
       <div class="portfolio-block mt-[40px] xl:mt-6">
         <Portfolios :portfolios="portfolios" />
       </div>
-      <div class="events-block mt-10 xl:mt-[56px]">
+      <!-- <div class="events-block mt-10 xl:mt-[56px]">
         <Events />
-      </div>
+      </div> -->
     </ProfileLayout>
   </div>
 </template>

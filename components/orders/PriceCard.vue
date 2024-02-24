@@ -1,22 +1,28 @@
-<template lang="html">
+<template>
   <div
     class="card price-card px-6 py-6 xl:px-4 xl:py-4 rounded-2xl bg-bg-grey flex flex-col gap-6"
   >
-    <div class="flex flex-col gap-6 xl:gap-4">
+    <div class="flex flex-col rower gap-6 xl:gap-4">
       <div
-        class="flex justify-between items-center xl:flex-row xl:justify-between xl:items-center"
+        class="flex justify-between pricer items-center xl:flex-row xl:justify-between xl:items-center"
       >
-        <p class="text-grey-64 text-[14px] xl:text-base xl:font-semibold">
+        <p
+          class="text-grey-64 text-[14px] xl:text-base xl:font-semibold price__sup"
+        >
           Buyrtma narxi:
         </p>
-        <h1 class="text-black text-base font-semibold xl:text-base">
+        <h1
+          class="text-black text-base font-semibold xl:text-base exact__price"
+        >
           {{
-            order?.price ? `${order?.price.toLocaleString()} so’m` : "По договоренности"
+            order?.price
+              ? `${order?.price.toLocaleString()} so’m`
+              : "По договоренности"
           }}
         </h1>
       </div>
       <div
-        class="flex justify-between items-center xl:flex-row xl:justify-between xl:items-center"
+        class="flex deal justify-between items-center xl:flex-row xl:justify-between xl:items-center"
       >
         <p class="text-grey-64 text-[14px] xl:font-medium">Срок:</p>
         <h4
@@ -88,6 +94,9 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+.app-btn {
+  overflow: hidden;
+}
 .app-btn::after {
   content: "";
   position: absolute;
@@ -95,10 +104,14 @@ export default {
   left: 0;
   height: 100%;
   width: 100%;
-  background: var(--Button-gradient, linear-gradient(0deg, #5c46e5 0%, #9882ff 106.73%));
+  background: var(
+    --Button-gradient,
+    linear-gradient(0deg, #5c46e5 0%, #9882ff 106.73%)
+  );
   box-shadow: 0px 12px 16px 0px rgba(92, 70, 229, 0.16);
   opacity: 0;
   transition: 0.3s;
+  pointer-events: none;
 }
 .app-btn:hover::after {
   opacity: 1;

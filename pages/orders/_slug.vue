@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="pt-12 order xl:pt-6">
-    <div class="max-w-[1286px] mx-auto pb-[80px]">
+    <div class="max-w-[1286px] mx-auto pb-[80px] xl:pb-[32px]">
       <nuxt-link
         to="/"
         class="back-btn flex xl:hidden gap-4 w-[162px] py-3 border border-grey-24 border-solid rounded-lg justify-center items-center text-base font-medium text-blue hover:text-blue"
@@ -21,7 +21,7 @@
         </svg>
         Orqaga
       </nuxt-link>
-      <div class="content-box mt-6 xl:mt-0 xl:px-4">
+      <div class="content-box mt-6 xl:mt-0 xl:px-4 xl:mt-[4px]">
         <div>
           <div
             class="info rounded-3xl xl:rounded-2xl border-solid border-grey-8 pr-8 pl-6 py-6 xl:px-4 xl:py-4 border"
@@ -49,7 +49,10 @@
                     /></svg
                   >Срочный заказ</span
                 >
-                <span v-if="order?.urgent" class="h-[19px] w-[1px] bg-grey-8"></span>
+                <span
+                  v-if="order?.urgent"
+                  class="h-[19px] w-[1px] bg-grey-8"
+                ></span>
                 <span
                   v-if="step1"
                   class="flex gap-[7px] items-center rounded-[8px] text-dark-yellow text-[14px] font-medium"
@@ -133,12 +136,18 @@
                   {{ moment(order?.created_at).format(dateFormat) }}
                 </p>
                 <p class="text-base text-grey-64 xl:text-[14px] flex gap-[6px]">
-                  Заказ:<span class="font-medium text-black">#{{ order?.id }}</span>
+                  Заказ:<span class="font-medium text-black"
+                    >#{{ order?.id }}</span
+                  >
                 </p>
               </div>
             </div>
-            <div class="body mt-6 pb-4 border-[0] border-b border-solid border-grey-8">
-              <h1 class="title text-[24px] font-semibold text-black mb-4 xl:text-[18px]">
+            <div
+              class="body mt-6 pb-4 border-[0] border-b border-solid border-grey-8"
+            >
+              <h1
+                class="title text-[24px] font-semibold text-black mb-4 xl:text-[18px]"
+              >
                 {{ order?.name }}
               </h1>
               <span
@@ -155,12 +164,21 @@
                 specific assigned tasks and billing hours to ASU Prep.
               </p> -->
             </div>
-            <div class="files flex flex-col gap-4 mt-4 pl-2" v-if="order?.files?.length > 0">
+            <div
+              class="files flex flex-col gap-4 mt-4 pl-2"
+              v-if="order?.files?.length > 0"
+            >
               <h6 class="text-black text-[20px] font-semibold xl:text-[18px]">
                 Файлы к задаче
               </h6>
-              <div class="file-list flex gap-4 justify-start xl:grid xl:grid-cols-3">
-                <FileCard v-for="file in order?.files" :file="file" :key="file?.id" />
+              <div
+                class="file-list flex gap-4 justify-start xl:grid xl:grid-cols-3"
+              >
+                <FileCard
+                  v-for="file in order?.files"
+                  :file="file"
+                  :key="file?.id"
+                />
               </div>
             </div>
             <div class="files flex flex-col gap-4 mt-4 xl:mt-6 mb-6 pl-2">
@@ -188,7 +206,9 @@
               class="content-bottom border-[0] border-t border-solid border-grey-8 pt-4 flex justify-between xl:flex-col xl:gap-6 xl:max-w-[90%] xl:mx-auto white-space-nowrap pl-2"
             >
               <div class="flex items-center gap-[28px] xl:justify-between">
-                <p class="text-base xl:text-[14px] text-grey-64 flex gap-2 items-center">
+                <p
+                  class="text-base xl:text-[14px] text-grey-64 flex gap-2 items-center"
+                >
                   <svg
                     class="min-w-5"
                     xmlns="http://www.w3.org/2000/svg"
@@ -211,7 +231,9 @@
                     /></svg
                   >{{ order?.view_count }}
                 </p>
-                <p class="text-base xl:text-[14px] text-grey-64 flex gap-2 items-center">
+                <p
+                  class="text-base xl:text-[14px] text-grey-64 flex gap-2 items-center"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -225,7 +247,12 @@
                       stroke-width="1.5"
                       stroke-linejoin="round"
                     />
-                    <circle cx="9.99984" cy="9.99996" r="0.833333" fill="#5C46E6" />
+                    <circle
+                      cx="9.99984"
+                      cy="9.99996"
+                      r="0.833333"
+                      fill="#5C46E6"
+                    />
                     <ellipse
                       cx="13.3333"
                       cy="9.99996"
@@ -277,6 +304,7 @@
           <div class="flex-col gap-4 hidden xl:flex xl:mt-6 xl:gap-6">
             <ClientCard :client="order?.client" />
             <PriceCard @open="openModal" :order="order" />
+            <PriceCard class="mobile__price" @open="openModal" :order="order" />
           </div>
           <!-- <div class="flex flex-col gap-4 mt-8 xl:mt-6">
             <InfoCard
@@ -358,7 +386,11 @@
       </Transition> -->
       <!-- <Transition name="nested"> -->
       <!-- <div v-if="bottomModal" class="fixed w-full bottom-0 left-0"> -->
-      <BottomModal @close="closeModal" @submit="submit" :visibleProp="bottomModal" />
+      <BottomModal
+        @close="closeModal"
+        @submit="submit"
+        :visibleProp="bottomModal"
+      />
       <!-- </div> -->
       <!-- </Transition> -->
       <div class="xl:hidden flex">
@@ -602,6 +634,57 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+.mobile__price {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9;
+  border-radius: 16px 16px 0px 0px;
+  background: var(--White, #fff);
+  box-shadow: 0px 4px 36px 0px rgba(0, 25, 53, 0.16);
+  display: grid;
+  grid-template-columns: 3.5fr 6.5fr;
+  gap: 16px;
+  min-height: 100px;
+  align-items: center;
+}
+.mobile__price :deep(.rower) {
+  flex-direction: row;
+}
+.mobile__price :deep(.deal) {
+  display: none;
+}
+.mobile__price :deep(.buttons) {
+  display: block;
+}
+.mobile__price :deep(.pricer) {
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 4px;
+  align-items: flex-start;
+}
+.mobile__price :deep(.app-btn) {
+  border-radius: 12px;
+  width: 100%;
+}
+.mobile__price :deep(.app-btn::after) {
+  border-radius: 12px;
+}
+.mobile__price :deep(.exact__price) {
+  color: var(--Main-color, #5c46e5);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 24px */
+}
+.mobile__price :deep(.price__sup) {
+  color: var(--grey-64, #5d5d5f);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%; /* 15.6px */
+}
 .back-btn {
   transition: 0.3s;
 }

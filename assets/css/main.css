@@ -74,8 +74,9 @@ button {
 .font-tt {
   font-family: "TT Interfaces";
 }
-*:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol
-      *)) {
+*:where(
+    :not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)
+  ) {
   all: unset;
   display: revert;
 }
@@ -217,6 +218,9 @@ a:hover {
 }
 .ant-tooltip-arrow {
   display: none;
+}
+.ant-select-dropdown {
+  z-index: 999999 !important;
 }
 @media (max-width: 1200px) {
   .ant-modal {

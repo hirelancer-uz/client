@@ -176,7 +176,9 @@ export default {
 .bottom-bar .active {
   color: var(--main-color);
 }
-.bottom-bar .active svg path {
+.bottom-bar .active svg path,
+.bottom-bar .active svg circle,
+.bottom-bar .active svg ellipse {
   stroke: var(--main-color);
 }
 </style>

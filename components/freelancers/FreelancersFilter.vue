@@ -1,20 +1,37 @@
 <template>
-  <div class="wrap">
+  <div class="wrap h-full">
     <div
-      class="filter-container flex flex-col border border-solid border-grey-light rounded-[24px]"
+      class="filter-container flex flex-col border border-solid border-grey-light rounded-[24px] xl:w-full border-[0] xl:justify-between"
     >
+      <div class="x absolute top-[16px] right-[16px]">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+        >
+          <path
+            d="M16.2427 7.75738L7.75745 16.2427M16.2427 16.2426L7.75745 7.75732"
+            stroke="#353437"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
       <div
         class="list px-[8px] xl:px-4 py-[8px] flex flex-col g xl:border-0 xl:pt-[12px] xl:pb-[20px]"
       >
+        <h2 class="mt-[24px] text-[24px] xl:font-bold">Filtr</h2>
         <h2
-          class="text-[20px] text-black font-semibold mx-[20px] py-[12px] pb-[16px] border-b-[1px] border-x-[0] border-t-[0] border-solid border-grey-light"
+          class="text-[20px] text-black font-semibold mx-[20px] py-[12px] pb-[16px] border-b-[1px] border-x-[0] border-t-[0] border-solid border-grey-light xl:mx-[0]"
         >
           Тип работы
         </h2>
 
-        <div class="drop-list flex flex-col mt-[4px]">
+        <div class="drop-list flex flex-col mt-[4px] xl:gap-[24px] pt-[16px]">
           <div
-            class="dropdown overflow-hidden"
+            class="dropdown overflow-hidden xl:mx-0 xl:rounded-[12px]"
             :class="{ active: dropdownOpens.includes(dropItem?.id) }"
             v-for="dropItem in specialities"
             :key="dropItem?.id"
@@ -23,21 +40,27 @@
               class="drop-head xl:px-0 xl:py-0 bg-white relative z-20 w-full flex justify-between items-center px-[20px] py-[12px]"
             >
               <h2
-                @click="$emit('filter', `specialities[${dropItem?.id}]`, dropItem?.id)"
+                @click="
+                  $emit('filter', `specialities[${dropItem?.id}]`, dropItem?.id)
+                "
                 class="text-base text-blue-night flex gap-2 items-center"
                 :class="{
                   'text-main-color':
                     dropdownOpens.includes(dropItem?.id) ||
                     Boolean(
                       Object.entries($route.query)
-                        .filter((filterItem) => filterItem[0].includes('specialities'))
+                        .filter((filterItem) =>
+                          filterItem[0].includes('specialities')
+                        )
                         .find((findItem) => findItem[1] == dropItem?.id)
                     ),
                 }"
               >
                 {{ dropItem?.name_ru }}
 
-                <div class="count text-[#9A999B]">({{ dropItem?.children.length }})</div>
+                <div class="count text-[#9A999B]">
+                  ({{ dropItem?.children.length }})
+                </div>
               </h2>
               <span
                 @click="handleDropdown(dropItem?.id)"
@@ -64,16 +87,22 @@
 
             <!-- <Transition name="bounce"> -->
             <div class="drop-body relative z-10">
-              <div class="px-4 py-4 pt-[0] pb-[8px] flex flex-col gap-4 xl:gap-8">
+              <div
+                class="px-4 py-4 pt-[0] pb-[8px] flex flex-col gap-4 xl:gap-8"
+              >
                 <button
                   class="text-[14px] text-grey-80 flex gap-2 items-center hover:text-main-color"
                   v-for="dropIn in dropItem.children"
                   :key="dropIn?.id"
-                  @click="$emit('filter', `specialities[${dropIn?.id}]`, dropIn?.id)"
+                  @click="
+                    $emit('filter', `specialities[${dropIn?.id}]`, dropIn?.id)
+                  "
                   :class="{
                     'text-main-color': Boolean(
                       Object.entries($route.query)
-                        .filter((filterItem) => filterItem[0].includes('specialities'))
+                        .filter((filterItem) =>
+                          filterItem[0].includes('specialities')
+                        )
                         .find((findItem) => findItem[1] == dropIn?.id)
                     ),
                   }"
@@ -93,7 +122,7 @@
         </div>
       </div>
       <div
-        class="filter px-[28px] py-[28px] pt-0 flex flex-col gap-4 xl:mx-4 xl:px-4 xl:py-4"
+        class="filter px-[28px] py-[28px] pt-0 flex flex-col gap-4 xl:mx-4 xl:px-0 xl:py-0"
       >
         <div
           class="flex flex-col gap-4 border-t-[1px] border-x-[0] border-b-[0] border-solid border-grey-light pt-[24px] mt-[8px]"
@@ -155,7 +184,7 @@
             </span>
           </div>
         </div>
-        <div class="xl:hidden">
+        <div class="">
           <a-select
             v-if="regions.length > 0"
             v-model="filterForm.region"
@@ -171,7 +200,17 @@
             >
           </a-select>
         </div>
-        <div class="flex gap-4 xl:flex-col">
+        <div class="flex gap-4 xl:flex-col buttoners">
+          <button
+            @click="clearFilter"
+            class="flex w-full justify-center xl:h-[52px] py-[15px] rounded-lg border border-blue border-solid text-[14px] font-tt font-semibold xl:font-medium text-blue bg-white"
+            :class="{
+              'pointer-events-none opacity-50':
+                Object.keys($route.query).length < 3,
+            }"
+          >
+            Bekor qilish
+          </button>
           <button
             :class="{ 'pointer-events-none opacity-50': !disabledFilter }"
             @click="sendFilter"
@@ -179,21 +218,13 @@
           >
             Ko'rsatish
           </button>
-          <button
-            :class="{
-              'pointer-events-none opacity-50': Object.keys($route.query).length < 3,
-            }"
-            @click="clearFilter"
-            class="flex w-full justify-center xl:h-[52px] py-[15px] rounded-lg border border-blue border-solid text-[14px] font-tt font-semibold xl:font-medium text-blue bg-white"
-          >
-            Bekor qilish
-          </button>
         </div>
       </div>
     </div>
     <TelegramCard class="xl:hidden mt-[16px]" />
   </div>
 </template>
+
 <script>
 import TelegramCard from "../TelegramCard.vue";
 
@@ -258,6 +289,7 @@ export default {
   components: { TelegramCard },
 };
 </script>
+
 <style lang="css" scoped>
 .drop-body {
   max-height: 0;
@@ -318,8 +350,11 @@ export default {
   background-color: var(--blue);
 }
 .filter-container
-  :deep(.ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover
-    .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner) {
+  :deep(
+    .ant-checkbox-wrapper:hover .ant-checkbox-inner,
+    .ant-checkbox:hover .ant-checkbox-inner,
+    .ant-checkbox-input:focus + .ant-checkbox-inner
+  ) {
   border-color: var(--blue);
 }
 .filter-container :deep(.ant-checkbox-checked::after) {
@@ -337,7 +372,11 @@ export default {
 
   background: var(--bg-grey);
 }
-:deep(.ant-select-selection__placeholder, .ant-select-search__field__placeholder, .ant-select-selection-selected-value) {
+:deep(
+    .ant-select-selection__placeholder,
+    .ant-select-search__field__placeholder,
+    .ant-select-selection-selected-value
+  ) {
   color: var(--grey-80);
   font-family: "TT Interfaces";
   font-size: 16px;
@@ -350,15 +389,25 @@ export default {
 :deep(.ant-select-selection__placeholder) {
   margin-top: -14px;
 }
-:deep(.ant-select-focused
-    .ant-select-selection, .ant-select-selection:focus, .ant-select-selection:active) {
+:deep(
+    .ant-select-focused .ant-select-selection,
+    .ant-select-selection:focus,
+    .ant-select-selection:active
+  ) {
   box-shadow: 0 0 0 2px rgba(92, 70, 229, 0.2);
 }
 @media (max-width: 1200px) {
   .drop-list .active {
-    border-radius: 0;
-    margin-left: -16px;
-    margin-right: -16px;
+    margin-inline: 0;
+    border-radius: 12px;
+    margin: 0;
+  }
+  .drop-list {
+    margin: 0;
+  }
+  .buttoners {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 </style>
