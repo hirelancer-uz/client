@@ -15,7 +15,7 @@
       <Events />
     </div> -->
     <div class="mt-10" v-if="$route.params.user == 'freelancer'">
-      <Comments />
+      <Comments :feedbacks="$store.state.userInfo?.customers_feedbacks" />
     </div>
     <!-- </ProfileLayout> -->
   </div>

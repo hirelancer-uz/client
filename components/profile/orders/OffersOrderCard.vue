@@ -47,7 +47,7 @@
           </h4>
           <div class="flex items-center gap-3 mt-2 xl:mt-2">
             <p
-              class="text-base font-medium text-yellow flex gap-1 items-center xl:text-[12px]"
+              class="text-base font-medium text-grey-80 flex gap-1 items-center xl:text-[12px]"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +60,7 @@
                   d="M5.8528 1.90767C6.3222 0.918798 7.67845 0.918796 8.14785 1.90767L8.9591 3.6167C9.14549 4.00939 9.50581 4.28156 9.92261 4.34453L11.7366 4.61859C12.7862 4.77716 13.2053 6.11825 12.4458 6.88798L11.1332 8.21828C10.8316 8.52394 10.694 8.96433 10.7652 9.39593L11.075 11.2743C11.2543 12.3612 10.1571 13.1901 9.2183 12.6769L7.59581 11.79C7.22301 11.5863 6.77764 11.5863 6.40484 11.79L4.78235 12.6769C3.84355 13.1901 2.74632 12.3612 2.92562 11.2743L3.23549 9.39593C3.30668 8.96433 3.16906 8.52394 2.86746 8.21828L1.55484 6.88798C0.795331 6.11825 1.21443 4.77716 2.26404 4.61859L4.07804 4.34453C4.49484 4.28156 4.85516 4.00939 5.04155 3.6167L5.8528 1.90767Z"
                   fill="#F2C94C"
                 /></svg
-              >4.4 (56)
+              >{{ request?.freelancer?.stars }}
             </p>
             <div class="flex gap-2">
               <p class="text-grey-40 text-base xl:hidden">Oтзывы:</p>
@@ -88,7 +88,7 @@
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     /></svg
-                  >26</span
+                  >{{ request?.freelancer?.likes_count }}</span
                 >
                 <span class="bg-grey-8 h-[24px] xl:h-5 flex w-[1px]"></span>
 
@@ -117,7 +117,7 @@
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     /></svg
-                  >2</span
+                  >{{ request?.freelancer?.dislikes_count }}</span
                 >
               </p>
             </div>
@@ -179,13 +179,13 @@
     <div class="text mt-4 pb-6 xl:mt-3 xl:pb-0">
       <p
         class="text-grey-64 text-base leading-6 max-h-[96px] overflow-hidden xl:text-[14px]"
-        :class="{ active: openBlock || order?.status < 3 }"
+        :class="{ active: openBlock || order?.status < 2 }"
       >
         {{ request?.additional_info }}
       </p>
       <button
         @click="openBlock = true"
-        v-if="!openBlock && request?.additional_info?.length > 400 && order?.status > 2"
+        v-if="!openBlock && request?.additional_info?.length > 400 && order?.status > 1"
         class="text-main-color text-base flex gap-1 mt-1"
       >
         Раскрыть<svg
@@ -275,6 +275,7 @@
       save="Ha, albatta"
       close="Yo’q"
       :primary="true"
+      :loadingBtn="loadingBtn"
     >
     </CancellationOrder>
   </div>
@@ -290,6 +291,7 @@ export default {
       openBlock: false,
       dateFormat: "DD.MM.YYYY",
       hourFormat: "HH:mm",
+      loadingBtn: false,
     };
   },
   mounted() {},
@@ -320,15 +322,17 @@ export default {
     },
     async __POST_ORDER(payload) {
       try {
+        this.loadingBtn = true;
         await this.$store.dispatch("fetchOrders/postSelectRequest", payload);
         this.$emit("selected");
         this.visible = false;
       } catch (e) {
-        console.log(e.response);
         this.$notification["error"]({
           message: "Error",
           description: e.response.statusText,
         });
+      } finally {
+        this.loadingBtn = false;
       }
     },
   },

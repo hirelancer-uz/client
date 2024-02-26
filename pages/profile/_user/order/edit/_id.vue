@@ -242,6 +242,7 @@
                   :file-list="fileList"
                   :before-upload="handleBeforeUpload"
                   :custom-request="customRequest"
+                  accept=".jpg, .png, .jpeg, .webp"
                 >
                   <div v-if="fileList.length < 10" class="flex justify-center bg-bg-grey">
                     <svg

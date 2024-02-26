@@ -62,9 +62,13 @@ export default {
       tab: true,
     };
   },
-  async asyncData({ store }) {
+  async asyncData({ store,params }) {
     const [ordersData, specialitiesData] = await Promise.all([
-      store.dispatch("fetchOrders/getOrders"),
+      store.dispatch("fetchOrders/getOrders", {
+        params: {
+          [`specialities[${params.id}]`]: params.id,
+        },
+      }),
       store.dispatch("fetchSpecialities/getSpecialities"),
     ]);
     const orders = ordersData.data;
@@ -99,7 +103,10 @@ export default {
       this.loading = true;
       try {
         const data = await this.$store.dispatch("fetchOrders/getOrders", {
-          params: { ...this.$route.query },
+          params: {
+            ...this.$route.query,
+            [`specialities[${this.$route.params.id}]`]: this.$route.params.id,
+          },
         });
         this.orders = data.data;
         this.totalPage = data?.meta?.total;

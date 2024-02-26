@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="pt-[72px] xl:pt-6 order xl:px-4" :class="{ 'pb-10': order?.status != 1 }">
     <div class="max-w-[1200px] mx-auto">
-      <nuxt-link
-        to="/profile/customer/orders/active/status"
+      <button
+        @click="$router.go(-1)"
         class="back-btn flex gap-2 w-[126px] py-3 border border-main-color border-solid rounded-lg justify-center items-center text-base font-medium text-grey-80 hover:text-blue xl:hidden"
       >
         <svg
@@ -21,7 +21,7 @@
           />
         </svg>
         Отмена
-      </nuxt-link>
+      </button>
       <div class="flex justify-between items-end">
         <div class="flex flex-col gap-2 mt-6 xl:hidden">
           <h3 class="text-[24px] text-black font-semibold">Заказ: #{{ order?.id }}</h3>
@@ -52,14 +52,14 @@
         <div class="flex flex-col gap-6">
           <div
             class="info-box rounded-3xl border-solid border-grey-8 border relative overflow-hidden max-h-[430px] xl:rounded-2xl"
-            :class="{ active: openBlock || order?.status < 3 }"
+            :class="{ active: openBlock || order?.status < 2 }"
           >
             <div class="info px-6 py-6 xl:px-4 xl:py-4">
               <div
                 v-if="status != 0"
                 class="status flex justify-center mx-[-24px] mb-6 pb-[18px] border-[0] border-b-[2px] border-solid border-grey-light relative"
               >
-                <OrderStatus :status="order?.status" />
+                <OrderStatus :status="order?.status" :order="order" />
               </div>
               <div class="head flex justify-start xl:flex-col xl:gap-4">
                 <div class="flex gap-6">
@@ -218,7 +218,7 @@
             </div>
             <div
               class="flex items-center justify-center xl:pb-2 h-12 w-full bg-bg-grey absolute bottom-0 show-all cursor-pointer xl:h-11 xl:justify-end xl:pr-4"
-              v-if="!openBlock && order?.status > 2"
+              v-if="!openBlock && order?.status > 1"
               @click="openBlock = true"
             >
               <button class="flex gap-2 text-purple text-base font-medium items-center">
@@ -485,6 +485,7 @@
               @openChat="chatHandle = true"
             />
             <button
+              v-if="order?.requests.length > 2"
               class="flex py-4 rounded-lg bg-grey-light w-full items-center justify-center gap-6 text-base font-medium text-blue xl:text-[14px] xl:gap-4 xl:flex-row-reverse"
             >
               <svg
@@ -561,11 +562,21 @@
           <BottomModal @close="closeModal" />
         </div>
       </Transition>
-      <CloseOrder @handleOkProp="handleOk" :visibleProp="visibleClose" />
       <CancellationOrder
         @handleOkProp="handleOk"
-        :visibleProp="visibleCancel"
+        :visibleProp="cancel.visible1"
         @submit="submitCancel"
+        :loadingBtn="loadingBtn"
+        title="Siz so'rovni bekor qilmoqchimisiz?"
+        save="Ha, albatta"
+        close="Yo’q"
+      >
+      </CancellationOrder>
+      <CancellationOrder
+        @handleOkProp="handleOk"
+        :visibleProp="cancel.visible2"
+        @submit="submitCancel"
+        :loadingBtn="loadingBtn"
         title="Siz so'rovni bekor qilmoqchimisiz?"
         save="Ha, albatta"
         close="Yo’q"
@@ -582,8 +593,10 @@
       </CancellationOrder>
       <CancellationOrder
         @handleOkProp="handleOk"
-        :visibleProp="visibleCancel2"
-        @submit="submitCancel2"
+        :visibleProp="cancel.visible3"
+        @submit="submitCancel"
+        :loadingBtn="loadingBtn"
+        :disabled="disabledBtn"
         title="Siz haqiqatdan buyurtmani bekor qilmoqchimisiz?"
         save="Ha, albatta"
         close="Yo’q"
@@ -601,45 +614,24 @@
         <div class="px-4 py-4 rounded-[16px] bg-bg-grey w-full mt-4 mb-[-32px]">
           <h5 class="text-[18px] text-grey-80 font-bold">Prichina otmeni</h5>
           <ul class="flex flex-col gap-6 mt-6">
-            <li>
-              <a-checkbox class="text-[18px]"> Klient ne otvechaet</a-checkbox>
-            </li>
-            <li>
-              <a-checkbox class="text-[18px]"> Klient ne otvechaet</a-checkbox>
-            </li>
-            <li>
-              <a-checkbox class="text-[18px]"> Klient ne otvechaet</a-checkbox>
-            </li>
-            <li>
-              <a-checkbox class="text-[18px]"> Klient ne otvechaet</a-checkbox>
-            </li>
-            <li>
-              <a-checkbox class="text-[18px]"> Klient ne otvechaet</a-checkbox>
+            <li v-for="reason in reasons" :key="reason?.id">
+              <a-checkbox
+                :checked="selectedReasons.includes(reason?.id)"
+                @change="onSelectReasons(reason?.id)"
+                class="text-[18px]"
+              >
+                {{ reason?.text_ru }}</a-checkbox
+              >
             </li>
           </ul>
         </div>
       </CancellationOrder>
-      <CancellationOrder
-        @handleOkProp="handleOk"
-        :visibleProp="visibleCancel3"
-        @submit="submitCancel"
-        title="Siz so'rovni bekor qilmoqchimisiz?"
-        save="Ha, albatta"
-        close="Yo’q"
-      >
-      </CancellationOrder>
+
       <CompliteOrder
         @handleOkProp="handleOk"
         :visibleProp="visibleComplite"
         @submit="submitComplite"
-      />
-      <FreelancerComplite
-        @handleOkProp="handleOk"
-        :visibleProp="visibleSelect"
-        @submit="submitSelect"
-        title="Vazifani bajarish uchun ushbu frilanser tanlansinmi?"
-        save="Ha, albatta"
-        cancel="Yo’q"
+        :loadingBtn="loadingBtn"
       />
     </div>
     <div
@@ -679,9 +671,7 @@ import PriceCard from "@/components/orders/PriceCard.vue";
 import BottomModal from "@/components/orders/BottomModal.vue";
 import OrderStatus from "@/components/profile/orders/OrderStatus.vue";
 import EndingProcess from "@/components/orders/EndingProcess.vue";
-import CloseOrder from "@/components/modals/CloseOrder.vue";
 import CancellationOrder from "@/components/modals/CancellationOrder.vue";
-import ComplaintOrder from "@/components/modals/ComplaintOrder.vue";
 import CustomerChat from "./CustomerChat.vue";
 import Loader from "@/components/Loader.vue";
 import OffersOrderCard from "./OffersOrderCard.vue";
@@ -689,11 +679,11 @@ import OffersChat from "./OffersChat.vue";
 import moment from "moment";
 import SelectedFreelancer from "./SelectedFreelancer.vue";
 import CompliteOrder from "../../modals/CompliteOrder.vue";
-import FreelancerComplite from "../../modals/FreelancerComplite.vue";
 export default {
-  props: ["order", "loading"],
+  props: ["order", "loading", "reasons"],
   data() {
     return {
+      selectedReasons: [],
       chatHandle: false,
       options: [
         {
@@ -707,14 +697,16 @@ export default {
       ],
       is_positive: undefined,
       bottomModal: false,
-      step: 1,
       openBlock: false,
       visibleSelect: false,
-      visibleClose: false,
-      visibleCancel: false,
       visibleComplite: false,
-      visibleCancel2: false,
-      visibleCancel3: false,
+      cancel: {
+        visible1: false,
+        visible2: false,
+        visible3: false,
+      },
+      disabledBtn: true,
+      loadingBtn: false,
     };
   },
   computed: {
@@ -744,19 +736,36 @@ export default {
   },
   methods: {
     moment,
+    onSelectReasons(id) {
+      if (!this.selectedReasons.includes(id)) {
+        this.selectedReasons.push(id);
+      } else {
+        this.selectedReasons = this.selectedReasons.filter((elem) => elem != id);
+      }
+      this.selectedReasons.length > 0
+        ? (this.disabledBtn = false)
+        : (this.disabledBtn = true);
+    },
     cancelOrder() {
-      // this.visibleCancel = true;
-      // this.visibleClose = true
-      this.visibleCancel3 = true;
+      switch (this.order?.status) {
+        case 0:
+          this.cancel.visible1 = true;
+          break;
+        case 1:
+          this.cancel.visible2 = true;
+          break;
+        case 2:
+          this.cancel.visible3 = true;
+          break;
+      }
     },
     submitSelect() {},
-    submitCancel2() {},
     handleOk() {
       this.visibleSelect = false;
-      this.visibleClose = false;
-      this.visibleCancel = false;
       this.visibleComplite = false;
-      this.visibleCancel2 = false;
+      this.cancel.visible1 = false;
+      this.cancel.visible2 = false;
+      this.cancel.visible3 = false;
     },
     openModal() {
       this.bottomModal = true;
@@ -765,18 +774,24 @@ export default {
       this.bottomModal = false;
     },
     submitCancel() {
-      this.__CANCEL_ORDER();
+      let formData = new FormData();
+      this.selectedReasons.forEach((item) => {
+        formData.append("reasons[]", item);
+      });
+      this.__CANCEL_ORDER(this.selectedReasons.length > 0 ? formData : {});
     },
     submitComplite(formData) {
       this.__COMPLITE_ORDER(formData);
     },
-    async __CANCEL_ORDER() {
+    async __CANCEL_ORDER(formData) {
       try {
+        this.loadingBtn = true;
         const data = await this.$store.dispatch("fetchOrders/postCanceledOrder", {
           id: this.$route.params.id,
+          data: formData,
         });
-
-        this.$router.go(-1);
+        this.$emit("selected");
+        this.handleOk();
       } catch (e) {
         if (e.response) {
           this.$notification["error"]({
@@ -784,10 +799,13 @@ export default {
             description: e.response.statusText,
           });
         }
+      } finally {
+        this.loadingBtn = false;
       }
     },
     async __COMPLITE_ORDER(formData) {
       try {
+        this.loadingBtn = true;
         const data = await this.$store.dispatch(
           "fetchOrders/postCompliteCustomer",
           formData
@@ -801,6 +819,8 @@ export default {
             description: e.response.statusText,
           });
         }
+      } finally {
+        this.loadingBtn = false;
       }
     },
   },
@@ -812,16 +832,13 @@ export default {
     BottomModal,
     OrderStatus,
     EndingProcess,
-    CloseOrder,
     CancellationOrder,
-    ComplaintOrder,
     CustomerChat,
     Loader,
     OffersOrderCard,
     OffersChat,
     SelectedFreelancer,
     CompliteOrder,
-    FreelancerComplite,
   },
 };
 </script>

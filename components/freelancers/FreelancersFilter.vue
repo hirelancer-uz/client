@@ -15,7 +15,12 @@
         <div class="drop-list flex flex-col mt-[4px]">
           <div
             class="dropdown overflow-hidden"
-            :class="{ active: dropdownOpens.includes(dropItem?.id) }"
+            :class="{
+              active:
+                (dropItem.children.find((item) => item.id == dropdownOpen) ||
+                  dropdownOpen == dropItem?.id) &&
+                dropItem.children.length > 0,
+            }"
             v-for="dropItem in specialities"
             :key="dropItem?.id"
           >
@@ -23,16 +28,10 @@
               class="drop-head xl:px-0 xl:py-0 bg-white relative z-20 w-full flex justify-between items-center px-[20px] py-[12px]"
             >
               <h2
-                @click="$emit('filter', `specialities[${dropItem?.id}]`, dropItem?.id)"
+                @click="toPage(dropItem?.id)"
                 class="text-base text-blue-night flex gap-2 items-center"
                 :class="{
-                  'text-main-color':
-                    dropdownOpens.includes(dropItem?.id) ||
-                    Boolean(
-                      Object.entries($route.query)
-                        .filter((filterItem) => filterItem[0].includes('specialities'))
-                        .find((findItem) => findItem[1] == dropItem?.id)
-                    ),
+                  'text-main-color': dropItem?.id == $route.params.id,
                 }"
               >
                 {{ dropItem?.name_ru }}
@@ -42,7 +41,11 @@
               <span
                 @click="handleDropdown(dropItem?.id)"
                 :class="{
-                  'rotate-180': dropdownOpens.includes(dropItem?.id),
+                  'rotate-180':
+                    (dropItem.children.find((item) => item.id == dropdownOpen) ||
+                      dropdownOpen == dropItem?.id) &&
+                    dropItem.children.length > 0,
+                  'pointer-events-none opacity-50': dropItem.children.length == 0,
                 }"
                 class="drop-icon w-[24px] h-[24px] rounded-[50%] bg-[#F8F9FF] flex items-center justify-center"
               >
@@ -69,13 +72,9 @@
                   class="text-[14px] text-grey-80 flex gap-2 items-center hover:text-main-color"
                   v-for="dropIn in dropItem.children"
                   :key="dropIn?.id"
-                  @click="$emit('filter', `specialities[${dropIn?.id}]`, dropIn?.id)"
+                  @click="toPage(dropIn?.id)"
                   :class="{
-                    'text-main-color': Boolean(
-                      Object.entries($route.query)
-                        .filter((filterItem) => filterItem[0].includes('specialities'))
-                        .find((findItem) => findItem[1] == dropIn?.id)
-                    ),
+                    'text-main-color': $route.params.id == dropIn?.id,
                   }"
                 >
                   <a-tooltip placement="right">
@@ -202,7 +201,7 @@ export default {
   data() {
     return {
       dropdown: false,
-      dropdownOpens: [],
+      dropdownOpen: null,
       filterForm: {
         region: undefined,
         works: false,
@@ -211,6 +210,7 @@ export default {
     };
   },
   mounted() {
+    this.dropdownOpen = this.$route.params.id;
     Object.keys(this.$route.query).forEach((elem) => {
       if (Object.keys(this.filterForm).includes(elem)) {
         if (elem == "region") {
@@ -231,6 +231,12 @@ export default {
     },
   },
   methods: {
+    toPage(id) {
+      this.$router.push({
+        path: `/freelancers/${id}`,
+        query: { page: 1, page_size: this.$route.query.page_size },
+      });
+    },
     async clearFilter() {
       await this.$emit("clear");
       this.filterForm = {
@@ -250,9 +256,11 @@ export default {
       this.$emit("filter", `${name}`, 1);
     },
     handleDropdown(id) {
-      this.dropdownOpens.includes(id)
-        ? (this.dropdownOpens = this.dropdownOpens.filter((item) => item != id))
-        : this.dropdownOpens.push(id);
+      if (this.dropdownOpen == id) {
+        this.dropdownOpen = null;
+      } else {
+        this.dropdownOpen = id;
+      }
     },
   },
   components: { TelegramCard },
@@ -277,7 +285,7 @@ export default {
 }
 .drop-list .active {
   border-radius: 16px;
-  border: 1px solid var(--Border-darik, #e0e0ed);
+  /* border: 1px solid var(--Border-darik, #e0e0ed); */
   background: var(--BG-grey, #f8f9ff);
   margin-bottom: 4px;
 }

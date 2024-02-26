@@ -5,12 +5,14 @@
       :order="order"
       :loading="loading"
       @selected="selected"
+      :reasons="reasons"
     />
     <FreelancerOrder
       v-if="$route.params.user == 'freelancer'"
       :order="order"
       :loading="loading"
       @selected="selected"
+      :reasons="reasons"
     />
   </div>
 </template>
@@ -24,6 +26,17 @@ export default {
       order: {},
       loading: true,
     };
+  },
+  async asyncData({ store }) {
+    try {
+      const [reasonsData] = await Promise.all([
+        store.dispatch("fetchReasons/getReasons"),
+      ]);
+      const reasons = reasonsData.content;
+      return {
+        reasons,
+      };
+    } catch (e) {}
   },
   async mounted() {
     this.__GET_ORDERS();

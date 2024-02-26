@@ -362,7 +362,7 @@
       <!-- </div> -->
       <!-- </Transition> -->
       <div class="xl:hidden flex">
-        <OrderSuccess :visibleProp="visible" @handleOkProp="handleOk" />
+        <OrderSuccess :visibleProp="visible" @handleOkProp="handleOk" :order="order" />
       </div>
       <div class="flex">
         <ToBeFreelancer

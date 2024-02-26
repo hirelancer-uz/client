@@ -26,7 +26,7 @@ import TheFooter from "../components/layouts/TheFooter.vue";
 import TheHeader from "../components/layouts/TheHeader.vue";
 
 export default {
-  name:'defalut',
+  name: "defalut",
   head() {
     return {
       meta: [
@@ -49,6 +49,9 @@ export default {
     headerHeight() {
       return this.$refs.mHeader.offsetHeight;
     },
+    authCheck() {
+      return this.$store.state.auth;
+    },
   },
   async mounted() {
     this.$router.afterEach(() => {
@@ -63,7 +66,13 @@ export default {
       } catch (e) {}
     }
   },
-
+  watch: {
+    authCheck(val) {
+      if (!val && this.$route.name.includes("profile")) {
+        this.$router.push("/");
+      }
+    },
+  },
   components: { TheHeader, TheFooter, BottomBar, MobileHeader },
 };
 </script>

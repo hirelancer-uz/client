@@ -22,7 +22,10 @@ export const actions = {
     return res;
   },
   async postCompliteCustomer({}, data) {
-    const res = await this.$axiosInstance.$post(`/api/customer_feedbacks`, data);
+    const res = await this.$axiosInstance.$post(
+      `/api/customer_feedbacks`,
+      data
+    );
     return res;
   },
   async postCompleteOrder({}, data) {
@@ -41,7 +44,14 @@ export const actions = {
   async postCanceledOrder({}, paylaod) {
     const res = await this.$axiosInstance.$post(
       `/api/orders/cancel/${paylaod.id}?_method=put`,
-      {}
+      paylaod.data
+    );
+    return res;
+  },
+  async postCanceledOffer({}, paylaod) {
+    const res = await this.$axiosInstance.$post(
+      `/api/order_requests/cancel`,
+      paylaod
     );
     return res;
   },

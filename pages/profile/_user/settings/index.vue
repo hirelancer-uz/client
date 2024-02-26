@@ -57,6 +57,7 @@
                   :before-upload="handleBeforeUpload"
                   :custom-request="customRequest"
                   :file-list="fileList"
+                  accept=".jpg, .png, .jpeg, .webp"
                 >
                   <div class="reupload">
                     <button>
@@ -142,6 +143,7 @@
                     :before-upload="handleBeforeUpload"
                     :custom-request="customRequest"
                     :file-list="fileList"
+                    accept=".jpg, .png, .jpeg, .webp"
                   >
                     <button>
                       <svg

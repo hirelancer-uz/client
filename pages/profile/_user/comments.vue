@@ -1,21 +1,20 @@
 <template>
   <div class="master">
     <!-- <ProfileLayout :profile="false" :freelancer="freelancer" :show="true"> -->
-      <div class="sort__comments">
-        <a-select default-value="good">
-          <a-select-option value="good"> Ijobiy izohlar </a-select-option>
-          <a-select-option value="bad"> Qoniqarsiz izohlar </a-select-option>
-        </a-select>
-      </div>
-      <div
-        class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 gap-4 mb-[40px]"
-      >
-        <CommentsCard />
-        <CommentsCard />
-        <CommentsCard />
-        <CommentsCard />
-      </div>
-      <VPagination :totalPage="50" />
+    <div class="sort__comments">
+      <a-select default-value="good">
+        <a-select-option value="good"> Ijobiy izohlar </a-select-option>
+        <a-select-option value="bad"> Qoniqarsiz izohlar </a-select-option>
+      </a-select>
+    </div>
+    <div class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 gap-4 mb-[40px]">
+      <CommentsCard
+        v-for="feedback in $store.state.userInfo?.customers_feedbacks"
+        :key="feedback?.id"
+        :feedback="feedback"
+      />
+    </div>
+    <VPagination :totalPage="50" />
     <!-- </ProfileLayout> -->
   </div>
 </template>

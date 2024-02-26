@@ -75,14 +75,15 @@
           </button>
           <button
             @click="$emit('submit')"
-            class="h-[54px] items-center flex justify-center border border-solid rounded-[8px] text-base font-medium text-white"
-            :class="
-              primary
-                ? 'border-main-color bg-main-color'
-                : 'border-light-red bg-light-red'
-            "
+            class="h-[54px] items-center flex justify-center gap-2 border border-solid rounded-[8px] text-base font-medium text-white"
+            :class="{
+              'pointer-events-none opacity-50': loadingBtn || disabled,
+              'border-main-color bg-main-color': primary,
+              'border-light-red bg-light-red': !primary,
+            }"
           >
-            {{ save || "Ha" }}
+            <span> {{ save || "Ha" }}</span>
+            <LoaderBtn v-if="loadingBtn" />
           </button>
         </div>
       </div>
@@ -90,8 +91,18 @@
   </div>
 </template>
 <script>
+import LoaderBtn from "@/components/loader-btn.vue";
 export default {
-  props: ["visibleProp", "title", "save", "close", "width", "primary"],
+  props: [
+    "visibleProp",
+    "title",
+    "save",
+    "close",
+    "width",
+    "primary",
+    "loadingBtn",
+    "disabled",
+  ],
   data() {
     return {
       visible: false,
@@ -112,6 +123,9 @@ export default {
     visibleProp(val) {
       this.visible = val;
     },
+  },
+  components: {
+    LoaderBtn,
   },
 };
 </script>

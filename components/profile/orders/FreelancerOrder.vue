@@ -25,7 +25,7 @@
         <div class="flex flex-col gap-6">
           <div
             class="info-box rounded-3xl border-solid border-grey-light border-[2px] relative overflow-hidden max-h-[430px]"
-            :class="{ active: openBlock || order?.status < 3 }"
+            :class="{ active: openBlock || order?.status < 2 }"
           >
             <div
               class="status flex justify-center pt-[18px] pb-[18px] border-[0] border-b-[2px] border-solid border-grey-light relative"
@@ -200,7 +200,7 @@
             </div>
             <div
               class="flex items-center justify-center xl:pb-2 h-12 w-full bg-bg-grey absolute bottom-0 cursor-pointer xl:h-11 xl:justify-end xl:pr-4"
-              v-if="!openBlock && order?.status > 2"
+              v-if="!openBlock && order?.status > 1"
               @click="openBlock = true"
             >
               <button class="flex gap-2 text-purple text-base font-medium items-center">
@@ -264,7 +264,10 @@
             ></span>
             <!-- v-if="!order?.end_of_execution" -->
 
-            <div class="buttons flex flex-col gap-4" v-if="!order?.end_of_execution">
+            <div
+              class="buttons flex flex-col gap-4"
+              v-if="!order?.end_of_execution && order?.status < 4"
+            >
               <div class="flex flex-col gap-2" v-if="order?.status == 3 && myRequest">
                 <button
                   class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] bg-grey-light text-base text-grey-80 font-medium"
@@ -457,6 +460,7 @@
         title="Loyihani rostdan ham yakunlamoqchimisiz?"
         save="Ha, albatta"
         cancel="Yo’q"
+        :loadingBtn="loadingBtn"
       />
 
       <CancellationOrder
@@ -467,6 +471,8 @@
         save="Ha, albatta"
         close="Yo’q"
         :width="584"
+        :loadingBtn="loadingBtn"
+        :disabled="disabledBtn"
       >
         <p class="text-base text-grey-64 mt-2">
           Agar buyurtmani bekor qilsangiz bu buyurtmani davom ettira olmaysiz
@@ -480,20 +486,14 @@
         <div class="px-4 py-4 rounded-[16px] bg-bg-grey w-full mt-4 mb-[-32px]">
           <h5 class="text-[18px] text-grey-80 font-bold">Prichina otmeni</h5>
           <ul class="flex flex-col gap-6 mt-6">
-            <li>
-              <a-checkbox class="text-[18px]"> Klient ne otvechaet</a-checkbox>
-            </li>
-            <li>
-              <a-checkbox class="text-[18px]"> Klient ne otvechaet</a-checkbox>
-            </li>
-            <li>
-              <a-checkbox class="text-[18px]"> Klient ne otvechaet</a-checkbox>
-            </li>
-            <li>
-              <a-checkbox class="text-[18px]"> Klient ne otvechaet</a-checkbox>
-            </li>
-            <li>
-              <a-checkbox class="text-[18px]"> Klient ne otvechaet</a-checkbox>
+            <li v-for="reason in reasons" :key="reason?.id">
+              <a-checkbox
+                :checked="selectedReasons.includes(reason?.id)"
+                @change="onSelectReasons(reason?.id)"
+                class="text-[18px]"
+              >
+                {{ reason?.text_ru }}</a-checkbox
+              >
             </li>
           </ul>
         </div>
@@ -503,12 +503,14 @@
         :visibleProp="visibleCancel"
         @submit="submitCancel"
         title="So'rovni bekor qilishingizga aminmisiz ?"
+        :loadingBtn="loadingBtn"
       />
       <ComplaintOrder
         @handleOkProp="handleOkComplaint"
         :visibleProp="visibleComplaint"
         @submit="submitComplaint"
         title="Mijozga qanday shikoyatingiz bor?"
+        :loadingBtn="loadingBtn"
       />
     </div>
     <Loader v-if="loading" />
@@ -530,11 +532,13 @@ import Loader from "@/components/Loader.vue";
 import moment from "moment";
 import FreelancerComplite from "../../modals/FreelancerComplite.vue";
 export default {
-  props: ["order"],
+  props: ["order", "reasons"],
   data() {
     return {
+      selectedReasons: [],
       bottomModal: false,
       step: 1,
+      loadingBtn: false,
       visibleWait: false,
       openBlock: false,
       visibleClose: false,
@@ -542,6 +546,7 @@ export default {
       visibleComplaint: false,
       visibleClose2: false,
       loading: true,
+      disabledBtn: true,
     };
   },
 
@@ -576,6 +581,16 @@ export default {
     }
   },
   methods: {
+    onSelectReasons(id) {
+      if (!this.selectedReasons.includes(id)) {
+        this.selectedReasons.push(id);
+      } else {
+        this.selectedReasons = this.selectedReasons.filter((elem) => elem != id);
+      }
+      this.selectedReasons.length > 0
+        ? (this.disabledBtn = false)
+        : (this.disabledBtn = true);
+    },
     moment,
     handleOk() {
       this.visibleClose = false;
@@ -599,15 +614,18 @@ export default {
       this.bottomModal = false;
     },
     submitCancel() {
-      this.__CANCEL_ORDER();
+      this.__CANCEL_OFFER();
     },
     submitComplaint(formData) {
       this.__COMPLAINTS_ORDER(formData);
     },
-    async __CANCEL_ORDER() {
+    async __CANCEL_OFFER() {
       try {
-        const data = await this.$store.dispatch("fetchOrders/postCanceledOrder", {
-          id: this.$route.params.id,
+        this.loadingBtn = true;
+        const data = await this.$store.dispatch("fetchOrders/postCanceledOffer", {
+          order_request_id: this.order?.requests
+            .filter((item) => item?.freelancer?.id == this.$store.state.userInfo?.id)
+            .at(-1).id,
         });
         this.$router.go(-1);
       } catch (e) {
@@ -617,10 +635,13 @@ export default {
             description: e.response.statusText,
           });
         }
+      } finally {
+        this.loadingBtn = false;
       }
     },
     async __COMPLETE_ORDER() {
       try {
+        this.loadingBtn = true;
         const data = await this.$store.dispatch("fetchOrders/postCompleteOrder", {
           order_id: this.$route.params.id,
         });
@@ -633,10 +654,13 @@ export default {
             description: e.response.statusText,
           });
         }
+      } finally {
+        this.loadingBtn = false;
       }
     },
     async __COMPLAINTS_ORDER(formData) {
       try {
+        this.loadingBtn = true;
         const data = await this.$store.dispatch("fetchOrders/postComplaints", formData);
         this.handleOkComplaint();
       } catch (e) {
@@ -646,6 +670,8 @@ export default {
             description: e.response.statusText,
           });
         }
+      } finally {
+        this.loadingBtn = false;
       }
     },
   },

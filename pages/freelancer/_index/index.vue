@@ -13,9 +13,12 @@
       <div class="portfolio-block mt-[40px] xl:mt-6">
         <Portfolios :portfolios="portfolios" />
       </div>
-      <div class="events-block mt-10 xl:mt-[56px]">
-        <Events />
+      <div class="mt-10">
+        <Comments :feedbacks="freelancer?.customers_feedbacks" />
       </div>
+      <!-- <div class="events-block mt-10 xl:mt-[56px]">
+        <Events />
+      </div> -->
     </ProfileLayout>
   </div>
 </template>
@@ -25,6 +28,7 @@ import Achievements from "@/components/profile/portfolio/Achievements.vue";
 import Portfolios from "@/components/profile/portfolio/Portfolios.vue";
 import Events from "@/components/profile/Events.vue";
 import ProfileLayout from "@/components/profile/ProfileLayout.vue";
+import Comments from "../../../components/profile/Comments.vue";
 
 export default {
   components: {
@@ -33,9 +37,10 @@ export default {
     Portfolios,
     Events,
     ProfileLayout,
+    Comments,
   },
 
-  async asyncData({ store, query, params }) {
+  async asyncData({ store, params }) {
     try {
       const [freeLancerData, portfoliosData] = await Promise.all([
         store.dispatch("fetchFreelancers/getFreelancerById", {

@@ -1,7 +1,7 @@
 <template lang="html">
   <div
     class="flex w-[90%] items-center relative"
-    :class="status == 6 ? 'justify-start gap-5' : 'justify-between'"
+    :class="status != 6 ? 'justify-between' : 'justify-start gap-5'"
   >
     <div class="flex gap-[10px] items-center relative z-10">
       <span class="flex justify-center items-center relative">
@@ -31,7 +31,6 @@
       </span>
       <p class="text-base font-medium text-black relative z-10">Идет прием заявок</p>
     </div>
-
     <svg
       v-if="status != 6"
       width="34"
@@ -45,7 +44,6 @@
         fill="#5C46E6"
       />
     </svg>
-
     <div
       v-if="status != 6"
       class="flex gap-[10px] items-center relative z-10"
@@ -301,7 +299,7 @@
 </template>
 <script>
 export default {
-  props: ["status"],
+  props: ["status", "order"],
   data() {
     return {
       // status: 3,

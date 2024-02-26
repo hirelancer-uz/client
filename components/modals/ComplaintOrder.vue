@@ -88,9 +88,14 @@
             <button
               @click="onSubmit"
               class="h-[54px] items-center w-[194px] flex justify-center gap-2 border border-solid border-main-color bg-main-color rounded-[8px] text-base font-medium text-white"
+              :class="{
+                'pointer-events-none opacity-50': loadingBtn,
+              }"
             >
               Yuborish
+              <LoaderBtn v-if="loadingBtn" />
               <svg
+                v-else
                 xmlns="http://www.w3.org/2000/svg"
                 width="25"
                 height="24"
@@ -114,8 +119,9 @@
   </div>
 </template>
 <script>
+import LoaderBtn from "@/components/loader-btn.vue";
 export default {
-  props: ["visibleProp", "title"],
+  props: ["visibleProp", "title", "loadingBtn"],
   data() {
     return {
       visible: false,
@@ -156,6 +162,9 @@ export default {
     visibleProp(val) {
       this.visible = val;
     },
+  },
+  components: {
+    LoaderBtn,
   },
 };
 </script>

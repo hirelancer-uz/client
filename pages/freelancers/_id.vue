@@ -11,7 +11,9 @@
               <input
                 type="text"
                 placeholder="Поиск"
+                v-model="search"
                 class="text-[16px] text-[#353437] leading-[150%] h-[100%] w-[90%]"
+                @input="($event) => changeSearch($event, '__GET_FREELANCERS')"
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -172,8 +174,8 @@
   </transition>
 </template>
 <script>
-import FreelancersContainer from "../components/freelancers/FreelancersContainer.vue";
-import FreelancersFilter from "../components/freelancers/FreelancersFilter.vue";
+import FreelancersContainer from "@/components/freelancers/FreelancersContainer.vue";
+import FreelancersFilter from "@/components/freelancers/FreelancersFilter.vue";
 import global from "@/mixins/global";
 export default {
   transition: {
@@ -184,15 +186,17 @@ export default {
   data() {
     return {
       loading: false,
+      search: "",
     };
   },
-  async asyncData({ store, query }) {
+  async asyncData({ store, query, params }) {
     store.commit("setPageData", { title: "TitleQul" });
     const [freeLancersData, specialitiesData, regionsData] = await Promise.all([
       store.dispatch("fetchFreelancers/getFreelancers", {
         params: {
           page: query.page || 1,
           page_size: query.page_size || 15,
+          [`specialities[${params.id}]`]: params.id,
           ...query,
         },
       }),
@@ -210,6 +214,19 @@ export default {
       regions,
     };
   },
+  computed: {
+    routerName() {
+      return Object.keys(this.$route.query).length;
+    },
+  },
+  watch: {
+    routerName(newVal, lastVal) {
+      if (newVal < lastVal && this.search.length > 0) {
+        this.search = "";
+      }
+    },
+  },
+
   mounted() {
     this.getFirstData();
   },
@@ -222,6 +239,19 @@ export default {
     },
     close() {
       this.$refs.myBottomSheet.close();
+    },
+    async changeSearch(val, func) {
+      this.searchVal = val.target.value;
+      if (val.target.value.length > 2) {
+        if (this.$route.query?.search != val.target.value)
+          await this.$router.replace({
+            path: this.$route.path,
+            query: { ...this.$route.query, search: val.target.value, page: 1 },
+          });
+        if (val.target.value == this.$route.query.search) this[func]();
+      } else if (val.target.value.length == 0) {
+        this.clearFilter(this.$route.path);
+      }
     },
     async clearFilter() {
       if (Object.keys(this.$route.query).length > 2) {

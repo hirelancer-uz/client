@@ -54,7 +54,7 @@
             <p class="text text-base text-black">
               Sledite za statusom zayavki cherez telegram bot
             </p>
-            <a class="text-black" href="">@udoo_alert_bot</a>
+            <a class="text-black" href="">Открыть телеграм-бот</a>
           </div>
         </div>
         <div class="buttons flex flex-col gap-4 items-center mb-6">
@@ -88,7 +88,7 @@
 </template>
 <script>
 export default {
-  props: ["visibleProp"],
+  props: ["visibleProp", "order"],
   data() {
     return {
       visible: false,
@@ -101,7 +101,7 @@ export default {
     },
     toProfile() {
       this.visible = false;
-      this.$router.push("/profile/freelancer/orders/active/status");
+      this.$router.push(`/profile/freelancer/order/view/${this.order?.id}`);
     },
   },
   watch: {

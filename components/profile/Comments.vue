@@ -1,12 +1,28 @@
 <template lang="html">
   <div class="comments flex flex-col gap-4">
     <div class="flex justify-between">
-      <h1 class="text-black text-[24px] font-semibold xl:text-[18px] xl:flex xl:w-full xl:justify-between">Отзывы клиентов <span class="hidden xl:block ">
-        <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M7 10.5L12 14.5L17 10.5" stroke="#020105" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-
-      </span></h1>
+      <h1
+        class="text-black text-[24px] font-semibold xl:text-[18px] xl:flex xl:w-full xl:justify-between"
+      >
+        Отзывы клиентов
+        <span class="hidden xl:block">
+          <svg
+            width="24"
+            height="25"
+            viewBox="0 0 24 25"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7 10.5L12 14.5L17 10.5"
+              stroke="#020105"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+      </h1>
       <div class="flex gap-4 items-center xl:hidden">
         <a-select v-model="sort" placeholder="Положительный" class="w-[216px]">
           <a-select-option :value="region" v-for="region in [1, 2, 3, 4]" :key="region">
@@ -32,40 +48,33 @@
         ></nuxt-link>
       </div>
     </div>
-    <div class="xl:hidden" v-if="true">
-      <div class="comments-swiper swiper">
+    <div class="xl:hidden grid grid-cols-2 gap-4" v-if="feedbacks?.length > 0">
+      <div class="swiper-slide h-full" v-for="feedback in feedbacks" :key="feedback?.id">
+        <CommentsCard :feedback="feedback" class="h-full" />
+      </div>
+      <!-- <div class="comments-swiper swiper">
         <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <CommentsCard />
-          </div>
-          <div class="swiper-slide">
-            <CommentsCard />
-          </div>
-          <div class="swiper-slide">
-            <CommentsCard />
-          </div>
-          <div class="swiper-slide">
-            <CommentsCard />
-          </div>
-          <div class="swiper-slide">
-            <CommentsCard />
-          </div>
-          <div class="swiper-slide">
-            <CommentsCard />
+          <div class="swiper-slide" v-for="feedback in feedbacks" :key="feedback?.id">
+            <CommentsCard :feedback="feedback" />
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     <div v-else class="h-[208px] flex justify-center items-center">
       <p class="text-[18px] text-grey-64 font-medium">Afuski ma’lumot topilmadi!</p>
     </div>
-    <div class="hidden xl:flex gap-3 xl:overflow-x-scroll comments-grid">
-      <CommentsCard />
-      <CommentsCard />
-      <CommentsCard />
-      <CommentsCard />
-      <CommentsCard />
-      <CommentsCard />
+    <div
+      class="hidden xl:flex gap-3 xl:overflow-x-scroll comments-grid"
+      v-if="feedbacks?.length > 0"
+    >
+      <CommentsCard
+        v-for="feedback in feedbacks"
+        :key="feedback?.id"
+        :feedback="feedback"
+      />
+    </div>
+    <div v-else class="h-[208px] hidden xl:flex  justify-center items-center">
+      <p class="text-[18px] text-grey-64 font-medium">Afuski ma’lumot topilmadi!</p>
     </div>
   </div>
 </template>
@@ -76,6 +85,7 @@ import AlertsCard from "./AlertsCard.vue";
 import CommentsCard from "./CommentsCard.vue";
 
 export default {
+  props: ["feedbacks"],
   data() {
     return {
       sort: undefined,

@@ -73,7 +73,7 @@
               </div>
 
               <button
-                class="w-10 md:hidden h-[34px] flex justify-end my-[-10px]  items-center flex-auto"
+                class="w-10 md:hidden h-[34px] flex justify-end my-[-10px] items-center flex-auto"
                 @click="(visible = true), (checkedList = [...activeCheckedList])"
               >
                 <svg
@@ -222,6 +222,8 @@
                   </div>
                 </a-upload> -->
                 <a-upload
+                  :multiple="true"
+                  accept=".jpg, .png, .jpeg, .webp"
                   list-type="picture-card"
                   :file-list="fileList"
                   :before-upload="handleBeforeUpload"

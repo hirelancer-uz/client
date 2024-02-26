@@ -7,15 +7,21 @@
           <a-select-option value="bad"> Qoniqarsiz izohlar </a-select-option>
         </a-select>
       </div>
-      <div
-        class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 gap-4 mb-[40px]"
-      >
-        <CommentsCard />
-        <CommentsCard />
-        <CommentsCard />
-        <CommentsCard />
+      <div v-if="freelancer?.customers_feedbacks?.length > 0">
+        <div
+          class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 gap-4 mb-[40px]"
+        >
+          <CommentsCard
+            v-for="feedback in freelancer?.customers_feedbacks"
+            :key="feedback?.id"
+            :feedback="feedback"
+          />
+        </div>
+        <VPagination :totalPage="50" />
       </div>
-      <VPagination :totalPage="50" />
+      <div v-else class="h-[400px] flex justify-center items-center">
+        <p class="text-[18px] text-grey-64 font-medium">Afuski ma’lumot topilmadi!</p>
+      </div>
     </ProfileLayout>
   </div>
 </template>

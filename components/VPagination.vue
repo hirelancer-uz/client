@@ -35,7 +35,7 @@ export default {
   watch: {
     "$route.query.page"(val) {
       if (val != this.current) {
-        this.current = val;
+        this.current = Number(val);
       }
     },
   },
@@ -63,24 +63,14 @@ export default {
   border: none;
   background-color: transparent;
 }
-.order-pagination
-  :deep(.ant-pagination-jump-next)
-  .ant-pagination-item-container,
-.order-pagination
-  :deep(.ant-pagination-jump-prev)
-  .ant-pagination-item-container {
+.order-pagination :deep(.ant-pagination-jump-next) .ant-pagination-item-container,
+.order-pagination :deep(.ant-pagination-jump-prev) .ant-pagination-item-container {
   display: flex;
   /* align-items: center; */
   justify-content: center;
 }
-.order-pagination
-  :deep(.ant-pagination-jump-next)
-  .ant-pagination-item-container
-  span,
-.order-pagination
-  :deep(.ant-pagination-jump-prev)
-  .ant-pagination-item-container
-  span {
+.order-pagination :deep(.ant-pagination-jump-next) .ant-pagination-item-container span,
+.order-pagination :deep(.ant-pagination-jump-prev) .ant-pagination-item-container span {
   left: auto;
   top: auto;
   bottom: auto;
