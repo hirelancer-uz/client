@@ -1,126 +1,161 @@
-<template lang="html">
+<template>
   <div class="m-personal-block mx-auto flex flex-col">
     <div class="flex flex-col gap-4">
       <div
         class="user-info px-4 py-4 border border-solid border-grey-light rounded-2xl bg-bg-grey"
       >
         <div class="user-info-card">
-          <div
-            class="h-[72px] overflow-hidden rounded-full border border-solid border-grey-light"
-          >
-            <img
-              class="w-full h-full object-cover"
-              v-if="$store.state.userInfo['avatar']"
-              :src="`${imgUrl}${$store.state.userInfo['avatar']}`"
-              alt=""
-            />
-            <img
-              v-else
-              class="w-full h-full object-cover"
-              src="../../assets/images/user-avatar.jpg"
-              alt=""
-            />
+          <div class="grid">
+            <div
+              class="h-[60px] w-[60px] overflow-hidden rounded-full border border-solid border-grey-light"
+            >
+              <img
+                class="w-full h-full object-cover"
+                v-if="$store.state.userInfo['avatar']"
+                :src="`${imgUrl}${$store.state.userInfo['avatar']}`"
+                alt=""
+              />
+              <img
+                v-else
+                class="w-full h-full object-cover"
+                src="../../assets/images/user-avatar.jpg"
+                alt=""
+              />
+            </div>
+            <div class="flex justify-center flex-col gap-2">
+              <h4 class="text-black text-[14px] font-semibold leading-[19px]">
+                {{
+                  `${$store.state.userInfo["name"]} ${$store.state.userInfo["surname"]}`
+                }}
+              </h4>
+              <p class="text-grey-40 text-[12px]">
+                Зарегистрирован: более 5 лет назад
+              </p>
+              <div
+                class="status flex gap-2 w-full mt-[4px]"
+                v-if="
+                  $store.state.userInfo['name'] ||
+                  $store.state.userInfo['surname']
+                "
+              >
+                <p class="text-grey-80 text-[12px]">
+                  ID: {{ $store.state.userInfo["id"] }}
+                </p>
+                <span class="w-[1px] h-[14px] bg-grey-8"> </span>
+                <p class="text-grey-80 text-[12px] flex gap-2 items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M6.68846 2.18098C7.22492 1.05084 8.77492 1.05084 9.31138 2.18098L10.2385 4.13416C10.4515 4.58294 10.8633 4.894 11.3397 4.96596L13.4128 5.27917C14.6124 5.4604 15.0913 6.99307 14.2233 7.87276L12.7232 9.3931C12.3785 9.74243 12.2212 10.2457 12.3026 10.739L12.6567 12.8857C12.8616 14.1279 11.6077 15.0751 10.5347 14.4887L8.68047 13.4751C8.25442 13.2422 7.74542 13.2422 7.31937 13.4751L5.46509 14.4887C4.39218 15.0751 3.1382 14.1279 3.34311 12.8857L3.69724 10.739C3.77861 10.2457 3.62133 9.74243 3.27664 9.3931L1.7765 7.87276C0.908496 6.99307 1.38747 5.4604 2.58703 5.27917L4.66017 4.96596C5.13651 4.894 5.5483 4.58294 5.76132 4.13416L6.68846 2.18098Z"
+                      fill="#F2C94C"
+                    /></svg
+                  >{{ $store.state.userInfo["rating"] }}
+                </p>
+                <span class="w-[1px] h-[14px] bg-grey-8"> </span>
+                <p class="text-[14px] flex gap-1 items-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                  >
+                    <path
+                      d="M3.49999 4.66667H2.33332C1.68899 4.66667 1.16666 5.189 1.16666 5.83333V11.0833C1.16666 11.7277 1.68899 12.25 2.33332 12.25H3.49999C4.14432 12.25 4.66666 11.7277 4.66666 11.0833V5.83333C4.66666 5.189 4.14432 4.66667 3.49999 4.66667Z"
+                      stroke="#009A10"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M9.26151 12.25H7.12313C6.66247 12.25 6.21212 12.1136 5.82883 11.8581L4.92641 11.2565C4.76413 11.1483 4.66666 10.9662 4.66666 10.7711V5.98825C4.66666 5.88673 4.69315 5.78697 4.74351 5.69883L6.99999 1.75H7.77507C8.93983 1.75 9.63457 3.04813 8.98848 4.01727L8.16666 5.25H11.3391C12.0981 5.25 12.655 5.96329 12.4709 6.69962L11.5252 10.4826C11.2655 11.5213 10.3322 12.25 9.26151 12.25Z"
+                      stroke="#009A10"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    /></svg
+                  ><span class="text-green">45</span
+                  ><span class="text-grey-40">/</span
+                  ><span class="text-pantone-2023">25</span
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                  >
+                    <g clip-path="url(#clip0_1451_10014)">
+                      <path
+                        d="M10.5 8.75L11.6667 8.75C12.311 8.75 12.8333 8.22766 12.8333 7.58333L12.8333 3.5C12.8333 2.85567 12.311 2.33333 11.6667 2.33333L10.5 2.33333C9.85566 2.33333 9.33332 2.85567 9.33332 3.5L9.33332 7.58333C9.33332 8.22766 9.85566 8.75 10.5 8.75Z"
+                        stroke="#BB2649"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M4.73847 1.75L6.87685 1.75C7.3375 1.75 7.78785 1.88635 8.17115 2.14188L9.07356 2.74349C9.23585 2.85168 9.33332 3.03382 9.33332 3.22886L9.33332 8.01175C9.33332 8.11327 9.30683 8.21303 9.25646 8.30117L6.99999 12.25L6.22491 12.25C5.06015 12.25 4.36541 10.9519 5.0115 9.98273L5.83332 8.75L2.66089 8.75C1.90189 8.75 1.34498 8.03671 1.52906 7.30038L2.4748 3.51742C2.73448 2.47869 3.66777 1.75 4.73847 1.75Z"
+                        stroke="#BB2649"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_1451_10014">
+                        <rect
+                          width="14"
+                          height="14"
+                          fill="white"
+                          transform="translate(14 14) rotate(180)"
+                        />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </p>
+              </div>
+            </div>
+            <div>
+              <button class="w-full h-6 flex justify-center items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="3"
+                  height="13"
+                  viewBox="0 0 3 13"
+                  fill="none"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M2.5 1.25C2.5 1.94036 1.94036 2.5 1.25 2.5C0.559644 2.5 0 1.94036 0 1.25C0 0.559644 0.559644 0 1.25 0C1.94036 0 2.5 0.559644 2.5 1.25ZM2.5 6.25C2.5 6.94036 1.94036 7.5 1.25 7.5C0.559644 7.5 0 6.94036 0 6.25C0 5.55964 0.559644 5 1.25 5C1.94036 5 2.5 5.55964 2.5 6.25ZM1.25 12.5C1.94036 12.5 2.5 11.9404 2.5 11.25C2.5 10.5596 1.94036 10 1.25 10C0.559644 10 0 10.5596 0 11.25C0 11.9404 0.559644 12.5 1.25 12.5Z"
+                    fill="#020105"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
-          <div class="flex justify-center flex-col gap-2">
-            <h4 class="text-black text-[14px] font-semibold leading-[19px]">
-              {{ `${$store.state.userInfo["name"]} ${$store.state.userInfo["surname"]}` }}
-            </h4>
-            <p class="text-grey-40 text-[12px]">Зарегистрирован: более 5 лет назад</p>
-          </div>
-          <div>
-            <button class="w-full h-6 flex justify-center items-center">
+          <div class="smser">
+            <button>
+              Написать
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="3"
-                height="13"
-                viewBox="0 0 3 13"
+                width="25"
+                height="24"
+                viewBox="0 0 25 24"
                 fill="none"
               >
                 <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M2.5 1.25C2.5 1.94036 1.94036 2.5 1.25 2.5C0.559644 2.5 0 1.94036 0 1.25C0 0.559644 0.559644 0 1.25 0C1.94036 0 2.5 0.559644 2.5 1.25ZM2.5 6.25C2.5 6.94036 1.94036 7.5 1.25 7.5C0.559644 7.5 0 6.94036 0 6.25C0 5.55964 0.559644 5 1.25 5C1.94036 5 2.5 5.55964 2.5 6.25ZM1.25 12.5C1.94036 12.5 2.5 11.9404 2.5 11.25C2.5 10.5596 1.94036 10 1.25 10C0.559644 10 0 10.5596 0 11.25C0 11.9404 0.559644 12.5 1.25 12.5Z"
-                  fill="#020105"
+                  d="M13.5 3L11.5 3C6.52944 3 2.5 7.02944 2.5 12L2.5 17C2.5 19.2091 4.29086 21 6.5 21H13.5C18.4706 21 22.5 16.9706 22.5 12C22.5 7.02944 18.4706 3 13.5 3Z"
+                  stroke="#5C46E6"
+                  stroke-width="1.5"
+                  stroke-linejoin="round"
                 />
+                <circle cx="12.5" cy="12" r="1" fill="#5C46E6" />
+                <circle cx="16.5" cy="12" r="1" fill="#5C46E6" />
+                <circle cx="8.5" cy="12" r="1" fill="#5C46E6" />
               </svg>
             </button>
           </div>
-        </div>
-        <div
-          class="status flex gap-2 w-full mt-6"
-          v-if="$store.state.userInfo['name'] || $store.state.userInfo['surname']"
-        >
-          <p class="text-grey-80 text-[12px]">ID: {{ $store.state.userInfo["id"] }}</p>
-          <span class="w-[1px] h-[14px] bg-grey-8"> </span>
-          <p class="text-grey-80 text-[12px] flex gap-2 items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-            >
-              <path
-                d="M6.68846 2.18098C7.22492 1.05084 8.77492 1.05084 9.31138 2.18098L10.2385 4.13416C10.4515 4.58294 10.8633 4.894 11.3397 4.96596L13.4128 5.27917C14.6124 5.4604 15.0913 6.99307 14.2233 7.87276L12.7232 9.3931C12.3785 9.74243 12.2212 10.2457 12.3026 10.739L12.6567 12.8857C12.8616 14.1279 11.6077 15.0751 10.5347 14.4887L8.68047 13.4751C8.25442 13.2422 7.74542 13.2422 7.31937 13.4751L5.46509 14.4887C4.39218 15.0751 3.1382 14.1279 3.34311 12.8857L3.69724 10.739C3.77861 10.2457 3.62133 9.74243 3.27664 9.3931L1.7765 7.87276C0.908496 6.99307 1.38747 5.4604 2.58703 5.27917L4.66017 4.96596C5.13651 4.894 5.5483 4.58294 5.76132 4.13416L6.68846 2.18098Z"
-                fill="#F2C94C"
-              /></svg
-            >{{ $store.state.userInfo["rating"] }}
-          </p>
-          <span class="w-[1px] h-[14px] bg-grey-8"> </span>
-          <p class="text-grey-80 text-[12px] flex gap-2 items-center">
-            <svg
-              v-if="$store.state.userInfo['online']"
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-            >
-              <circle cx="8" cy="8" r="4" fill="#00CD69" />
-              <circle
-                opacity="0.3"
-                cx="8"
-                cy="8"
-                r="5.75"
-                stroke="#00CD69"
-                stroke-width="0.5"
-              />
-              <circle
-                opacity="0.2"
-                cx="8"
-                cy="8"
-                r="7.75"
-                stroke="#00CD69"
-                stroke-width="0.5"
-              />
-            </svg>
-            <svg
-              v-else
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-            >
-              <circle cx="8" cy="8" r="4" fill="#f2154a" />
-              <circle
-                opacity="0.3"
-                cx="8"
-                cy="8"
-                r="5.75"
-                stroke="#f2154a"
-                stroke-width="0.5"
-              />
-              <circle
-                opacity="0.2"
-                cx="8"
-                cy="8"
-                r="7.75"
-                stroke="#f2154a"
-                stroke-width="0.5"
-              /></svg
-            >{{ $store.state.userInfo["online"] ? "Online" : "Offline" }}
-          </p>
         </div>
       </div>
       <div class="grid grid-cols-2 client-types" v-if="!user">
@@ -588,7 +623,10 @@
         </ul>
       </div>
     </div>
-    <div class="flex justify-center flex-col items-center gap-11 mt-6" v-if="!user">
+    <div
+      class="flex justify-center flex-col items-center gap-11 mt-6"
+      v-if="!user"
+    >
       <p class="text-[12px] text-grey-40">УЧАСТНИК С: 21 МАЯ 2010 ГОДА</p>
       <!-- <button
         class="pro-btn overflow-hidden relative h-[52px] w-full rounded-[12px] flex items-center justify-center"
@@ -624,9 +662,9 @@ export default {
 };
 </script>
 <style lang="css" scoped>
-.user-info-card {
+.user-info-card .grid {
   display: grid;
-  grid-template-columns: 72px 1fr 24px;
+  grid-template-columns: 60px 1fr 24px;
   grid-gap: 16px;
 }
 .client-types .activeF {
@@ -645,5 +683,22 @@ export default {
 .client-types .activeF svg ellipse {
   stroke: #fff;
   /* fill: #fff; */
+}
+.smser button {
+  border-radius: 12px;
+  border: 1px solid var(--Border-darik, #e0e0ed);
+  background: var(--White, #fff);
+  padding: 12px 24px;
+  color: var(--Main-color, #5c46e5);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 24px */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
 }
 </style>

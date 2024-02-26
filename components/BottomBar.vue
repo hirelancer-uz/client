@@ -1,8 +1,19 @@
 <template lang="html">
   <div
     ref="priceBox"
-    class="bottom-bar px-3 hidden xl:block pb-3 bg-white z-50 pt-1 w-full fixed left-0 bottom-0 rounded-t-[16px] border-[0] border-t border-solid border-border-darik"
+    class="bottom-bar px-3 hidden xl:block pb-3 bg-white z-50 pt-1 w-full fixed left-0 bottom-0 rounded-t-[16px] border-[0] border-t border-solid border-border-darik flex-col gap-1"
   >
+    <button
+      v-if="
+        $store.state.auth &&
+        Boolean($store.state.userInfo['name']) &&
+        $route.name === 'freelancers'
+      "
+      @click="$router.push('/profile/customer')"
+      class="h-12 flex justify-center items-center bg-main-color rounded-[12px] text-[14px] font-semibold text-white w-full border-[1px] border-blue border-solid buttoner"
+    >
+      Buyurtma qoshish
+    </button>
     <div class="menu flex justify-between">
       <button
         @click="$router.push('/')"
@@ -171,12 +182,14 @@ export default {
 <style lang="css" scoped>
 .bottom-bar {
   box-shadow: 0px 4px 8px 0px rgba(0, 25, 53, 0.16);
-  z-index: 99999;
+  z-index: 8;
 }
 .bottom-bar .active {
   color: var(--main-color);
 }
-.bottom-bar .active svg path {
+.bottom-bar .active svg path,
+.bottom-bar .active svg circle,
+.bottom-bar .active svg ellipse {
   stroke: var(--main-color);
 }
 </style>

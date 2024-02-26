@@ -1,5 +1,5 @@
 <template>
-  <div class="master">
+  <div class="master xl:px-[16px]">
     <ProfileLayout :profile="false" :freelancer="freelancer" :show="true">
       <div class="sort__comments">
         <a-select default-value="good">
@@ -21,6 +21,13 @@
       </div>
       <div v-else class="h-[400px] flex justify-center items-center">
         <p class="text-[18px] text-grey-64 font-medium">Afuski ma’lumot topilmadi!</p>
+        <!-- <div
+        class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 gap-4 mb-[40px] xl:grid-cols-1 xl:gap-[16px] xl:mb-[16px] xl:mt-[16px]"
+      >
+        <CommentsCard />
+        <CommentsCard />
+        <CommentsCard />
+        <CommentsCard /> -->
       </div>
     </ProfileLayout>
   </div>
@@ -89,5 +96,15 @@ export default {
   font-style: normal;
   font-weight: 400;
   line-height: 150%; /* 24px */
+}
+@media screen and (max-width: 1024px) {
+  .sort__comments {
+    position: static;
+    margin-top: 16px;
+    width: 100%;
+  }
+  :deep(.ant-select) {
+    width: 100%;
+  }
 }
 </style>

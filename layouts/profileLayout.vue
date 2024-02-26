@@ -9,7 +9,9 @@
       class="header-bg xl:block hidden w-full h-[104px]"
     ></div>
     <div v-else class="header-bg xl:block hidden w-full h-[56px]"></div>
-    <div class="profile-layout max-w-[1680px] mx-auto pt-12 xl:pt-6 xl:pb-6 pb-[100px]">
+    <div
+      class="profile-layout max-w-[1680px] mx-auto pt-12 xl:pt-6 xl:pb-6 pb-[100px]"
+    >
       <div class="profile-grid">
         <PersonalBlock
           :profile="$route.name.includes('profile')"
@@ -22,7 +24,10 @@
           :class="{ 'xl:hidden': $route.name !== `profile-user` }"
           :user="false"
         />
-        <div class="min-w-0 x" :class="{ 'xl:hidden': $route.name == `profile-user` }">
+        <div
+          class="min-w-0 x"
+          :class="{ 'xl:hidden': $route.name == `profile-user` }"
+        >
           <ProfileTab v-if="$route.name.includes('profile')" />
           <Nuxt />
         </div>

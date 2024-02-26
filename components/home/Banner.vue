@@ -1,22 +1,32 @@
-<template lang="html">
+<template>
   <div
-    class="banner bg-bg-grey rounded-[32px] mb-[120px] xl:bg-blue xl:rounded-[12px] xl:mb-[40px]"
+    class="banner relative bg-bg-grey rounded-[32px] mb-[120px] xl:bg-blue xl:rounded-[12px] xl:mb-[100px]"
   >
     <div
       class="left pt-16 pl-[80px] pb-[50px] flex flex-col justify-between xl:py-[28px] xl:px-[20px] xl:justify-center h-full"
     >
       <div class="flex flex-col">
-        <h3 class="font-semibold text-black text-[48px] xl:text-[16px] xl:text-white">
-          <span class="text-blue xl:text-yellow">Frilanserlar</span> sizga xizmat
-          ko‘rsatishga tayyor
+        <h3
+          class="font-semibold text-black text-[48px] xl:text-[16px] xl:text-white"
+        >
+          <span class="text-blue xl:text-yellow">Frilanserlar</span> sizga
+          xizmat ko‘rsatishga tayyor
         </h3>
-        <p class="text-black text-[18px] mt-4 xl:mt-[6px] xl:text-[12px] xl:text-white">
-          1000+ ortiq
-          <span class="text-blue">dizaynerlar, dasturchilar, marketologlar</span> va
-          boshqa yo‘nalishdagi frilanserlar sizning buyurtmangizni bajarib berishga
-          tayyor!
+        <p
+          class="text-black text-[18px] mt-4 xl:mt-[6px] xl:text-[12px] xl:text-white xl:hidden"
+        >
+          1000+ ortiq<span class="text-blue"
+            >dizaynerlar, dasturchilar, marketologlar</span
+          >va boshqa yo‘nalishdagi frilanserlar sizning buyurtmangizni bajarib
+          berishga tayyor!
         </p>
-        <div class="list flex gap-3 mt-8 xl:hidden">
+        <p
+          class="hidden xl:block text-[12px] text-white leading-[130%] mt-[6px]"
+        >
+          Eski qoidalarni unuting. Siz eng yaxshi frilanserlarni mana shu yerda
+          ega chiqishingiz mumkin.
+        </p>
+        <div class="list flex gap-3 mt-8 xl:hidden mb-[84px]">
           <span
             class="whitespace-nowrap bg-white font-tt text-black py-2 px-4 rounded-[500px] text-[14px]"
           >
@@ -44,7 +54,7 @@
           </span>
         </div>
       </div>
-      <div class="buttons flex gap-4 xl:hidden">
+      <div class="buttons flex gap-4">
         <button
           @click="
             $router.push(
@@ -53,7 +63,7 @@
                 : 'registration'
             )
           "
-          class="flex justify-center gap-2 h-[60px] px-[20px] min-w-[243px] text-base bg-blue rounded-xl text-white font-tt items-center font-medium"
+          class="flex justify-center gap-2 h-[60px] px-[20px] min-w-[243px] text-base bg-blue rounded-xl text-white font-tt items-center font-medium xl:hidden"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -78,19 +88,19 @@
                 : 'registration'
             )
           "
-          class="h-[60px] flex justify-center min-w-[220px] px-[20px] border-solid text-base border-main-color bg-transparent border rounded-xl text-main-color font-tt items-center font-semibold"
+          class="h-[60px] flex justify-center min-w-[220px] px-[20px] border-solid text-base border-main-color bg-transparent border rounded-xl text-main-color font-tt items-center font-semibold mobile-button"
         >
           Daromad topish
         </button>
       </div>
     </div>
-    <div class="right h-[540px] xl:h-[150px]">
+    <div class="right h-[100%] xl:h-[100%] absolute right-0 overflow-hidden">
       <img
         src="@/assets/images/banner.png"
         width="100%"
         height="100%"
         alt=""
-        class="xl:object-cover h-full"
+        class="object-cover h-full xl:w-100"
       />
     </div>
   </div>
@@ -98,14 +108,29 @@
 <script>
 export default {};
 </script>
-<style lang="css" scoped>
+<style scoped>
 .banner {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+
 @media screen and (max-width: 1024px) {
   .banner {
     grid-template-columns: 6.5fr 3.5fr;
+  }
+  .mobile-button {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: -64px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 140%;
+    height: 48px;
+    border-radius: 12px;
+    border: 1px solid var(--Border-darik, #e0e0ed);
+    background: var(--White, #fff);
   }
 }
 </style>

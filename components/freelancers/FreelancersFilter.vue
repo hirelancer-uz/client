@@ -1,18 +1,38 @@
 <template>
-  <div class="wrap">
+  <div class="wrap h-full">
     <div
-      class="filter-container flex flex-col border border-solid border-grey-light rounded-[24px]"
+      class="filter-container relative flex flex-col border border-solid border-grey-light rounded-[24px] xl:w-full xl:border-[0] xl:justify-between"
     >
+      <div
+        class="x absolute top-[16px] right-[16px] hidden xl:block"
+        @click="$emit('close')"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+        >
+          <path
+            d="M16.2427 7.75738L7.75745 16.2427M16.2427 16.2426L7.75745 7.75732"
+            stroke="#353437"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
       <div
         class="list px-[8px] xl:px-4 py-[8px] flex flex-col g xl:border-0 xl:pt-[12px] xl:pb-[20px]"
       >
+        <h2 class="mt-[24px] text-[24px] xl:font-bold hidden xk:block">Filtr</h2>
         <h2
-          class="text-[20px] text-black font-semibold mx-[20px] py-[12px] pb-[16px] border-b-[1px] border-x-[0] border-t-[0] border-solid border-grey-light"
+          class="text-[20px] text-black font-semibold mx-[20px] py-[12px] pb-[16px] border-b-[1px] border-x-[0] border-t-[0] border-solid border-grey-light xl:mx-[0]"
         >
           Тип работы
         </h2>
 
-        <div class="drop-list flex flex-col mt-[4px]">
+        <div class="drop-list flex flex-col mt-[4px] xl:gap-[24px] pt-[16px]">
           <div
             class="dropdown overflow-hidden"
             :class="{
@@ -92,7 +112,7 @@
         </div>
       </div>
       <div
-        class="filter px-[28px] py-[28px] pt-0 flex flex-col gap-4 xl:mx-4 xl:px-4 xl:py-4"
+        class="filter px-[28px] py-[28px] pt-0 flex flex-col gap-4 xl:mx-4 xl:px-0 xl:py-0"
       >
         <div
           class="flex flex-col gap-4 border-t-[1px] border-x-[0] border-b-[0] border-solid border-grey-light pt-[24px] mt-[8px]"
@@ -154,7 +174,7 @@
             </span>
           </div>
         </div>
-        <div class="xl:hidden">
+        <div class="">
           <a-select
             v-if="regions.length > 0"
             v-model="filterForm.region"
@@ -170,7 +190,16 @@
             >
           </a-select>
         </div>
-        <div class="flex gap-4 xl:flex-col">
+        <div class="flex gap-4 xl:flex-col buttoners">
+          <button
+            @click="clearFilter"
+            class="flex w-full justify-center xl:h-[52px] py-[15px] rounded-lg border border-blue border-solid text-[14px] font-tt font-semibold xl:font-medium text-blue bg-white"
+            :class="{
+              'pointer-events-none opacity-50': Object.keys($route.query).length < 3,
+            }"
+          >
+            Bekor qilish
+          </button>
           <button
             :class="{ 'pointer-events-none opacity-50': !disabledFilter }"
             @click="sendFilter"
@@ -178,21 +207,13 @@
           >
             Ko'rsatish
           </button>
-          <button
-            :class="{
-              'pointer-events-none opacity-50': Object.keys($route.query).length < 3,
-            }"
-            @click="clearFilter"
-            class="flex w-full justify-center xl:h-[52px] py-[15px] rounded-lg border border-blue border-solid text-[14px] font-tt font-semibold xl:font-medium text-blue bg-white"
-          >
-            Bekor qilish
-          </button>
         </div>
       </div>
     </div>
     <TelegramCard class="xl:hidden mt-[16px]" />
   </div>
 </template>
+
 <script>
 import TelegramCard from "../TelegramCard.vue";
 
@@ -231,7 +252,8 @@ export default {
     },
   },
   methods: {
-    toPage(id) {
+    async toPage(id) {
+      await this.$emit("close");
       this.$router.push({
         path: `/freelancers/${id}`,
         query: { page: 1, page_size: this.$route.query.page_size },
@@ -266,6 +288,7 @@ export default {
   components: { TelegramCard },
 };
 </script>
+
 <style lang="css" scoped>
 .drop-body {
   max-height: 0;
@@ -364,9 +387,16 @@ export default {
 }
 @media (max-width: 1200px) {
   .drop-list .active {
-    border-radius: 0;
-    margin-left: -16px;
-    margin-right: -16px;
+    margin-inline: 0;
+    border-radius: 12px;
+    margin: 0;
+  }
+  .drop-list {
+    margin: 0;
+  }
+  .buttoners {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 </style>

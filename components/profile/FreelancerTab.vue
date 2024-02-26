@@ -1,14 +1,14 @@
 <template>
   <div
-    class="freelancer-tab flex justify-between items-end xl:mx-[-16px] xl:border-[0] xl:border-b xl:border-solid xl:border-border-darik"
+    class="freelancer-tab flex justify-between items-end xl:border-[0] xl:border-b xl:border-solid xl:border-border-darik"
   >
     <div
-      class="rounded-2xl bg-bg-grey px-4 xl:px-0 py-4 flex gap-6 xl:bg-transparent xl:overflow-x-scroll xl:gap-3 scroll-none xl:pb-6"
+      class="rounded-2xl bg-bg-grey px-4 xl:px-0 py-4 flex gap-6 xl:bg-transparent xl:overflow-x-scroll xl:gap-3 scroll-none xl:pb-6 w-full xl:grid xl:grid-cols-3"
     >
       <nuxt-link
         :to="`/freelancer/${$route.params.index}`"
         :class="{ active: $route.name == `freelancer-index` }"
-        class="xl:ml-4 text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[96px] xl:min-h-[68px] rounded-[12px] hover:text-black"
+        class="xl:ml-4 text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[96px] xl:min-h-[68px] rounded-[12px] hover:text-black xl:ml-[0]"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"

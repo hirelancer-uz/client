@@ -1,36 +1,8 @@
-<template lang="html">
-  <div class="mobile-header px-4 hidden bg-white w-full py-2 z-50">
-    <div class="flex justify-between items-center">
-      <!-- <button
-        v-for="item in titleList"
-        v-if="$route.name?.includes('profile') && item.pathName === $route.name"
-        @click="$router.go(-1)"
-      >
+<template>
+  <div class="mobile-header px-4 hidden bg-white w-full py-[14px] z-50">
+    <div class="flex justify-between items-center topper">
+      <nuxt-link to="/">
         <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="40"
-          height="40"
-          viewBox="0 0 40 40"
-          fill="none"
-        >
-          <path
-            d="M16.6667 13.3334L10 20M10 20L16.6667 26.6667M10 20L30 20"
-            stroke="#020105"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </button> -->
-      <!-- <h4
-        v-for="item in titleList"
-        v-if="item.pathName === $route.name"
-        class="text-black text-[18px] font-medium"
-      >
-        {{ item.title }}
-      </h4> -->
-      <nuxt-link to="/"
-        ><svg
           xmlns="http://www.w3.org/2000/svg"
           width="94"
           height="19"
@@ -53,57 +25,323 @@
             d="M88.7274 18.0769H77.7146C76.26 18.0769 75.0133 17.5526 73.9744 16.5039C72.9527 15.4374 72.4419 14.1665 72.4419 12.6912V5.41241C72.4419 3.91933 72.9527 2.64844 73.9744 1.59973C75.0133 0.533243 76.26 0 77.7146 0H88.7274C90.1819 0 91.42 0.533243 92.4416 1.59973C93.4805 2.64844 94 5.41241 94 5.41241V12.6912C94 14.1665 93.4805 15.4374 92.4416 16.5039C91.42 17.5526 90.1819 18.0769 88.7274 18.0769Z"
             fill="#5C46E6"
           />
-          <ellipse cx="53.3539" cy="5.27462" rx="2.70558" ry="2.7773" fill="white" />
-          <ellipse cx="78.2453" cy="5.27462" rx="2.70558" ry="2.7773" fill="white" /></svg
-      ></nuxt-link>
-      <button class="h-10 w-10 flex justify-center items-center">
+          <ellipse
+            cx="53.3539"
+            cy="5.27462"
+            rx="2.70558"
+            ry="2.7773"
+            fill="white"
+          />
+          <ellipse
+            cx="78.2453"
+            cy="5.27462"
+            rx="2.70558"
+            ry="2.7773"
+            fill="white"
+          />
+        </svg>
+      </nuxt-link>
+      <button
+        @click="menuHandle = !menuHandle"
+        class="h-[40px] w-[40px] flex justify-center items-center border-[1px] border-[#E0E0ED] border-solid rounded-[50%]"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="16"
-          viewBox="0 0 20 16"
+          width="12"
+          height="10"
+          viewBox="0 0 12 10"
           fill="none"
         >
           <path
             fill-rule="evenodd"
             clip-rule="evenodd"
-            d="M0.416687 1.33337C0.416687 0.643018 0.976331 0.083374 1.66669 0.083374H18.3334C19.0237 0.083374 19.5834 0.643018 19.5834 1.33337C19.5834 2.02373 19.0237 2.58337 18.3334 2.58337H1.66669C0.976331 2.58337 0.416687 2.02373 0.416687 1.33337ZM0.416687 8.00004C0.416687 7.30968 0.976331 6.75004 1.66669 6.75004H18.3334C19.0237 6.75004 19.5834 7.30968 19.5834 8.00004C19.5834 8.6904 19.0237 9.25004 18.3334 9.25004H1.66669C0.976331 9.25004 0.416687 8.6904 0.416687 8.00004ZM1.66669 13.4167C0.976331 13.4167 0.416687 13.9764 0.416687 14.6667C0.416687 15.3571 0.976331 15.9167 1.66669 15.9167H18.3334C19.0237 15.9167 19.5834 15.3571 19.5834 14.6667C19.5834 13.9764 19.0237 13.4167 18.3334 13.4167H1.66669Z"
+            d="M0.729187 1.33337C0.729187 0.953678 1.03699 0.645874 1.41669 0.645874H10.5834C10.9631 0.645874 11.2709 0.953678 11.2709 1.33337C11.2709 1.71307 10.9631 2.02087 10.5834 2.02087H1.41669C1.03699 2.02087 0.729187 1.71307 0.729187 1.33337ZM0.729187 5.00004C0.729187 4.62034 1.03699 4.31254 1.41669 4.31254H10.5834C10.9631 4.31254 11.2709 4.62034 11.2709 5.00004C11.2709 5.37974 10.9631 5.68754 10.5834 5.68754H1.41669C1.03699 5.68754 0.729187 5.37974 0.729187 5.00004ZM1.41669 7.97921C1.03699 7.97921 0.729187 8.28701 0.729187 8.66671C0.729187 9.0464 1.03699 9.35421 1.41669 9.35421H10.5834C10.9631 9.35421 11.2709 9.0464 11.2709 8.66671C11.2709 8.28701 10.9631 7.97921 10.5834 7.97921H1.41669Z"
             fill="#5C46E6"
           />
         </svg>
       </button>
     </div>
-    <div
-      v-if="'index' === $route.name"
-      class="search h-12 flex items-center border border-solid border-border-darik rounded-lg px-4"
-    >
-      <div class="flex justify-between w-full">
-        <input type="text" placeholder="Qidiruv" class="w-[80%]" />
-        <button>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
+
+    <div class="menu" :class="{ show: menuHandle == true }">
+      <div class="top">
+        <div class="links">
+          <NuxtLink to="/orders"
+            >Buyurtmalar
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M14 16L18 12M18 12L14 8M18 12L6 12"
+                stroke="#020105"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </NuxtLink>
+          <NuxtLink to="/freelancers"
+            >Frilanserlar
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M14 16L18 12M18 12L14 8M18 12L6 12"
+                stroke="#020105"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </NuxtLink>
+        </div>
+        <div class="messenger">
+          <NuxtLink to="/notifications">
+            <span class="logo"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <path
+                  d="M18.2395 8.97519L17.4943 9.05977L18.2395 8.97519ZM18.6867 12.9153L19.4319 12.8307V12.8307L18.6867 12.9153ZM5.31328 12.9153L4.56806 12.8307L4.56806 12.8307L5.31328 12.9153ZM5.76046 8.97519L6.50568 9.05977L5.76046 8.97519ZM4.44779 14.8721L3.87668 14.386H3.87668L4.44779 14.8721ZM19.5522 14.8721L18.9811 15.3583L19.5522 14.8721ZM14.2699 4.37366H13.5199C13.5199 4.69424 13.7237 4.97938 14.027 5.08322L14.2699 4.37366ZM9.73005 4.37366L9.973 5.08322C10.2763 4.97938 10.4801 4.69424 10.4801 4.37366H9.73005ZM15.7023 20.2632C15.8477 19.8753 15.6511 19.4431 15.2632 19.2977C14.8753 19.1523 14.4431 19.3489 14.2977 19.7368L15.7023 20.2632ZM9.7023 19.7368C9.55694 19.3489 9.12467 19.1523 8.7368 19.2977C8.34893 19.4431 8.15234 19.8753 8.2977 20.2632L9.7023 19.7368ZM17.7772 17.25H6.22281V18.75H17.7772V17.25ZM17.4943 9.05977L17.9415 12.9998L19.4319 12.8307L18.9848 8.89061L17.4943 9.05977ZM6.05849 12.9998L6.50568 9.05977L5.01525 8.89061L4.56806 12.8307L6.05849 12.9998ZM5.01889 15.3583C5.59621 14.6801 5.96028 13.8652 6.05849 12.9998L4.56806 12.8307C4.50519 13.3846 4.27067 13.9231 3.87668 14.386L5.01889 15.3583ZM17.9415 12.9998C18.0397 13.8652 18.4038 14.6801 18.9811 15.3583L20.1233 14.386C19.7293 13.9231 19.4948 13.3846 19.4319 12.8307L17.9415 12.9998ZM6.22281 17.25C5.56777 17.25 5.10443 16.926 4.89056 16.5492C4.68409 16.1854 4.68714 15.748 5.01889 15.3583L3.87668 14.386C3.11141 15.285 3.08777 16.4116 3.58598 17.2895C4.07679 18.1544 5.04947 18.75 6.22281 18.75V17.25ZM17.7772 18.75C18.9505 18.75 19.9232 18.1544 20.414 17.2895C20.9122 16.4116 20.8886 15.285 20.1233 14.386L18.9811 15.3583C19.3129 15.748 19.3159 16.1854 19.1094 16.5492C18.8956 16.926 18.4322 17.25 17.7772 17.25V18.75ZM15.0199 4.37366V4.26995H13.5199V4.37366H15.0199ZM18.9848 8.89061C18.7055 6.43026 16.8806 4.47476 14.5129 3.6641L14.027 5.08322C15.9441 5.73962 17.2913 7.27101 17.4943 9.05977L18.9848 8.89061ZM10.4801 4.37366V4.26995H8.98005V4.37366H10.4801ZM6.50568 9.05977C6.7087 7.27101 8.05587 5.73962 9.973 5.08322L9.48711 3.6641C7.11944 4.47476 5.29449 6.43026 5.01525 8.89061L6.50568 9.05977ZM12 2.75C12.8394 2.75 13.5199 3.4305 13.5199 4.26995H15.0199C15.0199 2.60208 13.6679 1.25 12 1.25V2.75ZM12 1.25C10.3321 1.25 8.98005 2.60208 8.98005 4.26995H10.4801C10.4801 3.4305 11.1606 2.75 12 2.75V1.25ZM14.2977 19.7368C13.975 20.5979 13.0846 21.25 12 21.25V22.75C13.6855 22.75 15.1516 21.7325 15.7023 20.2632L14.2977 19.7368ZM12 21.25C10.9154 21.25 10.025 20.5979 9.7023 19.7368L8.2977 20.2632C8.84835 21.7325 10.3145 22.75 12 22.75V21.25Z"
+                  fill="#5C46E6"
+                />
+              </svg>
+              Bildirishnoma
+            </span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M14 16L18 12M18 12L14 8M18 12L6 12"
+                stroke="#020105"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </NuxtLink>
+          <NuxtLink to="/">
+            <span class="logo"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <path
+                  d="M6 8L9.7812 10.5208C11.1248 11.4165 12.8752 11.4165 14.2188 10.5208L18 8M6 21H18C20.2091 21 22 19.2091 22 17V7C22 4.79086 20.2091 3 18 3H6C3.79086 3 2 4.79086 2 7V17C2 19.2091 3.79086 21 6 21Z"
+                  stroke="#5C46E6"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              Yozishmalar
+            </span>
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M14 16L18 12M18 12L14 8M18 12L6 12"
+                stroke="#020105"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </NuxtLink>
+        </div>
+        <div class="langs">
+          <button class="active">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="24"
+              viewBox="0 0 32 24"
+              fill="none"
+            >
+              <g clip-path="url(#clip0_3544_64885)">
+                <rect y="0.5" width="32" height="23" rx="3" fill="#1A47B8" />
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M3.40415 0.5H0V4.33333L28.5774 23.5H32V19.6667L3.40415 0.5Z"
+                  fill="white"
+                />
+                <path
+                  d="M1.13539 0.5L32 21.2543V23.5H30.8912L0 2.72419V0.5H1.13539Z"
+                  fill="#F93939"
+                />
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M28.9524 0.5H32.0001V4.33333C32.0001 4.33333 12.2055 17.103 3.04768 23.5H6.10352e-05V19.6667L28.9524 0.5Z"
+                  fill="white"
+                />
+                <path
+                  d="M32 0.5H30.9665L0 21.2722V23.5H1.13539L32 2.74099V0.5Z"
+                  fill="#F93939"
+                />
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M11.6375 0.5H20.3892V7.59445H32V16.4009H20.3892V23.5H11.6375V16.4009H0V7.59445H11.6375V0.5Z"
+                  fill="white"
+                />
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M13.4737 0.5H18.5263V9.34615H32V14.6538H18.5263V23.5H13.4737V14.6538H0V9.34615H13.4737V0.5Z"
+                  fill="#F93939"
+                />
+              </g>
+              <rect
+                x="0.5"
+                y="1"
+                width="31"
+                height="22"
+                rx="2.5"
+                stroke="#E7EDFB"
+              />
+              <defs>
+                <clipPath id="clip0_3544_64885">
+                  <rect y="0.5" width="32" height="23" rx="3" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+            English
+          </button>
+          <button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="24"
+              viewBox="0 0 32 24"
+              fill="none"
+            >
+              <g clip-path="url(#clip0_3544_64888)">
+                <rect y="0.5" width="32" height="23" rx="3" fill="#1A47B8" />
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M0 15.8334H32V23.5H0V15.8334Z"
+                  fill="#F93939"
+                />
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M0 0.5H32V8.16667H0V0.5Z"
+                  fill="white"
+                />
+              </g>
+              <rect
+                x="0.5"
+                y="1"
+                width="31"
+                height="22"
+                rx="2.5"
+                stroke="#E7EDFB"
+              />
+              <defs>
+                <clipPath id="clip0_3544_64888">
+                  <rect y="0.5" width="32" height="23" rx="3" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+            Русский
+          </button>
+          <button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="24"
+              viewBox="0 0 32 24"
+              fill="none"
+            >
+              <g clip-path="url(#clip0_3544_64891)">
+                <rect y="0.5" width="32" height="23" rx="3" fill="#F93939" />
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M0 17.3667H32V23.5H0V17.3667Z"
+                  fill="#00B731"
+                />
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M0 0.5H32V6.63333H0V0.5Z"
+                  fill="#03BCDB"
+                />
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M0 8.16666H32V15.8333H0V8.16666ZM7.61905 6.50299C7.38133 6.58733 7.12381 6.63333 6.85714 6.63333C5.59543 6.63333 4.57143 5.60293 4.57143 4.33333C4.57143 3.06373 5.59543 2.03333 6.85714 2.03333C7.12381 2.03333 7.38133 2.07933 7.61905 2.16366C6.73067 2.47953 6.09524 3.33206 6.09524 4.33333C6.09524 5.33459 6.73067 6.18866 7.61905 6.50299Z"
+                  fill="white"
+                />
+                <path
+                  opacity="0.5"
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M9.14288 3.56666H10.6667V5.09999H9.14288V3.56666ZM10.6667 2.03333H12.1905V3.56666H10.6667V2.03333ZM12.1905 3.56666H13.7143V5.09999H12.1905V3.56666ZM13.7143 2.03333H15.2381V3.56666H13.7143V2.03333ZM15.2381 3.56666H16.7619V5.09999H15.2381V3.56666ZM13.7143 5.09999H15.2381V6.63333H13.7143V5.09999ZM10.6667 5.09999H12.1905V6.63333H10.6667V5.09999Z"
+                  fill="#1A47B8"
+                />
+              </g>
+              <rect
+                x="0.5"
+                y="1"
+                width="31"
+                height="22"
+                rx="2.5"
+                stroke="#E7EDFB"
+              />
+              <defs>
+                <clipPath id="clip0_3544_64891">
+                  <rect y="0.5" width="32" height="23" rx="3" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+            O'zbekcha
+          </button>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="buttons">
+          <NuxtLink to="/" class="login">Kirish</NuxtLink>
+          <NuxtLink to="/registration" class="registration"
+            >Ro'yxatdan o'tish</NuxtLink
           >
-            <path
-              d="M22 22L20 20M2 11.5C2 6.25329 6.25329 2 11.5 2C16.7467 2 21 6.25329 21 11.5C21 16.7467 16.7467 21 11.5 21C6.25329 21 2 16.7467 2 11.5Z"
-              stroke="#020105"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
+        </div>
       </div>
     </div>
   </div>
 </template>
+
 <script>
 export default {
   data() {
     return {
+      menuHandle: false,
       titleList: [
         {
           title: "Buyurtmalar",
@@ -128,10 +366,130 @@ export default {
       ],
     };
   },
+
+  watch: {
+    $route() {
+      this.menuHandle = false;
+    },
+  },
 };
 </script>
 <style lang="css" scoped>
-.mobile-header {
-  box-shadow: 0px 4px 12px 0px rgba(92, 70, 229, 0.06);
+.topper {
+  padding-bottom: 14px;
+  position: relative;
+  z-index: 9;
+}
+.menu {
+  z-index: 8;
+  position: fixed;
+  top: 0;
+  padding: 68px 0 24px 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-top: 1px solid #ebebeb;
+  transition: 0.4s;
+  transform: translateX(-100%);
+}
+.menu.show {
+  transform: translateX(0);
+}
+.links a {
+  color: var(--Black, #020105);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 24px */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid #ebebeb;
+}
+.messenger {
+  margin: 16px;
+  border-radius: 16px;
+  background: var(--BG-grey, #f8f9ff);
+  padding-inline: 16px;
+}
+.messenger a {
+  color: var(--Black, #020105);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 24px */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 16px;
+  border-bottom: 1px solid #ebebeb;
+}
+.messenger span {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.messenger a:last-child {
+  border-bottom: 0;
+}
+.langs {
+  border-radius: 16px;
+  background: var(--BG-grey, #f8f9ff);
+  margin: 16px;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+.langs button {
+  color: var(--grey-64, #5d5d5f);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 24px */
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.langs button.active {
+  background: white;
+  border-radius: 8px;
+  color: var(--Main-color, #5c46e5);
+}
+.buttons {
+  margin: 16px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  gap: 8px;
+}
+.login {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--Border-darik, #e0e0ed);
+  background: var(--White, #fff);
+  padding: 16px 20px;
+  color: var(--Main-color, #5c46e5);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140%; /* 19.6px */
+  text-align: center;
+}
+.registration {
+  border-radius: 12px;
+  background: var(--Main-color, #5c46e5);
+  color: var(--White, #fff);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 140%; /* 19.6px */
+  padding: 16px 20px;
+  text-align: center;
 }
 </style>

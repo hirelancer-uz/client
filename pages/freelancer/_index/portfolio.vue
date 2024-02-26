@@ -5,7 +5,7 @@
         <h3 class="text-[24px] text-black font-semibold xl:hidden">
           Портфолио
         </h3>
-        <div class="flex justify-between items-center xl:mx-[-16px]">
+        <!-- <div class="flex justify-between items-center xl:mx-[-16px]">
           <div
             class="buttons flex gap-6 md:overflow-x-scroll w-full scroll-none xl:gap-2"
           >
@@ -50,10 +50,10 @@
               </svg>
             </button>
           </div>
-        </div>
+        </div> -->
       </div>
       <div
-        class="list grid grid-cols-3 gap-4 mt-6 mb-[40px] md:grid-cols-2 xl:hidden"
+        class="list grid grid-cols-3 gap-4 mb-[40px] md:grid-cols-2 xl:hidden"
       >
         <PortfolioViewCard
           @handleOk="handleOk"
@@ -63,7 +63,7 @@
         />
       </div>
       <div
-        class="list grid-cols-3 gap-4 xl:grid-cols-2 xl:gap-1 hidden xl:grid mt-4"
+        class="list grid-cols-3 gap-4 xl:grid-cols-1 mt-4 xl:mt-0 xl:gap-[16px] hidden xl:grid"
       >
         <PortfolioCard
           @handleOk="handleOk"
@@ -197,13 +197,17 @@
         </div>
         <div class="modal__owner">
           <div class="modal__cardo">
-            <div class="modal__cardo-person">
-              <img src="@/assets/images/person.png" alt="" />
+            <div class="cardo__top">
+              <div class="modal__cardo-person">
+                <img src="@/assets/images/person.png" alt="" />
+              </div>
+              <div>
+                <h4 class="modal__cardo-name">Muhammadullo Egamberdiyev</h4>
+                <p class="modal__cardo-status">
+                  Зарегистрирован: более 5 лет назад
+                </p>
+              </div>
             </div>
-            <h4 class="modal__cardo-name">Muhammadullo Egamberdiyev</h4>
-            <p class="modal__cardo-status">
-              Зарегистрирован: более 5 лет назад
-            </p>
             <div class="modal__cardo-footer">
               <div class="modal__cardo-item">
                 <p>ID: 545</p>
@@ -268,23 +272,13 @@
               {
                 breakpoint: 768,
                 settings: {
-                  slidesToShow: 2,
+                  slidesToShow: 1,
                   slidesToScroll: 1,
                 },
               },
             ]"
           >
-            <ModalCard
-              v-for="portfolio in portfolios"
-              :portfolio="portfolio"
-              :key="portfolio?.id"
-            />
-            <ModalCard
-              v-for="portfolio in portfolios"
-              :portfolio="portfolio"
-              :key="portfolio?.id"
-            />
-            <ModalCard
+            <PortfolioCard
               v-for="portfolio in portfolios"
               :portfolio="portfolio"
               :key="portfolio?.id"
@@ -379,6 +373,13 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+.cardo__top {
+  display: grid;
+  grid-template-columns: 66px 1fr;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 16px;
+}
 .buttons .active {
   border-color: var(--blue);
   color: var(--blue);
@@ -515,7 +516,6 @@ export default {
 }
 .modal__cardo-name {
   color: var(--Black, #020105);
-  text-align: center;
   font-family: "TT Interfaces";
   font-size: 20px;
   font-style: normal;
@@ -525,13 +525,11 @@ export default {
 }
 .modal__cardo-status {
   color: var(--grey-40, #9a999b);
-  text-align: center;
   font-family: "TT Interfaces";
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 150%; /* 24px */
-  margin-bottom: 24px;
 }
 .modal__cardo-footer {
   display: grid;
@@ -620,7 +618,6 @@ export default {
     font-style: normal;
     font-weight: 400;
     line-height: 140%;
-    margin-bottom: 16px;
   }
   .modal__cardo {
     width: 100%;

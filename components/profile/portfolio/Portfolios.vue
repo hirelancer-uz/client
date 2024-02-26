@@ -6,7 +6,7 @@
       </h1>
       <nuxt-link
         v-if="portfolios.length > 0"
-        class="flex gap-[6px] text-blue text-base font-medium xl:hidden"
+        class="flex gap-[6px] text-blue text-base font-medium xl:text-[14px]"
         to="/orders"
         >Ko’proq ko’rish
         <svg
@@ -26,7 +26,7 @@
       ></nuxt-link>
     </div>
     <div
-      class="list grid grid-cols-3 gap-4 xl:grid-cols-2 xl:gap-1"
+      class="list grid grid-cols-3 gap-4 xl:grid-cols-1 xl:gap-1"
       v-if="portfolios.length > 0"
     >
       <PortfolioCard
@@ -40,7 +40,7 @@
     <FrelancerEmptyBlock v-else />
     <button
       @click="$router.push(`/freelancer/${$route.params.index}/portfolio`)"
-      class="hidden xl:flex gap-2 w-full justify-center h-[52px] items-center rounded-[12px] bg-main-color text-[14px] text-white font-medium"
+      class="hidden gap-2 w-full justify-center h-[52px] items-center rounded-[12px] bg-main-color text-[14px] text-white font-medium"
     >
       Ko'proq ko'rish
       <svg

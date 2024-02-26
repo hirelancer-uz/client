@@ -1,19 +1,33 @@
-<template lang="html">
-  <div class="banner grid h-[200px] xl:h-[158px] bg-bg-grey rounded-3xl xl:rounded-xl px-[60px] xl:px-4 xl:overflow-hidden relative">
+<template>
+  <div
+    class="banner grid h-[200px] xl:h-[138px] bg-bg-grey rounded-3xl xl:rounded-xl px-[60px] xl:px-4 xl:overflow-hidden relative"
+  >
     <div class="left h-full flex items-center">
-      <div class="flex justify-between items-center xl:items-start xl:flex-col xl:gap-2">
-        <h3 class="text-[27px] text-black font-bold xl:text-base xl:max-w-[75%] relative z-30">
+      <div
+        class="flex justify-between items-center xl:items-start xl:flex-col xl:gap-2"
+      >
+        <h3
+          class="text-[27px] text-black font-bold xl:text-base xl:max-w-[75%] relative z-30"
+        >
           Nima uchun <span class="text-blue">korxonalar</span>
           <span class="text-blue">Hirelancer’ga</span> murojaat qilishadi
         </h3>
-        <p class="text-xs text-black xl:text-[12px] xl:max-w-[50%] relative z-30">
-          Eski qoidalarni unuting. Siz eng yaxshi frilanserlarni mana shu yerda. ega
-          chiqishingiz mumkin.
+        <p
+          class="text-xs text-black xl:text-[12px] xl:max-w-[50%] relative z-30"
+        >
+          Eski qoidalarni unuting. Siz eng yaxshi frilanserlarni shu yerda
+          topishingiz mumkin.
         </p>
       </div>
     </div>
-    <div class="right h-full xl:absolute xl:h-[140px] xl:right-[-26px] bottom-0">
-      <img class="h-full" src="@/assets/images/orders-banner.png" alt="" />
+    <div
+      class="right h-full xl:absolute xl:w-[162px] xl:h-[140px] xl:right-[-26px] bottom-0 xl:flex xl:items-end"
+    >
+      <img
+        class="h-full xl:h-[114px] xl:object-cover"
+        src="@/assets/images/orders-banner.png"
+        alt=""
+      />
     </div>
   </div>
 </template>

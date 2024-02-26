@@ -1,7 +1,7 @@
 <template>
   <div class="personal-info">
     <div
-      class="border border-solid border-grey-8 px-6 py-4 rounded-2xl h-full xl:rounded-[16px] xl:border-t xl:pt-6 xl:pb-0 xl:px-4 xl:py-4 xl:border"
+      class="border border-solid border-grey-8 px-6 py-4 rounded-2xl h-full xl:border-0 xl:p-0"
       :class="{ 'profile-info': profile }"
     >
       <div class="flex justify-between">
@@ -36,7 +36,7 @@
             </defs>
           </svg>
         </button>
-        <button class="hidden xl:block">
+        <button class="hidden">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

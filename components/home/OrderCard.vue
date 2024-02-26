@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div
     class="card relative order-card px-8 py-6 rounded-3xl bg-white cursor-pointer xl:border-[1px] xl:border-solid xl:border-grey-8 xl:rounded-[16px] xl:p-[16px]"
     @click="
@@ -8,7 +8,9 @@
     "
   >
     <div class="header flex justify-between xl:flex-col-reverse xl:gap-2">
-      <div class="flex gap-6 items-center xl:gap-[12px] w-full">
+      <div
+        class="flex gap-6 items-center xl:gap-[12px] w-full xl:flex-col xl:items-start"
+      >
         <span
           v-if="order?.urgent"
           class="border light-yellow rounded-[500px] border-solid border-dark-yellow text-dark-yellow h-[36px] xl:h-[32px] px-[20px] xl:pl-2 xl:pr-3 flex items-center xl:text-[12px] xl:gap-1"
@@ -104,7 +106,10 @@
           v-if="order?.urgent"
           class="flex w-[1px] h-[27px] bg-grey-8 xl:hidden"
         ></span>
-        <div ref="widthHandle" class="flex-auto flex gap-6 items-center xl:gap-[12px]">
+        <div
+          ref="widthHandle"
+          class="flex-auto flex gap-6 items-center xl:gap-[12px] xl:w-full xl:hidden"
+        >
           <button
             v-for="(special, index) in visibleButtons"
             :key="special?.id"
@@ -120,8 +125,19 @@
             + {{ hiddenButtonsCount }}
           </button>
         </div>
+        <div class="flex-auto hidden items-center gap-2 justify-between w-full xl:flex flex-wrap" >
+          <button
+            v-for="(special, index) in order?.specialities"
+            :key="special?.id"
+            class="whitespace-nowrap h-[36px] xl:h-[32px] flex items-center bg-apple-grey font-tt text-grey-64 py-2 px-4 rounded-[22px] text-[14px] xl:text-[12px]"
+          >
+            {{ special?.name_ru }}
+          </button>
+        </div>
       </div>
-      <div class="flex gap-[28px] items-center xl:justify-between">
+      <div
+        class="flex gap-[28px] items-center xl:justify-between xl:absolute xl:top-[16px] xl:right-[16px]"
+      >
         <div class="flex gap-[16px] items-center xl:gap-[12px]">
           <p class="text-base text-grey-40 xl:text-[14px]">
             {{ moment(order?.created_at).format(hourFormat) }}
@@ -169,14 +185,14 @@
       </span>
       <div class="justify-start hidden xl:flex mt-[-4px]">
         <button
-          class="underline text-grey-80 text-base font-medium text-center xl:text-main-color"
+          class="underline text-grey-80 text-base font-medium text-center xl:text-main-color xl:text-[14px]"
         >
           Подробнее
         </button>
       </div>
     </div>
     <div
-      class="footer flex items-center justify-between mt-4 xl:flex-row-reverse xl:mt-[20px] xl:gap-[20px]"
+      class="footer flex items-center justify-between mt-4 xl:flex-row-reverse xl:mt-[16px] xl:gap-[20px]"
     >
       <h1
         class="text-grey-80 text-[24px] font-semibold xl:text-base price"
@@ -248,7 +264,7 @@
       </div>
     </div>
     <button
-      class="py-[12px] text-[14px] w-full justify-center font-semibold font-tt bg-white text-blue rounded-lg border border-solid border-blue hidden xl:flex text-center mt-[20px]"
+      class="py-[12px] text-[14px] w-full justify-center font-semibold font-tt bg-white text-blue rounded-lg border border-solid border-blue hidden xl:flex text-center mt-[20px] xl:mt-[16px] xl:border-[#E0E0ED] xl:text-[14px] xl:text-[#5D5D5F]"
     >
       Отправить заявку
     </button>
