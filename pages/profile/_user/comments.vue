@@ -1,6 +1,5 @@
 <template>
   <div class="master">
-    <!-- <ProfileLayout :profile="false" :freelancer="freelancer" :show="true"> -->
     <div class="sort__comments">
       <a-select v-model="currentStatus">
         <a-select-option :value="item.value" :key="index" v-for="(item, index) in status">
@@ -30,7 +29,6 @@
       />
     </div>
     <VPagination :totalPage="totalPage" @getData="__GET_COMMENTS" :pageSize="pageSize" />
-    <!-- </ProfileLayout> -->
   </div>
 </template>
 
@@ -70,22 +68,6 @@ export default {
     handleUser() {
       return this.$store.state.userInfo["id"];
     },
-  },
-  async asyncData({ store, query, params }) {
-    try {
-      const [freeLancerData, commentsData] = await Promise.all([
-        store.dispatch("fetchFreelancers/getFreelancerById", {
-          params: {
-            params: {},
-          },
-          id: params.index,
-        }),
-      ]);
-      const freelancer = freeLancerData.content;
-      return {
-        freelancer,
-      };
-    } catch (e) {}
   },
   async mounted() {
     this.__GET_COMMENTS();

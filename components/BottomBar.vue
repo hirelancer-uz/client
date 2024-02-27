@@ -9,7 +9,7 @@
         Boolean($store.state.userInfo['name']) &&
         $route.name === 'freelancers'
       "
-      @click="$router.push('/profile/customer')"
+      @click="$router.push('/profile/orders/add')"
       class="h-12 flex justify-center items-center bg-main-color rounded-[12px] text-[14px] font-semibold text-white w-full border-[1px] border-blue border-solid buttoner"
     >
       Buyurtma qoshish

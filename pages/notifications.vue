@@ -1,10 +1,10 @@
 <template lang="html">
   <transition name="fade-left" mode="out-in">
   <div class="notifications pt-12 pb-[400px]">
-    <div class="2xl:container mx-auto flex flex-col gap-12">
+    <div class="2xl:container container mx-auto flex flex-col gap-12">
       <h2 class="text-black text-[32px] font-semibold">Bildirish nomalar</h2>
       <div class="body flex flex-col gap-10">
-        <div class="list grid grid-cols-2 gap-4">
+        <div class="list grid grid-cols-1 gap-4">
           <NotificationCard />
           <NotificationCard />
           <NotificationCard />

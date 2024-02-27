@@ -10,7 +10,7 @@
     ></div>
     <div v-else class="header-bg xl:block hidden w-full h-[56px]"></div>
     <div
-      class="profile-layout max-w-[1680px] mx-auto pt-12 xl:pt-6 xl:pb-6 pb-[100px]"
+      class="profile-layout max-w-[1680px] mx-auto pt-12 xl:pt-6 xl:pb-6 pb-[100px] container"
     >
       <div class="profile-grid">
         <PersonalBlock

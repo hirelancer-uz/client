@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="header bg-white h-[108px] flex items-center">
+  <div class="header bg-white h-[108px] flex items-center ">
     <div class="max-w-[1776px] mx-auto flex justify-between w-full">
       <div class="left flex gap-[80px] items-center">
         <div class="logo">
@@ -706,6 +706,9 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+.nuxt-link-active {
+  color: var(--main-color);
+}
 .header {
   box-shadow: 0px 4px 8px 0px rgba(92, 70, 229, 0.08);
 }
@@ -716,5 +719,11 @@ export default {
 }
 .menu-container li button {
   transition: 0.3s;
+}
+@media (max-width: 1440px) {
+  .header {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="orders pt-8 pb-[170px] xl:px-4 xl:pt-6 xl:pb-6 relative">
     <transition name="fade-left" mode="out-in">
-      <div class="2xl:container mx-auto xl:flex xl:flex-col xl:gap-[16px]">
+      <div class="2xl:container container mx-auto xl:flex xl:flex-col xl:gap-[16px]">
         <Banner class="" />
         <div class="flex justify-between items-end mt-8 xl:mt-0 xl:flex-col-reverse">
           <div class="flex flex-col gap-4 xl:w-full">

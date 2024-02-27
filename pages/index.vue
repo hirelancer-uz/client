@@ -1,6 +1,6 @@
 <template>
   <div class="pt-[40px] xl:pt-4 pb-[120px] xl:pb-[24px]">
-    <div class="2xl:container mx-auto xl:px-4">
+    <div class="2xl:container container mx-auto xl:px-4">
       <Banner />
       <PlaceOrder />
       <PlaceSpecialists :specialities="specialities" />

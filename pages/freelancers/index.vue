@@ -1,12 +1,12 @@
 <template>
   <transition name="fade-left" mode="out-in">
     <div class="freelancers pt-16 pb-[120px] xl:px-4 xl:pt-6 xl:pb-6">
-      <div class="2xl:container mx-auto">
+      <div class="2xl:container container mx-auto">
         <div class="title items-center xl:hidden grider">
           <h2 class="text-black text-[32px] font-semibold titler">
             Frilanserlar
-            <span class="hidden xl:block"
-              >{{ totalPage.toLocaleString() }} результатов</span
+            <span class="hidden xl:block" v-if="totalPage"
+              >{{ totalPage?.toLocaleString() }} результатов</span
             >
           </h2>
           <div class="button grid header gap-4 items-center">
@@ -18,7 +18,7 @@
                 placeholder="Поиск"
                 v-model="search"
                 class="text-[16px] text-[#353437] leading-[150%] h-[100%] w-[90%]"
-                @input="($event) => changeSearch($event, '__GET_FREELANCERS')"
+                @input="handleInput"
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +38,7 @@
             </div>
             <button
               v-if="$store.state.auth && Boolean($store.state.userInfo['name'])"
-              @click="$router.push('/profile/customer')"
+              @click="$router.push('/profile/orders/add')"
               class="h-[60px] w-[204px] flex justify-center items-center bg-white rounded-[12px] text-base font-medium text-blue border-[1px] border-blue border-solid buttoner xl:hidden"
             >
               Buyurtma qoshish
@@ -200,6 +200,7 @@ export default {
       loading: false,
       search: "",
       pageSize: 10,
+      searchVal: "",
     };
   },
   async asyncData({ store, query }) {
@@ -241,6 +242,8 @@ export default {
 
   mounted() {
     this.getFirstData();
+    if (this.$route.query?.search) this.search = this.$route.query?.search;
+    this.debouncedSearch = this.debounce(this.changeSearch, 500);
   },
   destroyed() {
     this.$store.commit("setPageData", {});
@@ -252,16 +255,30 @@ export default {
     close() {
       this.$refs.myBottomSheet.close();
     },
-    async changeSearch(val, func) {
-      this.searchVal = val.target.value;
-      if (val.target.value.length > 2) {
-        if (this.$route.query?.search != val.target.value)
+    debounce(func, delay) {
+      let timer;
+      return function () {
+        const context = this;
+        const args = arguments;
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          func.apply(context, args);
+        }, delay);
+      };
+    },
+    handleInput(event) {
+      this.searchVal = event.target.value;
+      this.debouncedSearch();
+    },
+    async changeSearch() {
+      if (this.searchVal.length > 2) {
+        if (this.$route.query?.search != this.searchVal)
           await this.$router.replace({
             path: this.$route.path,
-            query: { ...this.$route.query, search: val.target.value, page: 1 },
+            query: { ...this.$route.query, search: this.searchVal, page: 1 },
           });
-        if (val.target.value == this.$route.query.search) this[func]();
-      } else if (val.target.value.length == 0) {
+        if (this.searchVal == this.$route.query.search) this.__GET_FREELANCERS();
+      } else if (this.searchVal.length == 0) {
         this.clearFilter(this.$route.path);
       }
     },

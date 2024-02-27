@@ -1,7 +1,7 @@
 <template>
   <transition name="fade-left" mode="out-in">
     <div class="freelancers pt-16 pb-[120px] xl:px-4 xl:pt-6 xl:pb-6">
-      <div class="2xl:container mx-auto">
+      <div class="2xl:container container mx-auto">
         <div class="title items-center xl:hidden grider">
           <h2 class="text-black text-[32px] font-semibold">Frilanserlar</h2>
           <div class="button grid header gap-4 items-center">
@@ -33,7 +33,7 @@
             </div>
             <button
               v-if="$store.state.auth && Boolean($store.state.userInfo['name'])"
-              @click="$router.push('/profile/customer')"
+              @click="$router.push('/profile/orders/add')"
               class="xl:hidden h-[60px] w-[204px] flex justify-center items-center bg-white rounded-[12px] text-base font-medium text-blue border-[1px] border-blue border-solid"
             >
               Buyurtma qoshish

@@ -2,7 +2,7 @@
   <div
     class="registration pt-[130px] pb-[100px] xl:pt-20 w-full overflow-hidden xl:px-4 xl:pb-4"
   >
-    <div class="2xl:container mx-auto h-full flex flex-col gap-4">
+    <div class="2xl:container container mx-auto h-full flex flex-col gap-4">
       <div class="flex justify-center">
         <UserInfo
           @sendRegister="sendRegister"

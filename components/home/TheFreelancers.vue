@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="2xl:container mx-auto mt-[120px] xl:mt-[40px] xl:px-4">
+  <div class="2xl:container container mx-auto mt-[120px] xl:mt-[40px] xl:px-4">
     <div class="flex justify-between mb-[40px] items-center xl:mb-[16px]">
       <h1 class="text-black text-[32px] font-semibold xl:text-[18px]">
         Eng yaxshi frilanserlar

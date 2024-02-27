@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="2xl:container mx-auto">
+  <div class="2xl:container container mx-auto">
     <div
       class="banner bg-blue rounded-[32px] mt-[100px] xl:mt-[44px] xl:mx-[16px] xl:rounded-[16px] relative"
     >

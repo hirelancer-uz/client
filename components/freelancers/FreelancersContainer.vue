@@ -40,7 +40,7 @@
         <a-skeleton
           :paragraph="false"
           class="loading-card"
-          v-for="elem in [1, 2, 3, 4, 5, 6, 7, 8, 9,10]"
+          v-for="elem in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
           :key="elem"
         />
       </div>
@@ -51,7 +51,12 @@
           :key="freelancer?.id"
         />
       </div>
-
+      <div
+        class="h-[300px] flex justify-center items-center"
+        v-if="!loading && freelancers?.length == 0"
+      >
+        <a-empty />
+      </div>
       <VPagination
         :load="true"
         :totalPage="totalPage"
