@@ -32,14 +32,10 @@
           ></nuxt-link>
         </div>
         <div class="menu flex gap-[40px]">
-          <nuxt-link
-            class="text-[18px] text-black font-tt font-normal"
-            to="/orders"
+          <nuxt-link class="text-[18px] text-black font-tt font-normal" to="/orders"
             >Buyurtmalar</nuxt-link
           >
-          <nuxt-link
-            class="text-[18px] text-black font-tt font-normal"
-            to="/freelancers"
+          <nuxt-link class="text-[18px] text-black font-tt font-normal" to="/freelancers"
             >Frilanserlar</nuxt-link
           >
           <!-- <nuxt-link class="text-[18px] text-black font-tt font-normal" to="/"
@@ -157,7 +153,7 @@
                   stroke-linejoin="round"
                 />
               </svg>
-              <span class="absolute bottom-0 right-0">
+              <!-- <span class="absolute bottom-0 right-0">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="12"
@@ -167,7 +163,7 @@
                 >
                   <circle cx="6" cy="6" r="6" fill="#F2154A" />
                 </svg>
-              </span>
+              </span> -->
             </button>
             <button
               class="w-[52px] h-[52px] rounded-full border-[2px] border-grey-8 border-solid flex items-center justify-center"
@@ -290,9 +286,7 @@
                         $route.path.includes('/profile/freelancer/orders') &&
                         $route.path.includes('status'),
                     }"
-                    @click="
-                      $router.push('/profile/freelancer/orders/active/status')
-                    "
+                    @click="$router.push('/profile/freelancer/orders/active/status')"
                     class="w-full py-2 flex gap-2 rounded-xl bg-bg-grey px-4 font-medium text-base text-black hover:bg-grey-light"
                   >
                     <svg
@@ -385,7 +379,7 @@
                     Настройки
                   </button>
                 </li>
-                <li key="4">
+                <li key="5">
                   <button
                     @click="$router.push('/profile/freelancer/comments')"
                     class="w-full py-2 flex gap-2 rounded-xl bg-bg-grey px-4 font-medium text-base text-black hover:bg-grey-light"
@@ -412,9 +406,9 @@
                   </button>
                 </li>
                 <span class="w-full flex h-[1px] bg-border-darik"></span>
-                <li key="5">
+                <li key="6">
                   <button
-                    @click="$store.dispatch('logout')"
+                    @click="visibleLogout = true"
                     :class="{
                       'bg-grey-light pointer-events-none':
                         $route.path == '/profile/customer/settings',
@@ -462,16 +456,14 @@
                   </button>
                 </li>
 
-                <li key="2">
+                <li key="1">
                   <button
                     :class="{
                       'bg-grey-light pointer-events-none':
                         $route.path.includes('/profile/customer/orders') &&
                         $route.path.includes('status'),
                     }"
-                    @click="
-                      $router.push('/profile/customer/orders/active/status')
-                    "
+                    @click="$router.push('/profile/customer/orders/active/status')"
                     class="w-full py-2 flex gap-2 rounded-xl bg-bg-grey px-4 font-medium text-base text-black hover:bg-grey-light"
                   >
                     <svg
@@ -494,7 +486,7 @@
                   </button>
                 </li>
 
-                <li key="4">
+                <li key="2">
                   <button
                     @click="$router.push('/profile/customer/settings')"
                     :class="{
@@ -520,9 +512,9 @@
                   </button>
                 </li>
                 <span class="w-full flex h-[1px] bg-border-darik"></span>
-                <li key="5">
+                <li key="3">
                   <button
-                    @click="$store.dispatch('logout')"
+                    @click="visibleLogout = true"
                     :class="{
                       'bg-grey-light pointer-events-none':
                         $route.path == '/profile/customer/settings',
@@ -580,15 +572,18 @@
       </div>
     </div>
     <LoginAuth :visibleProp="visible" @handleOkProp="handleOk" />
+    <Logout :visibleProp="visibleLogout" @handleOkProp="handleOk" />
   </div>
 </template>
 <script>
 import userInfoVue from "../../pages/registration/user-info.vue";
 import LoginAuth from "../modals/LoginAuth.vue";
+import Logout from "../modals/Logout.vue";
 
 export default {
   data() {
     return {
+      visibleLogout: false,
       dropdown: false,
       userType: true,
       visible: false,
@@ -698,6 +693,7 @@ export default {
   },
   methods: {
     handleOk() {
+      this.visibleLogout = false;
       this.visible = false;
     },
   },
@@ -706,7 +702,7 @@ export default {
       this.dropdown = false;
     },
   },
-  components: { LoginAuth },
+  components: { LoginAuth, Logout },
 };
 </script>
 <style lang="css" scoped>

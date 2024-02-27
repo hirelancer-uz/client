@@ -40,13 +40,13 @@
       <a-skeleton
         :paragraph="false"
         class="loading-card"
-        v-for="elem in [1, 2, 3, 4, 5, 6, 7, 8, 9]"
+        v-for="elem in [1, 2, 3, 4, 5]"
         :key="elem"
       />
     </div>
     <div
       class="list flex flex-col gap-4 mt-6 mb-[40px]"
-      v-if="$route.params.user == 'customer'"
+      v-if="$route.params.user == 'customer' && !loading"
     >
       <CompletedOrdersCard v-for="order in orders" :order="order" :key="order?.id" />
     </div>
@@ -90,7 +90,7 @@
       </button>
     </div>
     <div>
-      <VPagination />
+      <VPagination :totalPage="totalPage" @getData="__GET_ORDERS" :pageSize="pageSize" />
     </div>
     <!-- </ProfileLayout> -->
   </div>
@@ -112,6 +112,8 @@ export default {
     return {
       orders: [],
       loading: true,
+      pageSize: 5,
+      totalPage: false,
       status: {
         customer: {
           active: 1,
@@ -141,6 +143,8 @@ export default {
     async __GET_ORDERS() {
       const params = {
         status: this.status[this.$route.params.user][this.$route.params.status],
+        page_size: this.pageSize,
+        ...this.$route.query,
       };
       this.$route.params.user == "customer"
         ? (params.client = this.$store.state.userInfo["id"])
@@ -150,6 +154,7 @@ export default {
           params: { ...params },
         });
         this.orders = data?.data;
+        this.totalPage = data?.meta?.total;
         if (this.$route.params.status == "completed") {
           this.orders = this.orders.filter((elem) => elem?.end_of_execution);
         }

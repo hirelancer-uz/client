@@ -28,7 +28,7 @@
       </div>
     </div>
     <div
-      class="list grid grid-cols-3 gap-4 mt-6 mb-[40px] xl:grid-cols-2 xl:gap-1 xl:mt-4"
+      class="list grid grid-cols-3 gap-4 mt-6 mb-[40px] xl:grid-cols-1 xl:gap-1 xl:mt-4"
       v-if="loading"
     >
       <a-skeleton
@@ -39,7 +39,7 @@
       />
     </div>
     <div
-      class="list grid grid-cols-3 gap-4 mt-6 mb-[40px] xl:grid-cols-2 xl:gap-1 xl:mt-4"
+      class="list grid grid-cols-3 gap-4 mt-6 mb-[40px] xl:grid-cols-1 xl:gap-1 xl:mt-4"
       v-else
     >
       <PortfolioCard

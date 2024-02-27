@@ -16,9 +16,7 @@
         class="h-[40px] px-[24px] rounded-[8px] border border-solid border-grey-light bg-bg-grey flex gap-2 items-center text-black text-[14px]"
       >
         {{ elem?.name_ru }}
-        <button
-          @click="$emit('deleteFilter', `specialities[${elem?.id}]`, elem?.id)"
-        >
+        <button @click="$emit('deleteFilter', `specialities[${elem?.id}]`, elem?.id)">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -38,15 +36,15 @@
       </div>
     </div>
     <div class="body flex flex-col gap-8 xl:mt-0">
-      <div class="list grid grid-cols-3 xl:grid-cols-1 gap-4" v-if="loading">
+      <div class="list grid grid-cols-2 xl:grid-cols-1 gap-4" v-if="loading">
         <a-skeleton
           :paragraph="false"
           class="loading-card"
-          v-for="elem in [1, 2, 3, 4, 5, 6, 7, 8, 9]"
+          v-for="elem in [1, 2, 3, 4, 5, 6, 7, 8, 9,10]"
           :key="elem"
         />
       </div>
-      <div class="list grid grid-cols-3 xl:grid-cols-1 gap-4" v-else>
+      <div class="list grid grid-cols-2 xl:grid-cols-1 gap-4" v-else>
         <FreelancerCard
           v-for="freelancer in freelancers"
           :freelancer="freelancer"
@@ -58,6 +56,7 @@
         :load="true"
         :totalPage="totalPage"
         @getData="__GET_FREELANCERS"
+        :pageSize="pageSize"
       />
     </div>
   </div>
@@ -67,7 +66,10 @@ import VPagination from "../VPagination.vue";
 import FreelancerCard from "../home/FreelancerCard.vue";
 
 export default {
-  props: ["freelancers", "specialities", "loading", "totalPage"],
+  props: ["freelancers", "specialities", "loading", "totalPage", "pageSize"],
+  data() {
+    return {};
+  },
   methods: {
     __GET_FREELANCERS() {
       this.$emit("getData");

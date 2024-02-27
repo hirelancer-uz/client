@@ -59,7 +59,7 @@
               :loading="!userInfo['name'] || !userInfo['surname']"
             >
               <p class="text-base text-center text-grey-40">
-                Ro'yxatdan o'tgan: 5 yil avval
+                Ro'yxatdan o'tgan: {{ dateFormat }}
               </p>
             </a-skeleton>
           </div>
@@ -465,7 +465,7 @@
 
         <button
           v-if="profile && $route.name != 'freelancer-index'"
-          @click="$store.dispatch('logout')"
+          @click="visibleLogout = true"
           class="underline text-base text-pantone-2023 flex items-center gap-[10px]"
         >
           Chiqish<svg
@@ -554,6 +554,7 @@
         </p> -->
       </div>
     </div>
+    <Logout :visibleProp="visibleLogout" @handleOkProp="handleOk" />
   </div>
 </template>
 <script>
@@ -561,16 +562,22 @@ import PersonalMessengers from "./PersonalMessengers.vue";
 import { Swiper, Navigation } from "swiper";
 import "swiper/swiper-bundle.min.css";
 import EventsSmallCard from "./EventsSmallCard.vue";
+import Logout from "../modals/Logout.vue";
+import moment from "moment";
 export default {
   props: ["profile", "userInfo"],
   data() {
     return {
       data: [1, 2, 3, 4, 5, 6],
       isFreelancer: false,
+      visibleLogout: false,
     };
   },
 
   computed: {
+    dateFormat() {
+      return moment(this.userInfo?.created_at).format("DD-MMM. YYYY");
+    },
     baseUrl() {
       return process.env.BASE_URL;
     },
@@ -603,7 +610,13 @@ export default {
       },
     });
   },
-  components: { PersonalMessengers, EventsSmallCard },
+  methods: {
+    moment,
+    handleOk() {
+      this.visibleLogout = false;
+    },
+  },
+  components: { PersonalMessengers, EventsSmallCard, Logout },
 };
 </script>
 <style lang="css" scoped>

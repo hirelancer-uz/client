@@ -320,7 +320,7 @@ export default {
     widthHandle() {
       if (this.$refs.widthHandle) {
         let containerWidth = this.$refs.widthHandle.offsetWidth;
-        let totalWidth = 0;
+        let totalWidth = 50;
         let visibleButtonsCount = 0;
         if (this.order?.specialities.length > 0) {
           setTimeout(() => {

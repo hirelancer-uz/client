@@ -20,29 +20,30 @@
           alt=""
         />
         <div
+          v-if="portfolio?.images.length > 1"
           class="count text-purple text-[14px] font-semibold absolute w-[40px] h-[36px] rounded-[8px] border border-solid border-grey-8 bg-white flex items-center justify-center right-4 bottom-4 xl:hidden"
         >
-          3+
+          {{ portfolio?.images.length - 1 }}+
         </div>
       </div>
     </div>
-    <div
-      class="body px-4 pt-3 pb-4 flex flex-col gap-[44px] xl:gap-1 xl:px-3 xl:py-3"
-    >
-      <h4
-        @click="$router.push(`/profile/freelancer/portfolio/${portfolio?.id}`)"
-        class="text-black text-[18px] font-semibold xl:text-[14px] xl:font-medium cursor-pointer"
-      >
-        {{ portfolio?.name }}
-      </h4>
-      <div class="flex justify-between xl:flex-col xl:gap-2">
-        <p class="text-base font-medium text-grey-40 xl:text-[12px]">
-          {{ portfolio?.specialities[0]?.name_ru }}
-        </p>
+    <div class="body px-4 pt-3 pb-4 flex flex-col gap-[44px] xl:gap-1 xl:px-3 xl:py-3">
+      <div class="flex flex-col gap-2">
+        <h4
+          v-if="$route.name.includes('profile')"
+          @click="$router.push(`/profile/freelancer/portfolio/${portfolio?.id}`)"
+          class="text-black text-[18px] font-semibold xl:text-[14px] xl:font-medium cursor-pointer"
+        >
+          {{ portfolio?.name }}
+        </h4>
+        <h4
+          v-else
+          class="text-black text-[18px] font-semibold xl:text-[14px] xl:font-medium cursor-pointer"
+        >
+          {{ portfolio?.name }}
+        </h4>
         <div class="flex gap-6">
-          <p
-            class="text-[14px] font-medium flex gap-[6px] items-center xl:text-[12px]"
-          >
+          <p class="text-[14px] font-medium flex gap-[6px] items-center xl:text-[12px]">
             <svg
               class="xl:w-4 xl:h-4"
               xmlns="http://www.w3.org/2000/svg"
@@ -61,11 +62,9 @@
                 stroke="#5D5D5F"
                 stroke-width="1.5"
               /></svg
-            >300
+            > {{portfolio?.view_count}}
           </p>
-          <p
-            class="text-[14px] font-medium flex gap-[6px] items-center xl:text-[12px]"
-          >
+          <p class="text-[14px] font-medium flex gap-[6px] items-center xl:text-[12px]">
             <svg
               class="xl:w-4 xl:h-4"
               xmlns="http://www.w3.org/2000/svg"
@@ -88,9 +87,25 @@
                 stroke-linecap="round"
                 stroke-linejoin="round"
               /></svg
-            >15
+            >{{ portfolio?.classes_count }}
           </p>
         </div>
+      </div>
+      <div class="flex gap-2 xl:gap-2 w-full" ref="widthHandle">
+        <p
+          class="text-[14px] bg-apple-grey rounded-[22px] h-[28px] px-3 flex items-center font-medium text-grey-64 xl:text-[12px] whitespace-nowrap"
+          v-for="(specialit, index) in visibleButtons"
+          :key="specialit?.id"
+          :ref="`button${index}`"
+        >
+          {{ specialit?.name_ru }}
+        </p>
+        <p
+          v-if="hiddenButtonsCount"
+          class="text-[14px] bg-apple-grey rounded-[22px] h-[28px] px-3 flex items-center font-medium text-grey-64 xl:text-[12px] whitespace-nowrap"
+        >
+          + {{ hiddenButtonsCount }}
+        </p>
       </div>
     </div>
   </div>
@@ -98,13 +113,47 @@
 <script>
 export default {
   props: ["portfolio"],
-
+  data() {
+    return { visibleButtons: [] };
+  },
   computed: {
+    hiddenButtonsCount() {
+      return this.portfolio?.specialities.length - this.visibleButtons.length;
+    },
     baseUrl() {
       return process.env.BASE_URL;
     },
   },
-  mounted() {},
+  async mounted() {
+    this.visibleButtons = await this.portfolio?.specialities;
+    this.widthHandle();
+  },
+
+  methods: {
+    widthHandle() {
+      if (this.$refs.widthHandle) {
+        let containerWidth = this.$refs.widthHandle.offsetWidth;
+        let totalWidth = 43;
+        let visibleButtonsCount = 0;
+        if (this.portfolio?.specialities.length > 0) {
+          setTimeout(() => {
+            for (let i = 0; i < this.portfolio?.specialities.length; i++) {
+              totalWidth += this.$refs[`button${i}`][0]?.offsetWidth;
+              if (totalWidth <= containerWidth) {
+                visibleButtonsCount++;
+              } else {
+                break;
+              }
+            }
+            this.visibleButtons = this.portfolio?.specialities.slice(
+              0,
+              visibleButtonsCount
+            );
+          }, 0);
+        }
+      }
+    },
+  },
 };
 </script>
 <style lang="css" scoped>

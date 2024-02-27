@@ -15,7 +15,7 @@
       <Events />
     </div> -->
     <div class="mt-10" v-if="$route.params.user == 'freelancer'">
-      <Comments :feedbacks="$store.state.userInfo?.customers_feedbacks" />
+      <Comments :feedbacks="comments" @getComments="__GET_COMMENTS" />
     </div>
     <!-- </ProfileLayout> -->
   </div>
@@ -35,9 +35,38 @@ export default {
   data() {
     return {
       userInfo: {},
+      comments: [],
     };
   },
-
+  async mounted() {
+    this.__GET_COMMENTS();
+  },
+  methods: {
+    async __GET_COMMENTS() {
+      try {
+        this.loading = true;
+        const commentsData = await this.$store.dispatch(
+          "fetchOrders/getFreelancerComments",
+          {
+            params: {
+              freelancer: this.$store.state.userInfo["id"],
+              page_size: 2,
+            },
+          }
+        );
+        this.comments = commentsData.content.data;
+        this.totalPage = commentsData.content.total;
+      } catch (e) {
+      } finally {
+        this.loading = false;
+      }
+    },
+  },
+  watch: {
+    handleUser(val) {
+      if (val) this.__GET_COMMENTS();
+    },
+  },
   components: {
     PersonalInfo,
     Achievements,

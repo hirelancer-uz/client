@@ -2,24 +2,48 @@
   <div class="master xl:px-[16px]">
     <ProfileLayout :profile="false" :freelancer="freelancer" :show="true">
       <div class="sort__comments">
-        <a-select default-value="good">
-          <a-select-option value="good"> Ijobiy izohlar </a-select-option>
-          <a-select-option value="bad"> Qoniqarsiz izohlar </a-select-option>
+        <a-select v-model="currentStatus">
+          <a-select-option
+            :value="item.value"
+            :key="index"
+            v-for="(item, index) in status"
+          >
+            {{ item.label }}
+          </a-select-option>
         </a-select>
       </div>
-      <div v-if="freelancer?.customers_feedbacks?.length > 0">
+      <div>
         <div
-          class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 gap-4 mb-[40px]"
+          class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 xl:grid-cols-1 gap-4 mb-[40px]"
+          v-if="loading"
+        >
+          <a-skeleton
+            :paragraph="false"
+            class="loading-card"
+            v-for="elem in [1, 2, 3, 4, 5, 6]"
+            :key="elem"
+          />
+        </div>
+        <div
+          v-else
+          class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 xl:grid-cols-1 gap-4 mb-[40px]"
         >
           <CommentsCard
-            v-for="feedback in freelancer?.customers_feedbacks"
+            v-for="feedback in comments"
             :key="feedback?.id"
             :feedback="feedback"
           />
         </div>
-        <VPagination :totalPage="50" />
+        <VPagination
+          :totalPage="totalPage"
+          @getData="__GET_COMMENTS"
+          :pageSize="pageSize"
+        />
       </div>
-      <div v-else class="h-[400px] flex justify-center items-center">
+      <div
+        v-if="freelancer?.customers_feedbacks?.length == 0 && !loading"
+        class="h-[400px] flex justify-center items-center"
+      >
         <p class="text-[18px] text-grey-64 font-medium">Afuski ma’lumot topilmadi!</p>
         <!-- <div
         class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 gap-4 mb-[40px] xl:grid-cols-1 xl:gap-[16px] xl:mb-[16px] xl:mt-[16px]"
@@ -44,7 +68,25 @@ export default {
     CommentsCard,
     VPagination,
   },
-
+  data() {
+    return {
+      loading: true,
+      comments: [],
+      currentStatus: "positive",
+      status: [
+        {
+          label: "Ijobiy izohlar",
+          value: "positive",
+        },
+        {
+          label: "Qoniqarsiz izohlar",
+          value: "negative",
+        },
+      ],
+      totalPage: 0,
+      pageSize: 6,
+    };
+  },
   async asyncData({ store, query, params }) {
     try {
       const [freeLancerData, portfoliosData] = await Promise.all([
@@ -68,10 +110,52 @@ export default {
       };
     } catch (e) {}
   },
+  async mounted() {
+    this.__GET_COMMENTS();
+  },
+  methods: {
+    async __GET_COMMENTS() {
+      const params = {
+        freelancer: this.$route.params.index,
+        page_size: this.pageSize,
+        ...this.$route.query,
+      };
+      try {
+        const commentsData = await this.$store.dispatch(
+          "fetchOrders/getFreelancerComments",
+          {
+            params,
+          }
+        );
+        this.comments = commentsData.content.data;
+        this.totalPage = commentsData.content.total;
+      } catch (e) {
+      } finally {
+        this.loading = false;
+      }
+    },
+  },
+  watch: {
+    handleUser(val) {
+      if (val) this.__GET_COMMENTS();
+    },
+    async currentStatus(val) {
+      if (this.$route.query?.type != val)
+        await this.$router.replace({
+          path: this.$route.path,
+          query: { ...this.$route.query, type: val },
+        });
+      if (val == this.$route.query.type) this.__GET_COMMENTS();
+    },
+  },
 };
 </script>
 
 <style scoped>
+:deep(.loading-card .ant-skeleton-title) {
+  width: 100%;
+  height: 384px;
+}
 .sort__comments {
   display: flex;
   align-items: center;

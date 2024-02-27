@@ -5,7 +5,9 @@
         <div class="title items-center xl:hidden grider">
           <h2 class="text-black text-[32px] font-semibold titler">
             Frilanserlar
-            <span class="hidden xl:block">{{ totalPage.toLocaleString() }} результатов</span>
+            <span class="hidden xl:block"
+              >{{ totalPage.toLocaleString() }} результатов</span
+            >
           </h2>
           <div class="button grid header gap-4 items-center">
             <div
@@ -162,6 +164,7 @@
             :loading="loading"
             :totalPage="totalPage"
             @getData="__GET_FREELANCERS"
+            :pageSize="pageSize"
           />
         </div>
         <vue-bottom-sheet-vue2
@@ -196,6 +199,7 @@ export default {
     return {
       loading: false,
       search: "",
+      pageSize: 10,
     };
   },
   async asyncData({ store, query }) {
@@ -204,7 +208,7 @@ export default {
       store.dispatch("fetchFreelancers/getFreelancers", {
         params: {
           page: query.page || 1,
-          page_size: query.page_size || 15,
+          page_size: query.page_size || 10,
           ...query,
         },
       }),

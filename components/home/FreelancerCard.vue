@@ -1,13 +1,13 @@
 <template>
   <div
-    class="freelancer-card px-5 py-5 border border-solid border-[#E7EDFB] rounded-2xl cursor-pointer xl:rounded-[16px] xl:p-[16px]"
+    class="freelancer-card px-6 py-6 border border-solid border-border-darik rounded-2xl cursor-pointer xl:rounded-[16px] xl:p-[16px]"
     @click="$router.push(`/freelancer/${freelancer?.id}`)"
   >
-    <div class="card flex flex-col items-center gap-4 xl:flex-row">
-      <div class="image w-[108px] h-[108px] relative xl:w-[66px] xl:h-[66px]">
+    <div class="card flex items-center gap-4 flex-row">
+      <div class="image relative min-w-[88px] h-[88px]">
         <!-- <img v-if="freelancer?.avatar" class="w-full h-full object-cover" :src="freelancer?.avatar" alt="" /> -->
         <div
-          class="rounded-full overflow-hidden h-full w-full border-[2px] border-solid border-[#00CD69]"
+          class="rounded-full overflow-hidden h-full w-full border border-solid border-grey-8"
         >
           <img
             v-if="freelancer?.avatar"
@@ -43,16 +43,16 @@
         ></span>
       </div>
       <div
-        class="body flex flex-col justify-between items-center xl:w-[70%] xl:gap-[8px] gap-3 w-full xl:items-start"
+        class="body flex flex-col justify-between xl:w-[70%] xl:gap-[8px] gap-3 w-full items-start"
       >
-        <div class="flex flex-col items-center xl:items-start">
+        <div class="flex flex-col items-start xl:items-start">
           <h4
-            class="text-base font-medium text-black truncate name whitespace-normal text-center"
+            class="text-[20px] font-medium text-black truncate name whitespace-normal text-center"
           >
             {{ freelancer?.name }}
           </h4>
-          <div class="flex items-center gap-3 mt-2">
-            <p class="text-xs font-medium text-black flex gap-[4px]">
+          <div class="flex items-center gap-4 mt-2">
+            <p class="text-[14px] font-medium text-grey-80 flex gap-[4px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="14"
@@ -89,9 +89,7 @@
                 /></svg
               ><span class="text-green">{{ freelancer?.likes_count }}</span
               ><span class="text-grey-40">/</span
-              ><span class="text-pantone-2023">{{
-                freelancer?.dislikes_count
-              }}</span
+              ><span class="text-pantone-2023">{{ freelancer?.dislikes_count }}</span
               ><svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="14"

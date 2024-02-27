@@ -24,7 +24,10 @@ export default {
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
     },
-    async getFirstData() {
+    async getFirstData(pageSize) {
+      if (pageSize) {
+        this.params.pageSize = await pageSize;
+      }
       if (
         !Object.keys(this.$route.query).includes("page") ||
         !Object.keys(this.$route.query).includes("page_size")
@@ -35,7 +38,8 @@ export default {
         });
       }
       this.current = Number(this.$route.query.page);
-      this.params.pageSize = Number(this.$route.query.page_size) || 15;
+      this.params.pageSize =
+        Number(this.$route.query.page_size) || this.params.pageSize;
       this.params.page = Number(this.$route.query.page) || 1;
     },
   },

@@ -57,7 +57,7 @@
                   :before-upload="handleBeforeUpload"
                   :custom-request="customRequest"
                   :file-list="fileList"
-                  accept=".jpg, .png, .jpeg, .webp"
+                  accept=".jpg, .png, .jpeg, .gif, .svg"
                 >
                   <div class="reupload">
                     <button>
@@ -143,7 +143,7 @@
                     :before-upload="handleBeforeUpload"
                     :custom-request="customRequest"
                     :file-list="fileList"
-                    accept=".jpg, .png, .jpeg, .webp"
+                    accept=".jpg, .png, .jpeg, .gif, .svg"
                   >
                     <button>
                       <svg
@@ -192,18 +192,18 @@
             </div>
             <div class="flex flex-col gap-6 xl:gap-4">
               <div class="grid grid-cols-2 gap-4 xl:grid-cols-1">
-                <a-form-model-item ref="name" class="form-item" label="Ism">
+                <a-form-model-item class="form-item" label="Ism" prop="name">
                   <a-input v-model="form.name" placeholder="Ism" />
                 </a-form-model-item>
-                <a-form-model-item ref="name" class="form-item" label="Familya">
+                <a-form-model-item class="form-item" label="Familya" prop="surname">
                   <a-input v-model="form.surname" placeholder="Familya" />
                 </a-form-model-item>
               </div>
               <div class="grid grid-cols-2 gap-4 xl:grid-cols-1">
                 <a-form-model-item
-                  ref="name"
                   class="form-item"
                   label="Tug’ilgan kuningiz"
+                  prop="date_of_birth"
                 >
                   <a-date-picker
                     @change="onChange"
@@ -212,7 +212,7 @@
                     placeholder="kk/oo/yy"
                   />
                 </a-form-model-item>
-                <a-form-model-item ref="name" class="form-item" label="Your gender">
+                <a-form-model-item class="form-item" label="Your gender" prop="gender">
                   <a-select v-model="form.gender" placeholder="Jinsingizni tanlang">
                     <a-select-option
                       :value="item.value"
@@ -225,7 +225,7 @@
                 </a-form-model-item>
               </div>
               <div class="grid grid-cols-2 gap-4 xl:grid-cols-1">
-                <a-form-model-item ref="name" class="form-item" label="Mamlakatingiz">
+                <a-form-model-item class="form-item" label="Mamlakatingiz">
                   <a-select v-model="form.country_id" placeholder="Mamlakatingiz">
                     <a-select-option
                       :value="region?.id"
@@ -236,7 +236,7 @@
                     >
                   </a-select>
                 </a-form-model-item>
-                <a-form-model-item ref="name" class="form-item" label="Mintaqangiz">
+                <a-form-model-item class="form-item" label="Mintaqangiz">
                   <a-select v-model="form.region_id" placeholder="Mintaqangiz">
                     <a-select-option
                       :value="region?.id"
@@ -249,7 +249,7 @@
                 </a-form-model-item>
               </div>
               <div class="grid">
-                <a-form-model-item ref="name" class="form-item" label="Bio">
+                <a-form-model-item class="form-item" label="Bio" prop="bio">
                   <!-- <a-input v-model="form.bio" placeholder="O’zhaqingizda ma’lumot" /> -->
                   <quill-editor
                     style="min-height: 250px"
@@ -276,7 +276,6 @@
             <div class="flex flex-col gap-6 xl:gap-4">
               <div class="grid grid-cols-2 gap-4 xl:grid-cols-1">
                 <a-form-model-item
-                  ref="name"
                   class="form-item relative flex items-center"
                   label="Telefon raqamim"
                 >
@@ -303,7 +302,7 @@
                       /></svg
                   ></span>
                 </a-form-model-item>
-                <a-form-model-item ref="name" class="form-item" label="Telegram">
+                <a-form-model-item class="form-item" label="Telegram">
                   <a-input v-model="form.telegram" placeholder="@" />
                   <span class="absolute right-4">
                     <svg
@@ -322,7 +321,7 @@
                 </a-form-model-item>
               </div>
               <div class="grid grid-cols-2 gap-4 xl:grid-cols-1">
-                <a-form-model-item ref="name" class="form-item" label="Facebook">
+                <a-form-model-item class="form-item" label="Facebook">
                   <a-input v-model="form.facebook" placeholder="@" />
                   <span class="absolute right-4">
                     <svg
@@ -339,7 +338,7 @@
                     </svg>
                   </span>
                 </a-form-model-item>
-                <a-form-model-item ref="name" class="form-item" label="Eletron pochtam">
+                <a-form-model-item class="form-item" label="Eletron pochtam">
                   <a-input v-model="form.email" placeholder="http://" />
                   <span class="absolute right-4"
                     ><svg
@@ -357,7 +356,7 @@
                 </a-form-model-item>
               </div>
               <div class="grid grid-cols-2 gap-4 xl:grid-cols-1">
-                <a-form-model-item ref="name" class="form-item" label="Instagram">
+                <a-form-model-item class="form-item" label="Instagram">
                   <a-input v-model="form.instagram" placeholder="@" />
                   <span class="absolute right-4"
                     ><svg
@@ -373,7 +372,7 @@
                       /></svg
                   ></span>
                 </a-form-model-item>
-                <a-form-model-item ref="name" class="form-item" label="Linkedin">
+                <a-form-model-item class="form-item" label="Linkedin">
                   <a-input v-model="form.linkedin" placeholder="@" />
                   <span class="absolute right-4"
                     ><svg
@@ -487,6 +486,10 @@ export default {
         name: [{ required: true, message: "This field is required", trigger: "blur" }],
         surname: [{ required: true, message: "This field is required", trigger: "blur" }],
         gender: [{ required: true, message: "This field is required", trigger: "blur" }],
+        date_of_birth: [
+          { required: true, message: "This field is required", trigger: "blur" },
+        ],
+        bio: [{ required: true, message: "This field is required", trigger: "blur" }],
         specialities: [
           { required: true, message: "This field is required", trigger: "blur" },
         ],
@@ -618,7 +621,7 @@ export default {
             message: "Success",
             description: "Успешно изменен",
           });
-          this.__GET_USER_INFO()
+          this.__GET_USER_INFO();
         }
       } catch (e) {
         console.log(e);

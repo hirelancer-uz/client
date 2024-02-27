@@ -3,13 +3,9 @@
     <transition name="fade-left" mode="out-in">
       <div class="2xl:container mx-auto xl:flex xl:flex-col xl:gap-[16px]">
         <Banner class="" />
-        <div
-          class="flex justify-between items-end mt-8 xl:mt-0 xl:flex-col-reverse"
-        >
+        <div class="flex justify-between items-end mt-8 xl:mt-0 xl:flex-col-reverse">
           <div class="flex flex-col gap-4 xl:w-full">
-            <h1 class="text-[32px] font-semibold text-black xl:hidden">
-              Buyurtmalar
-            </h1>
+            <h1 class="text-[32px] font-semibold text-black xl:hidden">Buyurtmalar</h1>
             <!-- <div class="buttons flex gap-4 xl:grid xl:grid-cols-2 xl:w-full">
               <button
                 :class="{ active: tab }"
@@ -47,6 +43,9 @@
           :orders="orders"
           :specialities="specialities"
           @filter="queryCreater"
+          :pageSize="pageSize"
+          @getOrders="__GET_ORDERS"
+          :totalPage="totalPage"
         />
       </div>
     </transition>
@@ -64,18 +63,27 @@ export default {
   data() {
     return {
       tab: true,
+      pageSize: 3,
     };
   },
-  async asyncData({ store }) {
+  async asyncData({ store, query }) {
+    const pageSize = 3;
     const [ordersData, specialitiesData] = await Promise.all([
-      store.dispatch("fetchOrders/getOrders"),
+      store.dispatch("fetchOrders/getOrders", {
+        params: {
+          page_size: pageSize,
+          ...query,
+        },
+      }),
       store.dispatch("fetchSpecialities/getSpecialities"),
     ]);
     const orders = ordersData.data;
     const specialities = specialitiesData.content;
+    const totalPage = ordersData?.meta?.total;
     return {
       orders,
       specialities,
+      totalPage,
     };
   },
   methods: {

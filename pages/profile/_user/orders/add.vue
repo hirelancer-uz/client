@@ -223,7 +223,7 @@
                 </a-upload> -->
                 <a-upload
                   :multiple="true"
-                  accept=".jpg, .png, .jpeg, .webp"
+                  accept=".jpg, .png, .jpeg, .gif, .svg"
                   list-type="picture-card"
                   :file-list="fileList"
                   :before-upload="handleBeforeUpload"

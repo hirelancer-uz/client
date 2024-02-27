@@ -103,7 +103,9 @@
                     </template>
                     <span> {{ dropIn?.name_ru }}</span>
                   </a-tooltip>
-                  <span class="text-[12px] text-grey-40">(24k)</span>
+                  <span class="text-[12px] text-grey-40"
+                    >({{ dropIn?.freelancers_count }})</span
+                  >
                 </button>
               </div>
             </div>

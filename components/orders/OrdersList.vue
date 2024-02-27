@@ -111,7 +111,11 @@
         </svg>
         <p class="text-[18px] font-medium text-grey-64">Afuski buyurtma topilmadi!</p>
       </div>
-      <VPagination />
+      <VPagination
+        :pageSize="pageSize"
+        @getData="$emit('getOrders')"
+        :totalPage="totalPage"
+      />
     </div>
     <div class="right flex flex-col gap-6">
       <div
@@ -196,7 +200,9 @@
                       </template>
                       <span> {{ dropIn?.name_ru }}</span>
                     </a-tooltip>
-                    <span class="text-[12px] text-grey-40">(24k)</span>
+                    <span class="text-[12px] text-grey-40"
+                      >({{ dropIn?.freelancers_count }})</span
+                    >
                   </button>
                 </div>
               </div>
@@ -327,7 +333,9 @@
                         </template>
                         <span> {{ dropIn?.name_ru }}</span>
                       </a-tooltip>
-                      <span class="text-[12px] text-grey-40">(24k)</span>
+                      <span class="text-[12px] text-grey-40"
+                        >({{ dropIn?.freelancers_count }})</span
+                      >
                     </button>
                   </div>
                 </div>
@@ -369,7 +377,7 @@ import VPagination from "../VPagination.vue";
 import OrderCard from "../home/OrderCard.vue";
 
 export default {
-  props: ["orders", "specialities"],
+  props: ["orders", "specialities", "pageSize", "totalPage"],
   data() {
     return {
       dropdown: false,

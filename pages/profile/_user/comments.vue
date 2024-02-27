@@ -2,19 +2,34 @@
   <div class="master">
     <!-- <ProfileLayout :profile="false" :freelancer="freelancer" :show="true"> -->
     <div class="sort__comments">
-      <a-select default-value="good">
-        <a-select-option value="good"> Ijobiy izohlar </a-select-option>
-        <a-select-option value="bad"> Qoniqarsiz izohlar </a-select-option>
+      <a-select v-model="currentStatus">
+        <a-select-option :value="item.value" :key="index" v-for="(item, index) in status">
+          {{ item.label }}
+        </a-select-option>
       </a-select>
     </div>
-    <div class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 gap-4 mb-[40px]">
+    <div
+      class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 xl:grid-cols-1 gap-4 mb-[40px]"
+      v-if="loading"
+    >
+      <a-skeleton
+        :paragraph="false"
+        class="loading-card"
+        v-for="elem in [1, 2, 3, 4, 5, 6]"
+        :key="elem"
+      />
+    </div>
+    <div
+      class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 xl:grid-cols-1 gap-4 mb-[40px]"
+      v-else
+    >
       <CommentsCard
-        v-for="feedback in $store.state.userInfo?.customers_feedbacks"
+        v-for="feedback in comments"
         :key="feedback?.id"
         :feedback="feedback"
       />
     </div>
-    <VPagination :totalPage="50" />
+    <VPagination :totalPage="totalPage" @getData="__GET_COMMENTS" :pageSize="pageSize" />
     <!-- </ProfileLayout> -->
   </div>
 </template>
@@ -32,34 +47,92 @@ export default {
     CommentsCard,
     VPagination,
   },
-
+  data() {
+    return {
+      loading: false,
+      comments: [],
+      currentStatus: "positive",
+      status: [
+        {
+          label: "Ijobiy izohlar",
+          value: "positive",
+        },
+        {
+          label: "Qoniqarsiz izohlar",
+          value: "negative",
+        },
+      ],
+      totalPage: 0,
+      pageSize: 6,
+    };
+  },
+  computed: {
+    handleUser() {
+      return this.$store.state.userInfo["id"];
+    },
+  },
   async asyncData({ store, query, params }) {
     try {
-      const [freeLancerData, portfoliosData] = await Promise.all([
+      const [freeLancerData, commentsData] = await Promise.all([
         store.dispatch("fetchFreelancers/getFreelancerById", {
           params: {
             params: {},
           },
           id: params.index,
         }),
-        store.dispatch("fetchPortfolio/getWorks", {
-          params: {
-            freelancer: params.index,
-          },
-        }),
       ]);
-      const portfolios = portfoliosData.data;
       const freelancer = freeLancerData.content;
       return {
         freelancer,
-        portfolios,
       };
     } catch (e) {}
+  },
+  async mounted() {
+    this.__GET_COMMENTS();
+  },
+  methods: {
+    async __GET_COMMENTS() {
+      try {
+        this.loading = true;
+        const commentsData = await this.$store.dispatch(
+          "fetchOrders/getFreelancerComments",
+          {
+            params: {
+              freelancer: this.$store.state.userInfo["id"],
+              page_size: this.pageSize,
+              ...this.$route.query,
+            },
+          }
+        );
+        this.comments = commentsData.content.data;
+        this.totalPage = commentsData.content.total;
+      } catch (e) {
+      } finally {
+        this.loading = false;
+      }
+    },
+  },
+  watch: {
+    handleUser(val) {
+      if (val) this.__GET_COMMENTS();
+    },
+    async currentStatus(val) {
+      if (this.$route.query?.type != val)
+        await this.$router.replace({
+          path: this.$route.path,
+          query: { ...this.$route.query, type: val },
+        });
+      if (val == this.$route.query.type) this.__GET_COMMENTS();
+    },
   },
 };
 </script>
 
 <style scoped>
+:deep(.loading-card .ant-skeleton-title) {
+  width: 100%;
+  height: 384px;
+}
 .sort__comments {
   display: flex;
   align-items: center;

@@ -164,7 +164,7 @@
                   :remove="($event) => handleRemove($event, item)"
                   :before-upload="handleBeforeUpload"
                   :custom-request="($event) => customRequest($event, item)"
-                  accept=".jpg, .png, .jpeg, .webp"
+                  accept=".jpg, .png, .jpeg, .gif, .svg"
                 >
                   <div v-if="fileList[item].length < 1" class="flex justify-center">
                     <img src="@/assets/images/image-add.png" alt="" />
@@ -514,7 +514,7 @@ export default {
 </script>
 <style lang="css" scoped>
 .modal-select {
-  max-height: 58px;
+  /* max-height: 58px; */
 }
 .order-item :deep(input),
 .order-item :deep(textarea) {

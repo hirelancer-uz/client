@@ -21,6 +21,10 @@ export const actions = {
     const res = await this.$axiosInstance.$post(`/api/complaints`, data);
     return res;
   },
+  async getFreelancerComments({}, payload) {
+    const res = await this.$axios.$get(`/api/customer_feedbacks`, payload);
+    return res;
+  },
   async postCompliteCustomer({}, data) {
     const res = await this.$axiosInstance.$post(
       `/api/customer_feedbacks`,

@@ -24,12 +24,18 @@
         </span>
       </h1>
       <div class="flex gap-4 items-center xl:hidden">
-        <a-select v-model="sort" placeholder="Положительный" class="w-[216px]">
-          <a-select-option :value="region" v-for="region in [1, 2, 3, 4]" :key="region">
-            {{ region }}</a-select-option
+        <a-select v-model="currentStatus" class="w-[216px]">
+          <a-select-option
+            :value="item.value"
+            :key="index"
+            v-for="(item, index) in status"
           >
+            {{ item.label }}
+          </a-select-option>
         </a-select>
-        <nuxt-link class="flex gap-[6px] text-blue text-base font-medium" to="/orders"
+        <nuxt-link
+          class="flex gap-[6px] text-blue text-base font-medium"
+          to="/profile/freelancer/comments"
           >Ko’proq ko’rish
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +66,7 @@
         </div>
       </div> -->
     </div>
-    <div v-else class="h-[208px] flex justify-center items-center">
+    <div v-else class="h-[208px] flex justify-center items-center xl:hidden">
       <p class="text-[18px] text-grey-64 font-medium">Afuski ma’lumot topilmadi!</p>
     </div>
     <div
@@ -73,7 +79,7 @@
         :feedback="feedback"
       />
     </div>
-    <div v-else class="h-[208px] hidden xl:flex  justify-center items-center">
+    <div v-else class="h-[208px] hidden xl:flex justify-center items-center">
       <p class="text-[18px] text-grey-64 font-medium">Afuski ma’lumot topilmadi!</p>
     </div>
   </div>
@@ -88,7 +94,17 @@ export default {
   props: ["feedbacks"],
   data() {
     return {
-      sort: undefined,
+      currentStatus: "positive",
+      status: [
+        {
+          label: "Ijobiy izohlar",
+          value: "positive",
+        },
+        {
+          label: "Qoniqarsiz izohlar",
+          value: "negative",
+        },
+      ],
     };
   },
   mounted() {
@@ -105,6 +121,16 @@ export default {
         prevEl: ".prev-btn",
       },
     });
+  },
+  watch: {
+    async currentStatus(val) {
+      if (this.$route.query?.type != val)
+        await this.$router.replace({
+          path: this.$route.path,
+          query: { ...this.$route.query, type: val },
+        });
+      if (val == this.$route.query.type) this.$emit("getComments");
+    },
   },
   components: { AlertsCard, CommentsCard },
 };

@@ -278,7 +278,7 @@
                 </div>
               </div>
               <button
-                class="w-6 xl:hidden h-[34px] flex justify-end items-center flex-auto min-w-10"
+                class="w-6 xl:hidden h-[34px] flex justify-end items-center flex-auto min-w-[60px]"
                 @click="
                   (visible = true), (checkedList = [...activeCheckedList])
                 "
