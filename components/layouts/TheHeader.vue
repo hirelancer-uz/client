@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="header bg-white h-[108px] flex items-center ">
+  <div class="header bg-white h-[108px] flex items-center">
     <div class="max-w-[1776px] mx-auto flex justify-between w-full">
       <div class="left flex gap-[80px] items-center">
         <div class="logo">
@@ -576,7 +576,6 @@
   </div>
 </template>
 <script>
-import userInfoVue from "../../pages/registration/user-info.vue";
 import LoginAuth from "../modals/LoginAuth.vue";
 import Logout from "../modals/Logout.vue";
 
