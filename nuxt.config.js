@@ -29,7 +29,7 @@ export default {
 
   buildModules: ["@nuxtjs/tailwindcss"],
 
-  modules: ["@nuxtjs/axios","@nuxtjs/dotenv"],
+  modules: ["@nuxtjs/axios", "@nuxtjs/dotenv", "@nuxtjs/i18n"],
   axios: {
     credentials: false,
     init(axios) {
@@ -53,6 +53,28 @@ export default {
           encoding: "encoding",
         },
       ];
+    },
+  },
+  i18n: {
+    locales: [
+      {
+        code: "en",
+        iso: "en", // Will be used as catchall locale by default
+      },
+      {
+        code: "uz",
+        iso: "uz",
+      },
+      {
+        code: "ru",
+        iso: "ru",
+      },
+    ],
+    baseURL: process.env.BASE_URL,
+    seo: true,
+    defaultLocale: "ru",
+    vueI18n: {
+      fallbackLocale: "ru",
     },
   },
 };
