@@ -4,7 +4,7 @@
       <nuxt-link
         v-if="$route.params.user == 'freelancer'"
         :to="`/profile/${$route.params.user}`"
-        :class="{ active: $route.name == 'profile-user' }"
+        exact
         class="text-black text-base font-medium flex flex-col gap-2 items-center bg-white px-4 justify-center min-w-[120px] min-h-[79px] rounded-[12px] hover:text-black"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +26,6 @@
       </nuxt-link>
       <nuxt-link
         :to="`/profile/${$route.params.user}/orders/active/status`"
-        :class="{ active: $route.name.includes('orders') }"
         class="text-black text-base font-medium flex flex-col gap-2 items-center bg-white px-4 justify-center min-w-[120px] min-h-[79px] rounded-[12px] hover:text-black"
         ><svg
           width="24"
@@ -50,7 +49,6 @@
       <nuxt-link
         v-if="$route.params.user == 'freelancer'"
         :to="`/profile/${$route.params.user}/portfolio`"
-        :class="{ active: $route.name.includes('portfolio') }"
         class="text-black text-base font-medium flex flex-col gap-2 items-center bg-white px-4 justify-center min-w-[120px] min-h-[79px] rounded-[12px] hover:text-black"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
@@ -164,7 +162,6 @@
       > -->
       <nuxt-link
         :to="`/profile/${$route.params.user}/settings`"
-        :class="{ active: $route.name.includes('settings') }"
         class="text-black text-base font-medium flex flex-col gap-2 items-center bg-white px-4 justify-center min-w-[120px] min-h-[79px] rounded-[12px] hover:text-black"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
@@ -186,7 +183,6 @@
       >
       <nuxt-link
         :to="`/profile/freelancer/comments`"
-        :class="{ active: $route.name.includes('comments') }"
         class="text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[96px] xl:min-h-[68px] rounded-[12px] hover:text-black"
         ><svg
           width="24"
@@ -215,12 +211,12 @@
 export default {};
 </script>
 <style lang="css" scoped>
-.profile-tab .active {
+.profile-tab .nuxt-link-active {
   background-color: var(--blue);
   color: white;
   box-shadow: 0px 4px 15px 0px rgba(92, 70, 229, 0.29);
 }
-.profile-tab .active svg path {
+.profile-tab .nuxt-link-active svg path {
   stroke: white;
 }
 </style>

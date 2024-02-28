@@ -1,5 +1,5 @@
 <template>
-  <div class="orders pt-8 pb-[170px] xl:px-4 xl:pt-6 xl:pb-6 relative">
+  <div class="orders pt-8 pb-[170px] xl:pt-6 xl:pb-6 relative">
     <transition name="fade-left" mode="out-in">
       <div class="2xl:container container mx-auto xl:flex xl:flex-col xl:gap-[16px]">
         <Banner class="" />

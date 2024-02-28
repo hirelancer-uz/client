@@ -104,7 +104,7 @@ import ProfileOrderCardMobile from "@/components/profile/orders/ProfileOrderCard
 import OrdersTab from "@/components/profile/orders/OrdersTab.vue";
 import Loader from "@/components/Loader.vue";
 import CompletedOrdersCard from "@/components/profile/orders/CompletedOrdersCard.vue";
-import ComplitedCard from "../../../../../components/profile/orders/ComplitedCard.vue";
+import ComplitedCard from "@/components/profile/orders/ComplitedCard.vue";
 
 export default {
   layout: "profileLayout",

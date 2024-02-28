@@ -46,11 +46,17 @@
         v-for="portfolio in portfolios"
         :key="portfolio?.id"
         :portfolio="portfolio"
+        :portfolios="portfolios"
+        :freelancer="$store.state.userInfo"
       />
     </div>
 
     <div>
-      <VPagination />
+      <VPagination
+        :pageSize="pageSize"
+        :totalPage="totalPage"
+        @getData="__GET_PORTFOLIOS"
+      />
     </div>
     <!-- </ProfileLayout> -->
   </div>
@@ -64,8 +70,10 @@ export default {
   layout: "profileLayout",
   data() {
     return {
-      loading: false,
+      loading: true,
       portfolios: [],
+      totalPage: 0,
+      pageSize: 6,
     };
   },
   computed: {
@@ -79,11 +87,12 @@ export default {
   methods: {
     async __GET_PORTFOLIOS() {
       try {
-        this.loading = true;
         const [portfolioData] = await Promise.all([
           this.$store.dispatch("fetchPortfolio/getWorks", {
             params: {
               freelancer: this.$store.state.userInfo["id"],
+              page_size: this.pageSize,
+              ...this.$route.query,
             },
             headers: {
               Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
@@ -91,7 +100,7 @@ export default {
           }),
         ]);
         this.portfolios = portfolioData.data;
-        this.loading = false;
+        this.totalPage = portfolioData?.meta?.total;
       } catch (e) {
       } finally {
         this.loading = false;

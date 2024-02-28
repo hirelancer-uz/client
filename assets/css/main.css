@@ -249,11 +249,15 @@ a:hover {
   .fade-left-enter-active,
   .fade-left-leave-active {
     transition: transform 0.3s;
+    transform: scale(1);
+    filter: blur(4.1px);
     z-index: 1;
   }
   .fade-left-enter,
   .fade-left-leave-to {
-    transform: translateX(100%);
+    /* transform: translateX(100%); */
+    transform: scale(0.8);
+    filter: blur(1.1px);
     z-index: 1;
   }
   .ant-upload-list-item-actions {

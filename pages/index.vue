@@ -1,15 +1,12 @@
 <template>
   <div class="pt-[40px] xl:pt-4 pb-[120px] xl:pb-[24px]">
     <div class="2xl:container container mx-auto xl:px-4">
-      <Banner />
+      <Banner :specialities="specialities" />
       <PlaceOrder />
       <PlaceSpecialists :specialities="specialities" />
     </div>
     <Orders :orders="orders" :totalOrder="totalOrder" />
-    <TheFreelancers
-      :freelancers="freelancers"
-      :totalFreelancer="totalFreelancer"
-    />
+    <TheFreelancers :freelancers="freelancers" :totalFreelancer="totalFreelancer" />
     <!-- <OrderBanner /> -->
   </div>
 </template>
@@ -54,6 +51,7 @@ export default {
     };
   },
   async mounted() {
+    console.log(this.$route.name.split('___')[0]);
     this.$store.dispatch("fetchOrders/getOrders");
   },
 

@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="layout W-100">
+  <div class="layout W-100 min-h-[100vh] flex flex-col">
     <div class="fixed top-0 left-0 w-full z-50" ref="mHeader">
       <MobileHeader class="xl:block" />
     </div>
@@ -10,7 +10,7 @@
     ></div>
     <div v-else class="header-bg xl:block hidden w-full h-[56px]"></div>
     <div
-      class="profile-layout max-w-[1680px] mx-auto pt-12 xl:pt-6 xl:pb-6 pb-[100px] container"
+      class="profile-layout max-w-[1680px] mx-auto pt-12 xl:pt-6 xl:pb-6 pb-[100px] container flex-auto"
     >
       <div class="profile-grid">
         <PersonalBlock
@@ -24,10 +24,7 @@
           :class="{ 'xl:hidden': $route.name !== `profile-user` }"
           :user="false"
         />
-        <div
-          class="min-w-0 x"
-          :class="{ 'xl:hidden': $route.name == `profile-user` }"
-        >
+        <div class="min-w-0 x" :class="{ 'xl:hidden': $route.name == `profile-user` }">
           <ProfileTab v-if="$route.name.includes('profile')" />
           <Nuxt />
         </div>

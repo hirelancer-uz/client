@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="pt-12 order xl:px-4">
     <div class="max-w-[1286px] mx-auto pb-[55px]">
-      <nuxt-link
-        to="/profile/freelancer/orders/active/status"
+      <button
+        @click="$router.go(-1)"
         class="back-btn flex gap-4 w-[162px] py-3 border border-grey-24 border-solid rounded-lg justify-center items-center text-base font-medium text-blue hover:text-blue xl:hidden"
       >
         <svg
@@ -20,7 +20,7 @@
           />
         </svg>
         Назад
-      </nuxt-link>
+      </button>
       <div class="content-box mt-6 xl:mt-0">
         <div class="flex flex-col gap-6">
           <div
@@ -30,7 +30,7 @@
             <div
               class="status flex justify-center pt-[18px] pb-[18px] border-[0] border-b-[2px] border-solid border-grey-light relative"
             >
-              <OrderStatus :status="order?.status" />
+              <OrderStatus :status="order?.status" :order="order" />
             </div>
             <div class="info px-6 py-6 xl:px-4 xl:py-4">
               <div class="head flex justify-start">

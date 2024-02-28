@@ -5,14 +5,10 @@
     </div>
     <TheHeader class="xl:hidden" ref="header" />
     <div
-      v-if="$route.name == 'index'"
+      v-if="'index' == $route.name.split('___')[0]"
       class="header-bg xl:block hidden w-full h-[104px] lg:h-[72px]"
     ></div>
-    <div
-      v-else
-      class="header-bg xl:block hidden w-full"
-      :style="`height: 56px`"
-    ></div>
+    <div v-else class="header-bg xl:block hidden w-full" :style="`height: 56px`"></div>
     <!-- <h1>
       {{ layoutData }}
     </h1> -->
@@ -20,7 +16,7 @@
       <Nuxt />
     </div>
     <TheFooter />
-    <BottomBar v-if="routes.includes($route.name)" />
+    <BottomBar v-if="routes.includes($route.name.split('___')[0])" />
   </div>
 </template>
 <script>

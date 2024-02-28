@@ -50,7 +50,18 @@
           </div>
         </div> -->
       </div>
-      <div class="list grid grid-cols-3 gap-4 mb-[40px] xl:grid-cols-1 mt-6">
+      <div
+        class="list grid grid-cols-3 gap-4 mb-[40px] xl:grid-cols-1 mt-6"
+        v-if="loading"
+      >
+        <a-skeleton
+          :paragraph="false"
+          class="loading-card"
+          v-for="elem in [1, 2, 3, 4, 5, 6]"
+          :key="elem"
+        />
+      </div>
+      <div class="list grid grid-cols-3 gap-4 mb-[40px] xl:grid-cols-1 mt-6" v-else>
         <PortfolioViewCard
           v-for="portfolio in portfolios"
           :portfolio="portfolio"
@@ -71,7 +82,11 @@
         <PortfolioMoreCard class="xl:hidden" v-if="portfolios.length > 5" />
       </div> -->
       <div>
-        <VPagination />
+        <VPagination
+          :totalPage="totalPage"
+          @getData="__GET_PORTFOLIOS"
+          :pageSize="pageSize"
+        />
       </div>
     </ProfileLayout>
   </div>
@@ -87,33 +102,62 @@ export default {
   data() {
     return {
       visible: false,
+      loading: true,
+      portfolios: [],
+      totalPage: 0,
+      pageSize: 6,
     };
   },
 
   async asyncData({ store, query, params }) {
     try {
-      const [freeLancerData, portfoliosData] = await Promise.all([
+      const [freeLancerData] = await Promise.all([
         store.dispatch("fetchFreelancers/getFreelancerById", {
           params: {
             params: {},
           },
           id: params.index,
         }),
-        store.dispatch("fetchPortfolio/getWorks", {
-          params: {
-            freelancer: params.index,
-          },
-        }),
+        // store.dispatch("fetchPortfolio/getWorks", {
+        //   params: {
+        //     freelancer: params.index,
+        //   },
+        // }),
       ]);
-      const portfolios = portfoliosData.data;
+      // const portfolios = portfoliosData.data;
       const freelancer = freeLancerData.content;
       return {
         freelancer,
-        portfolios,
+        // portfolios,
       };
     } catch (e) {}
   },
-
+  async mounted() {
+    this.__GET_PORTFOLIOS();
+  },
+  methods: {
+    async __GET_PORTFOLIOS() {
+      try {
+        const [portfolioData] = await Promise.all([
+          this.$store.dispatch("fetchPortfolio/getWorks", {
+            params: {
+              freelancer: this.$route.params.index,
+              page_size: this.pageSize,
+              ...this.$route.query,
+            },
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
+            },
+          }),
+        ]);
+        this.portfolios = portfolioData.data;
+        this.totalPage = portfolioData?.meta?.total;
+      } catch (e) {
+      } finally {
+        this.loading = false;
+      }
+    },
+  },
   components: {
     ProfileLayout,
     PortfolioCard,
@@ -122,4 +166,9 @@ export default {
   },
 };
 </script>
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+:deep(.loading-card .ant-skeleton-title) {
+  width: 100%;
+  height: 356px;
+}
+</style>

@@ -1,13 +1,11 @@
 <template>
   <div class="portfolios flex flex-col gap-6 xl:gap-4">
     <div class="flex justify-between">
-      <h1 class="text-black text-[24px] font-semibold xl:text-[18px]">
-        Portfolio
-      </h1>
+      <h1 class="text-black text-[24px] font-semibold xl:text-[18px]">Portfolio</h1>
       <nuxt-link
         v-if="portfolios.length > 0"
         class="flex gap-[6px] text-blue text-base font-medium xl:text-[14px]"
-        to="/orders"
+        :to="`/freelancer/${$route.params.index}/portfolio`"
         >Ko’proq ko’rish
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -30,12 +28,16 @@
       v-if="portfolios.length > 0"
     >
       <PortfolioCard
-        v-for="portfolio in portfolios"
+        v-for="portfolio in portfolios.slice(0, 5)"
         :portfolio="portfolio"
         :key="portfolio?.id"
       />
 
-      <PortfolioMoreCard class="xl:hidden" v-if="portfolios.length > 5" />
+      <PortfolioMoreCard
+        class="xl:hidden"
+        v-if="portfolios.length > 5"
+        :count="portfolios.length - 5"
+      />
     </div>
     <FrelancerEmptyBlock v-else />
     <button

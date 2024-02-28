@@ -456,7 +456,7 @@
 
       <div class="flex flex-col gap-4 items-center mt-[100px]">
         <p class="text-grey-40 text-[12px] font-semibold uppercase">
-          ISHTIROKCHI: 2010 YIL 21 MAY
+          ISHTIROKCHI: {{ dateFormat }}
         </p>
         <span
           class="h-[1px] w-full bg-grey-8"
@@ -578,6 +578,7 @@ export default {
     dateFormat() {
       return moment(this.userInfo?.created_at).format("DD-MMM. YYYY");
     },
+
     baseUrl() {
       return process.env.BASE_URL;
     },
