@@ -1,57 +1,111 @@
 <template>
-  <div class="mobile-header px-4 hidden bg-white w-full py-[14px] z-50">
-    <div class="flex justify-between items-center topper">
-      <nuxt-link to="/">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="94"
-          height="19"
-          viewBox="0 0 94 19"
-          fill="none"
+  <div
+    class="mobile-header px-4 hidden bg-white w-full pb-[14px] pt-[7px] z-50 border-[0] border-b-[2px] border-solid border-apple-grey"
+  >
+    <div class="flex flex-col w-full gap-3">
+      <div class="flex justify-between items-center topper">
+        <nuxt-link to="/">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="94"
+            height="19"
+            viewBox="0 0 94 19"
+            fill="none"
+          >
+            <path
+              d="M16.2854 18.0236H5.27264C3.81812 18.0236 2.57138 17.4992 1.53244 16.4505C0.510814 15.384 0 14.1043 0 12.6112V0H4.90901V12.1579C4.90901 12.389 4.98693 12.5845 5.14277 12.7445C5.29861 12.9045 5.48042 12.9845 5.68821 12.9845H15.8699C16.095 12.9845 16.2854 12.9045 16.4413 12.7445C16.5971 12.5845 16.675 12.389 16.675 12.1579V0H21.5581V12.6112C21.5581 14.1043 21.0386 15.384 19.9997 16.4505C18.978 17.4992 17.74 18.0236 16.2854 18.0236Z"
+              fill="#5C46E6"
+            />
+            <path
+              d="M40.4327 18.0236H24.1473V0H40.4327C41.8873 0 43.1253 0.533243 44.147 1.59973C45.1859 2.64844 45.7054 3.91933 45.7054 5.41241V12.6112C45.7054 14.1043 45.1859 15.384 44.147 16.4505C43.1253 17.4992 41.8873 18.0236 40.4327 18.0236ZM29.0563 12.9845H40.0172C40.2423 12.9845 40.4327 12.9045 40.5886 12.7445C40.7444 12.5845 40.8223 12.3979 40.8223 12.1846V5.83901C40.8223 5.62571 40.7444 5.43907 40.5886 5.2791C40.4327 5.11913 40.2423 5.03914 40.0172 5.03914H29.0563V12.9845Z"
+              fill="#5C46E6"
+            />
+            <path
+              d="M64.5801 18.0769H53.5673C52.1127 18.0769 50.866 17.5526 49.8271 16.5039C48.8054 15.4374 48.2946 14.1665 48.2946 12.6912V5.41241C48.2946 3.91933 48.8054 2.64844 49.8271 1.59973C50.866 0.533243 52.1127 0 53.5673 0H64.5801C66.0346 0 67.2726 0.533243 68.2943 1.59973C69.3332 2.64844 69.8527 3.91933 69.8527 5.41241V12.6912C69.8527 14.1665 69.3332 15.4374 68.2943 16.5039C67.2726 17.5526 66.0346 18.0769 64.5801 18.0769Z"
+              fill="#5C46E6"
+            />
+            <path
+              d="M88.7274 18.0769H77.7146C76.26 18.0769 75.0133 17.5526 73.9744 16.5039C72.9527 15.4374 72.4419 14.1665 72.4419 12.6912V5.41241C72.4419 3.91933 72.9527 2.64844 73.9744 1.59973C75.0133 0.533243 76.26 0 77.7146 0H88.7274C90.1819 0 91.42 0.533243 92.4416 1.59973C93.4805 2.64844 94 5.41241 94 5.41241V12.6912C94 14.1665 93.4805 15.4374 92.4416 16.5039C91.42 17.5526 90.1819 18.0769 88.7274 18.0769Z"
+              fill="#5C46E6"
+            />
+            <ellipse cx="53.3539" cy="5.27462" rx="2.70558" ry="2.7773" fill="white" />
+            <ellipse cx="78.2453" cy="5.27462" rx="2.70558" ry="2.7773" fill="white" />
+          </svg>
+        </nuxt-link>
+        <button
+          @click="menuHandle = !menuHandle"
+          class="h-[40px] w-[40px] flex justify-center items-center border-[1px] border-[#E0E0ED] border-solid rounded-[50%]"
         >
-          <path
-            d="M16.2854 18.0236H5.27264C3.81812 18.0236 2.57138 17.4992 1.53244 16.4505C0.510814 15.384 0 14.1043 0 12.6112V0H4.90901V12.1579C4.90901 12.389 4.98693 12.5845 5.14277 12.7445C5.29861 12.9045 5.48042 12.9845 5.68821 12.9845H15.8699C16.095 12.9845 16.2854 12.9045 16.4413 12.7445C16.5971 12.5845 16.675 12.389 16.675 12.1579V0H21.5581V12.6112C21.5581 14.1043 21.0386 15.384 19.9997 16.4505C18.978 17.4992 17.74 18.0236 16.2854 18.0236Z"
-            fill="#5C46E6"
-          />
-          <path
-            d="M40.4327 18.0236H24.1473V0H40.4327C41.8873 0 43.1253 0.533243 44.147 1.59973C45.1859 2.64844 45.7054 3.91933 45.7054 5.41241V12.6112C45.7054 14.1043 45.1859 15.384 44.147 16.4505C43.1253 17.4992 41.8873 18.0236 40.4327 18.0236ZM29.0563 12.9845H40.0172C40.2423 12.9845 40.4327 12.9045 40.5886 12.7445C40.7444 12.5845 40.8223 12.3979 40.8223 12.1846V5.83901C40.8223 5.62571 40.7444 5.43907 40.5886 5.2791C40.4327 5.11913 40.2423 5.03914 40.0172 5.03914H29.0563V12.9845Z"
-            fill="#5C46E6"
-          />
-          <path
-            d="M64.5801 18.0769H53.5673C52.1127 18.0769 50.866 17.5526 49.8271 16.5039C48.8054 15.4374 48.2946 14.1665 48.2946 12.6912V5.41241C48.2946 3.91933 48.8054 2.64844 49.8271 1.59973C50.866 0.533243 52.1127 0 53.5673 0H64.5801C66.0346 0 67.2726 0.533243 68.2943 1.59973C69.3332 2.64844 69.8527 3.91933 69.8527 5.41241V12.6912C69.8527 14.1665 69.3332 15.4374 68.2943 16.5039C67.2726 17.5526 66.0346 18.0769 64.5801 18.0769Z"
-            fill="#5C46E6"
-          />
-          <path
-            d="M88.7274 18.0769H77.7146C76.26 18.0769 75.0133 17.5526 73.9744 16.5039C72.9527 15.4374 72.4419 14.1665 72.4419 12.6912V5.41241C72.4419 3.91933 72.9527 2.64844 73.9744 1.59973C75.0133 0.533243 76.26 0 77.7146 0H88.7274C90.1819 0 91.42 0.533243 92.4416 1.59973C93.4805 2.64844 94 5.41241 94 5.41241V12.6912C94 14.1665 93.4805 15.4374 92.4416 16.5039C91.42 17.5526 90.1819 18.0769 88.7274 18.0769Z"
-            fill="#5C46E6"
-          />
-          <ellipse cx="53.3539" cy="5.27462" rx="2.70558" ry="2.7773" fill="white" />
-          <ellipse cx="78.2453" cy="5.27462" rx="2.70558" ry="2.7773" fill="white" />
-        </svg>
-      </nuxt-link>
-      <button
-        @click="menuHandle = !menuHandle"
-        class="h-[40px] w-[40px] flex justify-center items-center border-[1px] border-[#E0E0ED] border-solid rounded-[50%]"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="12"
-          height="10"
-          viewBox="0 0 12 10"
-          fill="none"
-        >
-          <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M0.729187 1.33337C0.729187 0.953678 1.03699 0.645874 1.41669 0.645874H10.5834C10.9631 0.645874 11.2709 0.953678 11.2709 1.33337C11.2709 1.71307 10.9631 2.02087 10.5834 2.02087H1.41669C1.03699 2.02087 0.729187 1.71307 0.729187 1.33337ZM0.729187 5.00004C0.729187 4.62034 1.03699 4.31254 1.41669 4.31254H10.5834C10.9631 4.31254 11.2709 4.62034 11.2709 5.00004C11.2709 5.37974 10.9631 5.68754 10.5834 5.68754H1.41669C1.03699 5.68754 0.729187 5.37974 0.729187 5.00004ZM1.41669 7.97921C1.03699 7.97921 0.729187 8.28701 0.729187 8.66671C0.729187 9.0464 1.03699 9.35421 1.41669 9.35421H10.5834C10.9631 9.35421 11.2709 9.0464 11.2709 8.66671C11.2709 8.28701 10.9631 7.97921 10.5834 7.97921H1.41669Z"
-            fill="#5C46E6"
-          />
-        </svg>
-      </button>
-    </div>
+          <svg
+            v-if="menuHandle"
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 22 22"
+            fill="none"
+          >
+            <path
+              d="M14.8891 7.11089L7.11093 14.8891M14.8891 14.889L7.11093 7.11084"
+              stroke="#353437"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <svg
+            v-else
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="10"
+            viewBox="0 0 12 10"
+            fill="none"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M0.729187 1.33337C0.729187 0.953678 1.03699 0.645874 1.41669 0.645874H10.5834C10.9631 0.645874 11.2709 0.953678 11.2709 1.33337C11.2709 1.71307 10.9631 2.02087 10.5834 2.02087H1.41669C1.03699 2.02087 0.729187 1.71307 0.729187 1.33337ZM0.729187 5.00004C0.729187 4.62034 1.03699 4.31254 1.41669 4.31254H10.5834C10.9631 4.31254 11.2709 4.62034 11.2709 5.00004C11.2709 5.37974 10.9631 5.68754 10.5834 5.68754H1.41669C1.03699 5.68754 0.729187 5.37974 0.729187 5.00004ZM1.41669 7.97921C1.03699 7.97921 0.729187 8.28701 0.729187 8.66671C0.729187 9.0464 1.03699 9.35421 1.41669 9.35421H10.5834C10.9631 9.35421 11.2709 9.0464 11.2709 8.66671C11.2709 8.28701 10.9631 7.97921 10.5834 7.97921H1.41669Z"
+              fill="#5C46E6"
+            />
+          </svg>
+        </button>
+      </div>
 
+      <div
+        v-if="pageData?.title"
+        class="flex justify-between items-center"
+        :class="{ 'justify-center': pageData?.center }"
+      >
+        <button
+          @click="$router.go(-1)"
+          :class="{ 'pointer-events-none': !pageData?.link }"
+          class="flex text-black font-semibold text-base gap-4 items-center"
+        >
+          <span
+            v-if="pageData?.link"
+            class="w-9 h-9 flex justify-center items-center rounded-full bg-bg-grey"
+            ><svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.6665 5.83337L8.33317 10L11.6665 14.1667"
+                stroke="#5C46E6"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          {{ pageData?.title }}
+        </button>
+        <p>{{ pageData?.info }}</p>
+      </div>
+    </div>
     <div class="menu" :class="{ show: menuHandle == true }">
-      <div class="top">
+      <div class="top border-[0] border-apple-grey border-t-[2px] border-solid">
         <div class="links">
           <NuxtLink to="/orders"
             >Buyurtmalar
@@ -353,11 +407,10 @@
             <li>
               <button
                 :class="{
-                  'bg-grey-light pointer-events-none':
-                    $route.path == '/profile/freelancer',
+                  ' pointer-events-none': $route.path == '/profile/freelancer',
                 }"
-                @click="$router.push('/profile/freelancer')"
-                class="w-full flex gap-2 justify-between items-center px-4 font-medium text-base text-black hover:bg-grey-light"
+                @click="toPage('/profile/freelancer')"
+                class="w-full flex gap-2 justify-between items-center px-4 font-medium text-base text-black"
               >
                 <span class="flex gap-4"
                   ><svg
@@ -391,12 +444,12 @@
             <li>
               <button
                 :class="{
-                  'bg-grey-light pointer-events-none':
+                  ' pointer-events-none':
                     $route.path.includes('/profile/freelancer/orders') &&
                     $route.path.includes('status'),
                 }"
-                @click="$router.push('/profile/freelancer/orders/active/status')"
-                class="w-full flex justify-between gap-2 px-4 font-medium text-base text-black hover:bg-grey-light"
+                @click="toPage('/profile/freelancer/orders/active/status')"
+                class="w-full flex justify-between gap-2 px-4 font-medium text-base text-black"
               >
                 <span class="flex gap-4">
                   <svg
@@ -423,11 +476,10 @@
             <li>
               <button
                 :class="{
-                  'bg-grey-light pointer-events-none':
-                    $route.path == '/profile/freelancer/portfolio',
+                  ' pointer-events-none': $route.path == '/profile/freelancer/portfolio',
                 }"
-                @click="$router.push('/profile/freelancer/portfolio')"
-                class="w-full flex justify-between gap-2 px-4 font-medium text-base text-black hover:bg-grey-light"
+                @click="toPage('/profile/freelancer/portfolio')"
+                class="w-full flex justify-between gap-2 px-4 font-medium text-base text-black"
               >
                 <span class="flex gap-4">
                   <svg
@@ -471,12 +523,11 @@
             </li>
             <li>
               <button
-                @click="$router.push('/profile/freelancer/settings')"
+                @click="toPage('/profile/freelancer/settings')"
                 :class="{
-                  'bg-grey-light pointer-events-none':
-                    $route.path == '/profile/freelancer/settings',
+                  ' pointer-events-none': $route.path == '/profile/freelancer/settings',
                 }"
-                class="w-full flex justify-between gap-2 px-4 font-medium text-base text-black hover:bg-grey-light"
+                class="w-full flex justify-between gap-2 px-4 font-medium text-base text-black"
               >
                 <span class="flex gap-4">
                   <svg
@@ -499,8 +550,8 @@
             </li>
             <li>
               <button
-                @click="$router.push('/profile/freelancer/comments')"
-                class="w-full flex justify-between gap-2 px-4 font-medium text-base text-black hover:bg-grey-light"
+                @click="toPage('/profile/freelancer/comments')"
+                class="w-full flex justify-between gap-2 px-4 font-medium text-base text-black"
               >
                 <span class="flex gap-4">
                   <svg
@@ -530,10 +581,9 @@
               <button
                 @click="visibleLogout = true"
                 :class="{
-                  'bg-grey-light pointer-events-none':
-                    $route.path == '/profile/customer/settings',
+                  ' pointer-events-none': $route.path == '/profile/customer/settings',
                 }"
-                class="w-full py-3 rounded-[12px] flex justify-center gap-4 px-4 font-medium text-base text-light-red hover:bg-grey-light bg-[#FFE3EA]"
+                class="w-full py-3 rounded-[12px] flex justify-center gap-4 px-4 font-medium text-base text-light-red bg-[#FFE3EA]"
               >
                 <svg
                   width="24"
@@ -575,12 +625,12 @@
             <li>
               <button
                 :class="{
-                  'bg-grey-light pointer-events-none':
+                  ' pointer-events-none':
                     $route.path.includes('/profile/customer/orders') &&
                     $route.path.includes('status'),
                 }"
-                @click="$router.push('/profile/customer/orders/active/status')"
-                class="w-full flex justify-between gap-2 px-4 font-medium text-base text-black hover:bg-grey-light"
+                @click="toPage('/profile/customer/orders/active/status')"
+                class="w-full flex justify-between gap-2 px-4 font-medium text-base text-black"
               >
                 <span class="flex gap-4">
                   <svg
@@ -607,12 +657,11 @@
 
             <li>
               <button
-                @click="$router.push('/profile/customer/settings')"
+                @click="toPage('/profile/customer/settings')"
                 :class="{
-                  'bg-grey-light pointer-events-none':
-                    $route.path == '/profile/customer/settings',
+                  ' pointer-events-none': $route.path == '/profile/customer/settings',
                 }"
-                class="w-full flex justify-between gap-2 px-4 font-medium text-base text-black hover:bg-grey-light"
+                class="w-full flex justify-between gap-2 px-4 font-medium text-base text-black"
               >
                 <span class="flex gap-4">
                   <svg
@@ -637,10 +686,9 @@
               <button
                 @click="visibleLogout = true"
                 :class="{
-                  'bg-grey-light pointer-events-none':
-                    $route.path == '/profile/customer/settings',
+                  ' pointer-events-none': $route.path == '/profile/customer/settings',
                 }"
-                class="w-full py-3 rounded-[12px] flex justify-center gap-4 px-4 font-medium text-base text-light-red hover:bg-grey-light bg-[#FFE3EA]"
+                class="w-full py-3 rounded-[12px] flex justify-center gap-4 px-4 font-medium text-base text-light-red bg-[#FFE3EA]"
               >
                 <svg
                   width="24"
@@ -737,8 +785,15 @@ export default {
     imgUrl() {
       return this.baseUrl + "/storage/";
     },
+    pageData() {
+      return this.$store.state.pageData;
+    },
   },
   methods: {
+    toPage(link) {
+      this.close();
+      this.$router.push(link);
+    },
     handleOk() {
       this.visibleLogout = false;
     },
@@ -749,8 +804,9 @@ export default {
       this.$refs.headerBottomSheet.close();
     },
   },
+
   watch: {
-    $route() {
+    "$route.path"() {
       this.menuHandle = false;
     },
   },
@@ -759,7 +815,7 @@ export default {
 </script>
 <style lang="css" scoped>
 .topper {
-  padding-bottom: 14px;
+  /* padding-bottom: 14px; */
   position: relative;
   z-index: 9;
 }

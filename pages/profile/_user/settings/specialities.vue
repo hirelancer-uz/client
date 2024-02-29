@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="profile xl:px-4">
+  <div class="profile">
     <!-- <ProfileLayout :profile="true"> -->
     <div class="head flex flex-col gap-4 mt-8 xl:hidden">
       <h3 class="text-[24px] text-black font-semibold">Настройки</h3>
@@ -29,7 +29,10 @@
           Mutaxassisligingizni tanlang
         </h3>
 
-        <div class="specialities-list flex justify-start gap-[10px] xl:grid xl:gap-2 xl:grid-cols-2" v-if="loading">
+        <div
+          class="specialities-list flex justify-start gap-[10px] xl:grid xl:gap-2 xl:grid-cols-2"
+          v-if="loading"
+        >
           <a-skeleton
             :paragraph="false"
             width="50px"
@@ -110,7 +113,9 @@
           </button>
         </div>
         <div class="flex justify-between mt-4">
-          <p class="text-[14px] text-grey-64 xl:text-[12px]">Mutaxasliklaringizni tanlang. Max 3 ta</p>
+          <p class="text-[14px] text-grey-64 xl:text-[12px]">
+            Mutaxasliklaringizni tanlang. Max 3 ta
+          </p>
           <button class="text-main-color text-[14px] xl:text-[12px]">Kopaytirish</button>
         </div>
       </div>

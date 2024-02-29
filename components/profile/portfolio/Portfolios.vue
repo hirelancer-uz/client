@@ -24,7 +24,7 @@
       ></nuxt-link>
     </div>
     <div
-      class="list grid grid-cols-3 gap-4 xl:grid-cols-1 xl:gap-1"
+      class="list grid grid-cols-3 gap-4 xl:grid-cols-1 xl:gap-4"
       v-if="portfolios.length > 0"
     >
       <PortfolioCard

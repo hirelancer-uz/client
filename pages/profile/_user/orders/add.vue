@@ -1,11 +1,11 @@
 <template lang="html">
-  <div class="create-order pt-[110px] pb-[120px] max-w-[953px] mx-auto md:pt-6 md:px-4">
+  <div class="create-order pt-[110px] pb-[120px] max-w-[953px] mx-auto xl:pt-6 xl:px-4">
     <div class="head flex justify-between items-center">
       <h1 class="flex text-[24px] text-black font-semibold xl:hidden">
         Buyurtma qo’shish
       </h1>
 
-      <div class="buttons flex gap-4 md:hidden">
+      <div class="buttons flex gap-4 xl:hidden">
         <button
           @click="$router.go(-1)"
           class="border-[2px] border-solid border-border-darik rounded-[12px] h-[60px] w-[204px] flex justify-center items-center text-[18px] text-grey-64 font-medium"
@@ -16,7 +16,7 @@
     </div>
 
     <div
-      class="form-block px-8 py-8 md:px-4 md:py-4 rounded-[16px] bg-white border-border-darik border-solid border mt-4 xl:mt-0"
+      class="form-block px-8 py-8 xl:px-4 xl:py-4 rounded-[16px] bg-white border-border-darik border-solid border mt-4 xl:mt-0"
     >
       <h2 class="text-[20px] text-black font-semibold mb-6 xl:text-base">
         Информация о заказе
@@ -73,7 +73,7 @@
               </div>
 
               <button
-                class="w-10 md:hidden h-[34px] flex justify-end my-[-10px] items-center flex-auto"
+                class="w-10 xl:hidden h-[34px] flex justify-end my-[-10px] items-center flex-auto"
                 @click="(visible = true), (checkedList = [...activeCheckedList])"
               >
                 <svg
@@ -91,7 +91,7 @@
                   />
                 </svg>
               </button>
-              <button class="w-10 justify-center hidden md:flex" @click="open">
+              <button class="w-10 justify-center hidden xl:flex" @click="open">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="3"
@@ -289,7 +289,7 @@
               <img alt="example" style="width: 100%" :src="previewImage" />
             </a-modal>
           </div>
-          <div class="grid grid-cols-2 gap-[70px] md:grid-cols-1 md:gap-4">
+          <div class="grid grid-cols-2 gap-[70px] xl:grid-cols-1 xl:gap-4">
             <a-form-model-item
               class="order-item w-full mb-0"
               label="Срок исполнения в днях"
@@ -343,7 +343,7 @@
             </div>
           </div>
           <div class="border-[0] border-b border-solid border-border-darik"></div>
-          <div class="grid grid-cols-2 gap-[70px] md:grid-cols-1 md:gap-4">
+          <div class="grid grid-cols-2 gap-[70px] xl:grid-cols-1 xl:gap-4">
             <a-form-model-item class="order-item w-full mb-0" label="Цена" prop="price">
               <a-input
                 :class="{ 'opacity-50 pointer-events-none': form.price_negotiable }"
@@ -420,7 +420,7 @@
         </svg>
       </button>
       <div
-        class="fixed-btns fixed bottom-0 w-full z-[20000] py-4 px-4 bg-white left-0 hidden xl:flex flex-col gap-2"
+        class="fixed-btns fixed bottom-0 w-full z-[7] py-4 px-4 bg-white left-0 hidden xl:flex flex-col gap-2"
       >
         <button
           @click="onSubmit"

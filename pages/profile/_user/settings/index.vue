@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="profile xl:px-4">
+  <div class="profile">
     <!-- <ProfileLayout :profile="true"> -->
     <div class="head flex flex-col gap-4 mt-8 xl:mt-0">
       <h3 class="text-[24px] text-black font-semibold xl:hidden">Настройки</h3>

@@ -1,9 +1,7 @@
 <template>
-  <div class="m-personal-block mx-auto flex flex-col">
+  <div class="m-personal-block mx-auto flex flex-col xl:mx-0">
     <div class="flex flex-col gap-4">
-      <div
-        class="user-info px-4 py-4 border border-solid border-grey-light rounded-2xl bg-bg-grey"
-      >
+      <div class="user-info px-4 py-4 bg-bg-grey">
         <div class="user-info-card">
           <div class="grid">
             <div
@@ -11,8 +9,8 @@
             >
               <img
                 class="w-full h-full object-cover"
-                v-if="$store.state.userInfo['avatar']"
-                :src="`${imgUrl}${$store.state.userInfo['avatar']}`"
+                v-if="freelancer['avatar']"
+                :src="`${imgUrl}${freelancer['avatar']}`"
                 alt=""
               />
               <img
@@ -24,18 +22,14 @@
             </div>
             <div class="flex justify-center flex-col gap-2">
               <h4 class="text-black text-[14px] font-semibold leading-[19px]">
-                {{
-                  `${$store.state.userInfo["name"]} ${$store.state.userInfo["surname"]}`
-                }}
+                {{ `${freelancer["name"]} ${freelancer["surname"]}` }}
               </h4>
               <p class="text-grey-40 text-[12px]">Зарегистрирован: более 5 лет назад</p>
               <div
                 class="status flex gap-2 w-full mt-[4px]"
-                v-if="$store.state.userInfo['name'] || $store.state.userInfo['surname']"
+                v-if="freelancer['name'] || freelancer['surname']"
               >
-                <p class="text-grey-80 text-[12px]">
-                  ID: {{ $store.state.userInfo["id"] }}
-                </p>
+                <p class="text-grey-80 text-[12px]">ID: {{ freelancer["id"] }}</p>
                 <span class="w-[1px] h-[14px] bg-grey-8"> </span>
                 <p class="text-grey-80 text-[12px] flex gap-2 items-center">
                   <svg
@@ -49,7 +43,7 @@
                       d="M6.68846 2.18098C7.22492 1.05084 8.77492 1.05084 9.31138 2.18098L10.2385 4.13416C10.4515 4.58294 10.8633 4.894 11.3397 4.96596L13.4128 5.27917C14.6124 5.4604 15.0913 6.99307 14.2233 7.87276L12.7232 9.3931C12.3785 9.74243 12.2212 10.2457 12.3026 10.739L12.6567 12.8857C12.8616 14.1279 11.6077 15.0751 10.5347 14.4887L8.68047 13.4751C8.25442 13.2422 7.74542 13.2422 7.31937 13.4751L5.46509 14.4887C4.39218 15.0751 3.1382 14.1279 3.34311 12.8857L3.69724 10.739C3.77861 10.2457 3.62133 9.74243 3.27664 9.3931L1.7765 7.87276C0.908496 6.99307 1.38747 5.4604 2.58703 5.27917L4.66017 4.96596C5.13651 4.894 5.5483 4.58294 5.76132 4.13416L6.68846 2.18098Z"
                       fill="#F2C94C"
                     /></svg
-                  >{{ $store.state.userInfo["stars"] }}
+                  >{{ freelancer["stars"] }}
                 </p>
                 <span class="w-[1px] h-[14px] bg-grey-8"> </span>
                 <p class="text-[14px] flex gap-1 items-center">
@@ -72,13 +66,9 @@
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     /></svg
-                  ><span class="text-green">{{
-                    $store.state.userInfo["dislikes_count"]
-                  }}</span
+                  ><span class="text-green">{{ freelancer["dislikes_count"] }}</span
                   ><span class="text-grey-40">/</span
-                  ><span class="text-pantone-2023">{{
-                    $store.state.userInfo["likes_count"]
-                  }}</span
+                  ><span class="text-pantone-2023">{{ freelancer["likes_count"] }}</span
                   ><svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="14"
@@ -141,11 +131,10 @@
                 >
                   <li key="0">
                     <a
-                      :href="$store.state.userInfo?.contacts?.twitter"
+                      :href="freelancer?.contacts?.twitter"
                       target="_blank"
                       :class="{
-                        'pointer-events-none opacity-50': !$store.state.userInfo?.contacts
-                          ?.twitter,
+                        'pointer-events-none opacity-50': !freelancer?.contacts?.twitter,
                       }"
                       class="rounded-[12px] border border-solid border-grey-light flex w-[44px] h-[44px] justify-center items-center bg-white"
                     >
@@ -164,11 +153,10 @@
                   </li>
                   <li key="1">
                     <a
-                      :href="$store.state.userInfo?.contacts?.facebook"
+                      :href="freelancer?.contacts?.facebook"
                       target="_blank"
                       :class="{
-                        'pointer-events-none opacity-50': !$store.state.userInfo?.contacts
-                          ?.facebook,
+                        'pointer-events-none opacity-50': !freelancer?.contacts?.facebook,
                       }"
                       class="rounded-[12px] border border-solid border-grey-light flex w-[44px] h-[44px] justify-center items-center bg-white"
                     >
@@ -187,13 +175,12 @@
                   </li>
                   <li key="2">
                     <a
-                      v-if="$store.state.userInfo?.contacts?.dribble"
+                      v-if="freelancer?.contacts?.dribble"
                       class="rounded-[12px] border border-solid border-grey-light flex w-[44px] h-[44px] justify-center items-center bg-white"
-                      :href="$store.state.userInfo?.contacts?.dribble"
+                      :href="freelancer?.contacts?.dribble"
                       target="_blank"
                       :class="{
-                        'pointer-events-none opacity-50': !$store.state.userInfo?.contacts
-                          ?.dribble,
+                        'pointer-events-none opacity-50': !freelancer?.contacts?.dribble,
                       }"
                     >
                       <svg
@@ -212,11 +199,10 @@
                   <li key="3">
                     <a
                       class="rounded-[12px] border border-solid border-grey-light flex w-[44px] h-[44px] justify-center items-center bg-white"
-                      :href="$store.state.userInfo?.contacts?.github"
+                      :href="freelancer?.contacts?.github"
                       target="_blank"
                       :class="{
-                        'pointer-events-none opacity-50': !$store.state.userInfo?.contacts
-                          ?.github,
+                        'pointer-events-none opacity-50': !freelancer?.contacts?.github,
                       }"
                     >
                       <svg
@@ -234,10 +220,10 @@
                   </li>
                   <li key="4">
                     <a
-                      :href="$store.state.userInfo?.contacts?.instagram"
+                      :href="freelancer?.contacts?.instagram"
                       target="_blank"
                       :class="{
-                        'pointer-events-none opacity-50': !$store.state.userInfo?.contacts
+                        'pointer-events-none opacity-50': !freelancer?.contacts
                           ?.instagram,
                       }"
                       class="rounded-[12px] border border-solid border-grey-light flex w-[44px] h-[44px] justify-center items-center bg-white"
@@ -258,11 +244,10 @@
                   <li key="5">
                     <a
                       class="rounded-[12px] border border-solid border-grey-light flex w-[44px] h-[44px] justify-center items-center bg-white"
-                      :href="$store.state.userInfo?.contacts?.telegram"
+                      :href="freelancer?.contacts?.telegram"
                       target="_blank"
                       :class="{
-                        'pointer-events-none opacity-50': !$store.state.userInfo?.contacts
-                          ?.telegram,
+                        'pointer-events-none opacity-50': !freelancer?.contacts?.telegram,
                       }"
                     >
                       <svg
@@ -306,7 +291,7 @@
           </div>
         </div>
       </div>
-      <div class="grid grid-cols-2 client-types" v-if="!user">
+      <div class="grid grid-cols-2 client-types container" v-if="!user">
         <button
           @click="$router.push(`/profile/freelancer`)"
           :class="{ activeF: $route.params.user == 'freelancer' }"
@@ -366,7 +351,7 @@
           </svg>
         </button>
       </div>
-      <div class="list" v-if="!user">
+      <div class="list container" v-if="!user">
         <ul class="rounded-[16px] border border-solid border-grey-light">
           <li class="border-[0] border-b border-solid border-grey-light">
             <nuxt-link
@@ -790,7 +775,7 @@
 </template>
 <script>
 export default {
-  props: ["user"],
+  props: ["user", "freelancer"],
   data() {
     return {
       isFreelancer: false,
@@ -819,8 +804,8 @@ export default {
   color: #fff;
 }
 .client-types .activeC {
-  border-color: var(--light-red);
-  background-color: var(--light-red);
+  border-color: var(--green);
+  background-color: var(--green);
   color: #fff;
 }
 .client-types .activeC svg path,

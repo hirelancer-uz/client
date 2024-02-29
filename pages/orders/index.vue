@@ -66,8 +66,20 @@ export default {
       pageSize: 3,
     };
   },
+  created() {
+    this.$store.commit("setPageData", {
+      title: "Buyurtmalar",
+      center: false,
+      info: "",
+      link: true,
+    });
+  },
+  destroyed() {
+    this.$store.commit("setPageData", {});
+  },
   async asyncData({ store, query }) {
     const pageSize = 3;
+
     const [ordersData, specialitiesData] = await Promise.all([
       store.dispatch("fetchOrders/getOrders", {
         params: {
@@ -122,6 +134,7 @@ export default {
       }
     },
   },
+
   components: { Banner, OrdersList },
 };
 </script>

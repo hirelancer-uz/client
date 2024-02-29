@@ -1,9 +1,9 @@
 <template>
   <transition name="fade-left" mode="out-in">
-    <div class="freelancers pt-16 pb-[120px] xl:px-4 xl:pt-6 xl:pb-6">
+    <div class="freelancers pt-16 pb-[120px]  xl:pt-4 xl:pb-6">
       <div class="2xl:container container mx-auto">
         <div class="title items-center xl:hidden grider">
-          <h2 class="text-black text-[32px] font-semibold titler">
+          <h2 class="text-black text-[32px] font-semibold titler xl:hidden">
             Frilanserlar
             <span class="hidden xl:block" v-if="totalPage"
               >{{ totalPage?.toLocaleString() }} результатов</span
@@ -203,13 +203,24 @@ export default {
       searchVal: "",
     };
   },
+  created() {
+    this.$store.commit("setPageData", {
+      title: "Frilanserlar",
+      center: false,
+      info: `${this.totalPage?.toLocaleString()} результатов`,
+      link: true,
+    });
+  },
+  destroyed() {
+    this.$store.commit("setPageData", {});
+  },
   async asyncData({ store, query }) {
-    store.commit("setPageData", { title: "TitleQul" });
     const [freeLancersData, specialitiesData, regionsData] = await Promise.all([
       store.dispatch("fetchFreelancers/getFreelancers", {
         params: {
           page: query.page || 1,
           page_size: query.page_size || 10,
+          // [`specialities[${params.id}]`]: params.id,
           ...query,
         },
       }),
@@ -327,6 +338,12 @@ export default {
         this.close();
       } catch (e) {
       } finally {
+        this.$store.commit("setPageData", {
+          title: "Frilanserlar",
+          center: false,
+          info: `${this.totalPage?.toLocaleString()} результатов`,
+          link: true,
+        });
         this.loading = false;
       }
     },
@@ -364,11 +381,11 @@ export default {
     grid-template-columns: repeat(1, 1fr);
     gap: 16px;
   }
-  .titler {
+  /* .titler {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-  }
+  } */
   .titler span {
     color: var(--grey-64, #5d5d5f);
     font-size: 14px;

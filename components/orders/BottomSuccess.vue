@@ -66,7 +66,7 @@
         </svg>
       </a>
       <button
-        @click="visible = false"
+        @click="toProfile"
         class="px-6 justify-center h-[40px] xl:h-[52px] xl:w-full rounded-[8px] border border-solid border-blue bg-white text-blue text-base xl:text-[14px] font-medium flex items-center"
       >
         Посмотреть заказ
@@ -75,7 +75,15 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props: ["order"],
+  methods: {
+    toProfile() {
+      this.$emit("close");
+      this.$router.push(`/profile/freelancer/order/view/${this.order?.id}`);
+    },
+  },
+};
 </script>
 <style lang="css" scoped>
 :deep(.ant-modal-content) {

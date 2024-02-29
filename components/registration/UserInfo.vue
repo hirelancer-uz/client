@@ -298,7 +298,7 @@
                   />
                 </svg>
               </button>
-              <button class="w-6 hidden xl:block" @click="open">
+              <button class="w-6 hidden xl:flex flex-auto justify-end" @click="open">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="3"

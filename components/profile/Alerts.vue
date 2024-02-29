@@ -36,15 +36,16 @@
       <AlertsCard class="xl:mr-4" />
     </div>
     <div v-else class="h-[208px] flex justify-center items-center">
-      <p class="text-[18px] text-grey-64 font-medium">Afuski ma’lumot topilmadi!</p>
+      <VEmpty />
     </div>
   </div>
 </template>
 <script>
 import AlertsCard from "./AlertsCard.vue";
+import VEmpty from "@/components/profile/VEmpty.vue";
 
 export default {
-  components: { AlertsCard },
+  components: { AlertsCard, VEmpty },
 };
 </script>
 <style lang="css" scoped>

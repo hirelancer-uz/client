@@ -220,7 +220,7 @@
         </button>
       </div>
       <div
-        class="fixed-btns fixed bottom-0 w-full z-[20000] py-4 px-4 bg-white left-0 hidden xl:flex flex-col gap-2"
+        class="fixed-btns fixed bottom-0 w-full z-[7] py-4 px-4 bg-white left-0 hidden xl:flex flex-col gap-2"
       >
         <button
           @click="onSubmit()"

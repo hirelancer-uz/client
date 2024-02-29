@@ -6,12 +6,9 @@
     <TheHeader class="xl:hidden" ref="header" />
     <div
       v-if="'index' == $route.name.split('___')[0]"
-      class="header-bg xl:block hidden w-full h-[104px] lg:h-[72px]"
+      class="header-bg xl:block hidden w-full h-[104px] xl:h-[63px]"
     ></div>
-    <div v-else class="header-bg xl:block hidden w-full" :style="`height: 56px`"></div>
-    <!-- <h1>
-      {{ layoutData }}
-    </h1> -->
+    <div v-else class="header-bg xl:block hidden w-full xl:h-[111px]"></div>
     <div class="flex-auto">
       <Nuxt />
     </div>
@@ -40,6 +37,7 @@ export default {
   data() {
     return {
       routes: ["freelancers", "profile-index", "index", "orders"],
+      layoutHeight: 63,
     };
   },
   computed: {

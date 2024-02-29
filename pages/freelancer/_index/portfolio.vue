@@ -1,76 +1,31 @@
 <template>
-  <div class="portfolio xl:px-4">
+  <div class="portfolio xl:px-0">
     <ProfileLayout :profile="false" :freelancer="freelancer" :show="false">
-      <div class="head flex flex-col gap-4 mt-8 xl:mt-6">
-        <h3 class="text-[24px] text-black font-semibold xl:hidden">Портфолио</h3>
-        <!-- <div class="flex justify-between items-center xl:mx-[-16px]">
-          <div
-            class="buttons flex gap-6 md:overflow-x-scroll w-full scroll-none xl:gap-2"
-          >
-            <button
-              class="xl:ml-4 px-6 whitespace-nowrap py-3 rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey text-base text-grey-64 font-medium xl:py-0 xl:flex xl:items-center xl:leading-[20px] xl:text-[14px] xl:h-[36px] xl:rounded-lg xl:border xl:px-6 xl:min-w-[156px] xl:justify-center"
-            >
-              All works
-            </button>
-            <button
-              class="active px-6 whitespace-nowrap py-3 rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey text-base text-grey-64 font-medium xl:py-0 xl:flex xl:items-center xl:leading-[20px] xl:text-[14px] xl:h-[36px] xl:rounded-lg xl:border xl:px-6 xl:min-w-[156px] xl:justify-center"
-            >
-              Веб-дизайн
-            </button>
-            <button
-              class="px-6 whitespace-nowrap py-3 rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey text-base text-grey-64 font-medium xl:py-0 xl:flex xl:items-center xl:leading-[20px] xl:text-[14px] xl:h-[36px] xl:rounded-lg xl:border xl:px-6 xl:min-w-[156px] xl:justify-center"
-            >
-              Логотипы
-            </button>
-            <button
-              class="xl:mr-4 px-6 whitespace-nowrap py-3 rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey text-base text-grey-64 font-medium xl:py-0 xl:flex xl:items-center xl:leading-[20px] xl:text-[14px] xl:h-[36px] xl:rounded-lg xl:border xl:px-6 xl:min-w-[156px] xl:justify-center"
-            >
-              Фото
-            </button>
-          </div>
-          <div class="flex gap-[27px] md:hidden">
-            <button
-              class="border border-solid border-grey-8 rounded-[12px] h-12 w-12 flex justify-center items-center"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-              >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M15.875 8.58366C15.875 12.6107 12.6104 15.8753 8.58329 15.8753C4.55622 15.8753 1.29163 12.6107 1.29163 8.58366C1.29163 4.55658 4.55622 1.29199 8.58329 1.29199C12.6104 1.29199 15.875 4.55658 15.875 8.58366ZM8.58329 17.1253C13.3007 17.1253 17.125 13.3011 17.125 8.58366C17.125 3.86623 13.3007 0.0419922 8.58329 0.0419922C3.86586 0.0419922 0.041626 3.86623 0.041626 8.58366C0.041626 13.3011 3.86586 17.1253 8.58329 17.1253ZM16.1086 15.2251C15.8645 14.981 15.4688 14.981 15.2247 15.2251C14.9806 15.4691 14.9806 15.8649 15.2247 16.1089L16.8913 17.7756C17.1354 18.0197 17.5311 18.0197 17.7752 17.7756C18.0193 17.5315 18.0193 17.1358 17.7752 16.8917L16.1086 15.2251Z"
-                  fill="#020105"
-                />
-              </svg>
-            </button>
-          </div>
-        </div> -->
-      </div>
-      <div
-        class="list grid grid-cols-3 gap-4 mb-[40px] xl:grid-cols-1 mt-6"
-        v-if="loading"
-      >
-        <a-skeleton
-          :paragraph="false"
-          class="loading-card"
-          v-for="elem in [1, 2, 3, 4, 5, 6]"
-          :key="elem"
-        />
-      </div>
-      <div class="list grid grid-cols-3 gap-4 mb-[40px] xl:grid-cols-1 mt-6" v-else>
-        <PortfolioViewCard
-          v-for="portfolio in portfolios"
-          :portfolio="portfolio"
-          :portfolios="portfolios"
-          :key="portfolio?.id"
-          :freelancer="freelancer"
-        />
-      </div>
-      <!-- <div
+      <div class="container">
+        <div class="head flex flex-col gap-4 mt-8 xl:mt-6">
+          <h3 class="text-[24px] text-black font-semibold xl:hidden">Портфолио</h3>
+        </div>
+        <div
+          class="list grid grid-cols-3 gap-4 mb-[40px] xl:grid-cols-1 mt-6"
+          v-if="loading"
+        >
+          <a-skeleton
+            :paragraph="false"
+            class="loading-card"
+            v-for="elem in [1, 2, 3, 4, 5, 6]"
+            :key="elem"
+          />
+        </div>
+        <div class="list grid grid-cols-3 gap-4 mb-[40px] xl:grid-cols-1 mt-6" v-else>
+          <PortfolioViewCard
+            v-for="portfolio in portfolios"
+            :portfolio="portfolio"
+            :portfolios="portfolios"
+            :key="portfolio?.id"
+            :freelancer="freelancer"
+          />
+        </div>
+        <!-- <div
         class="list grid-cols-3 gap-4 xl:grid-cols-1 mt-4 xl:mt-0 xl:gap-[16px] hidden xl:grid"
       >
         <PortfolioCard
@@ -81,12 +36,13 @@
 
         <PortfolioMoreCard class="xl:hidden" v-if="portfolios.length > 5" />
       </div> -->
-      <div>
-        <VPagination
-          :totalPage="totalPage"
-          @getData="__GET_PORTFOLIOS"
-          :pageSize="pageSize"
-        />
+        <div>
+          <VPagination
+            :totalPage="totalPage"
+            @getData="__GET_PORTFOLIOS"
+            :pageSize="pageSize"
+          />
+        </div>
       </div>
     </ProfileLayout>
   </div>
@@ -108,7 +64,17 @@ export default {
       pageSize: 6,
     };
   },
-
+  created() {
+    this.$store.commit("setPageData", {
+      title: this.freelancer?.name + " " + this.freelancer?.surname,
+      center: false,
+      info: "",
+      link: true,
+    });
+  },
+  destroyed() {
+    this.$store.commit("setPageData", {});
+  },
   async asyncData({ store, query, params }) {
     try {
       const [freeLancerData] = await Promise.all([
@@ -118,17 +84,10 @@ export default {
           },
           id: params.index,
         }),
-        // store.dispatch("fetchPortfolio/getWorks", {
-        //   params: {
-        //     freelancer: params.index,
-        //   },
-        // }),
       ]);
-      // const portfolios = portfoliosData.data;
       const freelancer = freeLancerData.content;
       return {
         freelancer,
-        // portfolios,
       };
     } catch (e) {}
   },
