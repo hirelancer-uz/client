@@ -8,9 +8,13 @@
       v-if="$route.name == 'index'"
       class="header-bg xl:block hidden w-full h-[104px]"
     ></div>
-    <div v-else class="header-bg xl:block hidden w-full h-[56px]"></div>
     <div
-      class="profile-layout max-w-[1680px] mx-auto xl:mx-0 pt-12 xl:pt-0 xl:pb-6 pb-[100px]  flex-auto"
+      v-if="$route.name.includes('profile') && $route.name.includes('settings')"
+      class="header-bg xl:block hidden w-full xl:h-[145px]"
+    ></div>
+    <div v-else class="header-bg xl:block hidden w-full xl:h-[111px]"></div>
+    <div
+      class="profile-layout max-w-[1680px] mx-auto xl:mx-0 pt-12 xl:pt-0 xl:pb-6 pb-[100px] flex-auto"
     >
       <div class="profile-grid">
         <PersonalBlock
@@ -20,14 +24,20 @@
         />
 
         <PersonalBlockMobile
-          class="hidden xl:flex"
-          :class="{ 'xl:hidden': !$route.name.includes('profile-user') }"
+          class="hidden"
+          :class="{
+            'xl:flex':
+              $route.path == '/profile/freelancer' || $route.path == '/profile/customer',
+          }"
           :user="false"
           :freelancer="$store.state.userInfo"
         />
         <div
-          class="min-w-0 xl:hidden"
-          :class="{ 'xl:hidden': $route.name == `profile-user` }"
+          class="min-w-0"
+          :class="{
+            'xl:hidden':
+              $route.path == '/profile/freelancer' || $route.path == '/profile/customer',
+          }"
         >
           <ProfileTab v-if="$route.name.includes('profile')" />
           <Nuxt />
@@ -64,6 +74,7 @@ export default {
     },
   },
   async mounted() {
+    console.log(this.$route);
     if (localStorage.getItem("auth-token")) {
       try {
         this.loading = true;

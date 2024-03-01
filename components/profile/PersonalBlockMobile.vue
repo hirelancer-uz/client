@@ -3,7 +3,7 @@
     <div class="flex flex-col gap-4">
       <div class="user-info px-4 py-4 bg-bg-grey">
         <div class="user-info-card">
-          <div class="grid">
+          <div class="grid-block">
             <div
               class="h-[60px] w-[60px] overflow-hidden rounded-full border border-solid border-grey-light"
             >
@@ -267,7 +267,7 @@
               </a-dropdown>
             </div>
           </div>
-          <div class="smser">
+          <div class="smser" v-if="user">
             <button>
               Написать
               <svg
@@ -289,71 +289,75 @@
               </svg>
             </button>
           </div>
+          <div class="grid grid-cols-2 client-types mt-4" v-else>
+            <button
+              @click="$router.push(`/profile/freelancer`)"
+              :class="{ activeF: $route.params.user == 'freelancer' }"
+              class="border-[2px] text-[14px] border-solid border-grey-light h-[44px] flex justify-center items-center gap-2 rounded-l-[12px]"
+            >
+              Я - Фрилансер
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+              >
+                <path
+                  d="M12.4824 12.2276C11.8716 12.9076 10.9857 13.3359 9.99991 13.3359C9.01325 13.3359 8.12658 12.9076 7.51575 12.2259M7.77741 7.39172V8.04839M12.2224 7.32339V7.98006M17.7774 10.0009C17.7774 14.2963 14.2953 17.7784 9.99991 17.7784C5.70452 17.7784 2.22241 14.2963 2.22241 10.0009C2.22241 5.70549 5.70452 2.22339 9.99991 2.22339C14.2953 2.22339 17.7774 5.70549 17.7774 10.0009Z"
+                  stroke="#28303F"
+                  stroke-width="1.5"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+            <button
+              @click="$router.push(`/profile/customer`)"
+              :class="{ activeC: $route.params.user == 'customer' }"
+              class="border-[2px] text-[14px] border-solid border-grey-light h-[44px] flex justify-center items-center gap-2 rounded-r-[12px]"
+            >
+              Я - заказчик
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="20"
+                viewBox="0 0 24 20"
+                fill="none"
+              >
+                <path
+                  d="M2 6.66663H4L10.2616 8.94949C11.1843 9.28592 11.6029 10.3554 11.1537 11.2288V11.2288C10.7796 11.9564 9.92437 12.2944 9.15385 12.0192L7 11.25"
+                  stroke="#28303F"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M2.28846 13.4743C1.90611 13.315 1.46701 13.4958 1.30769 13.8782C1.14838 14.2605 1.32919 14.6996 1.71154 14.8589L2.28846 13.4743ZM11.2885 10.9743L10.5962 10.6859L10.0192 12.0705L10.7115 12.3589L11.2885 10.9743ZM6.52308 16.0512L6.23462 16.7435L6.52308 16.0512ZM13.8923 12.8718L13.6038 13.5641L13.8923 12.8718ZM16.2 14.0833H18.3333V12.5833H16.2V14.0833ZM18.3333 15.9166H9.6V17.4166H18.3333V15.9166ZM6.81154 15.3589L2.28846 13.4743L1.71154 14.8589L6.23462 16.7435L6.81154 15.3589ZM14.1808 12.1794L11.2885 10.9743L10.7115 12.3589L13.6038 13.5641L14.1808 12.1794ZM9.6 15.9166C8.64281 15.9166 7.6951 15.7271 6.81154 15.3589L6.23462 16.7435C7.30098 17.1879 8.44477 17.4166 9.6 17.4166V15.9166ZM19.25 15C19.25 15.5062 18.8396 15.9166 18.3333 15.9166V17.4166C19.668 17.4166 20.75 16.3346 20.75 15H19.25ZM18.3333 14.0833C18.8396 14.0833 19.25 14.4937 19.25 15H20.75C20.75 13.6653 19.668 12.5833 18.3333 12.5833V14.0833ZM16.2 12.5833C15.5069 12.5833 14.8206 12.446 14.1808 12.1794L13.6038 13.5641C14.4265 13.9068 15.3088 14.0833 16.2 14.0833V12.5833Z"
+                  fill="#28303F"
+                />
+                <ellipse
+                  cx="18"
+                  cy="6.66671"
+                  rx="4"
+                  ry="3.33333"
+                  stroke="#28303F"
+                  stroke-width="1.5"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
-      <div class="grid grid-cols-2 client-types container" v-if="!user">
-        <button
-          @click="$router.push(`/profile/freelancer`)"
-          :class="{ activeF: $route.params.user == 'freelancer' }"
-          class="border-[2px] text-[14px] border-solid border-grey-light h-[44px] flex justify-center items-center gap-2 rounded-l-[12px]"
-        >
-          Я - Фрилансер
 
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-          >
-            <path
-              d="M12.4824 12.2276C11.8716 12.9076 10.9857 13.3359 9.99991 13.3359C9.01325 13.3359 8.12658 12.9076 7.51575 12.2259M7.77741 7.39172V8.04839M12.2224 7.32339V7.98006M17.7774 10.0009C17.7774 14.2963 14.2953 17.7784 9.99991 17.7784C5.70452 17.7784 2.22241 14.2963 2.22241 10.0009C2.22241 5.70549 5.70452 2.22339 9.99991 2.22339C14.2953 2.22339 17.7774 5.70549 17.7774 10.0009Z"
-              stroke="#28303F"
-              stroke-width="1.5"
-              stroke-miterlimit="10"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
-        <button
-          @click="$router.push(`/profile/customer`)"
-          :class="{ activeC: $route.params.user == 'customer' }"
-          class="border-[2px] text-[14px] border-solid border-grey-light h-[44px] flex justify-center items-center gap-2 rounded-r-[12px]"
-        >
-          Я - заказчик
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="20"
-            viewBox="0 0 24 20"
-            fill="none"
-          >
-            <path
-              d="M2 6.66663H4L10.2616 8.94949C11.1843 9.28592 11.6029 10.3554 11.1537 11.2288V11.2288C10.7796 11.9564 9.92437 12.2944 9.15385 12.0192L7 11.25"
-              stroke="#28303F"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M2.28846 13.4743C1.90611 13.315 1.46701 13.4958 1.30769 13.8782C1.14838 14.2605 1.32919 14.6996 1.71154 14.8589L2.28846 13.4743ZM11.2885 10.9743L10.5962 10.6859L10.0192 12.0705L10.7115 12.3589L11.2885 10.9743ZM6.52308 16.0512L6.23462 16.7435L6.52308 16.0512ZM13.8923 12.8718L13.6038 13.5641L13.8923 12.8718ZM16.2 14.0833H18.3333V12.5833H16.2V14.0833ZM18.3333 15.9166H9.6V17.4166H18.3333V15.9166ZM6.81154 15.3589L2.28846 13.4743L1.71154 14.8589L6.23462 16.7435L6.81154 15.3589ZM14.1808 12.1794L11.2885 10.9743L10.7115 12.3589L13.6038 13.5641L14.1808 12.1794ZM9.6 15.9166C8.64281 15.9166 7.6951 15.7271 6.81154 15.3589L6.23462 16.7435C7.30098 17.1879 8.44477 17.4166 9.6 17.4166V15.9166ZM19.25 15C19.25 15.5062 18.8396 15.9166 18.3333 15.9166V17.4166C19.668 17.4166 20.75 16.3346 20.75 15H19.25ZM18.3333 14.0833C18.8396 14.0833 19.25 14.4937 19.25 15H20.75C20.75 13.6653 19.668 12.5833 18.3333 12.5833V14.0833ZM16.2 12.5833C15.5069 12.5833 14.8206 12.446 14.1808 12.1794L13.6038 13.5641C14.4265 13.9068 15.3088 14.0833 16.2 14.0833V12.5833Z"
-              fill="#28303F"
-            />
-            <ellipse
-              cx="18"
-              cy="6.66671"
-              rx="4"
-              ry="3.33333"
-              stroke="#28303F"
-              stroke-width="1.5"
-            />
-          </svg>
-        </button>
-      </div>
       <div class="list container" v-if="!user">
         <ul class="rounded-[16px] border border-solid border-grey-light">
-          <li class="border-[0] border-b border-solid border-grey-light">
+          <li
+            class="border-[0] border-b border-solid border-grey-light"
+            v-if="$route.params.user == 'freelancer'"
+          >
             <nuxt-link
               :to="`/profile/${$route.params.user}/info`"
               class="flex w-full gap-3 items-center text-[14px] font-medium text-black relative p-4"
@@ -438,7 +442,7 @@
                   /></svg></span
             ></nuxt-link>
           </li>
-          <li class="border-[0] border-b border-solid border-grey-light">
+          <li class="border-[0] border-b border-solid border-grey-light" v-if="$route.params.user == 'freelancer'">
             <nuxt-link
               :to="`/profile/${$route.params.user}/portfolio`"
               class="flex w-full gap-3 items-center text-[14px] font-medium text-black relative p-4"
@@ -793,7 +797,7 @@ export default {
 };
 </script>
 <style lang="css" scoped>
-.user-info-card .grid {
+.user-info-card .grid-block {
   display: grid;
   grid-template-columns: 60px 1fr 24px;
   grid-gap: 16px;

@@ -8,7 +8,7 @@
         centered
         :closable="false"
         width="1440px"
-        @ok="handleOk"
+        @ok="closeModal"
       >
         <div
           class="modal h-[516px] xl:h-auto m-full mx-auto rounded-t-[16px] max-w-[1440px] bg-white xl:px-4 xl:pb-6"
@@ -68,7 +68,7 @@
               </p>
               <div class="buttons flex justify-end gap-4 xl:flex-col-reverse">
                 <button
-                  @click="handleOk"
+                  @click="closeModal"
                   class="px-[24px] w-[168px] items-center border border-solid rounded-[8px] xl:rounded-xl h-[52px] xl:h-12 border-grey-24 flex justify-center text-base xl:text-[14px] text-grey-64 font-medium"
                 >
                   Отмена
@@ -95,7 +95,7 @@
                   </svg>
                 </button>
               </div>
-              <button class="absolute top-5 right-8 xl:hidden" @click="handleOk">
+              <button class="absolute top-5 right-8 xl:hidden" @click="closeModal">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="40"
@@ -118,7 +118,12 @@
       </a-modal>
     </div>
     <div class="hidden xl:block">
-      <vue-bottom-sheet-vue2 ref="myBottomSheet" class="bottom-drawer">
+      <vue-bottom-sheet-vue2
+        v-model="visibleSheet"
+        @closed="closed"
+        ref="myBottomSheet"
+        class="bottom-drawer"
+      >
         <div
           class="modal h-[516px] xl:h-auto m-full mx-auto rounded-t-[16px] max-w-[1440px] bg-white xl:px-4 xl:pb-6"
         >
@@ -234,6 +239,7 @@ export default {
   data() {
     return {
       visible: false,
+      visibleSheet: false,
       form: {
         additional_info: "",
         price: "",
@@ -250,8 +256,8 @@ export default {
     };
   },
   methods: {
-    handleOk() {
-      this.visible = false;
+    closed() {
+      this.closeModal();
     },
     open() {
       this.$refs.myBottomSheet.open();
@@ -259,11 +265,18 @@ export default {
     close() {
       this.$refs.myBottomSheet.close();
     },
+    openModal() {
+      this.visible = true;
+    },
+    closeModal() {
+      this.visible = false;
+    },
     submitForm() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
           this.$emit("submit", this.form);
           this.close();
+          this.closeModal();
         } else {
           return false;
         }
@@ -272,17 +285,7 @@ export default {
   },
   watch: {
     visible(val) {
-      if (!val) {
-        this.$emit("close");
-      }
-    },
-    visibleProp(val) {
-      if (val) {
-        this.open();
-      } else {
-        this.close();
-      }
-      if (window.innerWidth > 1200) this.visible = val;
+      if (!val) this.close();
     },
   },
 };

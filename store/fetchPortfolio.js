@@ -14,6 +14,10 @@ export const actions = {
     const res = await this.$axiosInstance.$get(`/api/works/${payload}`);
     return res;
   },
+  async deleteWork({}, payload) {
+    const res = await this.$axiosInstance.$delete(`/api/works/${payload}`);
+    return res;
+  },
   async getWorks({}, payload) {
     const res = await this.$axios.$get(`/api/works`, { ...payload });
     return res;

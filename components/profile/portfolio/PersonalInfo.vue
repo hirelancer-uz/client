@@ -82,6 +82,7 @@ export default {
     border-radius: 0;
     border: 0;
     border-top: 1px solid var(--border-darik);
+    padding-top: 24px;
     padding-left: 0;
     padding-right: 0;
   }

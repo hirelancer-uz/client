@@ -465,7 +465,7 @@
 
         <button
           v-if="profile && $route.name != 'freelancer-index'"
-          @click="visibleLogout = true"
+          @click="openLogout"
           class="underline text-base text-pantone-2023 flex items-center gap-[10px]"
         >
           Chiqish<svg
@@ -554,7 +554,7 @@
         </p> -->
       </div>
     </div>
-    <Logout :visibleProp="visibleLogout" @handleOkProp="handleOk" />
+    <Logout ref="logout" />
   </div>
 </template>
 <script>
@@ -613,6 +613,9 @@ export default {
   },
   methods: {
     moment,
+    openLogout() {
+      this.$refs.logout.openModal();
+    },
     handleOk() {
       this.visibleLogout = false;
     },

@@ -7,7 +7,7 @@
       centered
       :closable="false"
       :width="712"
-      @ok="handleOk"
+      @ok="closeModal"
     >
       <div class="flex flex-col gap-8 items-center">
         <div
@@ -58,7 +58,7 @@
         </div>
         <div class="grid grid-cols-2 gap-4 w-full mt-4">
           <button
-            @click="handleOk"
+            @click="closeModal"
             class="h-[54px] items-center flex justify-center border border-solid border-grey-light rounded-[8px] text-base font-medium text-grey-64"
           >
             Yo'q
@@ -91,21 +91,13 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch("logout");
-      this.handleOk();
+      this.closeModal();
     },
-    handleOk() {
+    openModal() {
+      this.visible = true;
+    },
+    closeModal() {
       this.visible = false;
-      this.$emit("handleOkProp");
-    },
-  },
-  watch: {
-    visible(val) {
-      if (!val) {
-        this.$emit("handleOkProp");
-      }
-    },
-    visibleProp(val) {
-      this.visible = val;
     },
   },
   components: {

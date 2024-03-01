@@ -18,6 +18,7 @@ export default {
   plugins: [
     "~/plugins/axios",
     "~/plugins/axios-instance",
+    { src: "~/plugins/windowSize.js", ssr: false },
     { src: "~plugins/antdv.js" },
     { src: "~plugins/v-mask.js", ssr: false },
     { src: "~plugins/vue-otp-input.js", ssr: false },

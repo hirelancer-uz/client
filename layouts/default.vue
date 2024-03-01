@@ -9,6 +9,7 @@
       class="header-bg xl:block hidden w-full h-[104px] xl:h-[63px]"
     ></div>
     <div v-else class="header-bg xl:block hidden w-full xl:h-[111px]"></div>
+  
     <div class="flex-auto">
       <Nuxt />
     </div>

@@ -357,12 +357,7 @@
           <div class="flex-col gap-4 hidden xl:flex xl:mt-6 xl:gap-6">
             <ClientCard :client="order?.client" />
             <PriceCard @open="openModal" :order="order" />
-            <PriceCard
-              class="mobile__price"
-              @open="openModal"
-              @close="handleOk"
-              :order="order"
-            />
+            <PriceCard class="mobile__price" @open="openModal" :order="order" />
           </div>
           <!-- <div class="flex flex-col gap-4 mt-8 xl:mt-6">
             <InfoCard
@@ -435,75 +430,36 @@
     </div>
     <SimilarOrders :orders="orders" />
     <div>
-      <!-- <Transition name="opacity">
-        <div
-          v-if="bottomModal"
-          @click="closeModal"
-          class="modal-bg fixed w-full h-full bottom-0 left-0"
-        ></div>
-      </Transition> -->
-      <!-- <Transition name="nested"> -->
-      <!-- <div v-if="bottomModal" class="fixed w-full bottom-0 left-0"> -->
-      <BottomModal @close="closeModal" @submit="submit" :visibleProp="bottomModal" />
-      <!-- </div> -->
-      <!-- </Transition> -->
-      <div class="xl:hidden flex">
-        <OrderSuccess :visibleProp="visible" @handleOkProp="handleOk" :order="order" />
-      </div>
-      <div class="flex">
-        <ToBeFreelancer
-          class="xl:hidden"
-          :visibleProp="visibleToFree"
-          @handleOkProp="handleOk"
-          @open="visibleSpicial = true"
-        />
-        <ToBeFreelancer
-          class="hidden xl:block"
-          :visibleProp="visibleToFree"
-          @handleOkProp="handleOk"
-          @open="openSpicial"
-        />
-      </div>
-
-      <div class="hidden xl:flex">
-        <vue-bottom-sheet-vue2 ref="orderSucccess" class="bottom-drawer">
-          <BottomSuccess class="hidden xl:flex" :order="order" @close="closeSuccess" />
-        </vue-bottom-sheet-vue2>
-      </div>
+      <BottomModal ref="sendApp" @submit="submit" />
+      <ToBeFreelancer ref="toBeFreelancer" @open="openSpecial" />
+      <OrderSuccess ref="successModal" :order="order" />
+      <SpicialsticsCheck
+        ref="specialities"
+        @saveChecked="saveChecked"
+        :specialities="specialities"
+        :activeCheckedList="activeCheckedList"
+      />
     </div>
-    <SpicialsticsCheck
-      @saveChecked="saveChecked"
-      :visible="visibleSpicial"
-      @handleOk="handleOkSpicial"
-      :specialities="specialities"
-      :activeCheckedList="activeCheckedList"
-      :openBottom="openBottom"
-    />
   </div>
 </template>
 <script>
-import ClientCard from "../../components/orders/ClientCard.vue";
-import FileCard from "../../components/orders/FileCard.vue";
-import InfoCard from "../../components/orders/InfoCard.vue";
-import SimilarOrders from "../../components/orders/SimilarOrders.vue";
-import PriceCard from "../../components/orders/PriceCard.vue";
-import BottomModal from "../../components/orders/BottomModal.vue";
-import OrderSuccess from "../../components/modals/OrderSuccess.vue";
-import BottomSuccess from "../../components/orders/BottomSuccess.vue";
-import Loader from "../../components/Loader.vue";
+import ClientCard from "@/components/orders/ClientCard.vue";
+import FileCard from "@/components/orders/FileCard.vue";
+import InfoCard from "@/components/orders/InfoCard.vue";
+import SimilarOrders from "@/components/orders/SimilarOrders.vue";
+import PriceCard from "@/components/orders/PriceCard.vue";
+import BottomModal from "@/components/orders/BottomModal.vue";
+import OrderSuccess from "@/components/modals/OrderSuccess.vue";
+import BottomSuccess from "@/components/orders/BottomSuccess.vue";
+import Loader from "@/components/Loader.vue";
 import moment from "moment";
-import ToBeFreelancer from "../../components/modals/ToBeFreelancer.vue";
-import SpicialsticsCheck from "../../components/modals/SpicialsticsCheck.vue";
+import ToBeFreelancer from "@/components/modals/ToBeFreelancer.vue";
+import SpicialsticsCheck from "@/components/modals/SpicialsticsCheck.vue";
 export default {
   data() {
     return {
-      bottomModal: false,
-      visible: false,
       dateFormat: "DD MMM YYYY, HH:mm",
-      visibleToFree: false,
       activeCheckedList: [],
-      openBottom: false,
-      visibleSpicial: false,
     };
   },
   computed: {
@@ -562,13 +518,29 @@ export default {
         specialities,
       };
     } catch (e) {
-      console.log(e);
     } finally {
     }
   },
   methods: {
-    handleOkSpicial() {
-      this.visibleSpicial = false;
+    openSuccessModal() {
+      this.$refs.successModal.open();
+      this.$refs.successModal.openModal();
+    },
+    closeSuccessModal() {
+      this.$refs.successModal.close();
+      this.$refs.successModal.closeModal();
+    },
+    openSpecial() {
+      this.$refs.specialities.open();
+      this.$refs.specialities.openModal();
+    },
+    closeSpecial() {
+      this.$refs.specialities.close();
+      this.$refs.specialities.closeModal();
+    },
+    openSendApp() {
+      this.$refs.sendApp.open();
+      this.$refs.sendApp.openModal();
     },
     onSubmitSpicial() {
       let formData = new FormData();
@@ -594,30 +566,24 @@ export default {
       } catch (e) {
         this.$notification["error"]({
           message: "Error",
-          description: e.response.statusText,
+          description: e.response.data?.message || e.response.statusText,
         });
       }
     },
     async saveChecked(checkedList) {
       this.activeCheckedList = await [...checkedList];
       this.onSubmitSpicial();
-      this.visibleSpicial = false;
-      this.closeSpicial();
+      this.closeSpecial();
     },
-    closeSpicial() {
-      this.openBottom = false;
+    openBeFreelancer() {
+      this.$refs.toBeFreelancer.openModal();
+      this.$refs.toBeFreelancer.open();
     },
-    openSpicial() {
-      this.openBottom = true;
-      setTimeout(() => {
-        if (this.openBottom) this.openBottom = false;
-      }, 10);
-    },
-    handleOk() {
-      this.visible = false;
+    closeBeFreelancer() {
+      this.$refs.toBeFreelancer.closeModal();
+      this.$refs.toBeFreelancer.close();
     },
     moment,
-
     openSuccess() {
       this.$refs.orderSucccess.open();
     },
@@ -626,21 +592,13 @@ export default {
     },
     async openModal() {
       if (this.$store.state.auth && this.$store.state.userInfo?.name) {
-        if (this.$store.state.userInfo?.specialities.length == 0) {
-          this.visibleToFree = !this.visibleToFree;
-        } else {
-          this.bottomModal = !this.bottomModal;
-          // this.open();
-        }
+        this.$store.state.userInfo?.specialities.length == 0
+          ? this.openBeFreelancer()
+          : this.openSendApp();
       } else {
         localStorage.setItem("return_link", this.$route.path);
         this.$router.push("/registration");
       }
-      // if (window.innerWidth >= 1200) {
-      //   this.bottomModal = true;
-      // } else {
-      //   this.open();
-      // }
     },
     submit(form) {
       this.__POST_ORDER(form);
@@ -650,8 +608,6 @@ export default {
         const data = await this.$store.dispatch("fetchOrders/getOrderById", {
           id: this.$route.params.slug,
         });
-        // this.bottomModal;
-      } catch (e) {
       } finally {
       }
     },
@@ -661,11 +617,8 @@ export default {
           ...data,
           order_id: this.$route.params.slug,
         });
-        this.visible = true;
-        this.visibleToFree = false;
-
-        // if (window.innerWidth > 1200) this.visible = true;
-
+        this.openSuccessModal();
+        this.closeBeFreelancer();
         this.openSuccess();
         this.__GET_ORDERS();
       } catch (e) {
@@ -674,13 +627,6 @@ export default {
           description: e.response.statusText,
         });
       }
-    },
-    handleOk() {
-      this.visible = false;
-      this.visibleToFree = false;
-    },
-    closeModal() {
-      this.bottomModal = false;
     },
   },
   components: {

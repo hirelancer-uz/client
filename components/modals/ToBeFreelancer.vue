@@ -8,10 +8,10 @@
         centered
         :closable="false"
         width="712px"
-        @ok="handleOk"
+        @ok="closeModal"
       >
         <div class="flex flex-col items-center relative">
-          <button @click="handleOk" class="absolute top-0 right-2">
+          <button @click="closeModal" class="absolute top-0 right-2">
             <svg
               width="32"
               height="32"
@@ -84,10 +84,14 @@
       </a-modal>
     </div>
     <div class="hidden xl:block">
-      <vue-bottom-sheet-vue2 ref="specialBottomSheet" class="bottom-drawer relative">
+      <vue-bottom-sheet-vue2
+        ref="specialBottomSheet"
+        class="bottom-drawer relative"
+        @closed="closed"
+      >
         <div class="flex flex-col items-center relative pb-3 pt-4">
           <button @click="close" class="absolute top-4 right-2">
-            <svg  
+            <svg
               width="32"
               height="32"
               viewBox="0 0 32 32"
@@ -163,23 +167,29 @@
 </template>
 <script>
 export default {
-  props: ["visibleProp"],
   data() {
     return {
       visible: false,
     };
   },
+
   methods: {
+    closed() {
+      this.closeModal();
+    },
     send() {
-      this.close();
       this.$emit("open");
+      this.close();
       this.visible = false;
     },
-    handleOk() {
+    closeModal() {
       this.visible = false;
+    },
+    openModal() {
+      this.visible = true;
     },
     open() {
-      this.$refs.specialBottomSheet.open();
+      this.$refs.specialBottomSheet?.open();
     },
     close() {
       this.$refs.specialBottomSheet.close();
@@ -187,16 +197,7 @@ export default {
   },
   watch: {
     visible(val) {
-      if (!val) {
-        this.handleOk();
-        this.$emit("handleOkProp");
-      }
-    },
-    visibleProp(val) {
-      this.open();
-      if (val) {
-        if (window.innerWidth > 1200) this.visible = true;
-      }
+      if (!val) this.close();
     },
   },
 };

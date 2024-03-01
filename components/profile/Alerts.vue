@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="alerts">
+  <div class="alerts ">
     <div class="flex justify-between">
       <h1
         class="text-black text-[24px] font-semibold flex gap-2 xl:text-[18px] xl:w-full xl:justify-between"
@@ -28,14 +28,14 @@
     </div>
     <div
       class="alerts-list grid grid-cols-4 gap-2 mt-6 xl:flex xl:overflow-x-scroll xl:mt-4 xl:mx-[-16px]"
-      v-if="true"
+      v-if="false"
     >
       <AlertsCard class="xl:ml-4" />
       <AlertsCard />
       <AlertsCard />
       <AlertsCard class="xl:mr-4" />
     </div>
-    <div v-else class="h-[208px] flex justify-center items-center">
+    <div v-else class="h-[208px] xl:h-[111px] flex justify-center items-center mb-[-24px]">
       <VEmpty />
     </div>
   </div>

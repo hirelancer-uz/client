@@ -29,11 +29,13 @@
     <transition name="pop" appear>
       <div
         v-if="previewImg"
-        @click="previewImg = false"
-        class="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50"
+        class="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 xl:px-4"
       >
-        <div class="max-w-[712px] w-full relative pointer-events-none">
-          <button class="absolute right-[-66px] top-[-10px]" @click="previewImg = false">
+        <div class="max-w-[712px] xl:max-w-full w-full relative">
+          <button
+            class="absolute xl:hidden right-[-66px] top-[-10px]"
+            @click="previewImg = false"
+          >
             <svg
               width="48"
               height="48"
@@ -55,6 +57,14 @@
             :src="`${baseUrl}/storage/${file?.file}`"
             alt=""
           />
+        </div>
+        <div class="absolute bottom-4 px-4 left-0 w-full">
+          <button
+            class="hidden xl:flex text-black text-[14px] font-semibold bg-white justify-center h-12 rounded-[12px] border border-solid border-border-darik items-center w-full"
+            @click="previewImg = false"
+          >
+            Yopish
+          </button>
         </div>
       </div>
     </transition>

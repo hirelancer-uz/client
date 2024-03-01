@@ -410,7 +410,7 @@
                 <span class="w-full flex h-[1px] bg-border-darik"></span>
                 <li key="6">
                   <button
-                    @click="visibleLogout = true"
+                    @click="logout"
                     :class="{
                       'bg-grey-light pointer-events-none':
                         $route.path == '/profile/customer/settings',
@@ -516,7 +516,7 @@
                 <span class="w-full flex h-[1px] bg-border-darik"></span>
                 <li key="3">
                   <button
-                    @click="visibleLogout = true"
+                    @click="logout"
                     :class="{
                       'bg-grey-light pointer-events-none':
                         $route.path == '/profile/customer/settings',
@@ -573,21 +573,17 @@
         </div>
       </div>
     </div>
-    <LoginAuth :visibleProp="visible" @handleOkProp="handleOk" />
-    <Logout :visibleProp="visibleLogout" @handleOkProp="handleOk" />
+    <Logout ref="logout" />
   </div>
 </template>
 <script>
-import LoginAuth from "../modals/LoginAuth.vue";
 import Logout from "../modals/Logout.vue";
 
 export default {
   data() {
     return {
-      visibleLogout: false,
       dropdown: false,
       userType: true,
-      visible: false,
       currentLang: 1,
       langList: [
         {
@@ -696,9 +692,8 @@ export default {
     },
   },
   methods: {
-    handleOk() {
-      this.visibleLogout = false;
-      this.visible = false;
+    logout() {
+      this.$refs.logout.openModal();
     },
   },
   watch: {
@@ -706,7 +701,7 @@ export default {
       this.dropdown = false;
     },
   },
-  components: { LoginAuth, Logout },
+  components: {  Logout },
 };
 </script>
 <style lang="css" scoped>

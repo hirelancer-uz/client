@@ -72,8 +72,8 @@
 
       <div
         v-if="pageData?.title"
-        class="flex justify-between items-center"
-        :class="{ 'justify-center': pageData?.center }"
+        class="flex items-center"
+        :class="pageData?.center ? 'justify-center' : 'justify-between'"
       >
         <button
           @click="$router.go(-1)"
@@ -101,7 +101,27 @@
           </span>
           {{ pageData?.title }}
         </button>
-        <p>{{ pageData?.info }}</p>
+        <p class="h-9">{{ pageData?.info }}</p>
+      </div>
+      <div
+        class="settings-tab xl:justify-center bg-white flex gap-6 xl:gap-12 xl:relative mb-[-14px]"
+        v-if="$route.params.user && $route.name.includes('settings')"
+      >
+        <button
+          :to="`/profile/${$route.params.user}/settings`"
+          @click="$router.push(`/profile/${$route.params.user}/settings`)"
+          :class="{ active: !$route.name.includes('specialities') }"
+          class="px-6 py-3 xl:relative rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] xl:font-semibold text-base text-grey-64 font-medium xl:py-0 xl:flex xl:items-center xl:h-9 whitespace-nowrap xl:rounded-lg"
+        >
+          Shaxsiy ma'lumotlar
+        </button>
+        <button
+          @click="$router.push(`/profile/${$route.params.user}/settings/specialities`)"
+          :class="{ active: $route.name.includes('specialities') }"
+          class="px-6 py-0 xl:flex xl:items-center xl:relative rounded-[12px] border-solid border-[2px] xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] xl:font-semibold border-bg-grey bg-bg-grey text-base text-grey-64 font-medium xl:py-2 xl:h-9 whitespace-nowrap xl:rounded-lg"
+        >
+          Mutaxassisliklar
+        </button>
       </div>
     </div>
     <div class="menu" :class="{ show: menuHandle == true }">
@@ -407,9 +427,9 @@
             <li>
               <button
                 :class="{
-                  ' pointer-events-none': $route.path == '/profile/freelancer',
+                  ' pointer-events-none': $route.path == '/profile/freelancer/info',
                 }"
-                @click="toPage('/profile/freelancer')"
+                @click="toPage('/profile/freelancer/info')"
                 class="w-full flex gap-2 justify-between items-center px-4 font-medium text-base text-black"
               >
                 <span class="flex gap-4"
@@ -579,7 +599,7 @@
             </li>
             <li>
               <button
-                @click="visibleLogout = true"
+                @click="openLogout"
                 :class="{
                   ' pointer-events-none': $route.path == '/profile/customer/settings',
                 }"
@@ -684,7 +704,7 @@
             </li>
             <li>
               <button
-                @click="visibleLogout = true"
+                @click="openLogout"
                 :class="{
                   ' pointer-events-none': $route.path == '/profile/customer/settings',
                 }"
@@ -720,13 +740,13 @@
         </vue-bottom-sheet-vue2>
       </div>
       <div class="bottom" v-else>
-        <div class="buttons">
+        <div class="">
           <NuxtLink to="/" class="login">Kirish</NuxtLink>
           <NuxtLink to="/registration" class="registration">Ro'yxatdan o'tish</NuxtLink>
         </div>
       </div>
     </div>
-    <Logout :visibleProp="visibleLogout" @handleOkProp="handleOk" />
+    <Logout ref="logout" />
   </div>
 </template>
 
@@ -794,8 +814,8 @@ export default {
       this.close();
       this.$router.push(link);
     },
-    handleOk() {
-      this.visibleLogout = false;
+    openLogout() {
+      this.$refs.logout.openModal();
     },
     open() {
       this.$refs.headerBottomSheet.open();
@@ -930,5 +950,23 @@ export default {
   line-height: 140%; /* 19.6px */
   padding: 16px 20px;
   text-align: center;
+}
+.settings-tab .active {
+  border-color: var(--main-color);
+  color: var(--main-color);
+  background-color: #fff;
+}
+.settings-tab button::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  height: 4px;
+  width: 100%;
+  border-radius: 5px 5px 0px 0px;
+}
+@media (max-width: 1200px) {
+  .settings-tab .active::after {
+    background: var(--Light-purple, #5d5fef);
+  }
 }
 </style>

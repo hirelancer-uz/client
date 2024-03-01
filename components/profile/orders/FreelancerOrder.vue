@@ -440,18 +440,6 @@
       </div>
     </div>
     <div>
-      <Transition name="opacity">
-        <div
-          v-if="bottomModal"
-          @click="closeModal"
-          class="modal-bg fixed w-full h-full bottom-0 left-0 z-20"
-        ></div>
-      </Transition>
-      <Transition name="nested">
-        <div v-if="bottomModal" class="fixed w-full bottom-0 left-0 z-30">
-          <BottomModal @close="closeModal" />
-        </div>
-      </Transition>
       <CloseOrder @handleOkProp="handleOkWait" :visibleProp="visibleWait" />
       <FreelancerComplite
         @handleOkProp="handleOk"
@@ -521,7 +509,6 @@ import ClientCard from "@/components/orders/ClientCard.vue";
 import FileCard from "@/components/orders/FileCard.vue";
 import InfoCard from "@/components/orders/InfoCard.vue";
 import PriceCard from "@/components/orders/PriceCard.vue";
-import BottomModal from "@/components/orders/BottomModal.vue";
 import OrderStatus from "@/components/profile/orders/OrderStatus.vue";
 import EndingProcess from "@/components/orders/EndingProcess.vue";
 import CloseOrder from "@/components/modals/CloseOrder.vue";
@@ -536,7 +523,6 @@ export default {
   data() {
     return {
       selectedReasons: [],
-      bottomModal: false,
       step: 1,
       loadingBtn: false,
       visibleWait: false,
@@ -607,12 +593,7 @@ export default {
     handleOkComplaint() {
       this.visibleComplaint = false;
     },
-    openModal() {
-      this.bottomModal = true;
-    },
-    closeModal() {
-      this.bottomModal = false;
-    },
+
     submitCancel() {
       this.__CANCEL_OFFER();
     },
@@ -680,7 +661,6 @@ export default {
     InfoCard,
     ClientCard,
     PriceCard,
-    BottomModal,
     OrderStatus,
     EndingProcess,
     CloseOrder,

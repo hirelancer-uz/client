@@ -27,7 +27,9 @@
         </div>
       </div>
     </div>
-    <div class="body px-4 pt-3 pb-4 flex flex-col gap-[44px] xl:gap-1 xl:px-3 xl:py-3 bg-white">
+    <div
+      class="body px-4 pt-3 pb-4 flex flex-col gap-[44px] xl:gap-1 xl:px-3 xl:py-3 bg-white"
+    >
       <div class="flex flex-col gap-2">
         <h4
           v-if="$route.name.includes('profile')"
@@ -112,7 +114,6 @@
   </div>
 </template>
 <script>
-import PortfolioCard from "./PortfolioCard.vue";
 export default {
   props: ["portfolio"],
   data() {
@@ -155,7 +156,6 @@ export default {
       }
     },
   },
-  components: { PortfolioCard },
 };
 </script>
 <style lang="css" scoped>
