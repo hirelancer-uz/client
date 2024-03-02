@@ -64,14 +64,7 @@ export default {
       pageSize: 6,
     };
   },
-  created() {
-    this.$store.commit("setPageData", {
-      title: this.freelancer?.name + " " + this.freelancer?.surname,
-      center: false,
-      info: "",
-      link: true,
-    });
-  },
+
   destroyed() {
     this.$store.commit("setPageData", {});
   },
@@ -93,6 +86,12 @@ export default {
   },
   async mounted() {
     this.__GET_PORTFOLIOS();
+    this.$store.commit("setPageData", {
+      title: this.freelancer?.name + " " + this.freelancer?.surname,
+      center: false,
+      info: "",
+      link: true,
+    });
   },
   methods: {
     async __GET_PORTFOLIOS() {

@@ -37,7 +37,7 @@ export default {
     ProfileLayout,
     Comments,
   },
-  created() {
+  mounted() {
     this.$store.commit("setPageData", {
       title: this.freelancer?.name + " " + this.freelancer?.surname,
       center: false,

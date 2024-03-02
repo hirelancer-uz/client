@@ -52,7 +52,7 @@
             :class="{ errorSelect: activeCheckedList.length == 0 && errorSelect }"
           >
             <div
-              class="min-h-[58px] xl:min-h-[50px]  items-center border border-solid flex justify-start border-grey-8 rounded-lg px-4 py-3 modal-select"
+              class="min-h-[58px] xl:min-h-[50px] items-center border border-solid flex justify-start border-grey-8 rounded-lg px-4 py-3 modal-select"
             >
               <p class="text-grey-40 text-base" v-if="activeCheckedList.length == 0">
                 Специальности
@@ -344,18 +344,17 @@ export default {
       ],
     };
   },
-  created() {
+
+  destroyed() {
+    this.$store.commit("setPageData", {});
+  },
+  mounted() {
     this.$store.commit("setPageData", {
       title: "Добавить работу",
       center: false,
       info: "",
       link: true,
     });
-  },
-  destroyed() {
-    this.$store.commit("setPageData", {});
-  },
-  mounted() {
     this.loading = true;
     !localStorage.getItem("auth-token") ? this.$router.push("/") : (this.loading = false);
   },

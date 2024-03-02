@@ -107,19 +107,18 @@ export default {
       return this.$store.state.userInfo["id"];
     },
   },
-  created() {
+
+  destroyed() {
+    this.$store.commit("setPageData", {});
+  },
+  async mounted() {
+    if (this.$store.state.userInfo["id"]) this.__GET_PORTFOLIOS();
     this.$store.commit("setPageData", {
       title: "Портфолио",
       center: false,
       info: "",
       link: true,
     });
-  },
-  destroyed() {
-    this.$store.commit("setPageData", {});
-  },
-  async mounted() {
-    if (this.$store.state.userInfo["id"]) this.__GET_PORTFOLIOS();
   },
   methods: {
     async __GET_PORTFOLIOS() {

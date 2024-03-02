@@ -38,19 +38,18 @@ export default {
       };
     } catch (e) {}
   },
-  created() {
+
+  destroyed() {
+    this.$store.commit("setPageData", {});
+  },
+  async mounted() {
+    this.__GET_ORDERS();
     this.$store.commit("setPageData", {
       title: `Заказ: #${this.$route.params.id}`,
       center: false,
       info: moment(this.order.created_at).format("DD.MM.YYYY | HH:mm"),
       link: true,
     });
-  },
-  destroyed() {
-    this.$store.commit("setPageData", {});
-  },
-  async mounted() {
-    this.__GET_ORDERS();
   },
   methods: {
     selected() {
@@ -74,6 +73,4 @@ export default {
   },
 };
 </script>
-<style lang="css" scoped>
-
-</style>
+<style lang="css" scoped></style>

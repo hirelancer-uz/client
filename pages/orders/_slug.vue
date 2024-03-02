@@ -430,7 +430,6 @@
     </div>
     <SimilarOrders :orders="orders" />
     <div>
-     
       <BottomModal ref="sendApp" @submit="submit" />
       <ToBeFreelancer ref="toBeFreelancer" @open="openSpecial" />
       <OrderSuccess ref="successModal" :order="order" />
@@ -484,8 +483,6 @@ export default {
   },
   mounted() {
     this.__GET_ORDERS();
-  },
-  created() {
     this.$store.commit("setPageData", {
       title: "Проект",
       center: false,
@@ -493,6 +490,7 @@ export default {
       link: true,
     });
   },
+
   destroyed() {
     this.$store.commit("setPageData", {});
   },
@@ -755,6 +753,5 @@ export default {
     grid-template-columns: 1fr;
     gap: 16px;
   }
- 
 }
 </style>

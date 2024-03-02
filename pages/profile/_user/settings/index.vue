@@ -498,14 +498,7 @@ export default {
       },
     };
   },
-  created() {
-    this.$store.commit("setPageData", {
-      title: "Настройки",
-      center: false,
-      info: "",
-      link: true,
-    });
-  },
+
   destroyed() {
     this.$store.commit("setPageData", {});
   },
@@ -533,6 +526,12 @@ export default {
 
   async mounted() {
     this.__GET_USER_INFO();
+    this.$store.commit("setPageData", {
+      title: "Настройки",
+      center: false,
+      info: "",
+      link: true,
+    });
   },
   methods: {
     onChange(date, dateString) {},

@@ -1,9 +1,9 @@
 <template lang="html">
   <div
-    class="flex w-[90%] items-center relative xl:overflow-y-scroll xl:mx-[-16px] "
+    class="flex w-[90%] xl:w-full items-center relative xl:overflow-y-scroll scroll-none xl:mx-[-16px]"
     :class="order?.selected_request ? 'justify-between' : 'justify-start gap-5'"
   >
-    <div class="flex gap-[10px] items-center relative z-10">
+    <div class="flex gap-[10px] items-center relative z-10 xl:ml-4">
       <span class="flex justify-center items-center relative">
         <span
           class="icon w-full h-full z-10 flex relative justify-center items-center rounded-full"
@@ -29,7 +29,9 @@
           </svg>
         </span>
       </span>
-      <p class="text-base font-medium whitespace-nowrap text-black relative z-10">Идет прием заявок</p>
+      <p class="text-base font-medium whitespace-nowrap text-black relative z-10">
+        Идет прием заявок
+      </p>
     </div>
     <svg
       width="34"
@@ -215,7 +217,9 @@
           </svg>
         </span>
       </span>
-      <p class="text-base font-medium whitespace-nowrap text-grey-40">Процесс выполнения</p>
+      <p class="text-base font-medium whitespace-nowrap text-grey-40">
+        Процесс выполнения
+      </p>
     </div>
     <span v-if="order?.selected_request">
       <svg
@@ -278,7 +282,7 @@
     </div>
     <div
       v-if="status != 6"
-      class="flex gap-[10px] items-center relative z-10"
+      class="flex gap-[10px] items-center relative z-10 xl:mr-4"
       :class="{ active: status == 4 }"
     >
       <span class="flex justify-center items-center relative">
@@ -345,5 +349,10 @@ export default {
 <style lang="css" scoped>
 .active p {
   color: var(--black);
+}
+@media (max-width: 1200px) {
+  .scroll-none::-webkit-scrollbar {
+    display: none;
+  }
 }
 </style>

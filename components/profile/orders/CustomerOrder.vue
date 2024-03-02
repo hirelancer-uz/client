@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="pt-[72px] xl:pt-6 order xl:px-4" :class="{ 'pb-10': order?.status != 0 }">
+  <div class="pt-[72px] xl:pt-6 order xl:px-4 xl:pt-0" :class="{ 'pb-10': order?.status != 0 }">
     <div class="max-w-[1200px] mx-auto">
       <button
         @click="$router.go(-1)"
@@ -48,6 +48,12 @@
           Ваш заказ ожидание модерации. Скоро ваш заказ опубликуется
         </p> -->
       </div>
+      <div
+        v-if="status != 0"
+        class="status xl:flex hidden justify-center mx-[-24px] mb-6 pb-[18px] border-[0] border-b-[2px] border-solid border-grey-light relative"
+      >
+        <OrderStatus :status="order?.status" :order="order" />
+      </div>
       <div class="content-box mt-6 xl:mt-0">
         <div class="flex flex-col gap-6">
           <div
@@ -57,7 +63,7 @@
             <div class="info px-6 py-6 xl:px-0 xl:py-0">
               <div
                 v-if="status != 0"
-                class="status flex justify-center mx-[-24px] mb-6 pb-[18px] border-[0] border-b-[2px] border-solid border-grey-light relative"
+                class="status flex justify-center mx-[-24px] mb-6 pb-[18px] border-[0] border-b-[2px] border-solid border-grey-light relative xl:hidden"
               >
                 <OrderStatus :status="order?.status" :order="order" />
               </div>

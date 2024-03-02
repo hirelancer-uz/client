@@ -5,7 +5,7 @@
     </div>
     <TheHeader class="xl:hidden" ref="header" />
     <div
-      v-if="'index' == $route.name.split('___')[0]"
+      v-if="'index' == $route.name?.split('___')[0]"
       class="header-bg xl:block hidden w-full h-[104px] xl:h-[63px]"
     ></div>
     <div v-else class="header-bg xl:block hidden w-full xl:h-[111px]"></div>
@@ -14,7 +14,7 @@
       <Nuxt />
     </div>
     <TheFooter />
-    <BottomBar v-if="routes.includes($route.name.split('___')[0])" />
+    <BottomBar v-if="routes.includes($route.name?.split('___')[0])" />
   </div>
 </template>
 <script>
@@ -35,6 +35,7 @@ export default {
       ],
     };
   },
+  
   data() {
     return {
       routes: ["freelancers", "profile-index", "index", "orders"],
@@ -51,6 +52,7 @@ export default {
     },
   },
   async mounted() {
+    console.log(this.$route);
     // this.$router.afterEach(() => {
     //   window.scrollTo(0, 0);
     // });

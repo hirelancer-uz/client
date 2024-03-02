@@ -40,8 +40,6 @@ export default {
   },
   async mounted() {
     this.__GET_COMMENTS();
-  },
-  created() {
     this.$store.commit("setPageData", {
       title: "Профиль",
       center: false,
@@ -49,6 +47,7 @@ export default {
       link: true,
     });
   },
+
   destroyed() {
     this.$store.commit("setPageData", {});
   },

@@ -1,6 +1,6 @@
 <template>
   <transition name="fade-left" mode="out-in">
-    <div class="freelancers pt-16 pb-[120px]  xl:pt-4 xl:pb-6">
+    <div class="freelancers pt-16 pb-[120px] xl:pt-4 xl:pb-6">
       <div class="2xl:container mx-auto container">
         <div class="title items-center xl:hidden grider">
           <h2 class="text-black text-[32px] font-semibold titler xl:hidden">
@@ -203,7 +203,7 @@ export default {
       searchVal: "",
     };
   },
-  created() {
+  mounted() {
     this.$store.commit("setPageData", {
       title: "Frilanserlar",
       center: false,

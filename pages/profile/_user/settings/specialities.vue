@@ -156,19 +156,18 @@ export default {
       loading: true,
     };
   },
-  created() {
+
+  destroyed() {
+    this.$store.commit("setPageData", {});
+  },
+  async mounted() {
+    this.__GET_SPECIAL();
     this.$store.commit("setPageData", {
       title: "Настройки",
       center: false,
       info: "",
       link: true,
     });
-  },
-  destroyed() {
-    this.$store.commit("setPageData", {});
-  },
-  async mounted() {
-    this.__GET_SPECIAL();
   },
   methods: {
     async __GET_SPECIAL() {

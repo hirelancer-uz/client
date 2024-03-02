@@ -528,14 +528,7 @@ export default {
       uploadList: [1, 2, 3, 4, 5, 6, 7, 8],
     };
   },
-  created() {
-    this.$store.commit("setPageData", {
-      title: "Buyurtma yaratish",
-      center: false,
-      info: "",
-      link: true,
-    });
-  },
+
   destroyed() {
     this.$store.commit("setPageData", {});
   },
@@ -546,6 +539,12 @@ export default {
     } else {
       this.loading = false;
     }
+    this.$store.commit("setPageData", {
+      title: "Buyurtma yaratish",
+      center: false,
+      info: "",
+      link: true,
+    });
   },
   async asyncData({ store }) {
     const [specialitiesData] = await Promise.all([

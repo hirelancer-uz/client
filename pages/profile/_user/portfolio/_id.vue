@@ -338,14 +338,7 @@ export default {
       portfolio: {},
     };
   },
-  created() {
-    this.$store.commit("setPageData", {
-      title: "Изменить работу",
-      center: false,
-      info: "",
-      link: true,
-    });
-  },
+
   destroyed() {
     this.$store.commit("setPageData", {});
   },
@@ -367,6 +360,12 @@ export default {
     };
   },
   mounted() {
+    this.$store.commit("setPageData", {
+      title: "Изменить работу",
+      center: false,
+      info: "",
+      link: true,
+    });
     this.loading = true;
     if (!localStorage.getItem("auth-token")) {
       this.$router.push("/");

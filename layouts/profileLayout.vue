@@ -5,11 +5,11 @@
     </div>
     <TheHeader class="xl:hidden" />
     <div
-      v-if="$route.name == 'index'"
+      v-if="'index' == $route.name?.split('___')[0]"
       class="header-bg xl:block hidden w-full h-[104px]"
     ></div>
     <div
-      v-if="$route.name.includes('profile') && $route.name.includes('settings')"
+      v-if="$route.name?.includes('profile') && $route.name?.includes('settings')"
       class="header-bg xl:block hidden w-full xl:h-[145px]"
     ></div>
     <div v-else class="header-bg xl:block hidden w-full xl:h-[111px]"></div>
@@ -18,7 +18,7 @@
     >
       <div class="profile-grid">
         <PersonalBlock
-          :profile="$route.name.includes('profile')"
+          :profile="$route.name?.includes('profile')"
           class="xl:hidden"
           :userInfo="$store.state.userInfo"
         />
@@ -39,14 +39,14 @@
               $route.path == '/profile/freelancer' || $route.path == '/profile/customer',
           }"
         >
-          <ProfileTab v-if="$route.name.includes('profile')" />
+          <ProfileTab v-if="$route.name?.includes('profile')" />
           <Nuxt />
         </div>
       </div>
       <Loader v-if="loading" />
     </div>
     <TheFooter />
-    <BottomBar v-if="routes.includes($route.name)" />
+    <BottomBar v-if="routes?.includes($route.name?.split('___')[0])" />
   </div>
 </template>
 <script>

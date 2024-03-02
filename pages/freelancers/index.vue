@@ -1,6 +1,6 @@
 <template>
   <transition name="fade-left" mode="out-in">
-    <div class="freelancers pt-16 pb-[120px]  xl:pt-4 xl:pb-6">
+    <div class="freelancers pt-16 pb-[120px] xl:pt-4 xl:pb-6">
       <div class="2xl:container container mx-auto">
         <div class="title items-center xl:hidden grider">
           <h2 class="text-black text-[32px] font-semibold titler xl:hidden">
@@ -203,14 +203,7 @@ export default {
       searchVal: "",
     };
   },
-  created() {
-    this.$store.commit("setPageData", {
-      title: "Frilanserlar",
-      center: false,
-      info: `${this.totalPage?.toLocaleString()} результатов`,
-      link: true,
-    });
-  },
+
   destroyed() {
     this.$store.commit("setPageData", {});
   },
@@ -253,6 +246,12 @@ export default {
 
   mounted() {
     this.getFirstData();
+    this.$store.commit("setPageData", {
+      title: "Frilanserlar",
+      center: false,
+      info: `${this.totalPage?.toLocaleString()} результатов`,
+      link: true,
+    });
     if (this.$route.query?.search) this.search = this.$route.query?.search;
     this.debouncedSearch = this.debounce(this.changeSearch, 500);
   },

@@ -152,14 +152,7 @@ export default {
       },
     };
   },
-  created() {
-    this.$store.commit("setPageData", {
-      title: "Проект",
-      center: false,
-      info: "",
-      link: true,
-    });
-  },
+
   destroyed() {
     this.$store.commit("setPageData", {});
   },
@@ -170,6 +163,12 @@ export default {
   },
   async mounted() {
     if (this.$store.state.userInfo["id"]) this.__GET_ORDERS();
+    this.$store.commit("setPageData", {
+      title: "Проект",
+      center: false,
+      info: "",
+      link: true,
+    });
   },
   methods: {
     async __GET_ORDERS() {

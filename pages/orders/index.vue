@@ -66,7 +66,7 @@ export default {
       pageSize: 3,
     };
   },
-  created() {
+  mounted() {
     this.$store.commit("setPageData", {
       title: "Buyurtmalar",
       center: false,

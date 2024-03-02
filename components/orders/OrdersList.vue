@@ -182,7 +182,6 @@
                 ></span>
               </button>
 
-              <!-- <Transition name="bounce"> -->
               <div class="drop-body relative z-10">
                 <div class="px-4 py-4 pt-[0] pb-[8px] flex flex-col gap-4 xl:gap-8">
                   <button
@@ -206,7 +205,6 @@
                   </button>
                 </div>
               </div>
-              <!-- </Transition> -->
             </div>
           </div>
         </div>
@@ -220,18 +218,6 @@
             >
           </div>
         </div>
-        <!-- <div class="flex gap-4">
-          <button
-            class="flex w-full justify-center py-[15px] rounded-lg border border-blue border-solid text-[14px] font-tt font-semibold text-white bg-blue"
-          >
-            Применить
-          </button>
-          <button
-            class="flex w-full justify-center py-[15px] rounded-lg border border-blue border-solid text-[14px] font-tt font-semibold text-blue bg-white"
-          >
-            Сбросить
-          </button>
-        </div> -->
       </div>
       <vue-bottom-sheet-vue2 ref="myBottomSheet" class="bottom-drawer" :can-swipe="false">
         <div
@@ -313,7 +299,6 @@
                   ></span>
                 </button>
 
-                <!-- <Transition name="bounce"> -->
                 <div class="drop-body relative z-10">
                   <div
                     class="px-4 py-4 pt-[0] pb-[8px] flex flex-col gap-4 xl:gap-[12px]"
@@ -339,7 +324,6 @@
                     </button>
                   </div>
                 </div>
-                <!-- </Transition> -->
               </div>
             </div>
             <div
