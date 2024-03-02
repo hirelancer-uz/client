@@ -11,9 +11,9 @@
         <button
           v-if="isEdit"
           @click="$router.push(`/profile/${$route.params.user}/settings`)"
-          class="flex gap-[6px] text-base text-blue font-medium items-center xl:hidden"
+          class="flex gap-[6px] text-base text-blue font-medium items-center xl:text-[14px]"
         >
-          Ma'lumotlarni yangilash
+         O'zgartirish
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"

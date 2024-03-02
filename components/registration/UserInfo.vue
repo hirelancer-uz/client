@@ -417,7 +417,6 @@ export default {
   },
   methods: {
     openSpecial() {
-      console.log("opne");
       this.$refs.specialities.open();
       this.$refs.specialities.openModal();
     },

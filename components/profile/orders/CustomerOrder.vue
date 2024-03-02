@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="pt-[72px] xl:pt-6 order xl:px-4" :class="{ 'pb-10': order?.status != 1 }">
+  <div class="pt-[72px] xl:pt-6 order xl:px-4" :class="{ 'pb-10': order?.status != 0 }">
     <div class="max-w-[1200px] mx-auto">
       <button
         @click="$router.go(-1)"
@@ -51,10 +51,10 @@
       <div class="content-box mt-6 xl:mt-0">
         <div class="flex flex-col gap-6">
           <div
-            class="info-box rounded-3xl border-solid border-grey-8 border relative overflow-hidden max-h-[430px] xl:rounded-2xl"
+            class="info-box rounded-3xl border-solid border-grey-8 border relative xl:overflow-auto max-h-[430px] overflow-hidden xl:border-[0] xl:rounded-none"
             :class="{ active: openBlock || order?.status < 2 }"
           >
-            <div class="info px-6 py-6 xl:px-4 xl:py-4">
+            <div class="info px-6 py-6 xl:px-0 xl:py-0">
               <div
                 v-if="status != 0"
                 class="status flex justify-center mx-[-24px] mb-6 pb-[18px] border-[0] border-b-[2px] border-solid border-grey-light relative"
@@ -63,12 +63,14 @@
               </div>
               <div class="head flex justify-start xl:flex-col xl:gap-4">
                 <div class="flex gap-6">
-                  <p class="text-base text-grey-64">{{ orderDate }}, {{ orderHours }}</p>
-                  <p class="text-base text-grey-64 flex gap-[6px]">
+                  <p class="text-base text-grey-64 xl:hidden">
+                    {{ orderDate }}, {{ orderHours }}
+                  </p>
+                  <p class="text-base text-grey-64 flex gap-[6px] xl:leading-[20px]">
                     Заказ:<span class="font-medium text-black">#{{ order?.id }}</span>
                   </p>
                 </div>
-                <div class="justify-between items-center xl:flex hidden">
+                <!-- <div class="justify-between items-center xl:flex hidden">
                   <div class="flex gap-4">
                     <p class="text-base text-grey-40 xl:text-[14px]">{{ orderHours }}</p>
                     <p class="text-base text-grey-40 xl:text-[14px]">{{ orderDate }}</p>
@@ -79,7 +81,7 @@
                       Заказ:<span class="font-medium text-black">#{{ order?.id }}</span>
                     </p>
                   </div>
-                </div>
+                </div> -->
               </div>
               <div
                 class="body mt-6 pb-4 border-[0] border-b border-solid border-grey-8 xl:mt-4"
@@ -89,7 +91,7 @@
                 </h1>
 
                 <span
-                  class="text-base text-grey-80 xl:text-base"
+                  class="text-base text-grey-80 xl:text-[14px] xl:text-justify"
                   v-html="order?.description"
                 >
                 </span>
@@ -124,7 +126,7 @@
                 </div>
               </div>
               <div
-                class="content-bottom border-[0] border-t border-solid border-grey-8 pt-4 flex justify-between xl:flex-col xl:gap-6 xl:max-w-[90%] xl:mx-auto"
+                class="content-bottom border-[0] border-t border-solid border-grey-8 pt-4 flex justify-between xl:flex-col xl:gap-6 xl:max-w-[90%] xl:mx-auto xl:pb-2"
               >
                 <div class="flex items-center gap-[28px] xl:justify-between">
                   <p
@@ -239,6 +241,31 @@
                 </svg>
               </button>
             </div>
+          </div>
+        </div>
+        <div class="xl:flex justify-center hidden" v-if="status == 0">
+          <div
+            class="py-4 border border-solid border-[#EDE5E0] bg-[#FFF5EC] rounded-xl mx-auto flex justify-center"
+          >
+            <p
+              class="text-[14px] text-[#F2994A] font-medium flex gap-2 flex-col items-center xl:max-w-[80%] text-center"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M9.92154 2.57125C11.2077 1.80958 12.7923 1.80958 14.0785 2.57125L18.9215 5.43932C20.2077 6.20099 21 7.6086 21 9.13192V14.8681C21 16.3914 20.2077 17.799 18.9215 18.5607L18.301 18.9281L14.0785 21.4288C12.7923 22.1904 11.2077 22.1904 9.92154 21.4288L5.69896 18.9281L5.07846 18.5607C3.7923 17.799 3 16.3914 3 14.8681V9.13192C3 7.6086 3.7923 6.20099 5.07846 5.43932L9.92154 2.57125ZM16.0952 15.2041C15.023 14.4572 13.5831 14 12 14C10.4169 14 8.97703 14.4572 7.90484 15.2041C7.39026 15.5626 7.49802 16.2988 8.03578 16.6215L11.4855 18.6913C11.8022 18.8813 12.1978 18.8813 12.5145 18.6913L15.9642 16.6215C16.502 16.2988 16.6097 15.5626 16.0952 15.2041ZM12 6C13.6569 6 15 7.34315 15 9C15 10.6569 13.6569 12 12 12C10.3431 12 9 10.6569 9 9C9 7.34315 10.3431 6 12 6Z"
+                  fill="#F2994A"
+                />
+              </svg>
+              Ваш заказ ожидание модерации. Скоро ваш заказ опубликуется
+            </p>
           </div>
         </div>
         <div class="flex flex-col gap-4">
@@ -417,7 +444,7 @@
           </div>
         </div>
       </div>
-      <div class="flex justify-center" v-if="status == 0">
+      <div class="flex justify-center xl:hidden" v-if="status == 0">
         <div
           class="px-[80px] py-4 border border-solid border-[#EDE5E0] bg-[#FFF5EC] rounded-xl mx-auto mt-[185px]"
         >
@@ -447,19 +474,19 @@
       </div>
     </div>
     <div
-      class="mt-[57px] bg-bg-grey pt-20 pb-[120px] xl:mx-[-16px] xl:px-4 xl:pt-4 xl:mt-10"
+      class="mt-[57px] bg-bg-grey pt-20 pb-[120px] xl:mx-[-16px] xl:px-4 xl:pt-4 xl:mt-10 xl:pb-6"
       v-if="status < 2 && !order?.selected_request?.id"
     >
       <div class="max-w-[1440px] mx-auto">
         <div class="order-left-chat mb-6">
-          <div class="flex justify-between">
+          <div class="flex justify-between xl:flex-col xl:gap-4">
             <h4 class="text-[24px] font-semibold text-black xl:text-[18px]">
               Предложений ({{ order?.requests?.length }})
             </h4>
             <a-select
               v-model="is_positive"
               placeholder="Сортировка"
-              class="min-w-[280px]"
+              class="min-w-[280px] xl:w-full"
             >
               <a-select-option
                 :value="optin.value"
@@ -483,6 +510,7 @@
               :request="request"
               @selected="$emit('selected')"
               @openChat="chatHandle = true"
+              :order="order"
             />
             <button
               v-if="order?.requests.length > 2"
@@ -517,7 +545,7 @@
           </div>
           <div
             v-else
-            class="flex gap-6 items-center justify-center py-4 xl:py-2 w-full border border-solid border-[#EDE5E0] bg-[#FFF5EC] rounded-[12px]"
+            class="flex gap-6 items-center justify-center py-4 xl:py-2 xl:px-[14px] w-full border border-solid border-[#EDE5E0] bg-[#FFF5EC] rounded-[12px] xl:bg-white"
           >
             <svg
               class="xl:hidden"
@@ -542,7 +570,7 @@
                 stroke-linejoin="round"
               />
             </svg>
-            <p class="text-[#F2994A] text-base font-medium xl:text-[12px] text-center">
+            <p class="text-[#F2994A] text-base font-medium xl:text-[14px] text-center">
               Вы можете получать заявка после успешной прохождение модерации
             </p>
           </div>
@@ -551,25 +579,23 @@
     </div>
     <div>
       <CancellationOrder
-        @handleOkProp="handleOk"
-        :visibleProp="cancel.visible1"
+        ref="deleteOrder"
         @submit="submitCancel"
         :loadingBtn="loadingBtn"
         title="Siz so'rovni bekor qilmoqchimisiz?"
         save="Ha, albatta"
-        close="Yo’q"
+        closeBtn="Yo’q"
       >
       </CancellationOrder>
       <CancellationOrder
-        @handleOkProp="handleOk"
-        :visibleProp="cancel.visible2"
+        ref="deleteActiveOrder"
         @submit="submitCancel"
         :loadingBtn="loadingBtn"
         title="Siz so'rovni bekor qilmoqchimisiz?"
         save="Ha, albatta"
-        close="Yo’q"
+        closeBtn="Yo’q"
       >
-        <p class="text-base text-grey-64 mt-2">
+        <p class="text-base text-grey-64 mt-2 xl:text-center xl:px-4">
           Agar buyurtmani bekor qilsangiz bu buyurtmani davom ettira olmaysiz
         </p>
 
@@ -580,26 +606,27 @@
         </span>
       </CancellationOrder>
       <CancellationOrder
-        @handleOkProp="handleOk"
-        :visibleProp="cancel.visible3"
+        ref="deleteProcessOrder"
         @submit="submitCancel"
         :loadingBtn="loadingBtn"
         :disabled="disabledBtn"
         title="Siz haqiqatdan buyurtmani bekor qilmoqchimisiz?"
         save="Ha, albatta"
-        close="Yo’q"
+        closeBtn="Yo’q"
         :width="584"
       >
-        <p class="text-base text-grey-64 mt-2">
+        <p class="text-base text-grey-64 mt-2 xl:px-4 xl:text-center">
           Agar buyurtmani bekor qilsangiz bu buyurtmani davom ettira olmaysiz
         </p>
 
         <span
-          class="reyting mb-[10px] rounded-[15px] px-6 py-[10px] text-light-red text-base mx-auto mt-3"
+          class="reyting mb-[10px] rounded-[15px] px-6 py-[10px] text-light-red text-base mx-auto mt-3 xl:px-4 xl:text-center"
         >
           Vash reyting upadyot na -16 ballov
         </span>
-        <div class="px-4 py-4 rounded-[16px] bg-bg-grey w-full mt-4 mb-[-32px]">
+        <div
+          class="px-4 py-4 rounded-[16px] bg-bg-grey w-full mt-4 mb-[-32px] xl:bg-white"
+        >
           <h5 class="text-[18px] text-grey-80 font-bold">Prichina otmeni</h5>
           <ul class="flex flex-col gap-6 mt-6">
             <li v-for="reason in reasons" :key="reason?.id">
@@ -623,7 +650,7 @@
       />
     </div>
     <div
-      v-if="status == 1"
+      v-if="order?.status == 0"
       class="fixed-btns fixed bottom-0 w-full z-[20000] py-4 px-4 bg-white left-0 hidden xl:grid gap-4"
     >
       <div class="flex flex-col gap-1">
@@ -721,6 +748,30 @@ export default {
     }
   },
   methods: {
+    openDeleteOrder() {
+      this.$refs.deleteOrder.open();
+      this.$refs.deleteOrder.openModal();
+    },
+    closeDeleteOrder() {
+      this.$refs.deleteOrder.close();
+      this.$refs.deleteOrder.closeModal();
+    },
+    openDeleteActiveOrder() {
+      this.$refs.deleteActiveOrder.open();
+      this.$refs.deleteActiveOrder.openModal();
+    },
+    closeDeleteActiveOrder() {
+      this.$refs.deleteActiveOrder.close();
+      this.$refs.deleteActiveOrder.closeModal();
+    },
+    openDeleteProcessOrder() {
+      this.$refs.deleteProcessOrder.open();
+      this.$refs.deleteProcessOrder.openModal();
+    },
+    closeDeleteProcessOrder() {
+      this.$refs.deleteProcessOrder.close();
+      this.$refs.deleteProcessOrder.closeModal();
+    },
     moment,
     onSelectReasons(id) {
       if (!this.selectedReasons.includes(id)) {
@@ -735,13 +786,16 @@ export default {
     cancelOrder() {
       switch (this.order?.status) {
         case 0:
-          this.cancel.visible1 = true;
+          // this.cancel.visible1 = true;
+          this.openDeleteOrder();
           break;
         case 1:
-          this.cancel.visible2 = true;
+          // this.cancel.visible2 = true;
+          this.openDeleteActiveOrder();
           break;
         case 2:
-          this.cancel.visible3 = true;
+          // this.cancel.visible3 = true;
+          this.openDeleteProcessOrder();
           break;
       }
     },
@@ -749,9 +803,12 @@ export default {
     handleOk() {
       this.visibleSelect = false;
       this.visibleComplite = false;
-      this.cancel.visible1 = false;
-      this.cancel.visible2 = false;
-      this.cancel.visible3 = false;
+      this.closeDeleteOrder();
+      this.closeDeleteActiveOrder();
+      this.closeDeleteProcessOrder();
+      // this.cancel.visible1 = false;
+      // this.cancel.visible2 = false;
+      // this.cancel.visible3 = false;
     },
 
     submitCancel() {
@@ -999,7 +1056,16 @@ export default {
   .fixed-btns {
     border-radius: 16px 16px 0px 0px;
     box-shadow: 0px 4px 36px 0px rgba(0, 25, 53, 0.16);
+
     grid-template-columns: 1fr 2fr;
+  }
+  :deep(.ant-select-selection--single) {
+    height: 48px;
+    max-width: 100%;
+    font-size: 14px;
+  }
+  :deep(.ant-select-selection__placeholder) {
+    font-size: 14px;
   }
 }
 </style>

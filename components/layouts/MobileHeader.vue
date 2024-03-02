@@ -1,6 +1,6 @@
 <template>
   <div
-    class="mobile-header px-4 hidden bg-white w-full pb-[14px] pt-[7px] z-50 border-[0] border-b-[2px] border-solid border-apple-grey"
+    class="mobile-header px-4 hidden bg-white w-full pb-[14px] pt-[7px] z-50 border-[0] border-b-[2px] border-solid border-apple-grey "
   >
     <div class="flex flex-col w-full gap-3">
       <div class="flex justify-between items-center topper">
@@ -101,7 +101,7 @@
           </span>
           {{ pageData?.title }}
         </button>
-        <p class="h-9">{{ pageData?.info }}</p>
+        <p class="h-9 flex items-center">{{ pageData?.info }}</p>
       </div>
       <div
         class="settings-tab xl:justify-center bg-white flex gap-6 xl:gap-12 xl:relative mb-[-14px]"
@@ -740,7 +740,7 @@
         </vue-bottom-sheet-vue2>
       </div>
       <div class="bottom" v-else>
-        <div class="">
+        <div class="grid grid-cols-2 gap-2 px-4">
           <NuxtLink to="/" class="login">Kirish</NuxtLink>
           <NuxtLink to="/registration" class="registration">Ro'yxatdan o'tish</NuxtLink>
         </div>

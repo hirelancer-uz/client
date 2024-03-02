@@ -28,7 +28,7 @@
     </div>
     <div
       class="alerts-list grid grid-cols-4 gap-2 mt-6 xl:flex xl:overflow-x-scroll xl:mt-4 xl:mx-[-16px]"
-      v-if="false"
+      v-if="true"
     >
       <AlertsCard class="xl:ml-4" />
       <AlertsCard />

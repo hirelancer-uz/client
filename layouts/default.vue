@@ -9,7 +9,7 @@
       class="header-bg xl:block hidden w-full h-[104px] xl:h-[63px]"
     ></div>
     <div v-else class="header-bg xl:block hidden w-full xl:h-[111px]"></div>
-  
+
     <div class="flex-auto">
       <Nuxt />
     </div>
@@ -45,17 +45,15 @@ export default {
     layoutData() {
       return this.$store.state.pageData || {};
     },
-    headerHeight() {
-      return this.$refs.mHeader.offsetHeight;
-    },
+
     authCheck() {
       return this.$store.state.auth;
     },
   },
   async mounted() {
-    this.$router.afterEach(() => {
-      window.scrollTo(0, 0);
-    });
+    // this.$router.afterEach(() => {
+    //   window.scrollTo(0, 0);
+    // });
     if (localStorage.getItem("auth-token")) {
       try {
         const [userInfoData] = await Promise.all([

@@ -289,21 +289,29 @@ export default {
       this.close();
       this.closeModal();
     },
-    closeModal() {
-      this.visible = false;
-    },
     openModal() {
-      this.visible = true;
+      if (window.innerWidth > 1200) {
+        this.visible = true;
+      }
+    },
+    closeModal() {
+      if (window.innerWidth > 1200) {
+        this.visible = false;
+      }
     },
 
     open() {
       if (this.activeCheckedList.length > 0) {
         this.checkedList = [...this.activeCheckedList];
       }
-      this.$refs.openSpecials?.open();
+      if (window.innerWidth > 1200) {
+        this.$refs.openSpecials?.open();
+      }
     },
     close() {
-      this.$refs.openSpecials.close();
+      if (window.innerWidth < 1200) {
+        this.$refs.openSpecials.close();
+      }
     },
     saveSelected() {
       this.$emit("saveChecked", this.checkedList);

@@ -19,7 +19,7 @@
 <script>
 import CustomerOrder from "@/components/profile/orders/CustomerOrder.vue";
 import FreelancerOrder from "@/components/profile/orders/FreelancerOrder.vue";
-
+import moment from "moment";
 export default {
   data() {
     return {
@@ -37,6 +37,17 @@ export default {
         reasons,
       };
     } catch (e) {}
+  },
+  created() {
+    this.$store.commit("setPageData", {
+      title: `Заказ: #${this.$route.params.id}`,
+      center: false,
+      info: moment(this.order.created_at).format("DD.MM.YYYY | HH:mm"),
+      link: true,
+    });
+  },
+  destroyed() {
+    this.$store.commit("setPageData", {});
   },
   async mounted() {
     this.__GET_ORDERS();
@@ -63,4 +74,6 @@ export default {
   },
 };
 </script>
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+
+</style>

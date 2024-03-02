@@ -174,32 +174,40 @@ export default {
   },
 
   methods: {
-    closed() {
-      this.closeModal();
-    },
+    // closed() {
+    //   this.closeModal();
+    // },
     send() {
       this.$emit("open");
       this.close();
-      this.visible = false;
-    },
-    closeModal() {
-      this.visible = false;
+      this.closeModal();
     },
     openModal() {
-      this.visible = true;
+      if (window.innerWidth > 1200) {
+        this.visible = true;
+      }
+    },
+    closeModal() {
+      if (window.innerWidth > 1200) {
+        this.visible = false;
+      }
     },
     open() {
-      this.$refs.specialBottomSheet?.open();
+      if (window.innerWidth < 1200) {
+        this.$refs.specialBottomSheet?.open();
+      }
     },
     close() {
-      this.$refs.specialBottomSheet.close();
+      if (window.innerWidth < 1200) {
+        this.$refs.specialBottomSheet.close();
+      }
     },
   },
-  watch: {
-    visible(val) {
-      if (!val) this.close();
-    },
-  },
+  // watch: {
+  //   visible(val) {
+  //     if (!val) this.close();
+  //   },
+  // },
 };
 </script>
 <style lang="css" scoped>

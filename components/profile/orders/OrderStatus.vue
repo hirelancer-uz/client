@@ -1,6 +1,6 @@
 <template lang="html">
   <div
-    class="flex w-[90%] items-center relative"
+    class="flex w-[90%] items-center relative xl:overflow-y-scroll xl:mx-[-16px] "
     :class="order?.selected_request ? 'justify-between' : 'justify-start gap-5'"
   >
     <div class="flex gap-[10px] items-center relative z-10">
@@ -29,7 +29,7 @@
           </svg>
         </span>
       </span>
-      <p class="text-base font-medium text-black relative z-10">Идет прием заявок</p>
+      <p class="text-base font-medium whitespace-nowrap text-black relative z-10">Идет прием заявок</p>
     </div>
     <svg
       width="34"
@@ -72,7 +72,7 @@
           </svg>
         </span>
       </span>
-      <p class="text-base font-medium text-black">Отменено</p>
+      <p class="text-base font-medium whitespace-nowrap text-black">Отменено</p>
     </div>
     <div
       v-else
@@ -215,7 +215,7 @@
           </svg>
         </span>
       </span>
-      <p class="text-base font-medium text-grey-40">Процесс выполнения</p>
+      <p class="text-base font-medium whitespace-nowrap text-grey-40">Процесс выполнения</p>
     </div>
     <span v-if="order?.selected_request">
       <svg
@@ -274,7 +274,7 @@
           </svg>
         </span>
       </span>
-      <p class="text-base font-medium text-black">Отменено</p>
+      <p class="text-base font-medium whitespace-nowrap text-black">Отменено</p>
     </div>
     <div
       v-if="status != 6"
@@ -328,7 +328,7 @@
           </svg>
         </span>
       </span>
-      <p class="text-base font-medium text-grey-40">Выполненно</p>
+      <p class="text-base font-medium whitespace-nowrap text-grey-40">Выполненно</p>
     </div>
   </div>
 </template>

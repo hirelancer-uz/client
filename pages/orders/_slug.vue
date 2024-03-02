@@ -430,6 +430,7 @@
     </div>
     <SimilarOrders :orders="orders" />
     <div>
+     
       <BottomModal ref="sendApp" @submit="submit" />
       <ToBeFreelancer ref="toBeFreelancer" @open="openSpecial" />
       <OrderSuccess ref="successModal" :order="order" />
@@ -754,5 +755,6 @@ export default {
     grid-template-columns: 1fr;
     gap: 16px;
   }
+ 
 }
 </style>

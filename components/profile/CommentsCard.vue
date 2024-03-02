@@ -1,6 +1,6 @@
 <template>
   <div
-    class="comments-card border border-solid border-grey-8 rounded-[12px] px-6 py-6 flex flex-col gap-[19px] xl:gap-4 xl:min-w-[90%]"
+    class="comments-card border border-solid border-grey-8 rounded-[12px] px-6 py-6 flex flex-col gap-[19px] xl:gap-4 xl:min-w-[90%] xl:px-4 xl:py-4"
   >
     <div class="flex gap-4 items-center">
       <div class="image w-[72px] h-[72px] rounded-full overflow-hidden xl:w-10 xl:h-10">

@@ -268,8 +268,7 @@
       </div>
     </div>
     <CancellationOrder
-      @handleOkProp="handleOk"
-      :visibleProp="visible"
+      ref="selectFreelancer"
       @submit="submit"
       title="Vazifani bajarish uchun ushbu frilanser tanlansinmi?"
       save="Ha, albatta"
@@ -284,10 +283,9 @@
 import moment from "moment";
 import CancellationOrder from "../../modals/CancellationOrder.vue";
 export default {
-  props: ["request"],
+  props: ["request", "order"],
   data() {
     return {
-      visible: false,
       openBlock: false,
       dateFormat: "DD.MM.YYYY",
       hourFormat: "HH:mm",
@@ -304,9 +302,16 @@ export default {
     },
   },
   methods: {
-    handleOk() {
-      this.visible = false;
+    openSelectFreelancer() {
+      this.$refs.selectFreelancer.openModal();
+      this.$refs.selectFreelancer.open();
+  
     },
+    closeSelectFreelancer() {
+      this.$refs.selectFreelancer.closeModal();
+      this.$refs.selectFreelancer.close();
+    },
+
     submit() {
       const data = {
         id: this.request?.order_id,
@@ -318,14 +323,14 @@ export default {
     },
     moment,
     sendRequest() {
-      this.visible = true;
+      this.openSelectFreelancer();
     },
     async __POST_ORDER(payload) {
       try {
         this.loadingBtn = true;
         await this.$store.dispatch("fetchOrders/postSelectRequest", payload);
         this.$emit("selected");
-        this.visible = false;
+        this.closeSelectFreelancer();
       } catch (e) {
         this.$notification["error"]({
           message: "Error",
