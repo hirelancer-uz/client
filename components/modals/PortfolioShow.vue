@@ -50,6 +50,7 @@
         </div>
         <div class="modal__header-right">
           <button
+            v-if="$route.path == '/profile/freelancer/portfolio'"
             class="border border-solid border-main-color bg-bg-grey px-[10px] rounded-[6px] text-main-color text-base flex h-[37px] items-center gap-[6px] xl:hidden"
             @click="$router.push(`/profile/freelancer/portfolio/${portfolio?.id}`)"
           >
@@ -351,7 +352,7 @@ export default {
   components: { PortfolioCard2, DeletePortfolio },
 };
 </script>
-<style lang="css">
+<style lang="css" scoped>
 .cardo__top {
   display: flex;
   flex-direction: column;

@@ -530,6 +530,7 @@ export default {
       this.$refs.successModal.closeModal();
     },
     openSpecial() {
+      console.log("asdjksahdusep");
       this.$refs.specialities.open();
       this.$refs.specialities.openModal();
     },

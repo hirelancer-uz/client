@@ -615,6 +615,7 @@ export default {
     moment,
     openLogout() {
       this.$refs.logout.openModal();
+      this.$refs.logout.open();
     },
     handleOk() {
       this.visibleLogout = false;

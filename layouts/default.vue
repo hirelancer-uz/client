@@ -14,7 +14,9 @@
       <Nuxt />
     </div>
     <TheFooter />
-    <BottomBar v-if="routes.includes($route.name?.split('___')[0])" />
+    <div v-for="route in routes">
+      <BottomBar v-if="route == $route.path" />
+    </div>
   </div>
 </template>
 <script>
@@ -35,10 +37,16 @@ export default {
       ],
     };
   },
-  
+
   data() {
     return {
-      routes: ["freelancers", "profile-index", "index", "orders"],
+      routes: [
+        "/freelancers",
+        "/profile/freelancer",
+        "/",
+        "/orders",
+        "/profile/customer",
+      ],
       layoutHeight: 63,
     };
   },
@@ -46,13 +54,12 @@ export default {
     layoutData() {
       return this.$store.state.pageData || {};
     },
-
     authCheck() {
       return this.$store.state.auth;
     },
   },
   async mounted() {
-    console.log(this.$route);
+    console.log(this.$route.path == "/profile/freelancer");
     // this.$router.afterEach(() => {
     //   window.scrollTo(0, 0);
     // });

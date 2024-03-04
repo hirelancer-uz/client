@@ -11,14 +11,14 @@
         :to="`/profile/${$route.params.user}/settings`"
         @click="$router.push(`/profile/${$route.params.user}/settings`)"
         :class="{ active: !$route.name.includes('specialities') }"
-        class="px-6 py-3 xl:relative rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] xl:font-semibold text-base text-grey-64 font-medium xl:py-0 xl:flex xl:items-center xl:h-9 whitespace-nowrap xl:rounded-lg"
+        class="px-6 py-3 relative rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] xl:font-semibold text-base text-grey-64 font-medium xl:py-0 xl:flex xl:items-center xl:h-9 whitespace-nowrap xl:rounded-lg"
       >
         Shaxsiy ma'lumotlar
       </button>
       <button
         @click="$router.push(`/profile/${$route.params.user}/settings/specialities`)"
         :class="{ active: $route.name.includes('specialities') }"
-        class="px-6 py-0 xl:flex xl:items-center xl:relative rounded-[12px] border-solid border-[2px] xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] xl:font-semibold border-bg-grey bg-bg-grey text-base text-grey-64 font-medium xl:py-2 xl:h-9 whitespace-nowrap xl:rounded-lg"
+        class="px-6 py-0 xl:flex xl:items-center relative rounded-[12px] border-solid border-[2px] xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] xl:font-semibold border-bg-grey bg-bg-grey text-base text-grey-64 font-medium xl:py-2 xl:h-9 whitespace-nowrap xl:rounded-lg"
       >
         Mutaxassisliklar
       </button>
@@ -73,7 +73,7 @@
           </div>
 
           <button
-            @click="visible = true"
+            @click="openSpecial"
             class="py-[7px] text-base text-white h-[38px] flex items-center rounded-[4px] gap-2 border border-solid border-main-color pl-2 pr-3 bg-main-color xl:hidden xl:text-[14px]"
           >
             <svg
@@ -94,7 +94,7 @@
             >Qo’shish
           </button>
           <button
-            @click="open"
+            @click="openSpecial"
             class="py-[7px] text-base text-white h-[38px] items-center rounded-[4px] gap-2 border border-solid border-main-color pl-2 pr-3 bg-main-color hidden xl:flex"
           >
             <svg
@@ -123,12 +123,10 @@
       </div>
     </div>
     <SpicialsticsCheck
+      ref="specialities"
       @saveChecked="saveChecked"
-      :visible="visible"
-      @handleOk="handleOk"
       :specialities="specialities"
       :activeCheckedList="activeCheckedList"
-      :openBottom="openBottom"
     />
   </div>
 </template>
@@ -147,7 +145,6 @@ export default {
   data() {
     return {
       activeCheckedList: [],
-      openBottom: false,
       errorSelect: false,
       modalList: null,
       visible: false,
@@ -170,6 +167,14 @@ export default {
     });
   },
   methods: {
+    openSpecial() {
+      this.$refs.specialities.open();
+      this.$refs.specialities.openModal();
+    },
+    closeSpecial() {
+      this.$refs.specialities.close();
+      this.$refs.specialities.closeModal();
+    },
     async __GET_SPECIAL() {
       try {
         this.loading = true;
@@ -193,8 +198,7 @@ export default {
     async saveChecked(checkedList) {
       this.activeCheckedList = await [...checkedList];
       this.onSubmit();
-      this.visible = false;
-      this.close();
+      this.closeSpecial();
     },
     async deleteChecked(id) {
       this.onSubmit(id);
@@ -208,15 +212,7 @@ export default {
       });
       this.__POST_REGISTER(formData);
     },
-    open() {
-      this.openBottom = true;
-      setTimeout(() => {
-        if (this.openBottom) this.openBottom = false;
-      }, 10);
-    },
-    close() {
-      this.openBottom = false;
-    },
+
     async __POST_REGISTER(form) {
       try {
         const data = await this.$store.dispatch(
@@ -236,9 +232,6 @@ export default {
           description: e.response.statusText,
         });
       }
-    },
-    handleOk() {
-      this.visible = false;
     },
   },
   components: {

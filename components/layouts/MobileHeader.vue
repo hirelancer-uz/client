@@ -1,6 +1,6 @@
 <template>
   <div
-    class="mobile-header px-4 hidden bg-white w-full pb-[14px] pt-[7px] z-50 border-[0] border-b-[2px] border-solid border-apple-grey "
+    class="mobile-header px-4 hidden bg-white w-full pb-[14px] pt-[7px] z-50 border-[0] border-b-[2px] border-solid border-apple-grey"
   >
     <div class="flex flex-col w-full gap-3">
       <div class="flex justify-between items-center topper">
@@ -816,6 +816,7 @@ export default {
     },
     openLogout() {
       this.$refs.logout.openModal();
+      this.$refs.logout.open();
     },
     open() {
       this.$refs.headerBottomSheet.open();

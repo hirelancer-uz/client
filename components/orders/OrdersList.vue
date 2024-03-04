@@ -111,11 +111,13 @@
         </svg>
         <p class="text-[18px] font-medium text-grey-64">Afuski buyurtma topilmadi!</p>
       </div>
+     <div class="flex justify-start">
       <VPagination
         :pageSize="pageSize"
         @getData="$emit('getOrders')"
         :totalPage="totalPage"
       />
+     </div>
     </div>
     <div class="right flex flex-col gap-6">
       <div
@@ -221,7 +223,7 @@
       </div>
       <vue-bottom-sheet-vue2 ref="myBottomSheet" class="bottom-drawer" :can-swipe="false">
         <div
-          class="filter px-6 xl:border-0 py-6 xl:px-4 xl:pb-4 xl:py-4 border border-solid border-grey-8 rounded-3xl flex flex-col gap-6 xl:justify-between h-full"
+          class="filter relative px-6 xl:border-0 py-6 xl:px-4 xl:pb-4 xl:py-4 border border-solid border-grey-8 rounded-3xl flex flex-col gap-6 xl:justify-between h-full"
         >
           <div class="x absolute top-[16px] right-[16px]" @click="close()">
             <svg

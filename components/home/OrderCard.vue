@@ -125,7 +125,9 @@
             + {{ hiddenButtonsCount }}
           </button>
         </div>
-        <div class="flex-auto hidden items-center gap-2 justify-between w-full xl:flex flex-wrap" >
+        <div
+          class="flex-auto hidden items-center gap-2 justify-between w-full xl:flex flex-wrap"
+        >
           <button
             v-for="(special, index) in order?.specialities"
             :key="special?.id"
@@ -357,7 +359,8 @@ export default {
 .light-yellow {
   background-color: rgba(242, 153, 74, 0.16);
 }
-:deep(.order-desc p) {
+:deep(.order-desc p),
+:deep(.order-desc ul) {
   display: none;
 }
 :deep(.order-desc p:first-child) {

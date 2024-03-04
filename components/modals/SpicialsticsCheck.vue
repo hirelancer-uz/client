@@ -14,10 +14,13 @@
         <div class="flex flex-col gap-8">
           <div class="flex justify-between items-center">
             <h6 class="text-black text-[24px] font-semibold">Sohangizni tanlang</h6>
-            <p class="text-[18px] text-grey-80 flex gap-2 items-center">
+            <p
+              class="text-[18px] text-grey-80 flex gap-2 items-center"
+              v-if="maxSelectCount > 1"
+            >
               <span class="text-main-color font-medium">{{ checkedList.length }}</span
               >: yonalish tanlandi
-              <span>(max 3 ta)</span>
+              <span>(max {{ maxSelectCount }} ta)</span>
             </p>
           </div>
           <div class="modal-body">
@@ -74,7 +77,7 @@
                 <button
                   :disabled="
                     !Boolean(checkedList.find((elemChild) => elemChild.id == child.id)) &&
-                    checkedList.length == 3
+                    checkedList.length == maxSelectCount
                   "
                   class="px-4 py-2 bg-bg-grey rounded-[22px] flex items-center gap-2"
                   v-for="child in specialities?.find(
@@ -87,7 +90,7 @@
                     :disabled="
                       !Boolean(
                         checkedList.find((elemChild) => elemChild.id == child.id)
-                      ) && checkedList.length == 3
+                      ) && checkedList.length == maxSelectCount
                     "
                     :checked="
                       Boolean(checkedList.find((elemChild) => elemChild.id == child.id))
@@ -130,10 +133,13 @@
               class="flex justify-between items-center flex-col gap-3 pb-6 border-[0] border-b border-solid border-grey-light"
             >
               <h6 class="text-black text-[18px] font-semibold">Sohangizni tanlang</h6>
-              <p class="text-[14px] text-grey-80 flex gap-2 items-center">
+              <p
+                class="text-[14px] text-grey-80 flex gap-2 items-center"
+                v-if="maxSelectCount > 1"
+              >
                 <span class="text-main-color font-medium">{{ checkedList.length }}</span
                 >: yonalish tanlandi
-                <span>(max 3 ta)</span>
+                <span>(max {{ maxSelectCount }} ta)</span>
               </p>
             </div>
             <div class="drop-list flex flex-col gap-2 xl:gap-8 mt-8">
@@ -222,14 +228,14 @@
                         :disabled="
                           !Boolean(
                             checkedList.find((elemChild) => elemChild.id == child.id)
-                          ) && checkedList.length == 3
+                          ) && checkedList.length == maxSelectCount
                         "
                       >
                         <a-checkbox
                           :disabled="
                             !Boolean(
                               checkedList.find((elemChild) => elemChild.id == child.id)
-                            ) && checkedList.length == 3
+                            ) && checkedList.length == maxSelectCount
                           "
                           :checked="
                             Boolean(
@@ -269,7 +275,7 @@
 </template>
 <script>
 export default {
-  props: ["specialities", "activeCheckedList"],
+  props: ["specialities", "activeCheckedList", "maxCount"],
   data() {
     return {
       visible: false,
@@ -279,6 +285,11 @@ export default {
       dropdownOpens: [],
       loading: true,
     };
+  },
+  computed: {
+    maxSelectCount() {
+      return this.maxCount || 3;
+    },
   },
   methods: {
     closed() {
@@ -290,28 +301,20 @@ export default {
       this.closeModal();
     },
     openModal() {
-      if (window.innerWidth > 1200) {
-        this.visible = true;
-      }
+      this.visible = true;
     },
     closeModal() {
-      if (window.innerWidth > 1200) {
-        this.visible = false;
-      }
+      this.visible = false;
     },
 
     open() {
       if (this.activeCheckedList.length > 0) {
         this.checkedList = [...this.activeCheckedList];
       }
-      if (window.innerWidth > 1200) {
-        this.$refs.openSpecials?.open();
-      }
+      this.$refs.openSpecials?.open();
     },
     close() {
-      if (window.innerWidth < 1200) {
-        this.$refs.openSpecials.close();
-      }
+      this.$refs.openSpecials.close();
     },
     saveSelected() {
       this.$emit("saveChecked", this.checkedList);
@@ -322,7 +325,7 @@ export default {
       if (this.checkedList.find((item) => item.id == obj.id)) {
         this.checkedList = this.checkedList.filter((item) => item.id != obj.id);
       } else {
-        if (this.checkedList.length == 3) {
+        if (this.checkedList.length == this.maxSelectCount) {
           this.checkedList.shift();
         }
         this.checkedList.push(obj);

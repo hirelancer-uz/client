@@ -1,9 +1,9 @@
 <template lang="html">
   <div
-    class="flex w-[90%] xl:w-full items-center relative xl:overflow-y-scroll scroll-none xl:mx-[-16px]"
-    :class="order?.selected_request ? 'justify-between' : 'justify-start gap-5'"
+    class="flex w-[90%] xl:w-full items-center relative xl:overflow-y-scroll xl:gap-3 scroll-none xl:mx-[-16px] xl:py-4 xl:bg-bg-grey"
+    :class="order?.selected_request || order?.status < 5 ? 'justify-between' : 'justify-start gap-5 xl:gap-3'"
   >
-    <div class="flex gap-[10px] items-center relative z-10 xl:ml-4">
+    <div class="flex gap-[10px] xl:gap-2 items-center relative z-10 xl:ml-4">
       <span class="flex justify-center items-center relative">
         <span
           class="icon w-full h-full z-10 flex relative justify-center items-center rounded-full"
@@ -29,11 +29,14 @@
           </svg>
         </span>
       </span>
-      <p class="text-base font-medium whitespace-nowrap text-black relative z-10">
+      <p
+        class="text-base xl:text-[14px] font-medium whitespace-nowrap text-black relative z-10"
+      >
         Идет прием заявок
       </p>
     </div>
     <svg
+      class="min-w-[34px]"
       width="34"
       height="8"
       viewBox="0 0 34 8"
@@ -46,7 +49,7 @@
       />
     </svg>
     <div
-      class="flex gap-[10px] items-center relative z-10"
+      class="flex gap-[10px] xl:gap-2 items-center relative z-10 xl:mr-4"
       v-if="!order?.selected_request && status == 6"
     >
       <span class="flex justify-center items-center relative">
@@ -74,11 +77,13 @@
           </svg>
         </span>
       </span>
-      <p class="text-base font-medium whitespace-nowrap text-black">Отменено</p>
+      <p class="text-base xl:text-[14px] font-medium whitespace-nowrap text-black">
+        Отменено
+      </p>
     </div>
     <div
       v-else
-      class="flex gap-[10px] items-center relative z-10"
+      class="flex gap-[10px] xl:gap-2 items-center relative z-10"
       :class="{ active: status >= 2 }"
     >
       <span class="flex justify-center items-center relative">
@@ -217,13 +222,14 @@
           </svg>
         </span>
       </span>
-      <p class="text-base font-medium whitespace-nowrap text-grey-40">
+      <p class="text-base xl:text-[14px] font-medium whitespace-nowrap text-grey-40">
         Процесс выполнения
       </p>
     </div>
-    <span v-if="order?.selected_request">
+    <span v-if="order?.selected_request || order?.status < 5">
       <svg
         v-if="status >= 2"
+        class="min-w-[34px]"
         width="34"
         height="8"
         viewBox="0 0 34 8"
@@ -250,7 +256,7 @@
       </svg>
     </span>
     <div
-      class="flex gap-[10px] items-center relative z-10"
+      class="flex gap-[10px] xl:gap-2 items-center relative z-10 xl:mr-4"
       v-if="order?.selected_request && status == 6"
     >
       <span class="flex justify-center items-center relative">
@@ -278,11 +284,13 @@
           </svg>
         </span>
       </span>
-      <p class="text-base font-medium whitespace-nowrap text-black">Отменено</p>
+      <p class="text-base xl:text-[14px] font-medium whitespace-nowrap text-black">
+        Отменено
+      </p>
     </div>
     <div
       v-if="status != 6"
-      class="flex gap-[10px] items-center relative z-10 xl:mr-4"
+      class="flex gap-[10px] xl:gap-2 items-center relative z-10 xl:mr-4"
       :class="{ active: status == 4 }"
     >
       <span class="flex justify-center items-center relative">
@@ -332,7 +340,9 @@
           </svg>
         </span>
       </span>
-      <p class="text-base font-medium whitespace-nowrap text-grey-40">Выполненно</p>
+      <p class="text-base xl:text-[14px] font-medium whitespace-nowrap text-grey-40">
+        Выполненно
+      </p>
     </div>
   </div>
 </template>

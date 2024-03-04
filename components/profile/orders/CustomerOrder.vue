@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="pt-[72px] xl:pt-6 order xl:px-4 xl:pt-0" :class="{ 'pb-10': order?.status != 0 }">
+  <div class="pt-[72px] order xl:px-4 xl:pt-0" :class="{ 'pb-10': order?.status != 0 }">
     <div class="max-w-[1200px] mx-auto">
       <button
         @click="$router.go(-1)"
@@ -50,14 +50,14 @@
       </div>
       <div
         v-if="status != 0"
-        class="status xl:flex hidden justify-center mx-[-24px] mb-6 pb-[18px] border-[0] border-b-[2px] border-solid border-grey-light relative"
+        class="status xl:flex hidden justify-center mx-[-24px] mb-6 pb-[18px] xl:pb-0 border-[0] border-b-[2px] border-solid border-grey-light relative"
       >
         <OrderStatus :status="order?.status" :order="order" />
       </div>
-      <div class="content-box mt-6 xl:mt-0">
+      <div class="content-box mt-6 xl:mt-6">
         <div class="flex flex-col gap-6">
           <div
-            class="info-box rounded-3xl border-solid border-grey-8 border relative xl:overflow-auto max-h-[430px] overflow-hidden xl:border-[0] xl:rounded-none"
+            class="info-box rounded-3xl border-solid border-grey-8 border relative max-h-[430px] overflow-hidden xl:border-[0] xl:rounded-none"
             :class="{ active: openBlock || order?.status < 2 }"
           >
             <div class="info px-6 py-6 xl:px-0 xl:py-0">
@@ -375,7 +375,7 @@
                     :class="{
                       'pointer-events-none opacity-50': !order?.complete_requests,
                     }"
-                    @click="visibleComplite = true"
+                    @click="openCompliteOrder"
                     class="w-full h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-main-color border-main-color text-base xl:text-[14px] text-white font-medium"
                   >
                     Завершить заказ
@@ -475,7 +475,7 @@
           </p>
         </div>
       </div>
-      <div class="mt-6 pb-[120px]" v-if="order?.selected_request?.id">
+      <div class="mt-6 pb-[120px] xl:hidden" v-if="order?.selected_request?.id">
         <CustomerChat :order="order" :status="status" />
       </div>
     </div>
@@ -545,7 +545,7 @@
           <div
             class="xl:hidden customer-chat"
             :class="{ activeChat: chatHandle }"
-            v-if="!order?.selected_request?.id && order?.status"
+            v-if="!order?.selected_request?.id && order?.status == 3"
           >
             <OffersChat @close="chatHandle = false" />
           </div>
@@ -649,8 +649,7 @@
       </CancellationOrder>
 
       <CompliteOrder
-        @handleOkProp="handleOk"
-        :visibleProp="visibleComplite"
+        ref="compliteOrder"
         @submit="submitComplite"
         :loadingBtn="loadingBtn"
       />
@@ -680,8 +679,29 @@
       >
         Изменить данные
       </button>
+      <Loader v-if="loading" />
     </div>
-    <Loader v-if="loading" />
+    <CustomerChatMobile ref="customerChat" />
+    <button
+      @click="openCustomerChat"
+      v-if="order?.selected_request?.id && order?.status"
+      class="w-[56px] h-[56px] rounded-full xl:flex justify-center items-center bg-main-color fixed bottom-[88px] right-4 hidden"
+    >
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M11 3H13C17.9706 3 22 7.02944 22 12C22 16.9706 17.9706 21 13 21H6C3.79086 21 2 19.2091 2 17V12C2 7.02944 6.02944 3 11 3ZM12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13ZM17 12C17 12.5523 16.5523 13 16 13C15.4477 13 15 12.5523 15 12C15 11.4477 15.4477 11 16 11C16.5523 11 17 11.4477 17 12ZM8 13C8.55228 13 9 12.5523 9 12C9 11.4477 8.55228 11 8 11C7.44772 11 7 11.4477 7 12C7 12.5523 7.44772 13 8 13Z"
+          fill="white"
+        />
+      </svg>
+    </button>
   </div>
 </template>
 <script>
@@ -699,6 +719,7 @@ import OffersChat from "./OffersChat.vue";
 import moment from "moment";
 import SelectedFreelancer from "./SelectedFreelancer.vue";
 import CompliteOrder from "../../modals/CompliteOrder.vue";
+import CustomerChatMobile from "../../modals/CustomerChatMobile.vue";
 export default {
   props: ["order", "loading", "reasons"],
   data() {
@@ -717,13 +738,6 @@ export default {
       ],
       is_positive: undefined,
       openBlock: false,
-      visibleSelect: false,
-      visibleComplite: false,
-      cancel: {
-        visible1: false,
-        visible2: false,
-        visible3: false,
-      },
       disabledBtn: true,
       loadingBtn: false,
     };
@@ -754,6 +768,20 @@ export default {
     }
   },
   methods: {
+    openCustomerChat() {
+      this.$refs.customerChat.open();
+    },
+    closeCustomerChat() {
+      this.$refs.customerChat.close();
+    },
+    openCompliteOrder() {
+      this.$refs.compliteOrder.open();
+      this.$refs.compliteOrder.openModal();
+    },
+    closeCompliteOrder() {
+      this.$refs.compliteOrder.close();
+      this.$refs.compliteOrder.closeModal();
+    },
     openDeleteOrder() {
       this.$refs.deleteOrder.open();
       this.$refs.deleteOrder.openModal();
@@ -790,31 +818,26 @@ export default {
         : (this.disabledBtn = true);
     },
     cancelOrder() {
+      console.log(this.order?.status);
       switch (this.order?.status) {
         case 0:
-          // this.cancel.visible1 = true;
           this.openDeleteOrder();
           break;
         case 1:
-          // this.cancel.visible2 = true;
           this.openDeleteActiveOrder();
           break;
         case 2:
-          // this.cancel.visible3 = true;
+        case 3:
           this.openDeleteProcessOrder();
           break;
       }
     },
     submitSelect() {},
     handleOk() {
-      this.visibleSelect = false;
-      this.visibleComplite = false;
+      this.closeCompliteOrder();
       this.closeDeleteOrder();
       this.closeDeleteActiveOrder();
       this.closeDeleteProcessOrder();
-      // this.cancel.visible1 = false;
-      // this.cancel.visible2 = false;
-      // this.cancel.visible3 = false;
     },
 
     submitCancel() {
@@ -854,7 +877,7 @@ export default {
           "fetchOrders/postCompliteCustomer",
           formData
         );
-        this.visibleComplite = false;
+        this.closeCompliteOrder();
         this.$emit("selected");
       } catch (e) {
         if (e.response) {
@@ -882,6 +905,7 @@ export default {
     OffersChat,
     SelectedFreelancer,
     CompliteOrder,
+    CustomerChatMobile,
   },
 };
 </script>

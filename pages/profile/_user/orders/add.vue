@@ -468,6 +468,7 @@
       @handleOk="handleOk"
       :specialities="specialities"
       :activeCheckedList="activeCheckedList"
+      :maxCount="1"
     />
     <Loader v-if="loading" />
   </div>

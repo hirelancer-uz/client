@@ -91,7 +91,7 @@
     <div class="hidden xl:block">
       <vue-bottom-sheet-vue2
         ref="specialBottomSheet"
-        class="bottom-drawer relative"
+        class="bottom-drawer relative hidden xl:block"
         @closed="closed"
       >
         <div class="flex flex-col items-center relative pb-3 pt-4">

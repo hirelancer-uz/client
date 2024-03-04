@@ -86,7 +86,7 @@
 
               <button
                 class="w-6 xl:hidden h-[34px] items-center flex-auto flex justify-end"
-                @click="(visible = true), (checkedList = [...activeCheckedList])"
+                @click="openSpecial(), (checkedList = [...activeCheckedList])"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +103,10 @@
                   />
                 </svg>
               </button>
-              <button class="w-6 xl:block hidden" @click="open">
+              <button
+                class="w-10 h-full hidden flex-auto xl:flex justify-end"
+                @click="openSpecial"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="3"
@@ -233,7 +236,7 @@
         </button>
       </div>
       <div
-        class="fixed-btns fixed bottom-0 w-full z-[7] py-4 px-4 bg-white left-0 hidden xl:flex flex-col gap-2"
+        class="fixed-btns fixed bottom-0 w-full z-[11] py-4 px-4 bg-white left-0 hidden xl:flex flex-col gap-2"
       >
         <button
           @click="onSubmit()"
@@ -268,12 +271,11 @@
       </div>
     </div>
     <SpicialsticsCheck
+      ref="specialities"
       @saveChecked="saveChecked"
-      :visible="visible"
       @handleOk="handleOk"
       :specialities="specialities"
       :activeCheckedList="activeCheckedList"
-      :openBottom="openBottom"
     />
     <Loader v-if="loading" />
   </div>
@@ -293,14 +295,12 @@ function getBase64(file) {
 export default {
   data() {
     return {
-      openBottom: false,
       loadingBtn: false,
       loading: true,
       errorSelect: false,
       checkedList: [],
       activeCheckedList: [],
       modalList: null,
-      visible: false,
       form: {
         name: "",
         link: "",
@@ -375,6 +375,14 @@ export default {
     this.__GET_PORTFOLIO_BY_ID();
   },
   methods: {
+    openSpecial() {
+      this.$refs.specialities.open();
+      this.$refs.specialities.openModal();
+    },
+    closeSpecial() {
+      this.$refs.specialities.close();
+      this.$refs.specialities.closeModal();
+    },
     async __GET_PORTFOLIO_BY_ID() {
       const [portfolioData] = await Promise.all([
         this.$store.dispatch("fetchPortfolio/getWorkById", this.$route.params.id),
@@ -455,15 +463,7 @@ export default {
         this.loadingBtn = false;
       }
     },
-    open() {
-      this.openBottom = true;
-      setTimeout(() => {
-        if (this.openBottom) this.openBottom = false;
-      }, 10);
-    },
-    close() {
-      this.openBottom = false;
-    },
+
     handleOk() {
       this.visible = false;
     },
@@ -475,7 +475,7 @@ export default {
       this.activeCheckedList = [...checkedList];
       this.checkedList = [];
       this.visible = false;
-      this.close();
+      this.closeSpecial();
     },
     onchecked(obj) {
       if (this.checkedList.includes(obj)) {

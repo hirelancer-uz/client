@@ -442,7 +442,10 @@
                   /></svg></span
             ></nuxt-link>
           </li>
-          <li class="border-[0] border-b border-solid border-grey-light" v-if="$route.params.user == 'freelancer'">
+          <li
+            class="border-[0] border-b border-solid border-grey-light"
+            v-if="$route.params.user == 'freelancer'"
+          >
             <nuxt-link
               :to="`/profile/${$route.params.user}/portfolio`"
               class="flex w-full gap-3 items-center text-[14px] font-medium text-black relative p-4"
@@ -708,7 +711,7 @@
           </li> -->
           <li class="border-[0] border-b border-solid border-grey-light">
             <button
-              @click="$store.dispatch('logout')"
+              @click="openLogout"
               class="flex w-full gap-3 items-center text-[14px] font-medium text-black relative p-4"
             >
               <svg
@@ -775,9 +778,12 @@
         </p>
       </button> -->
     </div>
+    <Logout ref="logout" />
   </div>
 </template>
 <script>
+import Logout from "../modals/Logout.vue";
+
 export default {
   props: ["user", "freelancer"],
   data() {
@@ -793,6 +799,15 @@ export default {
     imgUrl() {
       return this.baseUrl + "/storage/";
     },
+  },
+  methods: {
+    openLogout() {
+      this.$refs.logout.open();
+      this.$refs.logout.openModal();
+    },
+  },
+  components: {
+    Logout,
   },
 };
 </script>

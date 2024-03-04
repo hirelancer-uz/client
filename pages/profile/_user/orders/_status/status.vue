@@ -61,7 +61,7 @@
       <a-skeleton
         :paragraph="false"
         class="loading-card"
-        v-for="elem in [1, 2, 3, 4, 5]"
+        v-for="elem in [1, 2]"
         :key="elem"
       />
     </div>

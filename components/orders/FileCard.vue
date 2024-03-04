@@ -31,6 +31,7 @@
         v-if="previewImg"
         class="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 xl:px-4"
       >
+        <div class="fixed w-full h-full" @click="previewImg = false"></div>
         <div class="max-w-[712px] xl:max-w-full w-full relative">
           <button
             class="absolute xl:hidden right-[-66px] top-[-10px]"

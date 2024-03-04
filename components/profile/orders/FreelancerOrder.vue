@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="pt-12 order xl:px-4">
+  <div class="pt-12 order xl:px-4 xl:pt-0">
     <div class="max-w-[1286px] mx-auto pb-[55px]">
       <button
         @click="$router.go(-1)"
@@ -21,18 +21,28 @@
         </svg>
         Назад
       </button>
+      <div
+        class="status xl:flex hidden justify-center mx-[-24px] mb-6 pb-[18px] xl:pb-0 border-[0] border-b-[2px] border-solid border-grey-light relative"
+      >
+        <OrderStatus :status="order?.status" :order="order" />
+      </div>
+      <!-- <div
+        class="status xl:flex justify-center pt-[18px] pb-[18px] border-[0] border-b-[2px] border-solid border-grey-light relative hidden"
+      >
+        <OrderStatus :status="order?.status" :order="order" />
+      </div> -->
       <div class="content-box mt-6 xl:mt-0">
         <div class="flex flex-col gap-6">
           <div
-            class="info-box rounded-3xl border-solid border-grey-light border-[2px] relative overflow-hidden max-h-[430px]"
+            class="info-box rounded-3xl border-solid border-grey-light border-[2px] relative overflow-hidden max-h-[430px] xl:rounded-none xl:px-0 xl:border-[0]"
             :class="{ active: openBlock || order?.status < 2 }"
           >
             <div
-              class="status flex justify-center pt-[18px] pb-[18px] border-[0] border-b-[2px] border-solid border-grey-light relative"
+              class="status flex justify-center pt-[18px] pb-[18px] border-[0] border-b-[2px] border-solid border-grey-light relative xl:hidden"
             >
               <OrderStatus :status="order?.status" :order="order" />
             </div>
-            <div class="info px-6 py-6 xl:px-4 xl:py-4">
+            <div class="info px-6 py-6 xl:px-0 xl:py-0">
               <div class="head flex justify-start">
                 <!-- <div class="flex gap-4 items-center"> -->
                 <!-- <span
@@ -222,7 +232,7 @@
               </button>
             </div>
           </div>
-          <OrderChat :status="order?.status" />
+          <OrderChat :status="order?.status" :order="order" />
         </div>
         <div class="flex flex-col gap-4">
           <ClientCard :client="order?.client" />
@@ -296,7 +306,7 @@
               </div>
               <button
                 v-if="order?.status == 2 && !myRequest"
-                @click="visibleClose = true"
+                @click="openOrderComplite"
                 class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-main-color border-main-color text-base text-white font-medium"
               >
                 Завершить заказ
@@ -320,7 +330,7 @@
               <!-- v-if="status != 3" -->
               <button
                 v-if="order?.status != 4"
-                @click="visibleCancel = true"
+                @click="openOfferCancel"
                 class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] bg-[#667B8C] text-base text-white font-medium"
               >
                 Отменить заказ
@@ -442,8 +452,7 @@
     <div>
       <CloseOrder @handleOkProp="handleOkWait" :visibleProp="visibleWait" />
       <FreelancerComplite
-        @handleOkProp="handleOk"
-        :visibleProp="visibleClose"
+        ref="orderComplite"
         @submit="submitFinish"
         title="Loyihani rostdan ham yakunlamoqchimisiz?"
         save="Ha, albatta"
@@ -452,8 +461,7 @@
       />
 
       <CancellationOrder
-        @handleOkProp="handleOk"
-        :visibleProp="visibleClose2"
+        ref="orderCancel"
         @submit="submitFinish"
         title="Siz haqiqatdan buyurtmani bekor qilmoqchimisiz?"
         save="Ha, albatta"
@@ -487,19 +495,18 @@
         </div>
       </CancellationOrder>
       <CancellationOrder
-        @handleOkProp="handleOkCancel"
-        :visibleProp="visibleCancel"
+        ref="offerCancel"
         @submit="submitCancel"
         title="So'rovni bekor qilishingizga aminmisiz ?"
         :loadingBtn="loadingBtn"
       />
-      <ComplaintOrder
+      <!-- <ComplaintOrder
         @handleOkProp="handleOkComplaint"
         :visibleProp="visibleComplaint"
         @submit="submitComplaint"
         title="Mijozga qanday shikoyatingiz bor?"
         :loadingBtn="loadingBtn"
-      />
+      /> -->
     </div>
     <Loader v-if="loading" />
   </div>
@@ -527,10 +534,7 @@ export default {
       loadingBtn: false,
       visibleWait: false,
       openBlock: false,
-      visibleClose: false,
-      visibleCancel: false,
       visibleComplaint: false,
-      visibleClose2: false,
       loading: true,
       disabledBtn: true,
     };
@@ -550,9 +554,8 @@ export default {
     },
     status() {
       let status = this.order?.status;
-      if (this.order?.selected_request?.id) {
-        status = 2;
-      }
+      if (this.order?.selected_request?.id) status = 2;
+
       if (this.order?.complete_requests?.length > 0 && this.order?.end_of_execution)
         status = 3;
       return status;
@@ -567,6 +570,30 @@ export default {
     }
   },
   methods: {
+    openOrderComplite() {
+      this.$refs.orderComplite.open();
+      this.$refs.orderComplite.openModal();
+    },
+    closeOrderComplite() {
+      this.$refs.orderComplite.close();
+      this.$refs.orderComplite.closeModal();
+    },
+    openOrderCancel() {
+      this.$refs.orderCancel.open();
+      this.$refs.orderCancel.openModal();
+    },
+    closeOrderCancel() {
+      this.$refs.orderCancel.close();
+      this.$refs.orderCancel.closeModal();
+    },
+    openOfferCancel() {
+      this.$refs.offerCancel.open();
+      this.$refs.offerCancel.openModal();
+    },
+    closeOfferCancel() {
+      this.$refs.offerCancel.close();
+      this.$refs.offerCancel.closeModal();
+    },
     onSelectReasons(id) {
       if (!this.selectedReasons.includes(id)) {
         this.selectedReasons.push(id);
@@ -578,15 +605,11 @@ export default {
         : (this.disabledBtn = true);
     },
     moment,
-    handleOk() {
-      this.visibleClose = false;
-    },
+
     handleOkWait() {
       this.visibleWait = false;
     },
-    handleOkCancel() {
-      this.visibleCancel = false;
-    },
+
     submitFinish() {
       this.__COMPLETE_ORDER();
     },
@@ -626,7 +649,7 @@ export default {
         const data = await this.$store.dispatch("fetchOrders/postCompleteOrder", {
           order_id: this.$route.params.id,
         });
-        this.handleOk();
+        this.closeOrderComplite();
         this.$emit("selected");
       } catch (e) {
         if (e.response) {

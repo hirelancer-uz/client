@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="layout W-100 min-h-[100vh] flex flex-col">
+  <div class="layout w-full min-h-[100vh] flex flex-col overflow-hidden">
     <div class="fixed top-0 left-0 w-full z-50" ref="mHeader">
       <MobileHeader class="xl:block" />
     </div>
@@ -46,7 +46,9 @@
       <Loader v-if="loading" />
     </div>
     <TheFooter />
-    <BottomBar v-if="routes?.includes($route.name?.split('___')[0])" />
+    <div v-for="route in routes">
+      <BottomBar v-if="route == $route.path" />
+    </div>
   </div>
 </template>
 <script>
@@ -64,7 +66,13 @@ export default {
   middleware: "auth",
   data() {
     return {
-      routes: ["freelancers", "profile-index", "index", "orders"],
+      routes: [
+        "/freelancers",
+        "/profile/freelancer",
+        "/",
+        "/orders",
+        "/profile/customer",
+      ],
       loading: false,
     };
   },

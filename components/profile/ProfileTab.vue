@@ -26,6 +26,7 @@
       </nuxt-link>
       <nuxt-link
         :to="`/profile/${$route.params.user}/orders/active/status`"
+        :class="{ 'nuxt-link-active': $route.path.includes('profile/customer/orders') }"
         class="text-black text-base font-medium flex flex-col gap-2 items-center bg-white px-4 justify-center min-w-[120px] min-h-[79px] rounded-[12px] hover:text-black"
         ><svg
           width="24"
@@ -182,7 +183,7 @@
         Sozlamalar</nuxt-link
       >
       <nuxt-link
-        :to="`/profile/freelancer/comments`"
+        :to="`/profile/${$route.params.user}/comments`"
         class="text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[96px] xl:min-h-[68px] rounded-[12px] hover:text-black"
         ><svg
           width="24"

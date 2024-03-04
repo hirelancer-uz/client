@@ -6,7 +6,7 @@
       v-if="$route.params.user == 'customer'"
       @click="$router.push(`/profile/${$route.params.user}/orders/pending/status`)"
       :class="{ active: $route.params.status == 'pending' }"
-      class="px-6 py-3 xl:px-0 gap-[6px] xl:pb-2 xl:relative xl:bg-white rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey whitespace-nowrap text-base text-grey-64 xl:text-grey-40 font-medium xl:whitespace-nowrap xl:border-[0] xl:py-0 xl:flex xl:items-center xl:rounded-[8px] xl:text-[14px]"
+      class="xl:ml-4 px-6 py-3 xl:px-0 gap-[6px] xl:pb-2 xl:relative xl:bg-white rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey whitespace-nowrap text-base text-grey-64 xl:text-grey-40 font-medium xl:whitespace-nowrap xl:border-[0] xl:py-0 xl:flex xl:items-center xl:rounded-[8px] xl:text-[14px]"
     >
       Ожидание модерации <span class="xl:hidden">(0)</span>
       <span
@@ -66,7 +66,7 @@
       @click="$router.push(`/profile/${$route.params.user}/orders/cancel/status`)"
       :class="{ active: $route.params.status == 'cancel' }"
       class="xl:mr-4 px-6 py-3 xl:px-0 gap-[6px] xl:pb-2 xl:relative xl:bg-white rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey whitespace-nowrap text-base text-grey-64 xl:text-grey-40 font-medium xl:whitespace-nowrap xl:border-[0] xl:py-0 xl:flex xl:items-center xl:rounded-[8px] xl:text-[14px]"
-    > 
+    >
       Отмена <span class="xl:hidden">(0)</span>
       <span
         class="xl:flex hidden h-6 w-6 items-center justify-center bg-grey-8 rounded-full"

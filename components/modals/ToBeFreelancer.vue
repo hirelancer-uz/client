@@ -174,40 +174,32 @@ export default {
   },
 
   methods: {
-    // closed() {
-    //   this.closeModal();
-    // },
+    closed() {
+      this.closeModal();
+    },
     send() {
       this.$emit("open");
       this.close();
       this.closeModal();
     },
     openModal() {
-      if (window.innerWidth > 1200) {
-        this.visible = true;
-      }
+      this.visible = true;
     },
     closeModal() {
-      if (window.innerWidth > 1200) {
-        this.visible = false;
-      }
+      this.visible = false;
     },
     open() {
-      if (window.innerWidth < 1200) {
-        this.$refs.specialBottomSheet?.open();
-      }
+      this.$refs.specialBottomSheet?.open();
     },
     close() {
-      if (window.innerWidth < 1200) {
-        this.$refs.specialBottomSheet.close();
-      }
+      this.$refs.specialBottomSheet.close();
     },
   },
-  // watch: {
-  //   visible(val) {
-  //     if (!val) this.close();
-  //   },
-  // },
+  watch: {
+    visible(val) {
+      if (!val) this.close();
+    },
+  },
 };
 </script>
 <style lang="css" scoped>
