@@ -8,10 +8,15 @@
       :class="{ active: $route.params.status == 'pending' }"
       class="xl:ml-4 px-6 py-3 xl:px-0 gap-[6px] xl:pb-2 xl:relative xl:bg-white rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey whitespace-nowrap text-base text-grey-64 xl:text-grey-40 font-medium xl:whitespace-nowrap xl:border-[0] xl:py-0 xl:flex xl:items-center xl:rounded-[8px] xl:text-[14px]"
     >
-      Ожидание модерации <span class="xl:hidden">(0)</span>
+      Ожидание модерации
+      <span class="xl:hidden"
+        >({{
+          $store.state.orderCounts?.customer_orders_counts?.in_moderation || 0
+        }})</span
+      >
       <span
         class="xl:flex hidden h-6 w-6 items-center justify-center bg-grey-8 rounded-full"
-        >0</span
+        >{{ $store.state.orderCounts?.customer_orders_counts?.in_moderation || 0 }}</span
       >
     </button>
     <button
@@ -19,10 +24,17 @@
       :class="{ active: $route.params.status == 'active' }"
       class="xl:ml-4 px-6 py-3 xl:px-0 gap-[6px] xl:pb-2 xl:relative xl:bg-white rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey whitespace-nowrap text-base text-grey-64 xl:text-grey-40 font-medium xl:whitespace-nowrap xl:border-[0] xl:py-0 xl:flex xl:items-center xl:rounded-[8px] xl:text-[14px]"
     >
-      Активные заказы <span class="xl:hidden">(0)</span>
+      Активные заказы
+      <span class="xl:hidden"
+        >({{
+          $store.state.orderCounts[`${$route.params.user}_orders_counts`]?.active || 0
+        }})</span
+      >
       <span
         class="xl:flex hidden h-6 w-6 items-center justify-center bg-grey-8 rounded-full"
-        >0</span
+        >{{
+          $store.state.orderCounts[`${$route.params.user}_orders_counts`]?.active || 0
+        }}</span
       >
     </button>
 
@@ -32,10 +44,13 @@
       :class="{ active: $route.params.status == 'offers' }"
       class="px-6 py-3 xl:px-0 gap-[6px] xl:pb-2 xl:relative xl:bg-white rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey whitespace-nowrap text-base text-grey-64 xl:text-grey-40 font-medium xl:whitespace-nowrap xl:border-[0] xl:py-0 xl:flex xl:items-center xl:rounded-[8px] xl:text-[14px]"
     >
-      Ожидания подверждения <span class="xl:hidden">(0)</span>
+      Ожидания подверждения
+      <span class="xl:hidden"
+        >({{ $store.state.orderCounts[`freelancer_orders_counts`]?.waiting || 0 }})</span
+      >
       <span
         class="xl:flex hidden h-6 w-6 items-center justify-center bg-grey-8 rounded-full"
-        >0</span
+        >{{ $store.state.orderCounts[`freelancer_orders_counts`]?.waiting || 0 }}</span
       >
     </button>
     <button
@@ -44,10 +59,13 @@
       :class="{ active: $route.params.status == 'in_progress' }"
       class="px-6 py-3 xl:px-0 gap-[6px] xl:pb-2 xl:relative xl:bg-white rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey whitespace-nowrap text-base text-grey-64 xl:text-grey-40 font-medium xl:whitespace-nowrap xl:border-[0] xl:py-0 xl:flex xl:items-center xl:rounded-[8px] xl:text-[14px]"
     >
-      В процессе <span class="xl:hidden">(0)</span>
+      В процессе
+      <span class="xl:hidden"
+        >({{ $store.state.orderCounts[`customer_orders_counts`]?.in_process || 0 }})</span
+      >
       <span
         class="xl:flex hidden h-6 w-6 items-center justify-center bg-grey-8 rounded-full"
-        >0</span
+        >{{ $store.state.orderCounts[`customer_orders_counts`]?.in_process || 0 }}</span
       >
     </button>
     <button
@@ -56,10 +74,16 @@
       class="px-6 py-3 xl:px-0 gap-[6px] xl:pb-2 xl:relative xl:bg-white rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey whitespace-nowrap text-base text-grey-64 xl:text-grey-40 font-medium xl:whitespace-nowrap xl:border-[0] xl:py-0 xl:flex xl:items-center xl:rounded-[8px] xl:text-[14px]"
     >
       {{ $route.params.user == "customer" ? "Выполненные" : "Завершено" }}
-      <span class="xl:hidden">(0)</span>
+      <span class="xl:hidden"
+        >({{
+          $store.state.orderCounts[`${$route.params.user}_orders_counts`]?.done || 0
+        }})</span
+      >
       <span
         class="xl:flex hidden h-6 w-6 items-center justify-center bg-grey-8 rounded-full"
-        >0</span
+        >{{
+          $store.state.orderCounts[`${$route.params.user}_orders_counts`]?.done || 0
+        }}</span
       >
     </button>
     <button
@@ -67,10 +91,17 @@
       :class="{ active: $route.params.status == 'cancel' }"
       class="xl:mr-4 px-6 py-3 xl:px-0 gap-[6px] xl:pb-2 xl:relative xl:bg-white rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey whitespace-nowrap text-base text-grey-64 xl:text-grey-40 font-medium xl:whitespace-nowrap xl:border-[0] xl:py-0 xl:flex xl:items-center xl:rounded-[8px] xl:text-[14px]"
     >
-      Отмена <span class="xl:hidden">(0)</span>
+      Отмена
+      <span class="xl:hidden"
+        >({{
+          $store.state.orderCounts[`${$route.params.user}_orders_counts`]?.canceled || 0
+        }})</span
+      >
       <span
         class="xl:flex hidden h-6 w-6 items-center justify-center bg-grey-8 rounded-full"
-        >0</span
+        >{{
+          $store.state.orderCounts[`${$route.params.user}_orders_counts`]?.canceled || 0
+        }}</span
       >
     </button>
   </div>

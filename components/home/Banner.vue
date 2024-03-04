@@ -14,7 +14,7 @@
           class="text-black text-[18px] mt-4 xl:mt-[6px] xl:text-[12px] xl:text-white xl:hidden"
         >
           1000+ ortiq<span class="text-blue"
-            >dizaynerlar, dasturchilar, marketologlar</span
+            > dizaynerlar, dasturchilar, marketologlar </span
           >va boshqa yo‘nalishdagi frilanserlar sizning buyurtmangizni bajarib berishga
           tayyor!
         </p>

@@ -46,7 +46,7 @@
             <button
               v-else
               @click="$router.push('/registration')"
-              class="h-[60px] w-[204px] flex justify-center items-center bg-white rounded-xl text-base font-medium text-blue border-blue xl:hidden"
+              class="h-[60px] w-[204px] flex justify-center items-center bg-white rounded-[12px] text-base font-medium text-blue border-[1px] border-blue border-solid buttoner xl:hidden"
             >
               Buyurtma qoshish
             </button>

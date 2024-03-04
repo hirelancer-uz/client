@@ -24,7 +24,7 @@
         </span> -->
       </h1>
       <div class="flex gap-4 items-center">
-        <span class="xl:hidden">
+        <span class="xl:hidden" v-if="feedbacks.length > 0">
           <a-select v-model="currentStatus" class="w-[216px]">
             <a-select-option
               :value="item.value"

@@ -52,6 +52,12 @@
       />
     </div>
     <div
+      v-if="portfolios.length == 0 && !loading"
+      class="h-[208px] xl:h-[111px] flex justify-center items-center mb-[-24px]"
+    >
+      <VEmpty />
+    </div>
+    <div
       v-if="$route.params.user == 'freelancer'"
       class="fixed-btns fixed bottom-0 w-full z-[7] py-4 px-4 bg-white left-0 hidden xl:flex flex-col gap-2"
     >
@@ -91,6 +97,7 @@
 import ProfileLayout from "@/components/profile/ProfileLayout.vue";
 import PortfolioCard from "@/components/profile/portfolio/PortfolioCard.vue";
 import VPagination from "@/components/VPagination.vue";
+import VEmpty from "../../../../components/profile/VEmpty.vue";
 
 export default {
   layout: "profileLayout",
@@ -151,6 +158,7 @@ export default {
   components: {
     ProfileLayout,
     PortfolioCard,
+    VEmpty
   },
 };
 </script>

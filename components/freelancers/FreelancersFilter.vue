@@ -181,6 +181,7 @@
             v-if="regions.length > 0"
             v-model="filterForm.region"
             placeholder="Barcha viloyatlar"
+            @change="sendFilter"
             class="w-full"
           >
             <a-select-option
@@ -202,13 +203,13 @@
           >
             Bekor qilish
           </button>
-          <button
+          <!-- <button
             :class="{ 'pointer-events-none opacity-50': !disabledFilter }"
             @click="sendFilter"
             class="flex w-full justify-center xl:h-[52px] py-[15px] rounded-lg border border-blue border-solid text-[14px] font-tt font-semibold xl:font-medium text-white bg-blue"
           >
             Ko'rsatish
-          </button>
+          </button> -->
         </div>
       </div>
     </div>

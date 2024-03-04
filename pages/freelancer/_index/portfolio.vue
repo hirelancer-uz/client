@@ -25,6 +25,12 @@
             :freelancer="freelancer"
           />
         </div>
+        <div
+          v-if="portfolios.length == 0 && !loading"
+          class="h-[208px] xl:h-[111px] flex justify-center items-center mb-[-24px]"
+        >
+          <VEmpty />
+        </div>
         <!-- <div
         class="list grid-cols-3 gap-4 xl:grid-cols-1 mt-4 xl:mt-0 xl:gap-[16px] hidden xl:grid"
       >
@@ -53,6 +59,7 @@ import PortfolioCard from "@/components/profile/portfolio/PortfolioCard.vue";
 import VPagination from "@/components/VPagination.vue";
 import PortfolioViewCard from "@/components/profile/portfolio/PortfolioViewCard.vue";
 import ModalCard from "@/components/profile/portfolio/ModalCard.vue";
+import VEmpty from "../../../components/profile/VEmpty.vue";
 
 export default {
   data() {
@@ -121,6 +128,7 @@ export default {
     PortfolioCard,
     PortfolioViewCard,
     ModalCard,
+    VEmpty,
   },
 };
 </script>

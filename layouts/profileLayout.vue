@@ -82,15 +82,17 @@ export default {
     },
   },
   async mounted() {
-    console.log(this.$route);
     if (localStorage.getItem("auth-token")) {
       try {
         this.loading = true;
-        const [userInfoData] = await Promise.all([
+        const [userInfoData, orderCountsData] = await Promise.all([
           this.$store.dispatch("fetchAuth/getUserInfo"),
+          this.$store.dispatch("fetchOrders/getOrderCounts"),
         ]);
+
         this.userInfo = userInfoData;
         this.$store.commit("getUserInfo", userInfoData);
+        this.$store.commit("getOrderCounts", orderCountsData.content);
         this.loading = false;
       } catch (e) {
         if (e.response.status == 401) {
