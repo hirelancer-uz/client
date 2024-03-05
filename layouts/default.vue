@@ -5,22 +5,18 @@
     </div>
     <TheHeader class="xl:hidden" ref="header" />
     <div
-      v-if="$route.name == 'index'"
-      class="header-bg xl:block hidden w-full h-[104px] lg:h-[72px]"
+      v-if="'index' == $route.name?.split('___')[0]"
+      class="header-bg xl:block hidden w-full h-[104px] xl:h-[63px]"
     ></div>
-    <div
-      v-else
-      class="header-bg xl:block hidden w-full"
-      :style="`height: 56px`"
-    ></div>
-    <!-- <h1>
-      {{ layoutData }}
-    </h1> -->
+    <div v-else class="header-bg xl:block hidden w-full xl:h-[111px]"></div>
+
     <div class="flex-auto">
       <Nuxt />
     </div>
     <TheFooter />
-    <BottomBar v-if="routes.includes($route.name)" />
+    <div v-for="route in routes">
+      <BottomBar v-if="route == $route.path" />
+    </div>
   </div>
 </template>
 <script>
@@ -43,10 +39,17 @@ export default {
       ],
     };
   },
+
   data() {
     return {
-      routes: ["freelancers", "profile-index", "index", "orders"],
-      translations: [],
+      routes: [
+        "/freelancers",
+        "/profile/freelancer",
+        "/",
+        "/orders",
+        "/profile/customer",
+      ],
+      layoutHeight: 63,
     };
   },
 
@@ -76,9 +79,6 @@ export default {
     layoutData() {
       return this.$store.state.pageData || {};
     },
-    headerHeight() {
-      return this.$refs.mHeader.offsetHeight;
-    },
     authCheck() {
       return this.$store.state.auth;
     },
@@ -88,11 +88,10 @@ export default {
     },
   },
   async mounted() {
-    console.log(this.translations);
-
-    this.$router.afterEach(() => {
-      window.scrollTo(0, 0);
-    });
+    console.log(this.$route.path == "/profile/freelancer");
+    // this.$router.afterEach(() => {
+    //   window.scrollTo(0, 0);
+    // });
     if (localStorage.getItem("auth-token")) {
       try {
         const [userInfoData] = await Promise.all([

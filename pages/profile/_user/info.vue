@@ -1,26 +1,23 @@
 <template lang="html">
-  <div class="profile xl:px-4">
-    <ProfileLayout :profile="true" :freelancer="$store.state.userInfo">
-      <div class="mt-8 xl:mt-0">
-        <Alerts />
-      </div>
-      <div class="personal-information mt-8" v-if="$route.params.user == 'freelancer'">
-        <PersonalInfo :isEdit="true" :profile="true" :userInfo="$store.state.userInfo" />
-        <Achievements :profile="true" />
-      </div>
-      <div
-        class="personal-information mt-10 xl:mt-6 xl:pb-6 xl:border-[0] xl:border-b xl:border-solid xl:border-grey-light"
-        v-if="$route.params.user == 'freelancer'"
-      >
-        <Statistics />
-      </div>
-      <!-- <div class="mt-[45px] xl:mt-6">
-        <Events />
-      </div> -->
-      <div class="mt-10 xl:mt-6" v-if="$route.params.user == 'freelancer'">
-        <Comments />
-      </div>
-    </ProfileLayout>
+  <div class="profile container">
+    <!-- <ProfileLayout :profile="true"> -->
+    <div class="mt-8">
+      <Alerts />
+    </div>
+    <div class="personal-information mt-8" v-if="$route.params.user == 'freelancer'">
+      <PersonalInfo :isEdit="true" :profile="true" :userInfo="$store.state.userInfo" />
+      <!-- <Achievements :profile="true" /> -->
+    </div>
+    <div class="personal-information mt-10" v-if="$route.params.user == 'freelancer'">
+      <Statistics :userInfo="$store.state.userInfo" />
+    </div>
+    <!-- <div class="mt-[45px]">
+      <Events />
+    </div> -->
+    <div class="mt-10" v-if="$route.params.user == 'freelancer'">
+      <Comments :feedbacks="comments" @getComments="__GET_COMMENTS" />
+    </div>
+    <!-- </ProfileLayout> -->
   </div>
 </template>
 <script>
@@ -34,12 +31,52 @@ import Statistics from "@/components/profile/Statistics.vue";
 import Comments from "@/components/profile/Comments.vue";
 
 export default {
+  layout: "profileLayout",
   data() {
     return {
       userInfo: {},
+      comments: [],
     };
   },
+  async mounted() {
+    this.__GET_COMMENTS();
+    this.$store.commit("setPageData", {
+      title: "Профиль",
+      center: false,
+      info: "",
+      link: true,
+    });
+  },
 
+  destroyed() {
+    this.$store.commit("setPageData", {});
+  },
+  methods: {
+    async __GET_COMMENTS() {
+      try {
+        this.loading = true;
+        const commentsData = await this.$store.dispatch(
+          "fetchOrders/getFreelancerComments",
+          {
+            params: {
+              freelancer: this.$store.state.userInfo["id"],
+              page_size: 2,
+            },
+          }
+        );
+        this.comments = commentsData.content.data;
+        this.totalPage = commentsData.content.total;
+      } catch (e) {
+      } finally {
+        this.loading = false;
+      }
+    },
+  },
+  watch: {
+    handleUser(val) {
+      if (val) this.__GET_COMMENTS();
+    },
+  },
   components: {
     PersonalInfo,
     Achievements,
@@ -54,9 +91,9 @@ export default {
 </script>
 <style lang="css" scoped>
 .personal-information {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-gap: 16px;
+  /* display: grid; */
+  /* grid-template-columns: 2fr 1fr; */
+  /* grid-gap: 16px; */
 }
 @media (max-width: 1200px) {
   .personal-information {

@@ -17,10 +17,27 @@
     <div class="menu flex justify-between">
       <button
         @click="$router.push('/')"
-        :class="{ active: $route.name === 'index' }"
+        :class="{ active: $route.path === '/' }"
         class="flex flex-col gap-1 items-center text-grey-64 text-[12px] font-medium px-1 pt-[6px]"
       >
         <svg
+          v-if="$route.path === '/'"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M21 10.1503V17.9668C21 20.1943 19.2091 22 17 22H7C4.79086 22 3 20.1943 3 17.9668V10.1503C3 8.93937 3.53964 7.7925 4.46986 7.02652L9.46986 2.90935C10.9423 1.69689 13.0577 1.69688 14.5301 2.90935L19.5301 7.02652C20.4604 7.7925 21 8.93937 21 10.1503ZM10 17.25C9.58579 17.25 9.25 17.5858 9.25 18C9.25 18.4142 9.58579 18.75 10 18.75H14C14.4142 18.75 14.75 18.4142 14.75 18C14.75 17.5858 14.4142 17.25 14 17.25H10Z"
+            fill="#5C46E6"
+          />
+        </svg>
+
+        <svg
+          v-else
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -43,10 +60,31 @@
       </button>
       <button
         @click="$router.push('/orders')"
-        :class="{ active: $route.name === 'orders' }"
+        :class="{ active: $route.path === '/orders' }"
         class="flex flex-col gap-1 items-center text-grey-64 text-[12px] font-medium px-1 pt-[6px]"
       >
         <svg
+          v-if="$route.path === '/orders'"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8.39799 5.25H15.602C16.7645 3.67982 15.1983 1.48227 13.2529 2.10985L12.3252 2.40914C12.1139 2.47728 11.8861 2.47728 11.6748 2.40914L10.7471 2.10985C8.80167 1.48227 7.23554 3.67982 8.39799 5.25Z"
+            fill="#5C46E6"
+          />
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M15.4939 6.75H8.50618C7.18691 7.48048 6.15623 8.70013 5.68429 10.2103L4.43429 14.2104C3.22692 18.0739 6.11332 22 10.1612 22H13.8389C17.8867 22 20.7731 18.0739 19.5658 14.2104L18.3158 10.2104C17.8438 8.70013 16.8131 7.48048 15.4939 6.75ZM15.364 18.6558C15.7262 18.4547 15.8568 17.9982 15.6558 17.636C15.4548 17.2739 14.9982 17.1432 14.636 17.3442C13.4669 17.9932 12.6655 18.2501 11.9401 18.2472C11.2185 18.2443 10.4607 17.9836 9.37785 17.3521C9.02004 17.1435 8.56081 17.2644 8.35214 17.6222C8.14347 17.98 8.26438 18.4392 8.62219 18.6479C9.79373 19.3311 10.8248 19.7427 11.9341 19.7472C13.0396 19.7517 14.111 19.3513 15.364 18.6558Z"
+            fill="#5C46E6"
+          />
+        </svg>
+
+        <svg
+          v-else
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -75,10 +113,27 @@
       </button>
       <button
         @click="$router.push('/freelancers')"
-        :class="{ active: $route.name === 'freelancers' }"
+        :class="{ active: $route.path === '/freelancers' }"
         class="flex flex-col gap-1 items-center text-grey-64 text-[12px] font-medium px-1 pt-[6px]"
       >
         <svg
+          v-if="$route.path === '/freelancers'"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M12 11C13.6569 11 15 9.65685 15 8C15 6.34315 13.6569 5 12 5C10.3431 5 9 6.34315 9 8C9 9.65685 10.3431 11 12 11ZM12 19C15.3137 19 18 17.6569 18 16C18 14.3431 15.3137 13 12 13C8.68629 13 6 14.3431 6 16C6 17.6569 8.68629 19 12 19ZM6.38165 13.019C3.91199 13.1713 2 14.2241 2 15.5001C2 16.5521 3.29949 17.4523 5.13963 17.8213C4.72843 17.2645 4.5 16.6483 4.5 16.0001C4.5 14.8567 5.21076 13.8129 6.38165 13.019ZM19.5001 16.0001C19.5001 16.6483 19.2716 17.2645 18.8604 17.8213C20.7006 17.4523 22.0001 16.5521 22.0001 15.5001C22.0001 14.2241 20.0881 13.1713 17.6184 13.019C18.7893 13.8129 19.5001 14.8567 19.5001 16.0001ZM15.7183 10.5354C16.2115 9.8134 16.5 8.94039 16.5 8C16.5 7.68794 16.4682 7.3833 16.4077 7.08914C16.5949 7.0312 16.7938 7 17 7C18.1045 7 19 7.89543 19 9C19 10.1046 18.1045 11 17 11C16.5123 11 16.0653 10.8254 15.7183 10.5354ZM7 7C7.20619 7 7.40509 7.0312 7.59223 7.08914C7.53176 7.3833 7.5 7.68794 7.5 8C7.5 8.94039 7.78845 9.8134 8.28171 10.5354C7.93462 10.8254 7.4877 11 7 11C5.89543 11 5 10.1046 5 9C5 7.89543 5.89543 7 7 7Z"
+            fill="#5C46E6"
+          />
+        </svg>
+
+        <svg
+          v-else
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -138,6 +193,23 @@
         class="flex flex-col gap-1 items-center text-grey-64 text-[12px] font-medium px-1 pt-[6px]"
       >
         <svg
+          v-if="$route.name.includes('profile')"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M22 12C22 15.0134 20.6672 17.7154 18.5588 19.5488C16.8031 21.0756 14.5095 22 12 22C9.49052 22 7.19694 21.0756 5.44117 19.5488C3.33285 17.7154 2 15.0134 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM12 19C13.7567 19 15.3622 18.3529 16.5912 17.2842C16.7327 17.1611 16.8692 17.0325 17.0003 16.8986C15.9194 15.1503 14.0833 14 12 14C9.91675 14 8.0806 15.1503 6.99969 16.8986C7.13086 17.0325 7.26735 17.1611 7.40884 17.2842C8.63788 18.3529 10.2434 19 12 19ZM12 12C13.6569 12 15 10.6569 15 9C15 7.34315 13.6569 6 12 6C10.3431 6 9 7.34315 9 9C9 10.6569 10.3431 12 12 12Z"
+            fill="#5C46E6"
+          />
+        </svg>
+
+        <svg
+          v-else
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -163,19 +235,19 @@
 <script>
 export default {
   mounted() {
-    var header = this.$refs.priceBox;
-    window.addEventListener("scroll", () => {
-      let documentHeight = document.body.scrollHeight;
-      let currentScroll = window.scrollY + window.innerHeight;
-      let modifier = 200;
-      if (window.innerWidth <= 576) {
-        if (currentScroll + modifier > documentHeight) {
-          header.style.display = `none`;
-        } else {
-          header.style.display = `block`;
-        }
-      }
-    });
+    // var header = this.$refs.priceBox;
+    // window.addEventListener("scroll", () => {
+    //   let documentHeight = document.body.scrollHeight;
+    //   let currentScroll = window.scrollY + window.innerHeight;
+    //   let modifier = 200;
+    //   if (window.innerWidth <= 576) {
+    //     if (currentScroll + modifier > documentHeight) {
+    //       header.style.display = `none`;
+    //     } else {
+    //       header.style.display = `block`;
+    //     }
+    //   }
+    // });
   },
 };
 </script>
@@ -187,9 +259,9 @@ export default {
 .bottom-bar .active {
   color: var(--main-color);
 }
-.bottom-bar .active svg path,
+/* .bottom-bar .active svg path,
 .bottom-bar .active svg circle,
 .bottom-bar .active svg ellipse {
   stroke: var(--main-color);
-}
+} */
 </style>

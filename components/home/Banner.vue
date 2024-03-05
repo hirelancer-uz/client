@@ -108,7 +108,9 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props: ["specialities"],
+};
 </script>
 <style scoped>
 .banner {

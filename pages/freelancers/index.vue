@@ -1,9 +1,9 @@
 <template>
   <transition name="fade-left" mode="out-in">
-    <div class="freelancers pt-16 pb-[120px] xl:px-4 xl:pt-6 xl:pb-6">
+    <div class="freelancers pt-16 pb-[120px] xl:pt-4 xl:pb-6">
       <div class="2xl:container container mx-auto">
         <div class="title items-center xl:hidden grider">
-          <h2 class="text-black text-[32px] font-semibold titler">
+          <h2 class="text-black text-[32px] font-semibold titler xl:hidden">
             {{ $store.state.translations["freelancers.title"] }}
             <span class="hidden xl:block" v-if="totalPage"
               >{{ totalPage?.toLocaleString() }}
@@ -47,7 +47,7 @@
             <button
               v-else
               @click="$router.push('/registration')"
-              class="h-[60px] w-[204px] flex justify-center items-center bg-white rounded-xl text-base font-medium text-blue border-blue xl:hidden"
+              class="h-[60px] w-[204px] flex justify-center items-center bg-white rounded-[12px] text-base font-medium text-blue border-[1px] border-blue border-solid buttoner xl:hidden"
             >
               {{ $store.state.translations["freelancers.order"] }}
             </button>
@@ -207,13 +207,17 @@ export default {
       searchVal: "",
     };
   },
+
+  destroyed() {
+    this.$store.commit("setPageData", {});
+  },
   async asyncData({ store, query }) {
-    store.commit("setPageData", { title: "TitleQul" });
     const [freeLancersData, specialitiesData, regionsData] = await Promise.all([
       store.dispatch("fetchFreelancers/getFreelancers", {
         params: {
           page: query.page || 1,
           page_size: query.page_size || 10,
+          // [`specialities[${params.id}]`]: params.id,
           ...query,
         },
       }),
@@ -246,6 +250,12 @@ export default {
 
   mounted() {
     this.getFirstData();
+    this.$store.commit("setPageData", {
+      title: "Frilanserlar",
+      center: false,
+      info: `${this.totalPage?.toLocaleString()} результатов`,
+      link: true,
+    });
     if (this.$route.query?.search) this.search = this.$route.query?.search;
     this.debouncedSearch = this.debounce(this.changeSearch, 500);
   },
@@ -335,6 +345,12 @@ export default {
         this.close();
       } catch (e) {
       } finally {
+        this.$store.commit("setPageData", {
+          title: "Frilanserlar",
+          center: false,
+          info: `${this.totalPage?.toLocaleString()} результатов`,
+          link: true,
+        });
         this.loading = false;
       }
     },
@@ -372,11 +388,11 @@ export default {
     grid-template-columns: repeat(1, 1fr);
     gap: 16px;
   }
-  .titler {
+  /* .titler {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-  }
+  } */
   .titler span {
     color: var(--grey-64, #5d5d5f);
     font-size: 14px;

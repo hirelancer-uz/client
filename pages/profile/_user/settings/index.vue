@@ -1,28 +1,30 @@
 <template lang="html">
-  <div class="profile xl:px-4">
+  <div class="profile">
     <!-- <ProfileLayout :profile="true"> -->
     <div class="head flex flex-col gap-4 mt-8 xl:mt-0">
       <h3 class="text-[24px] text-black font-semibold xl:hidden">Настройки</h3>
     </div>
-    <div class="buttons flex gap-6 mt-4 xl:gap-3">
+    <div
+      class="buttons xl:justify-center bg-white flex gap-6 mt-4 xl:gap-12 xl:mt-[-3px] xl:relative z-[2000] xl:pt-[3px] xl:hidden"
+    >
       <button
         :to="`/profile/${$route.params.user}/settings`"
         @click="$router.push(`/profile/${$route.params.user}/settings`)"
         :class="{ active: !$route.name.includes('specialities') }"
-        class="px-6 py-3 rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey text-base xl:text-[14px] text-grey-64 font-medium xl:py-0 xl:flex xl:items-center xl:h-9 whitespace-nowrap xl:rounded-lg xl:border xl:px-4"
+        class="px-6 py-3 relative rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] text-base text-grey-64 font-medium xl:font-semibold xl:py-0 xl:flex xl:items-center xl:h-9 whitespace-nowrap xl:rounded-lg"
       >
         Shaxsiy ma'lumotlar
       </button>
       <button
         @click="$router.push(`/profile/${$route.params.user}/settings/specialities`)"
         :class="{ active: $route.name.includes('specialities') }"
-        class="px-6 py-0 xl:flex xl:items-center rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey text-base xl:text-[14px] text-grey-64 font-medium xl:py-2 xl:h-9 whitespace-nowrap xl:rounded-lg xl:border xl:px-4"
+        class="px-6 py-0 xl:flex xl:items-center relative rounded-[12px] border-solid border-[2px] xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] border-bg-grey bg-bg-grey text-base text-grey-64 font-medium xl:font-semibold xl:py-2 xl:h-9 whitespace-nowrap xl:rounded-lg"
       >
         Mutaxassisliklar
       </button>
     </div>
     <a-form-model ref="ruleForm" :model="form" :rules="rules">
-      <div class="max-w-[818px] pt-6 flex flex-col gap-6 relative">
+      <div class="max-w-[818px] pt-6 xl:pt-4 flex flex-col gap-6 relative container">
         <div
           v-if="laoding"
           class="loader h-full w-full flex justify-center absolute top-0 left-0 pointer-events-none z-100 items-center"
@@ -57,7 +59,7 @@
                   :before-upload="handleBeforeUpload"
                   :custom-request="customRequest"
                   :file-list="fileList"
-                  accept=".jpg, .png, .jpeg, .gif, .svg"
+                  accept=".jpg, .png, .jpeg, .webp"
                 >
                   <div class="reupload">
                     <button>
@@ -143,7 +145,7 @@
                     :before-upload="handleBeforeUpload"
                     :custom-request="customRequest"
                     :file-list="fileList"
-                    accept=".jpg, .png, .jpeg, .gif, .svg"
+                    accept=".jpg, .png, .jpeg, .webp"
                   >
                     <button>
                       <svg
@@ -409,7 +411,7 @@
     </a-form-model>
     <!-- </ProfileLayout> -->
     <div
-      class="fixed-btns fixed bottom-0 w-full z-[20000] py-4 px-4 bg-white left-0 hidden xl:flex gap-2"
+      class="fixed-btns fixed bottom-0 w-full z-[7] py-4 px-4 bg-white left-0 hidden xl:flex gap-2"
     >
       <button
         @click="$router.go(-1)"
@@ -496,6 +498,10 @@ export default {
       },
     };
   },
+
+  destroyed() {
+    this.$store.commit("setPageData", {});
+  },
   computed: {
     baseUrl() {
       return process.env.BASE_URL;
@@ -520,6 +526,12 @@ export default {
 
   async mounted() {
     this.__GET_USER_INFO();
+    this.$store.commit("setPageData", {
+      title: "Настройки",
+      center: false,
+      info: "",
+      link: true,
+    });
   },
   methods: {
     onChange(date, dateString) {},
@@ -651,8 +663,8 @@ export default {
   grid-gap: 16px;
 }
 .buttons .active {
-  border-color: var(--blue);
-  color: var(--blue);
+  border-color: var(--main-color);
+  color: var(--main-color);
   background-color: #fff;
 }
 .form-item :deep(.ant-input) {
@@ -753,7 +765,21 @@ export default {
 :deep(.has-error .quill-editor) {
   border-color: red;
 }
+.buttons button::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  height: 4px;
+  width: 100%;
+  border-radius: 5px 5px 0px 0px;
+}
 @media (max-width: 1200px) {
+  .buttons .active::after {
+    background: var(--Light-purple, #5d5fef);
+  }
+  .buttons {
+    box-shadow: 0px 4px 8px 0px rgba(92, 70, 229, 0.08);
+  }
   .form-item :deep(.ant-form-item-label label) {
     font-size: 14px;
   }

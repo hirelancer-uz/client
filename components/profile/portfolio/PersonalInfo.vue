@@ -11,9 +11,9 @@
         <button
           v-if="isEdit"
           @click="$router.push(`/profile/${$route.params.user}/settings`)"
-          class="flex gap-[6px] text-base text-blue font-medium items-center xl:hidden"
+          class="flex gap-[6px] text-base text-blue font-medium items-center xl:text-[14px]"
         >
-          Ma'lumotlarni yangilash
+         O'zgartirish
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -61,18 +61,19 @@
       ></div>
       <div
         v-else
-        class="h-[208px] pt-6 border-[0] border-t border-solid border-grey-8 mt-4 flex justify-center items-center"
+        class="h-[208px] xl:h-[100px] pt-6 border-[0] border-t border-solid border-grey-8 mt-4 flex justify-center items-center xl:border-b xl:border-t-[0] xl:pt-0"
       >
-        <p class="text-[18px] text-grey-64 font-medium">
-          Afuski ma’lumot topilmadi!
-        </p>
+        <VEmpty />
       </div>
     </div>
   </div>
 </template>
 <script>
+import VEmpty from "../VEmpty.vue";
+
 export default {
   props: ["isEdit", "profile", "userInfo"],
+  components: { VEmpty },
 };
 </script>
 <style lang="css" scoped>
@@ -81,6 +82,7 @@ export default {
     border-radius: 0;
     border: 0;
     border-top: 1px solid var(--border-darik);
+    padding-top: 24px;
     padding-left: 0;
     padding-right: 0;
   }

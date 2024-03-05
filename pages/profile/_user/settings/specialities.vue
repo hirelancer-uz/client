@@ -1,27 +1,29 @@
 <template lang="html">
-  <div class="profile xl:px-4">
+  <div class="profile">
     <!-- <ProfileLayout :profile="true"> -->
     <div class="head flex flex-col gap-4 mt-8 xl:hidden">
       <h3 class="text-[24px] text-black font-semibold">Настройки</h3>
     </div>
-    <div class="buttons flex gap-6 mt-4 xl:gap-3">
+    <div
+      class="buttons xl:justify-center bg-white flex gap-6 mt-4 xl:gap-12 xl:mt-[-3px] xl:relative z-[2000] xl:pt-[3px] xl:hidden"
+    >
       <button
         :to="`/profile/${$route.params.user}/settings`"
         @click="$router.push(`/profile/${$route.params.user}/settings`)"
         :class="{ active: !$route.name.includes('specialities') }"
-        class="px-6 py-3 rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey text-base xl:text-[14px] text-grey-64 font-medium xl:py-0 xl:flex xl:items-center xl:h-9 whitespace-nowrap xl:rounded-lg xl:border xl:px-4"
+        class="px-6 py-3 relative rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] xl:font-semibold text-base text-grey-64 font-medium xl:py-0 xl:flex xl:items-center xl:h-9 whitespace-nowrap xl:rounded-lg"
       >
         Shaxsiy ma'lumotlar
       </button>
       <button
         @click="$router.push(`/profile/${$route.params.user}/settings/specialities`)"
         :class="{ active: $route.name.includes('specialities') }"
-        class="px-6 py-0 xl:flex xl:items-center rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey text-base xl:text-[14px] text-grey-64 font-medium xl:py-2 xl:h-9 whitespace-nowrap xl:rounded-lg xl:border xl:px-4"
+        class="px-6 py-0 xl:flex xl:items-center relative rounded-[12px] border-solid border-[2px] xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] xl:font-semibold border-bg-grey bg-bg-grey text-base text-grey-64 font-medium xl:py-2 xl:h-9 whitespace-nowrap xl:rounded-lg"
       >
         Mutaxassisliklar
       </button>
     </div>
-    <div class="max-w-[818px] pt-6 flex flex-col gap-6 relative">
+    <div class="max-w-[818px] pt-6 xl:pt-4 flex flex-col gap-6 relative container">
       <div
         class="px-8 py-6 border border-solid border-border-darik rounded-[16px] xl:px-4 xl:py-4"
       >
@@ -29,7 +31,10 @@
           Mutaxassisligingizni tanlang
         </h3>
 
-        <div class="specialities-list flex justify-start gap-[10px] xl:grid xl:gap-2 xl:grid-cols-2" v-if="loading">
+        <div
+          class="specialities-list flex justify-start gap-[10px] xl:grid xl:gap-2 xl:grid-cols-2"
+          v-if="loading"
+        >
           <a-skeleton
             :paragraph="false"
             width="50px"
@@ -68,7 +73,7 @@
           </div>
 
           <button
-            @click="visible = true"
+            @click="openSpecial"
             class="py-[7px] text-base text-white h-[38px] flex items-center rounded-[4px] gap-2 border border-solid border-main-color pl-2 pr-3 bg-main-color xl:hidden xl:text-[14px]"
           >
             <svg
@@ -89,7 +94,7 @@
             >Qo’shish
           </button>
           <button
-            @click="open"
+            @click="openSpecial"
             class="py-[7px] text-base text-white h-[38px] items-center rounded-[4px] gap-2 border border-solid border-main-color pl-2 pr-3 bg-main-color hidden xl:flex"
           >
             <svg
@@ -110,18 +115,18 @@
           </button>
         </div>
         <div class="flex justify-between mt-4">
-          <p class="text-[14px] text-grey-64 xl:text-[12px]">Mutaxasliklaringizni tanlang. Max 3 ta</p>
+          <p class="text-[14px] text-grey-64 xl:text-[12px]">
+            Mutaxasliklaringizni tanlang. Max 3 ta
+          </p>
           <button class="text-main-color text-[14px] xl:text-[12px]">Kopaytirish</button>
         </div>
       </div>
     </div>
     <SpicialsticsCheck
+      ref="specialities"
       @saveChecked="saveChecked"
-      :visible="visible"
-      @handleOk="handleOk"
       :specialities="specialities"
       :activeCheckedList="activeCheckedList"
-      :openBottom="openBottom"
     />
   </div>
 </template>
@@ -140,7 +145,6 @@ export default {
   data() {
     return {
       activeCheckedList: [],
-      openBottom: false,
       errorSelect: false,
       modalList: null,
       visible: false,
@@ -150,10 +154,27 @@ export default {
     };
   },
 
+  destroyed() {
+    this.$store.commit("setPageData", {});
+  },
   async mounted() {
     this.__GET_SPECIAL();
+    this.$store.commit("setPageData", {
+      title: "Настройки",
+      center: false,
+      info: "",
+      link: true,
+    });
   },
   methods: {
+    openSpecial() {
+      this.$refs.specialities.open();
+      this.$refs.specialities.openModal();
+    },
+    closeSpecial() {
+      this.$refs.specialities.close();
+      this.$refs.specialities.closeModal();
+    },
     async __GET_SPECIAL() {
       try {
         this.loading = true;
@@ -177,8 +198,7 @@ export default {
     async saveChecked(checkedList) {
       this.activeCheckedList = await [...checkedList];
       this.onSubmit();
-      this.visible = false;
-      this.close();
+      this.closeSpecial();
     },
     async deleteChecked(id) {
       this.onSubmit(id);
@@ -192,15 +212,7 @@ export default {
       });
       this.__POST_REGISTER(formData);
     },
-    open() {
-      this.openBottom = true;
-      setTimeout(() => {
-        if (this.openBottom) this.openBottom = false;
-      }, 10);
-    },
-    close() {
-      this.openBottom = false;
-    },
+
     async __POST_REGISTER(form) {
       try {
         const data = await this.$store.dispatch(
@@ -221,9 +233,6 @@ export default {
         });
       }
     },
-    handleOk() {
-      this.visible = false;
-    },
   },
   components: {
     PersonalInfo,
@@ -240,8 +249,8 @@ export default {
 </script>
 <style lang="css" scoped>
 .buttons .active {
-  border-color: var(--blue);
-  color: var(--blue);
+  border-color: var(--main-color);
+  color: var(--main-color);
   background-color: #fff;
 }
 .specialities-list :deep(.ant-skeleton-title) {
@@ -282,5 +291,21 @@ export default {
 .modal-list .active {
   border-color: var(--blue);
   color: var(--blue);
+}
+.buttons button::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  height: 4px;
+  width: 100%;
+  border-radius: 5px 5px 0px 0px;
+}
+@media (max-width: 1200px) {
+  .buttons .active::after {
+    background: var(--Light-purple, #5d5fef);
+  }
+  .buttons {
+    box-shadow: 0px 4px 8px 0px rgba(92, 70, 229, 0.08);
+  }
 }
 </style>

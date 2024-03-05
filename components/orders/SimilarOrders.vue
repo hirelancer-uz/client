@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="orders similar-orders bg-bg-grey py-[64px] xl:py-6 xl:px-4">
+  <div class="orders similar-orders bg-bg-grey py-[64px] xl:py-6 xl:px-4 xl:bg-white xl:pt-0">
     <div class="max-w-[1286px] mx-auto list-grid mb-8 xl:mb-4">
       <div class="flex justify-between">
         <h1 class="text-black text-[32px] font-semibold xl:text-[18px]">

@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <div class="chat rounded-[16px] border border-solid border-grey-light">
+    <!-- <div class="chat rounded-[16px] border border-solid border-grey-light">
       <div
         class="flex justify-between px-6 py-[18px] border-[0] border-b border-solid border-grey-light"
       >
@@ -86,12 +86,60 @@
           </svg>
         </button>
       </div>
+    </div> -->
+    <div class="chat rounded-[16px] border border-solid border-grey-light">
+      <div
+        class="flex justify-between px-6 py-[18px] border-[0] border-b border-solid border-grey-light"
+      >
+        <h3 class="text-[24px] text-black font-semibold">Mening so'rovim</h3>
+      </div>
+      <div class="chat-body px-6 py-6 flex flex-col gap-[30px]">
+        <div
+          class="chat-card px-4 py-4 rounded-[12px]  border border-dashed border-grey-light bg-bg-grey flex flex-col gap-3"
+        >
+          <p class="text-base text-black">
+            Приветствую! Меня заинтересовал ваш проект. Моя цель – создавать интересные и
+            интуитивно понятные пользовательские интерфейсы, которые вдохновляют и
+            привлекают {{ myRequest?.additional_info }}
+          </p>
+          <span class="flex w-full h-[1px] bg-grey-light"></span>
+          <div class="flex flex-col gap-1">
+            <h5 class="text-[14px] text-black font-semibold" v-if="myRequest?.price">
+              {{ myRequest?.price?.toLocaleString() }} so’m
+            </h5>
+            <div class="flex justify-between">
+              <h6
+                class="text-[14px] text-grey-64 font-regular flex gap-1"
+                v-if="myRequest?.deadline"
+              >
+                Muddat:<span class="text-[14px] text-black font-semibold"
+                  >{{ myRequest?.deadline }} kun</span
+                >
+              </h6>
+              <p class="text-[12px] text-black">
+                {{ moment(myRequest?.created_at).format("DD.MM.YYYY HH:mm") }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import moment from "moment";
 export default {
-  props: ["status"],
+  props: ["status", "order"],
+  computed: {
+    myRequest() {
+      return this.order?.requests?.find(
+        (item) => item?.freelancer_id == this.$store.state.userInfo["id"]
+      );
+    },
+  },
+  methods: {
+    moment,
+  },
 };
 </script>
 <style lang="css" scoped>

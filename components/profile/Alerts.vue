@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="alerts">
+  <div class="alerts ">
     <div class="flex justify-between">
       <h1
         class="text-black text-[24px] font-semibold flex gap-2 xl:text-[18px] xl:w-full xl:justify-between"
@@ -35,16 +35,17 @@
       <AlertsCard />
       <AlertsCard class="xl:mr-4" />
     </div>
-    <div v-else class="h-[208px] flex justify-center items-center">
-      <p class="text-[18px] text-grey-64 font-medium">Afuski ma’lumot topilmadi!</p>
+    <div v-else class="h-[208px] xl:h-[111px] flex justify-center items-center mb-[-24px]">
+      <VEmpty />
     </div>
   </div>
 </template>
 <script>
 import AlertsCard from "./AlertsCard.vue";
+import VEmpty from "@/components/profile/VEmpty.vue";
 
 export default {
-  components: { AlertsCard },
+  components: { AlertsCard, VEmpty },
 };
 </script>
 <style lang="css" scoped>

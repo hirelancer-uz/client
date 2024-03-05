@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="pt-12 order xl:pt-6">
-    <div class="max-w-[1286px] mx-auto pb-[80px] xl:pb-[32px]">
+    <div class="max-w-[1286px] mx-auto pb-[80px] xl:pb-8">
       <nuxt-link
         to="/"
         class="back-btn flex xl:hidden gap-4 w-[162px] py-3 border border-grey-24 border-solid rounded-lg justify-center items-center text-base font-medium text-blue hover:text-blue"
@@ -24,10 +24,80 @@
       <div class="content-box mt-6 xl:mt-0 xl:px-4 xl:mt-[4px]">
         <div>
           <div
-            class="info rounded-3xl xl:rounded-2xl border-solid border-grey-8 pr-8 pl-6 py-6 xl:px-4 xl:py-4 border"
+            class="info rounded-3xl xl:rounded-2xl border-solid border-grey-8 xl:border-[0] pr-8 pl-6 py-6 xl:px-0 xl:py-4 border xl:pb-0 xl:pt-0"
           >
-            <div class="head flex justify-between xl:flex-col xl:gap-4">
-              <div class="flex gap-4 items-center">
+            <div class="head flex justify-between xl:flex-col xl:gap-5">
+              <div class="justify-between hidden xl:flex">
+                <div class="items-center gap-[10px] xl:justify-between flex">
+                  <p
+                    class="text-base xl:text-[14px] text-grey-64 flex gap-2 items-center"
+                  >
+                    <svg
+                      class="min-w-5"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                    >
+                      <path
+                        d="M17.6084 8.21087C18.5748 9.2276 18.5748 10.7723 17.6084 11.789C15.9786 13.5038 13.1794 15.8333 9.99984 15.8333C6.82024 15.8333 4.02108 13.5038 2.39126 11.789C1.42492 10.7723 1.42492 9.2276 2.39126 8.21087C4.02108 6.49607 6.82024 4.16663 9.99984 4.16663C13.1794 4.16663 15.9786 6.49607 17.6084 8.21087Z"
+                        stroke="#5C46E6"
+                        stroke-width="1.5"
+                      />
+                      <circle
+                        cx="10"
+                        cy="10"
+                        r="2.5"
+                        stroke="#5C46E6"
+                        stroke-width="1.5"
+                      /></svg
+                    >{{ order?.view_count }}
+                  </p>
+                  <span class="bg-grey-8 w-[1px] h-4"></span>
+                  <p
+                    class="text-base xl:text-[14px] text-grey-64 flex gap-2 items-center"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                    >
+                      <path
+                        d="M10.8332 2.5H9.1665C5.02437 2.5 1.6665 5.85786 1.6665 10V14.1667C1.6665 16.0076 3.15889 17.5 4.99984 17.5H10.8332C14.9753 17.5 18.3332 14.1421 18.3332 10C18.3332 5.85786 14.9753 2.5 10.8332 2.5Z"
+                        stroke="#5C46E6"
+                        stroke-width="1.5"
+                        stroke-linejoin="round"
+                      />
+                      <circle cx="9.99984" cy="9.99996" r="0.833333" fill="#5C46E6" />
+                      <ellipse
+                        cx="13.3333"
+                        cy="9.99996"
+                        rx="0.833333"
+                        ry="0.833333"
+                        fill="#5C46E6"
+                      />
+                      <ellipse
+                        cx="6.66683"
+                        cy="9.99996"
+                        rx="0.833333"
+                        ry="0.833333"
+                        fill="#5C46E6"
+                      /></svg
+                    >{{ order?.request_count }} запросов
+                  </p>
+                </div>
+                <p
+                  class="text-[14px] flex gap-[10px] items-center text-grey-64 xl:text-[14px]"
+                >
+                  <span> {{ moment(order?.created_at).format("HH:mm") }}</span>
+                  <span class="bg-grey-8 w-[1px] h-4"></span>
+                  <span> {{ moment(order?.created_at).format("DD.MM.YYYY") }}</span>
+                </p>
+              </div>
+              <div class="flex gap-4 items-center justify-between">
                 <span
                   v-if="order?.urgent"
                   class="flex xl:text-xs gap-[4px] status-red items-center rounded-[8px] px-[8px] py-[4px] text-light-red text-[14px] font-medium"
@@ -49,10 +119,7 @@
                     /></svg
                   >Срочный заказ</span
                 >
-                <span
-                  v-if="order?.urgent"
-                  class="h-[19px] w-[1px] bg-grey-8"
-                ></span>
+                <span v-if="order?.urgent" class="h-[19px] w-[1px] bg-grey-8"></span>
                 <span
                   v-if="step1"
                   class="flex gap-[7px] items-center rounded-[8px] text-dark-yellow text-[14px] font-medium"
@@ -129,29 +196,30 @@
 
                   Выполненно</span
                 >
+                <p class="hidden xl:flex text-base text-grey-64 xl:text-[14px] gap-[6px]">
+                  Заказ:<span class="font-medium text-black">#{{ order?.id }}</span>
+                </p>
               </div>
 
-              <div class="flex gap-6 xl:justify-between">
+              <div class="flex gap-6 xl:justify-between xl:hidden">
                 <p class="text-base text-grey-64 xl:text-[14px]">
                   {{ moment(order?.created_at).format(dateFormat) }}
                 </p>
                 <p class="text-base text-grey-64 xl:text-[14px] flex gap-[6px]">
-                  Заказ:<span class="font-medium text-black"
-                    >#{{ order?.id }}</span
-                  >
+                  Заказ:<span class="font-medium text-black">#{{ order?.id }}</span>
                 </p>
               </div>
             </div>
             <div
-              class="body mt-6 pb-4 border-[0] border-b border-solid border-grey-8"
+              class="body mt-6 xl:mt-3 pb-4 xl:pb-6 border-[0] border-b border-solid border-grey-8"
             >
               <h1
-                class="title text-[24px] font-semibold text-black mb-4 xl:text-[18px]"
+                class="title text-[24px] font-semibold text-black mb-4 xl:mt-2 xl:text-base xl:font-medium"
               >
                 {{ order?.name }}
               </h1>
               <span
-                class="text-base text-grey-80 xl:text-[14px]"
+                class="text-base text-grey-80 xl:text-grey-64 xl:text-[14px]"
                 v-html="order?.description"
               >
               </span>
@@ -171,17 +239,11 @@
               <h6 class="text-black text-[20px] font-semibold xl:text-[18px]">
                 Файлы к задаче
               </h6>
-              <div
-                class="file-list flex gap-4 justify-start xl:grid xl:grid-cols-3"
-              >
-                <FileCard
-                  v-for="file in order?.files"
-                  :file="file"
-                  :key="file?.id"
-                />
+              <div class="file-list flex gap-4 justify-start xl:grid xl:grid-cols-3">
+                <FileCard v-for="file in order?.files" :file="file" :key="file?.id" />
               </div>
             </div>
-            <div class="files flex flex-col gap-4 mt-4 xl:mt-6 mb-6 pl-2">
+            <div class="files flex flex-col gap-4 mt-4 xl:mt-6 mb-6 pl-2 xl:pl-0 xl:mb-0">
               <h6 class="text-black text-[20px] xl:text-[18px] font-semibold">
                 Категории:
               </h6>
@@ -203,12 +265,10 @@
               </div>
             </div>
             <div
-              class="content-bottom border-[0] border-t border-solid border-grey-8 pt-4 flex justify-between xl:flex-col xl:gap-6 xl:max-w-[90%] xl:mx-auto white-space-nowrap pl-2"
+              class="xl:hidden content-bottom border-[0] border-t border-solid border-grey-8 pt-4 flex justify-between xl:flex-col xl:gap-6 xl:max-w-[90%] xl:mx-auto white-space-nowrap pl-2"
             >
               <div class="flex items-center gap-[28px] xl:justify-between">
-                <p
-                  class="text-base xl:text-[14px] text-grey-64 flex gap-2 items-center"
-                >
+                <p class="text-base xl:text-[14px] text-grey-64 flex gap-2 items-center">
                   <svg
                     class="min-w-5"
                     xmlns="http://www.w3.org/2000/svg"
@@ -231,9 +291,7 @@
                     /></svg
                   >{{ order?.view_count }}
                 </p>
-                <p
-                  class="text-base xl:text-[14px] text-grey-64 flex gap-2 items-center"
-                >
+                <p class="text-base xl:text-[14px] text-grey-64 flex gap-2 items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -247,12 +305,7 @@
                       stroke-width="1.5"
                       stroke-linejoin="round"
                     />
-                    <circle
-                      cx="9.99984"
-                      cy="9.99996"
-                      r="0.833333"
-                      fill="#5C46E6"
-                    />
+                    <circle cx="9.99984" cy="9.99996" r="0.833333" fill="#5C46E6" />
                     <ellipse
                       cx="13.3333"
                       cy="9.99996"
@@ -377,74 +430,36 @@
     </div>
     <SimilarOrders :orders="orders" />
     <div>
-      <!-- <Transition name="opacity">
-        <div
-          v-if="bottomModal"
-          @click="closeModal"
-          class="modal-bg fixed w-full h-full bottom-0 left-0"
-        ></div>
-      </Transition> -->
-      <!-- <Transition name="nested"> -->
-      <!-- <div v-if="bottomModal" class="fixed w-full bottom-0 left-0"> -->
-      <BottomModal
-        @close="closeModal"
-        @submit="submit"
-        :visibleProp="bottomModal"
+      <BottomModal ref="sendApp" @submit="submit" />
+      <ToBeFreelancer ref="toBeFreelancer" @open="openSpecial" />
+      <OrderSuccess ref="successModal" :order="order" />
+      <SpicialsticsCheck
+        ref="specialities"
+        @saveChecked="saveChecked"
+        :specialities="specialities"
+        :activeCheckedList="activeCheckedList"
       />
-      <!-- </div> -->
-      <!-- </Transition> -->
-      <div class="xl:hidden flex">
-        <OrderSuccess :visibleProp="visible" @handleOkProp="handleOk" :order="order" />
-      </div>
-      <div class="flex">
-        <ToBeFreelancer
-          :visibleProp="visibleToFree"
-          @handleOkProp="handleOk"
-          @open="visibleSpicial = true"
-        />
-      </div>
-      <vue-bottom-sheet-vue2 ref="myBottomSheet" class="bottom-drawer">
-        <BottomModal @close="closeModal" @submit="submit" />
-      </vue-bottom-sheet-vue2>
-      <div class="hidden xl:flex">
-        <vue-bottom-sheet-vue2 ref="orderSucccess" class="bottom-drawer">
-          <BottomSuccess class="hidden xl:flex" @close="closeSuccess" />
-        </vue-bottom-sheet-vue2>
-      </div>
     </div>
-    <SpicialsticsCheck
-      @saveChecked="saveChecked"
-      :visible="visibleSpicial"
-      @handleOk="handleOkSpicial"
-      :specialities="specialities"
-      :activeCheckedList="activeCheckedList"
-      :openBottom="openBottom"
-    />
   </div>
 </template>
 <script>
-import ClientCard from "../../components/orders/ClientCard.vue";
-import FileCard from "../../components/orders/FileCard.vue";
-import InfoCard from "../../components/orders/InfoCard.vue";
-import SimilarOrders from "../../components/orders/SimilarOrders.vue";
-import PriceCard from "../../components/orders/PriceCard.vue";
-import BottomModal from "../../components/orders/BottomModal.vue";
-import OrderSuccess from "../../components/modals/OrderSuccess.vue";
-import BottomSuccess from "../../components/orders/BottomSuccess.vue";
-import Loader from "../../components/Loader.vue";
+import ClientCard from "@/components/orders/ClientCard.vue";
+import FileCard from "@/components/orders/FileCard.vue";
+import InfoCard from "@/components/orders/InfoCard.vue";
+import SimilarOrders from "@/components/orders/SimilarOrders.vue";
+import PriceCard from "@/components/orders/PriceCard.vue";
+import BottomModal from "@/components/orders/BottomModal.vue";
+import OrderSuccess from "@/components/modals/OrderSuccess.vue";
+import BottomSuccess from "@/components/orders/BottomSuccess.vue";
+import Loader from "@/components/Loader.vue";
 import moment from "moment";
-import ToBeFreelancer from "../../components/modals/ToBeFreelancer.vue";
-import SpicialsticsCheck from "../../components/modals/SpicialsticsCheck.vue";
+import ToBeFreelancer from "@/components/modals/ToBeFreelancer.vue";
+import SpicialsticsCheck from "@/components/modals/SpicialsticsCheck.vue";
 export default {
   data() {
     return {
-      bottomModal: false,
-      visible: false,
       dateFormat: "DD MMM YYYY, HH:mm",
-      visibleToFree: false,
       activeCheckedList: [],
-      openBottom: false,
-      visibleSpicial: false,
     };
   },
   computed: {
@@ -468,6 +483,16 @@ export default {
   },
   mounted() {
     this.__GET_ORDERS();
+    this.$store.commit("setPageData", {
+      title: "Проект",
+      center: false,
+      info: "",
+      link: true,
+    });
+  },
+
+  destroyed() {
+    this.$store.commit("setPageData", {});
   },
   async asyncData({ store, params }) {
     try {
@@ -492,13 +517,30 @@ export default {
         specialities,
       };
     } catch (e) {
-      console.log(e);
     } finally {
     }
   },
   methods: {
-    handleOkSpicial() {
-      this.visibleSpicial = false;
+    openSuccessModal() {
+      this.$refs.successModal.open();
+      this.$refs.successModal.openModal();
+    },
+    closeSuccessModal() {
+      this.$refs.successModal.close();
+      this.$refs.successModal.closeModal();
+    },
+    openSpecial() {
+      console.log("asdjksahdusep");
+      this.$refs.specialities.open();
+      this.$refs.specialities.openModal();
+    },
+    closeSpecial() {
+      this.$refs.specialities.close();
+      this.$refs.specialities.closeModal();
+    },
+    openSendApp() {
+      this.$refs.sendApp.open();
+      this.$refs.sendApp.openModal();
     },
     onSubmitSpicial() {
       let formData = new FormData();
@@ -524,35 +566,24 @@ export default {
       } catch (e) {
         this.$notification["error"]({
           message: "Error",
-          description: e.response.statusText,
+          description: e.response.data?.message || e.response.statusText,
         });
       }
     },
     async saveChecked(checkedList) {
       this.activeCheckedList = await [...checkedList];
       this.onSubmitSpicial();
-      this.visibleSpicial = false;
-      this.closeSpicial();
+      this.closeSpecial();
     },
-    closeSpicial() {
-      this.openBottom = false;
+    openBeFreelancer() {
+      this.$refs.toBeFreelancer.openModal();
+      this.$refs.toBeFreelancer.open();
     },
-    openSpicial() {
-      this.openBottom = true;
-      setTimeout(() => {
-        if (this.openBottom) this.openBottom = false;
-      }, 10);
-    },
-    handleOk() {
-      this.visible = false;
+    closeBeFreelancer() {
+      this.$refs.toBeFreelancer.closeModal();
+      this.$refs.toBeFreelancer.close();
     },
     moment,
-    open() {
-      this.$refs.myBottomSheet.open();
-    },
-    close() {
-      this.$refs.myBottomSheet.close();
-    },
     openSuccess() {
       this.$refs.orderSucccess.open();
     },
@@ -561,20 +592,13 @@ export default {
     },
     async openModal() {
       if (this.$store.state.auth && this.$store.state.userInfo?.name) {
-        if (this.$store.state.userInfo?.specialities.length == 0) {
-          this.visibleToFree = !this.visibleToFree;
-        } else {
-          this.bottomModal = !this.bottomModal;
-        }
+        this.$store.state.userInfo?.specialities.length == 0
+          ? this.openBeFreelancer()
+          : this.openSendApp();
       } else {
         localStorage.setItem("return_link", this.$route.path);
         this.$router.push("/registration");
       }
-      // if (window.innerWidth >= 1200) {
-      //   this.bottomModal = true;
-      // } else {
-      //   this.open();
-      // }
     },
     submit(form) {
       this.__POST_ORDER(form);
@@ -584,8 +608,6 @@ export default {
         const data = await this.$store.dispatch("fetchOrders/getOrderById", {
           id: this.$route.params.slug,
         });
-        // this.bottomModal;
-      } catch (e) {
       } finally {
       }
     },
@@ -595,27 +617,16 @@ export default {
           ...data,
           order_id: this.$route.params.slug,
         });
-        this.bottomModal = false;
-        this.visible = true;
-        this.close();
-        await this.closeModal();
-        if (window.innerWidth > 1200) this.visible = true;
-
-        // this.openSuccess();
-        // this.$router.go(-1);
+        this.openSuccessModal();
+        this.closeBeFreelancer();
+        this.openSuccess();
+        this.__GET_ORDERS();
       } catch (e) {
         this.$notification["error"]({
           message: "Error",
           description: e.response.statusText,
         });
       }
-    },
-    handleOk() {
-      this.visible = false;
-    },
-    closeModal() {
-      this.bottomModal = false;
-      this.close();
     },
   },
   components: {
@@ -646,7 +657,7 @@ export default {
   display: grid;
   grid-template-columns: 3.5fr 6.5fr;
   gap: 16px;
-  min-height: 100px;
+  /* min-height: 100px; */
   align-items: center;
 }
 .mobile__price :deep(.rower) {

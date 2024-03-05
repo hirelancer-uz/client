@@ -3,12 +3,12 @@
     class="freelancer-tab flex justify-between items-end xl:border-[0] xl:border-b xl:border-solid xl:border-border-darik"
   >
     <div
-      class="rounded-2xl bg-bg-grey px-4 xl:px-0 py-4 flex gap-6 xl:bg-transparent xl:overflow-x-scroll xl:gap-3 scroll-none xl:pb-6  xl:grid xl:grid-cols-3 w-auto"
+      class="rounded-2xl bg-bg-grey px-4 xl:px-0 py-4 flex gap-6 xl:bg-transparent xl:overflow-x-scroll xl:gap-3 scroll-none xl:pb-6 xl:grid xl:grid-cols-3 w-auto"
     >
       <nuxt-link
         :to="`/freelancer/${$route.params.index}`"
-        :class="{ active: $route.name == `freelancer-index` }"
-        class="xl:ml-4 text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[96px] xl:min-h-[68px] rounded-[12px] hover:text-black xl:ml-[0]"
+        exact
+        class="text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[96px] xl:min-h-[68px] rounded-[12px] hover:text-black xl:ml-4"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -25,12 +25,11 @@
             stroke-linejoin="round"
           />
         </svg>
-        Profil</nuxt-link
-      >
+        Profil
+      </nuxt-link>
 
       <nuxt-link
         :to="`/freelancer/${$route.params.index}/portfolio`"
-        :class="{ active: $route.name == `freelancer-index-portfolio` }"
         class="text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[96px] xl:min-h-[68px] rounded-[12px] hover:text-black"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +51,6 @@
       >
       <nuxt-link
         :to="`/freelancer/${$route.params.index}/comments`"
-        :class="{ active: $route.name == `freelancer-index-comments` }"
         class="text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[96px] xl:min-h-[68px] rounded-[12px] hover:text-black"
         ><svg
           width="24"
@@ -126,15 +124,15 @@
 export default {};
 </script>
 <style lang="css" scoped>
-.freelancer-tab .active {
+.freelancer-tab .nuxt-link-active {
   background-color: var(--blue);
   color: white;
   box-shadow: 0px 4px 15px 0px rgba(92, 70, 229, 0.29);
 }
-.freelancer-tab .active svg path {
+.freelancer-tab .nuxt-link-active svg path {
   stroke: white;
 }
-.freelancer-tab .active svg circle {
+.freelancer-tab .nuxt-link-active svg circle {
   fill: white;
 }
 @media (max-width: 1200px) {

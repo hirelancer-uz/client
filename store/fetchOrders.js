@@ -13,6 +13,10 @@ export const actions = {
     const res = await this.$axios.$get(`/api/client/orders/${payload.id}`);
     return res;
   },
+  async getOrderCounts({}) {
+    const res = await this.$axiosInstance.$get(`/api/order_counts`);
+    return res;
+  },
   async postOrder({}, data) {
     const res = await this.$axiosInstance.$post(`/api/orders/create`, data);
     return res;

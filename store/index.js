@@ -18,6 +18,9 @@ export const mutations = {
   setPageData(state, payload) {
     state.pageData = payload;
   },
+  getOrderCounts(state, payload) {
+    state.orderCounts = payload;
+  },
   logout(state) {
     localStorage.removeItem("auth-token");
     state.auth = false;

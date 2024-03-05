@@ -1,6 +1,5 @@
 <template lang="html">
-  <transition name="fade-left" mode="out-in">
-  <div class="notifications pt-12 pb-[400px]">
+  <div class="notifications pt-12 pb-[400px] max-w-[954px] mx-auto">
     <div class="2xl:container container mx-auto flex flex-col gap-12">
       <h2 class="text-black text-[32px] font-semibold">Bildirish nomalar</h2>
       <div class="body flex flex-col gap-10">
@@ -22,7 +21,6 @@
       </div>
     </div>
   </div>
-  </transition>
 </template>
 <script>
 import NotificationCard from "../components/NotificationCard.vue";
@@ -36,6 +34,4 @@ export default {
   components: { VPagination, NotificationCard },
 };
 </script>
-<style lang="css" scoped>
-
-</style>
+<style lang="css" scoped></style>

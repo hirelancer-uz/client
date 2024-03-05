@@ -4,7 +4,7 @@
     @click="$router.push(`/freelancer/${freelancer?.id}`)"
   >
     <div class="card flex items-center gap-4 flex-row">
-      <div class="image relative min-w-[88px] h-[88px]">
+      <div class="image relative min-w-[88px] h-[88px] xl:w-16 xl:h-16 xl:min-w-16">
         <!-- <img v-if="freelancer?.avatar" class="w-full h-full object-cover" :src="freelancer?.avatar" alt="" /> -->
         <div
           class="rounded-full overflow-hidden h-full w-full border border-solid border-grey-8"
@@ -47,12 +47,12 @@
       >
         <div class="flex flex-col items-start xl:items-start">
           <h4
-            class="text-[20px] font-medium text-black truncate name whitespace-normal text-center"
+            class="text-[20px] xl:text-base font-medium text-black truncate name whitespace-normal text-center"
           >
             {{ freelancer?.name }}
           </h4>
           <div class="flex items-center gap-4 mt-2">
-            <p class="text-[14px] font-medium text-grey-80 flex gap-[4px]">
+            <p class="text-[14px] font-medium text-grey-80 flex gap-[4px] xl:text-[12px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="14"

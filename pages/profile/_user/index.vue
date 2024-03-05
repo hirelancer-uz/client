@@ -40,6 +40,16 @@ export default {
   },
   async mounted() {
     this.__GET_COMMENTS();
+    this.$store.commit("setPageData", {
+      title: "Kabinetim",
+      center: true,
+      info: "",
+      link: false,
+    });
+  },
+
+  destroyed() {
+    this.$store.commit("setPageData", {});
   },
   methods: {
     async __GET_COMMENTS() {

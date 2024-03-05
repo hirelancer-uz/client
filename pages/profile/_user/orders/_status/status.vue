@@ -1,7 +1,7 @@
 <template lang="html">
-  <div class="portfolio xl:px-4">
+  <div class="portfolio xl:px-4 xl:pt-6">
     <!-- <ProfileLayout :profile="true"> -->
-    <div class="head flex flex-col gap-4 mt-8 xl:mt-0">
+    <div class="head flex flex-col gap-4 xl:gap-6 mt-8 xl:mt-0">
       <div class="flex justify-between xl:hidden">
         <h3 class="text-[24px] text-black font-semibold">Заказы</h3>
         <button
@@ -11,6 +11,27 @@
         >
           Добавить проект
         </button>
+      </div>
+      <div>
+        <div
+          class="border border-solid border-grey-8 rounded-[12px] h-12 px-5 w-full gap-4 items-center hidden xl:flex"
+        >
+          <input placeholder="Qidirish..." type="text" class="w-full h-full text-base" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M15.875 8.58366C15.875 12.6107 12.6104 15.8753 8.58329 15.8753C4.55622 15.8753 1.29163 12.6107 1.29163 8.58366C1.29163 4.55658 4.55622 1.29199 8.58329 1.29199C12.6104 1.29199 15.875 4.55658 15.875 8.58366ZM8.58329 17.1253C13.3007 17.1253 17.125 13.3011 17.125 8.58366C17.125 3.86623 13.3007 0.0419922 8.58329 0.0419922C3.86586 0.0419922 0.041626 3.86623 0.041626 8.58366C0.041626 13.3011 3.86586 17.1253 8.58329 17.1253ZM16.1086 15.2251C15.8645 14.981 15.4688 14.981 15.2247 15.2251C14.9806 15.4691 14.9806 15.8649 15.2247 16.1089L16.8913 17.7756C17.1354 18.0197 17.5311 18.0197 17.7752 17.7756C18.0193 17.5315 18.0193 17.1358 17.7752 16.8917L16.1086 15.2251Z"
+              fill="#020105"
+            />
+          </svg>
+        </div>
       </div>
       <div class="flex justify-between items-center gap-6">
         <OrdersTab />
@@ -40,12 +61,12 @@
       <a-skeleton
         :paragraph="false"
         class="loading-card"
-        v-for="elem in [1, 2, 3, 4, 5]"
+        v-for="elem in [1, 2]"
         :key="elem"
       />
     </div>
     <div
-      class="list flex flex-col gap-4 mt-6 mb-[40px]"
+      class="list flex flex-col gap-4 mt-6 mb-[40px] xl:mt-4"
       v-if="$route.params.user == 'customer' && !loading"
     >
       <CompletedOrdersCard v-for="order in orders" :order="order" :key="order?.id" />
@@ -70,7 +91,9 @@
       class="list flex-col gap-4 mt-6 mb-[40px] xl:flex hidden"
       v-if="$route.params.user == 'freelancer' && !loading"
     >
-      <ProfileOrderCardMobile v-for="order in orders" :order="order" :key="order?.id" />
+      <ProfileOrdersCard v-for="order in orders" :order="order" :key="order?.id" />
+
+      <!-- <ProfileOrderCardMobile v-for="order in orders" :order="order" :key="order?.id" /> -->
     </div>
     <div
       class="w-full h-[300px] flex justify-center items-center"
@@ -80,7 +103,7 @@
     </div>
     <div
       v-if="$route.params.user == 'customer'"
-      class="fixed-btns fixed bottom-0 w-full z-[20000] py-4 px-4 bg-white left-0 hidden xl:flex flex-col gap-2"
+      class="fixed-btns fixed bottom-0 w-full z-[7] py-4 px-4 bg-white left-0 hidden xl:flex flex-col gap-2"
     >
       <button
         @click="$router.push('/profile/orders/add')"
@@ -104,7 +127,7 @@ import ProfileOrderCardMobile from "@/components/profile/orders/ProfileOrderCard
 import OrdersTab from "@/components/profile/orders/OrdersTab.vue";
 import Loader from "@/components/Loader.vue";
 import CompletedOrdersCard from "@/components/profile/orders/CompletedOrdersCard.vue";
-import ComplitedCard from "../../../../../components/profile/orders/ComplitedCard.vue";
+import ComplitedCard from "@/components/profile/orders/ComplitedCard.vue";
 
 export default {
   layout: "profileLayout",
@@ -113,7 +136,7 @@ export default {
       orders: [],
       loading: true,
       pageSize: 5,
-      totalPage: false,
+      totalPage: 0,
       status: {
         customer: {
           active: 1,
@@ -131,6 +154,10 @@ export default {
       },
     };
   },
+
+  destroyed() {
+    this.$store.commit("setPageData", {});
+  },
   computed: {
     handleUser() {
       return this.$store.state.userInfo["id"];
@@ -138,6 +165,12 @@ export default {
   },
   async mounted() {
     if (this.$store.state.userInfo["id"]) this.__GET_ORDERS();
+    this.$store.commit("setPageData", {
+      title: "Проект",
+      center: false,
+      info: "",
+      link: true,
+    });
   },
   methods: {
     async __GET_ORDERS() {

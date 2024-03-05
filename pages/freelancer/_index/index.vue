@@ -1,24 +1,22 @@
 <template>
-  <div class="profile xl:px-4 xl:mt-[4px]">
+  <div class="profile xl:px-0 xl:mt-0">
     <ProfileLayout :profile="false" :freelancer="freelancer" :show="true">
-      <div class="personal-information mt-8 xl:mt-6">
-        <PersonalInfo
-          :isEdit="false"
-          :freelancer="freelancer"
-          :profile="false"
-          :userInfo="freelancer"
-        />
-        <!-- <Achievements :profile="false" /> -->
+      <div class="flex flex-col container">
+        <div class="personal-information mt-8 xl:mt-6">
+          <PersonalInfo
+            :isEdit="false"
+            :freelancer="freelancer"
+            :profile="false"
+            :userInfo="freelancer"
+          />
+        </div>
+        <div class="portfolio-block mt-[40px] xl:mt-6">
+          <Portfolios :portfolios="portfolios" />
+        </div>
+        <div class="mt-10">
+          <Comments :feedbacks="freelancer?.customers_feedbacks" />
+        </div>
       </div>
-      <div class="portfolio-block mt-[40px] xl:mt-6">
-        <Portfolios :portfolios="portfolios" />
-      </div>
-      <div class="mt-10">
-        <Comments :feedbacks="freelancer?.customers_feedbacks" />
-      </div>
-      <!-- <div class="events-block mt-10 xl:mt-[56px]">
-        <Events />
-      </div> -->
     </ProfileLayout>
   </div>
 </template>
@@ -28,7 +26,7 @@ import Achievements from "@/components/profile/portfolio/Achievements.vue";
 import Portfolios from "@/components/profile/portfolio/Portfolios.vue";
 import Events from "@/components/profile/Events.vue";
 import ProfileLayout from "@/components/profile/ProfileLayout.vue";
-import Comments from "../../../components/profile/Comments.vue";
+import Comments from "@/components/profile/Comments.vue";
 
 export default {
   components: {
@@ -39,7 +37,17 @@ export default {
     ProfileLayout,
     Comments,
   },
-
+  mounted() {
+    this.$store.commit("setPageData", {
+      title: this.freelancer?.name + " " + this.freelancer?.surname,
+      center: false,
+      info: "",
+      link: true,
+    });
+  },
+  destroyed() {
+    this.$store.commit("setPageData", {});
+  },
   async asyncData({ store, params }) {
     try {
       const [freeLancerData, portfoliosData] = await Promise.all([

@@ -60,6 +60,7 @@
 }
 html {
   scroll-behavior: smooth;
+  /* overflow-x: hidden; */
 }
 body {
   font-family: "TT Interfaces";
@@ -162,6 +163,7 @@ h6 {
 input:focus-visible {
   outline: none;
 }
+
 .ant-form-item {
   margin-bottom: 0;
 }
@@ -196,7 +198,7 @@ a:hover {
   background-color: var(--blue);
   border-radius: 6px;
 }
-.ant-modal-content {
+.portfolio-modal .ant-modal-content {
   border-radius: 16px !important;
 }
 .ant-tooltip {
@@ -228,6 +230,11 @@ a:hover {
   }
 }
 @media (max-width: 1200px) {
+  .portfolio-modal .ant-modal-content {
+    border-radius: 0 !important;
+    border-top-left-radius: 8px !important;
+    border-top-right-radius: 8px !important;
+  }
   .ant-modal {
     width: 100% !important;
     padding: 0 !important;
@@ -239,7 +246,7 @@ a:hover {
   }
   .ant-modal-body {
     margin: 0 !important;
-    padding: 56px 16px !important;
+    padding: 56px 16px 0 16px !important;
   }
   .ant-carousel {
     margin-right: -4px !important;
@@ -249,11 +256,15 @@ a:hover {
   .fade-left-enter-active,
   .fade-left-leave-active {
     transition: transform 0.3s;
+    transform: scale(1);
+    filter: blur(4.1px);
     z-index: 1;
   }
   .fade-left-enter,
   .fade-left-leave-to {
-    transform: translateX(100%);
+    /* transform: translateX(100%); */
+    transform: scale(0.8);
+    filter: blur(1.1px);
     z-index: 1;
   }
   .ant-upload-list-item-actions {

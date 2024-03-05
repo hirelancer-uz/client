@@ -1,57 +1,59 @@
 <template>
-  <div class="master xl:px-[16px]">
+  <div class="master">
     <ProfileLayout :profile="false" :freelancer="freelancer" :show="true">
-      <div class="sort__comments">
-        <a-select v-model="currentStatus">
-          <a-select-option
-            :value="item.value"
-            :key="index"
-            v-for="(item, index) in status"
+      <div class="container">
+        <div class="sort__comments">
+          <a-select v-model="currentStatus">
+            <a-select-option
+              :value="item.value"
+              :key="index"
+              v-for="(item, index) in status"
+            >
+              {{ item.label }}
+            </a-select-option>
+          </a-select>
+        </div>
+        <div>
+          <div
+            class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 xl:grid-cols-1 gap-4 mb-[40px]"
+            v-if="loading"
           >
-            {{ item.label }}
-          </a-select-option>
-        </a-select>
-      </div>
-      <div>
-        <div
-          class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 xl:grid-cols-1 gap-4 mb-[40px]"
-          v-if="loading"
-        >
-          <a-skeleton
-            :paragraph="false"
-            class="loading-card"
-            v-for="elem in [1, 2, 3, 4, 5, 6]"
-            :key="elem"
+            <a-skeleton
+              :paragraph="false"
+              class="loading-card"
+              v-for="elem in [1, 2, 3, 4, 5, 6]"
+              :key="elem"
+            />
+          </div>
+          <div
+            v-else
+            class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 xl:grid-cols-1 gap-4 mb-[40px]"
+          >
+            <CommentsCard
+              v-for="feedback in comments"
+              :key="feedback?.id"
+              :feedback="feedback"
+            />
+          </div>
+          <VPagination
+            :totalPage="totalPage"
+            @getData="__GET_COMMENTS"
+            :pageSize="pageSize"
           />
         </div>
         <div
-          v-else
-          class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 xl:grid-cols-1 gap-4 mb-[40px]"
+          v-if="freelancer?.customers_feedbacks?.length == 0 && !loading"
+          class="h-[400px] flex justify-center items-center xl:h-[200px]"
         >
-          <CommentsCard
-            v-for="feedback in comments"
-            :key="feedback?.id"
-            :feedback="feedback"
-          />
-        </div>
-        <VPagination
-          :totalPage="totalPage"
-          @getData="__GET_COMMENTS"
-          :pageSize="pageSize"
-        />
-      </div>
-      <div
-        v-if="freelancer?.customers_feedbacks?.length == 0 && !loading"
-        class="h-[400px] flex justify-center items-center"
-      >
-        <p class="text-[18px] text-grey-64 font-medium">Afuski ma’lumot topilmadi!</p>
-        <!-- <div
+          <VEmpty />
+          <!-- <div
         class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 gap-4 mb-[40px] xl:grid-cols-1 xl:gap-[16px] xl:mb-[16px] xl:mt-[16px]"
       >
         <CommentsCard />
         <CommentsCard />
         <CommentsCard />
         <CommentsCard /> -->
+        </div>
       </div>
     </ProfileLayout>
   </div>
@@ -61,12 +63,14 @@
 import ProfileLayout from "@/components/profile/ProfileLayout.vue";
 import CommentsCard from "@/components/profile/CommentsCard.vue";
 import VPagination from "@/components/VPagination.vue";
+import VEmpty from "@/components/profile/VEmpty.vue";
 
 export default {
   components: {
     ProfileLayout,
     CommentsCard,
     VPagination,
+    VEmpty,
   },
   data() {
     return {
@@ -86,6 +90,10 @@ export default {
       totalPage: 0,
       pageSize: 6,
     };
+  },
+
+  destroyed() {
+    this.$store.commit("setPageData", {});
   },
   async asyncData({ store, query, params }) {
     try {
@@ -112,6 +120,12 @@ export default {
   },
   async mounted() {
     this.__GET_COMMENTS();
+    this.$store.commit("setPageData", {
+      title: this.freelancer?.name + " " + this.freelancer?.surname,
+      center: false,
+      info: "",
+      link: true,
+    });
   },
   methods: {
     async __GET_COMMENTS() {

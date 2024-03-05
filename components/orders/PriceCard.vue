@@ -6,18 +6,14 @@
       <div
         class="flex justify-between pricer items-center xl:flex-row xl:justify-between xl:items-center"
       >
-        <p
-          class="text-grey-64 text-[14px] xl:text-base xl:font-semibold price__sup"
-        >
+        <p class="text-grey-64 text-[14px] xl:text-base xl:font-semibold price__sup">
           Buyrtma narxi:
         </p>
         <h1
-          class="text-black text-base font-semibold xl:text-base exact__price"
+          class="text-black text-base font-semibold xl:text-base exact__price whitespace-nowrap"
         >
           {{
-            order?.price
-              ? `${order?.price.toLocaleString()} so’m`
-              : "По договоренности"
+            order?.price ? `${order?.price.toLocaleString()} so’m` : "По договоренности"
           }}
         </h1>
       </div>
@@ -35,11 +31,11 @@
     <div class="buttons flex flex-col gap-4 xl:hidden" v-if="accessApp">
       <button
         @click="$emit('open')"
-        class="app-btn relative over h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-blue border-blue text-base text-white font-medium"
+        class="app-btn relative over h-[52px] xl:h-12 justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-blue border-blue text-base xl:text-[14px] text-white font-medium"
       >
         <span class="relative z-20"> Отправить заявку</span>
         <svg
-          class="relative z-20"
+          class="relative z-20 xl:hidden"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -104,10 +100,7 @@ export default {
   left: 0;
   height: 100%;
   width: 100%;
-  background: var(
-    --Button-gradient,
-    linear-gradient(0deg, #5c46e5 0%, #9882ff 106.73%)
-  );
+  background: var(--Button-gradient, linear-gradient(0deg, #5c46e5 0%, #9882ff 106.73%));
   box-shadow: 0px 12px 16px 0px rgba(92, 70, 229, 0.16);
   opacity: 0;
   transition: 0.3s;

@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="footer bg-blue-night xl:px-4">
+  <div class="footer bg-blue-night xl:px-4 xl:pb-13">
     <div class="2xl:container container mx-auto">
       <!-- <div
         class="lists flex justify-between pb-[80px] border-b-[1px] border-[0] border-[color:#362B42] border-solid xl:flex-col xl:pb-[32px]"

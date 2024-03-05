@@ -1,14 +1,14 @@
 <template>
-  <div class="master">
+  <div class="master container xl:pt-4">
     <div class="sort__comments">
-      <a-select v-model="currentStatus">
+      <a-select v-model="currentStatus" class="xl:w-full">
         <a-select-option :value="item.value" :key="index" v-for="(item, index) in status">
           {{ item.label }}
         </a-select-option>
       </a-select>
     </div>
     <div
-      class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 xl:grid-cols-1 gap-4 mb-[40px]"
+      class="personal-information items mt-8 xl:mt-4 grid grid-cols-2 xl:grid-cols-1 gap-4 mb-[40px]"
       v-if="loading"
     >
       <a-skeleton
@@ -19,7 +19,7 @@
       />
     </div>
     <div
-      class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 xl:grid-cols-1 gap-4 mb-[40px]"
+      class="personal-information items mt-8 xl:mt-4 grid grid-cols-2 xl:grid-cols-1 gap-4 mb-[40px]"
       v-else
     >
       <CommentsCard
@@ -64,6 +64,10 @@ export default {
       pageSize: 6,
     };
   },
+
+  destroyed() {
+    this.$store.commit("setPageData", {});
+  },
   computed: {
     handleUser() {
       return this.$store.state.userInfo["id"];
@@ -71,6 +75,12 @@ export default {
   },
   async mounted() {
     this.__GET_COMMENTS();
+    this.$store.commit("setPageData", {
+      title: "Отзывы",
+      center: false,
+      info: "",
+      link: true,
+    });
   },
   methods: {
     async __GET_COMMENTS() {
@@ -139,5 +149,16 @@ export default {
   font-style: normal;
   font-weight: 400;
   line-height: 150%; /* 24px */
+}
+@media (max-width: 1200px) {
+  .sort__comments {
+    margin-top: 0;
+  }
+  :deep(.ant-select) {
+    width: 100%;
+  }
+  :deep(.ant-select-selection) {
+    height: 48px;
+  }
 }
 </style>

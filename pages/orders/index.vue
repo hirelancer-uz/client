@@ -1,5 +1,5 @@
 <template>
-  <div class="orders pt-8 pb-[170px] xl:px-4 xl:pt-6 xl:pb-6 relative">
+  <div class="orders pt-8 pb-[170px] xl:pt-6 xl:pb-6 relative">
     <transition name="fade-left" mode="out-in">
       <div class="2xl:container container mx-auto xl:flex xl:flex-col xl:gap-[16px]">
         <Banner class="" />
@@ -66,8 +66,20 @@ export default {
       pageSize: 3,
     };
   },
+  mounted() {
+    this.$store.commit("setPageData", {
+      title: "Buyurtmalar",
+      center: false,
+      info: "",
+      link: true,
+    });
+  },
+  destroyed() {
+    this.$store.commit("setPageData", {});
+  },
   async asyncData({ store, query }) {
     const pageSize = 3;
+
     const [ordersData, specialitiesData] = await Promise.all([
       store.dispatch("fetchOrders/getOrders", {
         params: {
@@ -122,6 +134,7 @@ export default {
       }
     },
   },
+
   components: { Banner, OrdersList },
 };
 </script>

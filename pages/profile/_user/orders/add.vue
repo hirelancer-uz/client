@@ -1,11 +1,11 @@
 <template lang="html">
-  <div class="create-order pt-[110px] pb-[120px] max-w-[953px] mx-auto md:pt-6 md:px-4">
+  <div class="create-order pt-[110px] pb-[120px] xl:pb-0 max-w-[953px] mx-auto xl:pt-0">
     <div class="head flex justify-between items-center">
       <h1 class="flex text-[24px] text-black font-semibold xl:hidden">
         Buyurtma qo’shish
       </h1>
 
-      <div class="buttons flex gap-4 md:hidden">
+      <div class="buttons flex gap-4 xl:hidden">
         <button
           @click="$router.go(-1)"
           class="border-[2px] border-solid border-border-darik rounded-[12px] h-[60px] w-[204px] flex justify-center items-center text-[18px] text-grey-64 font-medium"
@@ -16,14 +16,14 @@
     </div>
 
     <div
-      class="form-block px-8 py-8 md:px-4 md:py-4 rounded-[16px] bg-white border-border-darik border-solid border mt-4 xl:mt-0"
+      class="form-block px-8 py-8 xl:px-4 xl:py-6 rounded-[16px] bg-white border-border-darik border-solid border xl:border-[0] mt-4 xl:mt-0"
     >
-      <h2 class="text-[20px] text-black font-semibold mb-6 xl:text-base">
+      <h2 class="text-[20px] text-black font-semibold mb-6 xl:text-[18px] xl:mb-4">
         Информация о заказе
       </h2>
 
       <a-form-model ref="ruleForm" :model="form" :rules="rules">
-        <div class="flex flex-col gap-6">
+        <div class="flex flex-col gap-6 xl:gap-4">
           <a-form-model-item
             class="order-item w-full mb-0"
             label="Название работы"
@@ -73,8 +73,8 @@
               </div>
 
               <button
-                class="w-10 md:hidden h-[34px] flex justify-end my-[-10px] items-center flex-auto"
-                @click="(visible = true), (checkedList = [...activeCheckedList])"
+                class="w-10 xl:hidden h-[34px] flex justify-end my-[-10px] items-center flex-auto"
+                @click="openSpecial(), (checkedList = [...activeCheckedList])"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +91,10 @@
                   />
                 </svg>
               </button>
-              <button class="w-10 justify-center hidden md:flex" @click="open">
+              <button
+                class="w-10 justify-center hidden xl:flex flex-auto xl:justify-end"
+                @click="openSpecial"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="3"
@@ -289,7 +292,7 @@
               <img alt="example" style="width: 100%" :src="previewImage" />
             </a-modal>
           </div>
-          <div class="grid grid-cols-2 gap-[70px] md:grid-cols-1 md:gap-4">
+          <div class="grid grid-cols-2 gap-[70px] xl:grid-cols-1 xl:gap-4">
             <a-form-model-item
               class="order-item w-full mb-0"
               label="Срок исполнения в днях"
@@ -303,8 +306,9 @@
               />
             </a-form-model-item>
             <div class="flex items-end mb-3">
-              <div class="flex items-center gap-2">
+              <div class="flex items-center gap-2 xl:justify-between xl:w-full">
                 <a-checkbox
+                  class="checkbox_el"
                   :checked="form.deadline_negotiable == 1"
                   @change="
                     ($event) => {
@@ -313,10 +317,11 @@
                         : (form.deadline_negotiable = 0);
                     }
                   "
-                />
-                <p class="text-[20px] text-black font-medium xl:text-[14px]">
-                  Договорная дней
-                </p>
+                >
+                  <p class="text-[20px] text-black font-medium xl:text-[14px]">
+                    Договорная дней
+                  </p>
+                </a-checkbox>
                 <a-tooltip placement="top">
                   <template slot="title">
                     <span>prompt text</span>
@@ -343,7 +348,7 @@
             </div>
           </div>
           <div class="border-[0] border-b border-solid border-border-darik"></div>
-          <div class="grid grid-cols-2 gap-[70px] md:grid-cols-1 md:gap-4">
+          <div class="grid grid-cols-2 gap-[70px] xl:grid-cols-1 xl:gap-4">
             <a-form-model-item class="order-item w-full mb-0" label="Цена" prop="price">
               <a-input
                 :class="{ 'opacity-50 pointer-events-none': form.price_negotiable }"
@@ -352,8 +357,9 @@
               />
             </a-form-model-item>
             <div class="flex items-end mb-3">
-              <div class="flex items-center gap-2">
+              <div class="flex items-center gap-2 xl:justify-between xl:w-full">
                 <a-checkbox
+                  class="checkbox_el"
                   :checked="form.price_negotiable == 1"
                   @change="
                     ($event) => {
@@ -362,10 +368,11 @@
                         : (form.price_negotiable = 0);
                     }
                   "
-                />
-                <p class="text-[20px] text-black font-medium xl:text-[14px]">
-                  Договорная цена
-                </p>
+                >
+                  <p class="text-[20px] text-black font-medium xl:text-[14px]">
+                    Договорная цена
+                  </p>
+                </a-checkbox>
                 <a-tooltip placement="top">
                   <template slot="title">
                     <span>prompt text</span>
@@ -420,8 +427,14 @@
         </svg>
       </button>
       <div
-        class="fixed-btns fixed bottom-0 w-full z-[20000] py-4 px-4 bg-white left-0 hidden xl:flex flex-col gap-2"
+        class="fixed-btns fixed bottom-0 w-full z-[7] py-4 px-4 bg-white left-0 hidden xl:grid grid-cols-2 gap-2"
       >
+        <button
+          @click="$router.go(-1)"
+          class="border border-solid border-border-darik bg-white rounded-[12px] h-[52px] w-full flex justify-center items-center text-[14px] text-grey-64 font-medium gap-2"
+        >
+          Bekor qilish
+        </button>
         <button
           @click="onSubmit"
           class="border border-solid border-blue bg-blue rounded-[12px] h-[52px] w-full flex justify-center items-center text-[14px] text-white font-medium gap-2"
@@ -449,12 +462,13 @@
       </div>
     </div>
     <SpicialsticsCheck
+      ref="specialities"
       @saveChecked="saveChecked"
       :visible="visible"
       @handleOk="handleOk"
       :specialities="specialities"
       :activeCheckedList="activeCheckedList"
-      :openBottom="openBottom"
+      :maxCount="1"
     />
     <Loader v-if="loading" />
   </div>
@@ -515,6 +529,10 @@ export default {
       uploadList: [1, 2, 3, 4, 5, 6, 7, 8],
     };
   },
+
+  destroyed() {
+    this.$store.commit("setPageData", {});
+  },
   mounted() {
     this.loading = true;
     if (!localStorage.getItem("auth-token")) {
@@ -522,6 +540,12 @@ export default {
     } else {
       this.loading = false;
     }
+    this.$store.commit("setPageData", {
+      title: "Buyurtma yaratish",
+      center: false,
+      info: "",
+      link: true,
+    });
   },
   async asyncData({ store }) {
     const [specialitiesData] = await Promise.all([
@@ -533,6 +557,14 @@ export default {
     };
   },
   methods: {
+    openSpecial() {
+      this.$refs.specialities.open();
+      this.$refs.specialities.openModal();
+    },
+    closeSpecial() {
+      this.$refs.specialities.close();
+      this.$refs.specialities.closeModal();
+    },
     handleBeforeUpload(file) {
       return true;
     },
@@ -558,8 +590,7 @@ export default {
     saveChecked(checkedList) {
       this.activeCheckedList = [...checkedList];
       this.checkedList = [];
-      this.visible = false;
-      this.close();
+      this.closeSpecial();
     },
 
     deleteChecked(id) {
@@ -906,6 +937,10 @@ export default {
 :deep(.has-error .quill-editor) {
   border-color: red;
 }
+.checkbox_el {
+  display: flex;
+  align-items: center;
+}
 @media (max-width: 1200px) {
   :deep(.order-item label),
   :deep(.order-select label) {
@@ -921,10 +956,13 @@ export default {
   }
   .order-upload :deep(.ant-upload-select-picture-card) {
     width: 100%;
-    height: 90px;
+    height: 104px;
   }
   .order-upload :deep(.ant-upload-picture-card-wrapper) {
     width: 100%;
+  }
+  .order-item :deep(input) {
+    height: 56px;
   }
 }
 </style>

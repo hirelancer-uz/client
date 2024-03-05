@@ -194,6 +194,7 @@
             v-if="regions.length > 0"
             v-model="filterForm.region"
             placeholder="Barcha viloyatlar"
+            @change="sendFilter"
             class="w-full"
           >
             <a-select-option

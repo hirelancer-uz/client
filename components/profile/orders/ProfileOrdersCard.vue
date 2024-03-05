@@ -1,6 +1,6 @@
 <template lang="html">
   <div
-    class="profile-orders-card border border-solid rounded-2xl border-grey-8 px-8 py-6 flex flex-col gap-[21px]"
+    class="profile-orders-card border border-solid rounded-2xl border-grey-8 px-8 py-6 flex flex-col gap-[21px] xl:px-4 xl:py-4"
   >
     <div class="head flex justify-between items-start gap-7">
       <div class="flex flex-col items-start max-w-[75%]">
@@ -27,22 +27,22 @@
           <template slot="title">
             <span>{{ order?.name }}</span>
           </template>
-          <h3 class="text-[20px] text-black font-medium truncate max-w-full">
+          <h3 class="text-[20px] xl:text-[18px] text-black font-medium max-w-full title">
             #{{ order?.id }}: {{ order?.name }}
           </h3>
         </a-tooltip>
       </div>
-      <p class="text-[20px] text-black font-medium" v-if="order?.price">
+      <p class="text-[20px] text-black font-medium xl:hidden" v-if="order?.price">
         {{ order?.price }} сум
       </p>
-      <p class="text-[20px] text-black font-medium whitespace-nowrap" v-else>
+      <p class="text-[20px] text-black font-medium whitespace-nowrap xl:hidden" v-else>
         По договоренности
       </p>
     </div>
     <div class="body flex justify-between">
-      <div class="flex" :class="!order?.client?.avatar ? 'gap-5' : 'gap-[40px]'">
-        <div class="flex gap-4 items-center">
-          <div
+      <div class="flex gap-5 xl:flex-col xl:gap-4 xl:w-full">
+        <div class="flex gap-4 items-center xl:flex-col">
+          <!-- <div
             v-if="order?.client?.avatar"
             class="image min-w-[56px] h-[56px] rounded-full overflow-hidden"
           >
@@ -51,32 +51,55 @@
               src="@/assets/images/user-avatar.jpg"
               alt=""
             />
+          </div> -->
+          <div
+            class="info gap-2 flex-row items-center xl:items-end xl:justify-between xl:w-full hidden xl:flex"
+          >
+            <p class="text-[14px] text-grey-40 xl:text-grey-64 xl:text-base">Price:</p>
+            <span
+              class="hidden xl:block flex-auto border-[0] border-dashed border-b border-grey-24 mb-[5px]"
+            ></span>
+            <p class="text-[18px] text-main-color font-semibold" v-if="order?.price">
+              {{ order?.price }} сум
+            </p>
+            <p class="text-[18px] text-main-color font-semibold whitespace-nowrap" v-else>
+              По договоренности
+            </p>
           </div>
           <div
-            class="info flex gap-2"
-            :class="!order?.client?.avatar ? 'flex-row items-center' : 'flex-col'"
+            class="info flex gap-2 flex-row items-center xl:items-end xl:justify-between xl:w-full"
           >
-            <p class="text-[14px] text-grey-40">Клиент</p>
+            <p class="text-[14px] text-grey-40 xl:text-grey-64 xl:text-base">Клиент</p>
+            <span
+              class="hidden xl:block flex-auto border-[0] border-dashed border-b border-grey-24 mb-[5px]"
+            ></span>
             <p class="text-base text-grey-80 font-medium">{{ order?.client?.name }}</p>
           </div>
         </div>
-        <span class="h-full w-[1px] bg-grey-8"></span>
-        <div
-          class="flex"
-          :class="!order?.client?.avatar ? 'flex-row gap-5' : 'flex-col gap-2'"
-        >
-          <p class="text-base text-grey-64 flex gap-[6px]">
-            Срок начала:
+        <span class="h-full w-[1px] bg-grey-8 xl:hidden"></span>
+        <div class="flex flex-row gap-5 xl:flex-col xl:gap-4">
+          <p
+            class="text-base text-grey-64 flex gap-[6px] xl:flex xl:justify-between w-full whitespace-nowrap"
+          >
+            <span>Срок начала:</span>
+            <span
+              class="hidden xl:block flex-auto border-[0] border-dashed border-b border-grey-24 mb-[5px]"
+            ></span>
             <span class="text-black">{{ order?.start_of_execution || "----" }}</span>
           </p>
-          <span v-if="!order?.client?.avatar" class="h-full w-[1px] bg-grey-8"></span>
-          <p class="text-base text-grey-64 flex gap-[6px]">
+          <span class="h-full w-[1px] bg-grey-8 xl:hidden"></span>
+          <p
+            class="text-base text-grey-64 flex gap-[6px] xl:flex xl:justify-between w-full whitespace-nowrap"
+          >
             Срок выполнение:
+            <span
+              class="hidden xl:block flex-auto border-[0] border-dashed border-b border-grey-24 mb-[5px]"
+            ></span>
             <span class="text-black">{{ order?.end_of_execution || "----" }}</span>
           </p>
         </div>
       </div>
-      <div class="flex items-end">
+      <div class="flex items-end xl:hidden">
         <nuxt-link
           :to="`/profile/freelancer/order/view/${order?.id}`"
           class="text-blue text-base font-medium flex gap-2 items-center"
@@ -98,24 +121,16 @@
       </div>
     </div>
     <div
-      class="offers pt-[21px] border-[0] border-t border-solid border-grey-8"
+      class="offers pt-[21px] border-[0] border-t border-solid border-grey-8 xl:border-[0] xl:pt-0"
       v-if="$route.params.status == 'offers' || $route.params.status == 'completed'"
     >
       <div
-        class="rounded-[8px] border border-solid px-6 py-4 cursor-pointer overflow-hidden"
-        :class="
-          order?.selected_request?.freelancer?.id == $store.state.userInfo?.id
-            ? 'border-[#C5EBC5] bg-[#FAFFFA] '
-            : 'border-light-yellow-br bg-light-yellow '
-        "
+        class="rounded-[8px] border border-solid px-6 py-4 xl:px-4 cursor-pointer overflow-hidden border-[#C5EBC5] bg-[#FAFFFA]"
       >
         <div @click="open(1)" class="flex justify-between">
-          <div class="flex gap-[80px]">
+          <div class="flex gap-[80px] xl:flex-col xl:gap-4 xl:w-full">
             <h4 class="text-base font-medium text-black flex items-center gap-2">
               <svg
-                v-if="
-                  order?.selected_request?.freelancer?.id == $store.state.userInfo?.id
-                "
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
@@ -142,18 +157,30 @@
               </svg>
               Предложения
             </h4>
-            <div class="flex gap-[40px]">
-              <p class="text-base text-grey-64 flex gap-[6px]">
-                Срок:
-                <span v-if="order?.deadline" class="text-black"
+            <div class="flex gap-[40px] xl:flex-col xl:gap-4">
+              <p
+                class="text-base text-grey-64 flex gap-[6px] xl:justify-between xl:flex xl:w-full"
+              >
+                <span>Срок:</span>
+                <span
+                  class="hidden xl:block flex-auto border-[0] border-dashed border-b border-grey-24 mb-[5px]"
+                ></span>
+                <span v-if="order?.deadline" class="text-black xl:font-medium"
                   >{{ order?.deadline }} дней</span
                 >
-                <span v-else class="text-black">По договоренности</span>
+                <span v-else class="text-black xl:font-medium">По договоренности</span>
               </p>
-              <p class="text-base text-grey-64 flex gap-[6px]">
-                Цена:
-                <span v-if="order?.price" class="text-black">{{ order?.price }} сум</span>
-                <span v-else class="text-black">По договоренности</span>
+              <p
+                class="text-base text-grey-64 flex gap-[6px] xl:justify-between xl:flex xl:w-full"
+              >
+                <span> Цена:</span>
+                <span
+                  class="hidden xl:block flex-auto border-[0] border-dashed border-b border-grey-24 mb-[5px]"
+                ></span>
+                <span v-if="order?.price" class="text-black xl:font-medium"
+                  >{{ order?.price }} сум</span
+                >
+                <span v-else class="text-black xl:font-medium">По договоренности</span>
               </p>
             </div>
           </div>
@@ -176,6 +203,25 @@
         </div> -->
       </div>
     </div>
+    <nuxt-link
+      :to="`/profile/freelancer/order/view/${order?.id}`"
+      class="text-main-color text-base hidden xl:flex font-medium gap-2 items-center xl:w-full xl:border xl:border-solid xl:border-main-color xl:rounded-[12px] xl:h-12 xl:justify-center xl:text-[14px] xl:font-semibold xl:gap-2 xl:items-center"
+      >Подробнее<svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M14 8L18 12M18 12L14 16M18 12L6 12"
+          stroke="#5C46E6"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </nuxt-link>
   </div>
 </template>
 <script>
@@ -213,5 +259,16 @@ export default {
   max-height: 300px;
   transition: 0.3s linear;
 }
-
+.title {
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+@media (max-width: 1200px) {
+  .title {
+    -webkit-line-clamp: 3;
+  }
+}
 </style>

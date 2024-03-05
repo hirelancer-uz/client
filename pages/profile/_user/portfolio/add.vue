@@ -1,7 +1,7 @@
 <template lang="html">
-  <div class="create-order pt-[110px] pb-[112px] max-w-[1200px] mx-auto xl:pt-6 xl:px-4">
+  <div class="create-order pt-[110px] pb-[112px] max-w-[1200px] mx-auto xl:pt-4 xl:px-4">
     <div class="head flex justify-between">
-      <h1 class="flex text-[32px] text-black font-semibold xl:text-[18px]">
+      <h1 class="flex text-[32px] text-black font-semibold xl:text-[18px] xl:hidden">
         Добавить портфолио
       </h1>
       <div class="buttons flex gap-4 xl:hidden">
@@ -35,7 +35,7 @@
       </div>
     </div>
     <div
-      class="form-block max-w-[712px] px-8 pt-10 pb-[45px] rounded-[24px] bg-white mt-[40px] border-[2px] border-solid border-grey-light xl:mt-6 xl:py-0 xl:border-0 xl:px-0"
+      class="form-block max-w-[712px] px-8 pt-10 pb-[45px] rounded-[24px] bg-white mt-[40px] xl:mt-0 border-[2px] border-solid border-grey-light xl:py-0 xl:border-0 xl:px-0"
     >
       <a-form-model :model="form" ref="ruleForm" :rules="rules">
         <div class="flex flex-col gap-6">
@@ -52,7 +52,7 @@
             :class="{ errorSelect: activeCheckedList.length == 0 && errorSelect }"
           >
             <div
-              class="min-h-[58px] max-h-[58px] items-center border border-solid flex justify-start border-grey-8 rounded-lg px-4 py-3 modal-select"
+              class="min-h-[58px] xl:min-h-[50px] items-center border border-solid flex justify-start border-grey-8 rounded-lg px-4 py-3 modal-select"
             >
               <p class="text-grey-40 text-base" v-if="activeCheckedList.length == 0">
                 Специальности
@@ -87,7 +87,7 @@
 
               <button
                 class="w-10 h-[34px] flex justify-end items-center flex-auto xl:hidden"
-                @click="(visible = true), (checkedList = [...activeCheckedList])"
+                @click="openSpecial(), (checkedList = [...activeCheckedList])"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -104,7 +104,10 @@
                   />
                 </svg>
               </button>
-              <button class="w-6 xl:block hidden" @click="open">
+              <button
+                class="w-6 xl:flex justify-end items-center flex-auto hidden"
+                @click="openSpecial"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="3"
@@ -238,7 +241,7 @@
         </button>
       </div>
       <div
-        class="fixed-btns fixed bottom-0 w-full z-[20000] py-4 px-4 bg-white left-0 hidden xl:flex flex-col gap-2"
+        class="fixed-btns fixed bottom-0 w-full z-[7] py-4 px-4 bg-white left-0 hidden xl:flex flex-col gap-2"
       >
         <button
           @click="onSubmit()"
@@ -273,12 +276,10 @@
       </div>
     </div>
     <SpicialsticsCheck
+      ref="specialities"
       @saveChecked="saveChecked"
-      :visible="visible"
-      @handleOk="handleOk"
       :specialities="specialities"
       :activeCheckedList="activeCheckedList"
-      :openBottom="openBottom"
     />
     <Loader v-if="loading" />
   </div>
@@ -343,7 +344,17 @@ export default {
       ],
     };
   },
+
+  destroyed() {
+    this.$store.commit("setPageData", {});
+  },
   mounted() {
+    this.$store.commit("setPageData", {
+      title: "Добавить работу",
+      center: false,
+      info: "",
+      link: true,
+    });
     this.loading = true;
     !localStorage.getItem("auth-token") ? this.$router.push("/") : (this.loading = false);
   },
@@ -388,6 +399,14 @@ export default {
           return false;
         }
       });
+    },
+    openSpecial() {
+      this.$refs.specialities.open();
+      this.$refs.specialities.openModal();
+    },
+    closeSpecial() {
+      this.$refs.specialities.close();
+      this.$refs.specialities.closeModal();
     },
     async __POST_WORK(data) {
       try {

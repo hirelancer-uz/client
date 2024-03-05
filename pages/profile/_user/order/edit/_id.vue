@@ -1,13 +1,13 @@
 <template lang="html">
-  <div class="create-order pt-[110px] pb-[120px] max-w-[953px] mx-auto md:pt-6 md:px-4">
+  <div class="create-order pt-[110px] pb-[120px] max-w-[953px] mx-auto xl:pt-6 xl:px-4">
     <div class="head flex justify-between items-center">
       <h1 class="flex text-[24px] text-black font-semibold xl:hidden">
         Buyurtma qo’shish
       </h1>
 
-      <div class="buttons flex gap-4 md:hidden">
+      <div class="buttons flex gap-4 xl:hidden">
         <button
-          @click="visibleCancel = true"
+          @click="openDeleteOrder"
           class="border-[2px] border-solid border-grey-24 rounded-[8px] h-[54px] w-[194px] flex justify-center items-center gap-2 text-base text-grey-64 font-medium"
         >
           Bekor qilish
@@ -31,9 +31,9 @@
     </div>
 
     <div
-      class="form-block px-8 py-8 md:px-4 md:py-4 rounded-[16px] bg-white border-border-darik border-solid border mt-4 xl:mt-0"
+      class="form-block px-8 py-8  xl:py-0 rounded-[16px] bg-white border-border-darik xl:border-[0] border-solid border mt-4 xl:mt-0 xl:px-0"
     >
-      <h2 class="text-[20px] text-black font-semibold mb-6 xl:text-base">
+      <h2 class="text-[20px] text-black font-semibold mb-6 xl:mb-4 xl:text-base">
         Информация о заказе
       </h2>
 
@@ -89,8 +89,8 @@
               </div>
 
               <button
-                class="w-6 md:hidden h-[34px] flex-auto flex justify-end items-center"
-                @click="(visible = true), (checkedList = [...activeCheckedList])"
+                class="w-6 xl:hidden h-[34px] flex-auto flex justify-end items-center"
+                @click="openSpecial(), (checkedList = [...activeCheckedList])"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -107,7 +107,10 @@
                   />
                 </svg>
               </button>
-              <button class="w-6 hidden md:block" @click="open">
+              <button
+                class="w-6 hidden flex-auto xl:flex justify-end items-center"
+                @click="openSpecial"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="3"
@@ -304,7 +307,7 @@
               <img alt="example" style="width: 100%" :src="previewImage" />
             </a-modal>
           </div>
-          <div class="grid grid-cols-2 gap-[70px] md:grid-cols-1 md:gap-4">
+          <div class="grid grid-cols-2 gap-[70px] xl:grid-cols-1 xl:gap-4">
             <a-form-model-item
               class="order-item w-full mb-0"
               label="Срок исполнения в днях"
@@ -358,7 +361,7 @@
             </div>
           </div>
           <div class="border-[0] border-b border-solid border-border-darik"></div>
-          <div class="grid grid-cols-2 gap-[70px] md:grid-cols-1 md:gap-4">
+          <div class="grid grid-cols-2 gap-[70px] xl:grid-cols-1 xl:gap-4">
             <a-form-model-item class="order-item w-full mb-0" label="Цена" prop="price">
               <a-input
                 :class="{ 'opacity-50 pointer-events-none': form.price_negotiable }"
@@ -435,8 +438,14 @@
         </svg>
       </button>
       <div
-        class="fixed-btns fixed bottom-0 w-full z-[20000] py-4 px-4 bg-white left-0 hidden xl:flex flex-col gap-2"
+        class="fixed-btns fixed bottom-0 w-full z-[7] py-4 px-4 bg-white left-0 hidden xl:grid grid-cols-2 gap-2"
       >
+        <button
+          @click="openDeleteOrder"
+          class="border border-solid border-border-darik bg-white rounded-[12px] h-[52px] w-full flex justify-center items-center text-[14px] text-grey-64 font-medium gap-2"
+        >
+          Bekor qilish
+        </button>
         <button
           @click="onSubmit"
           class="border border-solid border-blue bg-blue rounded-[12px] h-[52px] w-full flex justify-center items-center text-[14px] text-white font-medium gap-2"
@@ -464,8 +473,7 @@
       </div>
     </div>
     <CancellationOrder
-      @handleOkProp="handleOk"
-      :visibleProp="visibleCancel"
+      ref="deleteOrder"
       @submit="submitCancel"
       title="Bekor qilsangiz ma'lumotlaringiz saqlanmaydi! "
       save="Ha, albatta"
@@ -476,12 +484,11 @@
       </h5>
     </CancellationOrder>
     <SpicialsticsCheck
+      ref="specialities"
       @saveChecked="saveChecked"
-      :visible="visible"
-      @handleOk="handleOk"
       :specialities="specialities"
       :activeCheckedList="activeCheckedList"
-      :openBottom="openBottom"
+      :maxCount="1"
     />
     <Loader v-if="loading" />
   </div>
@@ -504,18 +511,15 @@ function getBase64(file) {
 export default {
   data() {
     return {
-      visibleCancel: false,
       editorOption: {
         theme: "snow",
       },
       loadingBtn: false,
       activeSpecialities: [],
-      openBottom: false,
       checkedList: [],
       activeCheckedList: [],
       errorSelect: false,
       modalList: null,
-      visible: false,
       loading: true,
       form: {
         name: "",
@@ -548,8 +552,16 @@ export default {
       return process.env.BASE_URL;
     },
   },
+  destroyed() {
+    this.$store.commit("setPageData", {});
+  },
   mounted() {
-    console.log(this.$refs.spicial);
+    this.$store.commit("setPageData", {
+      title: `Buyurtmani o'zgartirish`,
+      center: false,
+      info: "",
+      link: true,
+    });
     this.loading = true;
     if (!localStorage.getItem("auth-token")) {
       this.$router.push("/");
@@ -568,17 +580,33 @@ export default {
     };
   },
   methods: {
+    openDeleteOrder() {
+      this.$refs.deleteOrder.open();
+      this.$refs.deleteOrder.openModal();
+    },
+    closeDeleteOrder() {
+      this.$refs.deleteOrder.close();
+      this.$refs.deleteOrder.closeModal();
+    },
+    openSpecial() {
+      this.$refs.specialities.open();
+      this.$refs.specialities.openModal();
+    },
+    closeSpecial() {
+      this.$refs.specialities.close();
+      this.$refs.specialities.closeModal();
+    },
     submitCancel() {
       this.$router.go(-1);
     },
     closeChecked() {
       this.checkedList = [];
-      this.visible = false;
+      this.closeSpecial();
     },
     saveChecked(checkedList) {
       this.activeCheckedList = [...checkedList];
       this.checkedList = [];
-      this.visible = false;
+      this.closeSpecial();
       this.close();
     },
     onchecked(obj) {
@@ -597,15 +625,7 @@ export default {
     onSelect(id) {
       this.modalList = id;
     },
-    open() {
-      this.openBottom = true;
-      setTimeout(() => {
-        if (this.openBottom) this.openBottom = false;
-      }, 10);
-    },
-    close() {
-      this.openBottom = false;
-    },
+
     onSubmit() {
       let formData = new FormData();
       this.fileList.forEach((item) => {
@@ -729,10 +749,6 @@ export default {
       const newFileList = this.fileList.slice();
       newFileList.splice(index, 1);
       this.fileList = newFileList;
-    },
-    handleOk() {
-      this.visible = false;
-      this.visibleCancel = false;
     },
   },
   watch: {

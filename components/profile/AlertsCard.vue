@@ -32,14 +32,28 @@
         to=""
         class="text-[12px] text-blue font-semibold uppercase flex gap-1 items-center"
         >Прочитать
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M13.332 8.33333L9.9987 5M9.9987 5L6.66537 8.33333M9.9987 5L9.9987 15" stroke="#5C46E6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-</nuxt-link>
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13.332 8.33333L9.9987 5M9.9987 5L6.66537 8.33333M9.9987 5L9.9987 15"
+            stroke="#5C46E6"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </nuxt-link>
     </div>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  name: "AlertsCard",
+};
 </script>
 <style lang=""></style>

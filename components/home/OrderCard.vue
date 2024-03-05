@@ -125,7 +125,9 @@
             + {{ hiddenButtonsCount }}
           </button>
         </div>
-        <div class="flex-auto hidden items-center gap-2 justify-between w-full xl:flex flex-wrap" >
+        <div
+          class="flex-auto hidden items-center gap-2 justify-between w-full xl:flex flex-wrap"
+        >
           <button
             v-for="(special, index) in order?.specialities"
             :key="special?.id"
@@ -185,7 +187,7 @@
       </span>
       <div class="justify-start hidden xl:flex mt-[-4px]">
         <button
-          class="underline text-grey-80 text-base font-medium text-center xl:text-main-color xl:text-[14px]"
+          class="underline text-grey-80 text-base font-medium text-center xl:text-main-color xl:text-[14px] more-btn"
         >
         Подробнее
         </button>
@@ -251,7 +253,7 @@
         </div>
         <div class="buttons flex gap-6 xl:flex-col-reverse xl:hidden">
           <button
-            class="h-12 flex items-center text-grey-64 px-6 border border-solid border-grey-24 rounded-lg text-base font-medium text-center xl:pb-[20px]"
+            class="h-12 flex items-center text-grey-64 px-6 border border-solid border-grey-24 rounded-lg text-base font-medium text-center xl:pb-[20px] more-btn"
           >
             Подробнее
           </button>
@@ -357,7 +359,16 @@ export default {
 .light-yellow {
   background-color: rgba(242, 153, 74, 0.16);
 }
-:deep(.order-desc p) {
+.more-btn {
+  transition: 0.3s;
+}
+.more-btn:hover {
+  box-shadow: 0px 16px 40px 0px rgba(0, 25, 53, 0.08);
+  color: var(--main-color);
+  border-color: var(--main-color);
+}
+:deep(.order-desc p),
+:deep(.order-desc ul) {
   display: none;
 }
 :deep(.order-desc p:first-child) {

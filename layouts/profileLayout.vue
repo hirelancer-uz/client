@@ -1,41 +1,54 @@
 <template lang="html">
-  <div class="layout W-100">
+  <div class="layout w-full min-h-[100vh] flex flex-col overflow-hidden">
     <div class="fixed top-0 left-0 w-full z-50" ref="mHeader">
       <MobileHeader class="xl:block" />
     </div>
     <TheHeader class="xl:hidden" />
     <div
-      v-if="$route.name == 'index'"
+      v-if="'index' == $route.name?.split('___')[0]"
       class="header-bg xl:block hidden w-full h-[104px]"
     ></div>
-    <div v-else class="header-bg xl:block hidden w-full h-[56px]"></div>
     <div
-      class="profile-layout max-w-[1680px] mx-auto pt-12 xl:pt-6 xl:pb-6 pb-[100px] container"
+      v-if="$route.name?.includes('profile') && $route.name?.includes('settings')"
+      class="header-bg xl:block hidden w-full xl:h-[145px]"
+    ></div>
+    <div v-else class="header-bg xl:block hidden w-full xl:h-[111px]"></div>
+    <div
+      class="profile-layout max-w-[1680px] w-full mx-auto xl:mx-0 pt-12 xl:pt-0 xl:pb-6 pb-[100px] flex-auto"
     >
       <div class="profile-grid">
         <PersonalBlock
-          :profile="$route.name.includes('profile')"
+          :profile="$route.name?.includes('profile')"
           class="xl:hidden"
           :userInfo="$store.state.userInfo"
         />
 
         <PersonalBlockMobile
-          class="hidden xl:flex"
-          :class="{ 'xl:hidden': $route.name !== `profile-user` }"
+          class="hidden"
+          :class="{
+            'xl:flex':
+              $route.path == '/profile/freelancer' || $route.path == '/profile/customer',
+          }"
           :user="false"
+          :freelancer="$store.state.userInfo"
         />
         <div
-          class="min-w-0 x"
-          :class="{ 'xl:hidden': $route.name == `profile-user` }"
+          class="min-w-0"
+          :class="{
+            'xl:hidden':
+              $route.path == '/profile/freelancer' || $route.path == '/profile/customer',
+          }"
         >
-          <ProfileTab v-if="$route.name.includes('profile')" />
+          <ProfileTab v-if="$route.name?.includes('profile')" />
           <Nuxt />
         </div>
       </div>
       <Loader v-if="loading" />
     </div>
     <TheFooter />
-    <BottomBar v-if="routes.includes($route.name)" />
+    <div v-for="route in routes">
+      <BottomBar v-if="route == $route.path" />
+    </div>
   </div>
 </template>
 <script>
@@ -53,7 +66,13 @@ export default {
   middleware: "auth",
   data() {
     return {
-      routes: ["freelancers", "profile-index", "index", "orders"],
+      routes: [
+        "/freelancers",
+        "/profile/freelancer",
+        "/",
+        "/orders",
+        "/profile/customer",
+      ],
       loading: false,
     };
   },
@@ -66,11 +85,14 @@ export default {
     if (localStorage.getItem("auth-token")) {
       try {
         this.loading = true;
-        const [userInfoData] = await Promise.all([
+        const [userInfoData, orderCountsData] = await Promise.all([
           this.$store.dispatch("fetchAuth/getUserInfo"),
+          this.$store.dispatch("fetchOrders/getOrderCounts"),
         ]);
+
         this.userInfo = userInfoData;
         this.$store.commit("getUserInfo", userInfoData);
+        this.$store.commit("getOrderCounts", orderCountsData.content);
         this.loading = false;
       } catch (e) {
         if (e.response.status == 401) {

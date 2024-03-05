@@ -2,10 +2,10 @@
   <div class="comments flex flex-col gap-4">
     <div class="flex justify-between">
       <h1
-        class="text-black text-[24px] font-semibold xl:text-[18px] xl:flex xl:w-full xl:justify-between"
+        class="text-black text-[24px] font-semibold xl:text-[18px] xl:flex xl:justify-between"
       >
         Отзывы клиентов
-        <span class="hidden xl:block">
+        <!-- <span class="hidden xl:block">
           <svg
             width="24"
             height="25"
@@ -21,21 +21,27 @@
               stroke-linejoin="round"
             />
           </svg>
-        </span>
+        </span> -->
       </h1>
-      <div class="flex gap-4 items-center xl:hidden">
-        <a-select v-model="currentStatus" class="w-[216px]">
-          <a-select-option
-            :value="item.value"
-            :key="index"
-            v-for="(item, index) in status"
-          >
-            {{ item.label }}
-          </a-select-option>
-        </a-select>
+      <div class="flex gap-4 items-center">
+        <span class="xl:hidden" v-if="feedbacks.length > 0">
+          <a-select v-model="currentStatus" class="w-[216px]">
+            <a-select-option
+              :value="item.value"
+              :key="index"
+              v-for="(item, index) in status"
+            >
+              {{ item.label }}
+            </a-select-option>
+          </a-select>
+        </span>
         <nuxt-link
-          class="flex gap-[6px] text-blue text-base font-medium"
-          to="/profile/freelancer/comments"
+          class="flex gap-[6px] text-main-color text-base font-medium xl:text-[14px]"
+          :to="
+            $route.name.includes('profile')
+              ? `/profile/freelancer/comments`
+              : `/freelancer/${$route.params.index}/comments`
+          "
           >Ko’proq ko’rish
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -67,10 +73,10 @@
       </div> -->
     </div>
     <div v-else class="h-[208px] flex justify-center items-center xl:hidden">
-      <p class="text-[18px] text-grey-64 font-medium">Afuski ma’lumot topilmadi!</p>
+      <VEmpty />
     </div>
     <div
-      class="hidden xl:flex gap-3 xl:overflow-x-scroll comments-grid"
+      class="hidden xl:flex gap-3 xl:overflow-x-scroll comments-grid xl:flex-col"
       v-if="feedbacks?.length > 0"
     >
       <CommentsCard
@@ -79,8 +85,8 @@
         :feedback="feedback"
       />
     </div>
-    <div v-else class="h-[208px] hidden xl:flex justify-center items-center">
-      <p class="text-[18px] text-grey-64 font-medium">Afuski ma’lumot topilmadi!</p>
+    <div v-else class="h-[208px] hidden xl:flex justify-center items-center xl:h-[100px]">
+      <VEmpty />
     </div>
   </div>
 </template>
@@ -89,6 +95,7 @@ import { Swiper, Navigation } from "swiper";
 import "swiper/swiper-bundle.min.css";
 import AlertsCard from "./AlertsCard.vue";
 import CommentsCard from "./CommentsCard.vue";
+import VEmpty from "./VEmpty.vue";
 
 export default {
   props: ["feedbacks"],
@@ -132,7 +139,7 @@ export default {
       if (val == this.$route.query.type) this.$emit("getComments");
     },
   },
-  components: { AlertsCard, CommentsCard },
+  components: { AlertsCard, CommentsCard, VEmpty },
 };
 </script>
 <style lang="css" scoped>
@@ -162,7 +169,7 @@ export default {
   box-shadow: 0 0 0 2px rgba(92, 70, 229, 0.2);
 }
 @media (max-width: 1200px) {
-  .comments-grid::-webkit-scrollbar {
+  .co xl:flex-col::-webkit-scrollbar {
     display: none;
   }
 }
