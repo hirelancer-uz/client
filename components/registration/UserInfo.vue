@@ -538,8 +538,8 @@ export default {
   color: #fff;
 }
 .client-types .activeC {
-  border-color: var(--light-red);
-  background-color: var(--light-red);
+  border-color: var(--green);
+  background-color: var(--green);
   color: #fff;
 }
 
