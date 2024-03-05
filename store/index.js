@@ -2,6 +2,9 @@ export const state = () => ({
   userInfo: {},
   auth: false,
   pageData: {},
+
+  translations: {},
+  lang: "",
 });
 
 export const mutations = {
@@ -18,6 +21,14 @@ export const mutations = {
   logout(state) {
     localStorage.removeItem("auth-token");
     state.auth = false;
+  },
+
+  langRu(state, payload) {
+    state.lang = payload;
+  },
+
+  getTranslations(state, payload) {
+    state.translations = payload;
   },
 };
 export const actions = {
@@ -38,5 +49,15 @@ export const actions = {
         commit("getUserInfo", userInfoData);
       } catch (e) {}
     }
+  },
+
+  actionLangRu({ commit }, payload) {
+    commit("langRu", payload);
+  },
+};
+
+export const getters = {
+  language(state) {
+    return state.lang;
   },
 };

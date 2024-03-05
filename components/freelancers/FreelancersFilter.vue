@@ -25,11 +25,13 @@
       <div
         class="list px-[8px] xl:px-4 py-[8px] flex flex-col g xl:border-0 xl:pt-[12px] xl:pb-[20px]"
       >
-        <h2 class="mt-[24px] text-[24px] xl:font-bold hidden xk:block">Filtr</h2>
+        <h2 class="mt-[24px] text-[24px] xl:font-bold hidden xk:block">
+          {{ $store.state.translations["freelancers.filter"] }}
+        </h2>
         <h2
           class="text-[20px] text-black font-semibold mx-[20px] py-[12px] pb-[16px] border-b-[1px] border-x-[0] border-t-[0] border-solid border-grey-light xl:mx-[0]"
         >
-          Тип работы
+          {{ $store.state.translations["freelancers.type"] }}
         </h2>
 
         <div class="drop-list flex flex-col mt-[4px] xl:gap-[24px] pt-[16px]">
@@ -56,16 +58,21 @@
               >
                 {{ dropItem?.name_ru }}
 
-                <div class="count text-[#9A999B]">({{ dropItem?.children.length }})</div>
+                <div class="count text-[#9A999B]">
+                  ({{ dropItem?.children.length }})
+                </div>
               </h2>
               <span
                 @click="handleDropdown(dropItem?.id)"
                 :class="{
                   'rotate-180':
-                    (dropItem.children.find((item) => item.id == dropdownOpen) ||
+                    (dropItem.children.find(
+                      (item) => item.id == dropdownOpen
+                    ) ||
                       dropdownOpen == dropItem?.id) &&
                     dropItem.children.length > 0,
-                  'pointer-events-none opacity-50': dropItem.children.length == 0,
+                  'pointer-events-none opacity-50':
+                    dropItem.children.length == 0,
                 }"
                 class="drop-icon w-[24px] h-[24px] rounded-[50%] bg-[#F8F9FF] flex items-center justify-center"
               >
@@ -87,7 +94,9 @@
 
             <!-- <Transition name="bounce"> -->
             <div class="drop-body relative z-10">
-              <div class="px-4 py-4 pt-[0] pb-[8px] flex flex-col gap-4 xl:gap-8">
+              <div
+                class="px-4 py-4 pt-[0] pb-[8px] flex flex-col gap-4 xl:gap-8"
+              >
                 <button
                   class="text-[14px] text-grey-80 flex gap-2 items-center hover:text-main-color"
                   v-for="dropIn in dropItem.children"
@@ -125,14 +134,16 @@
               <a-checkbox
                 :checked="filterForm['works']"
                 @change="($event) => filterHandle($event, 'works')"
-                >Portfolio</a-checkbox
+                >{{ $store.state.translations["freelancers.port"] }}</a-checkbox
               >
             </span>
             <span class="text-base text-blue-night flex items-center">
               <a-checkbox
                 :checked="filterForm['orders']"
                 @change="($event) => filterHandle($event, 'orders')"
-                >Tekshirilgan </a-checkbox
+                >{{
+                  $store.state.translations["freelancers.checked"]
+                }} </a-checkbox
               ><svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="22"
@@ -153,7 +164,9 @@
               </svg>
             </span>
             <span class="text-base text-blue-night flex items-center">
-              <a-checkbox>Otzivlari bilan</a-checkbox
+              <a-checkbox>{{
+                $store.state.translations["freelancers.with-comment"]
+              }}</a-checkbox
               ><svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -197,17 +210,18 @@
             @click="clearFilter"
             class="flex w-full justify-center xl:h-[52px] py-[15px] rounded-lg border border-blue border-solid text-[14px] font-tt font-semibold xl:font-medium text-blue bg-white"
             :class="{
-              'pointer-events-none opacity-50': Object.keys($route.query).length < 3,
+              'pointer-events-none opacity-50':
+                Object.keys($route.query).length < 3,
             }"
           >
-            Bekor qilish
+            {{ $store.state.translations["freelancers.cancel"] }}
           </button>
           <button
             :class="{ 'pointer-events-none opacity-50': !disabledFilter }"
             @click="sendFilter"
             class="flex w-full justify-center xl:h-[52px] py-[15px] rounded-lg border border-blue border-solid text-[14px] font-tt font-semibold xl:font-medium text-white bg-blue"
           >
-            Ko'rsatish
+            {{ $store.state.translations["freelancers.show-it"] }}
           </button>
         </div>
       </div>
@@ -351,8 +365,11 @@ export default {
   background-color: var(--blue);
 }
 .filter-container
-  :deep(.ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover
-    .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner) {
+  :deep(
+    .ant-checkbox-wrapper:hover .ant-checkbox-inner,
+    .ant-checkbox:hover .ant-checkbox-inner,
+    .ant-checkbox-input:focus + .ant-checkbox-inner
+  ) {
   border-color: var(--blue);
 }
 .filter-container :deep(.ant-checkbox-checked::after) {
@@ -370,7 +387,11 @@ export default {
 
   background: var(--bg-grey);
 }
-:deep(.ant-select-selection__placeholder, .ant-select-search__field__placeholder, .ant-select-selection-selected-value) {
+:deep(
+    .ant-select-selection__placeholder,
+    .ant-select-search__field__placeholder,
+    .ant-select-selection-selected-value
+  ) {
   color: var(--grey-80);
   font-family: "TT Interfaces";
   font-size: 16px;
@@ -383,8 +404,11 @@ export default {
 :deep(.ant-select-selection__placeholder) {
   margin-top: -14px;
 }
-:deep(.ant-select-focused
-    .ant-select-selection, .ant-select-selection:focus, .ant-select-selection:active) {
+:deep(
+    .ant-select-focused .ant-select-selection,
+    .ant-select-selection:focus,
+    .ant-select-selection:active
+  ) {
   box-shadow: 0 0 0 2px rgba(92, 70, 229, 0.2);
 }
 @media (max-width: 1200px) {

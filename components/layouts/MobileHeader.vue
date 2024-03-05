@@ -66,7 +66,7 @@
       <div class="top">
         <div class="links">
           <NuxtLink to="/orders"
-            >Buyurtmalar
+            >{{ $store.state.translations["header.orders"] }}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -84,7 +84,7 @@
             </svg>
           </NuxtLink>
           <NuxtLink to="/freelancers"
-            >Frilanserlar
+            >{{ $store.state.translations["header.freelancers"] }}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -117,7 +117,7 @@
                   fill="#5C46E6"
                 />
               </svg>
-              Bildirishnoma
+              {{ $store.state.translations["header.notifs"] }}
             </span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -152,7 +152,7 @@
                   stroke-linejoin="round"
                 />
               </svg>
-              Yozishmalar
+              {{ $store.state.translations["header.sms"] }}
             </span>
 
             <svg
@@ -327,10 +327,12 @@
       </div>
       <div class="bottom">
         <div class="buttons">
-          <NuxtLink to="/" class="login">Kirish</NuxtLink>
-          <NuxtLink to="/registration" class="registration"
-            >Ro'yxatdan o'tish</NuxtLink
-          >
+          <NuxtLink to="/" class="login">{{
+            $store.state.translations["header.login"]
+          }}</NuxtLink>
+          <NuxtLink to="/registration" class="registration">{{
+            $store.state.translations["header.register"]
+          }}</NuxtLink>
         </div>
       </div>
     </div>

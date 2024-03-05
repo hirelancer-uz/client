@@ -187,7 +187,7 @@
         <button
           class="underline text-grey-80 text-base font-medium text-center xl:text-main-color xl:text-[14px]"
         >
-          Подробнее
+        Подробнее
         </button>
       </div>
     </div>

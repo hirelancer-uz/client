@@ -119,7 +119,9 @@
       <div
         class="py-6 flex justify-between xl:items-center xl:flex-col xl:gap-[12px]"
       >
-        <p class="text-white text-[18px]">Все права защищены © 2023</p>
+        <p class="text-white text-[18px]">
+          {{ $store.state.translations["main.rights"] }}
+        </p>
         <div class="messangers flex gap-[42px]">
           <a href="#"
             ><svg
