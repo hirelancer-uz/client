@@ -1,5 +1,8 @@
-<template lang="html">
-  <div class="pt-[72px] order xl:px-4 xl:pt-0" :class="{ 'pb-10': order?.status != 0 }">
+<template>
+  <div
+    class="pt-[72px] order xl:px-4 xl:pt-0"
+    :class="{ 'pb-10': order?.status != 0 }"
+  >
     <div class="max-w-[1200px] mx-auto">
       <button
         @click="$router.go(-1)"
@@ -20,12 +23,16 @@
             stroke-linejoin="round"
           />
         </svg>
-        Отмена
+        {{ $store.state.translations["modal.cancel"] }}
       </button>
       <div class="flex justify-between items-end">
         <div class="flex flex-col gap-2 mt-6 xl:hidden">
-          <h3 class="text-[24px] text-black font-semibold">Заказ: #{{ order?.id }}</h3>
-          <p class="text-base text-grey-64">Заказы / Активные заказы</p>
+          <h3 class="text-[24px] text-black font-semibold">
+            {{ $store.state.translations["profile.order"] }} #{{ order?.id }}
+          </h3>
+          <p class="text-base text-grey-64">
+            {{ $store.state.translations["profile.orders-actives"] }}
+          </p>
         </div>
         <!-- <p
           v-if="status == 0"
@@ -72,8 +79,13 @@
                   <p class="text-base text-grey-64 xl:hidden">
                     {{ orderDate }}, {{ orderHours }}
                   </p>
-                  <p class="text-base text-grey-64 flex gap-[6px] xl:leading-[20px]">
-                    Заказ:<span class="font-medium text-black">#{{ order?.id }}</span>
+                  <p
+                    class="text-base text-grey-64 flex gap-[6px] xl:leading-[20px]"
+                  >
+                    {{ $store.state.translations["profile.order"]
+                    }}<span class="font-medium text-black"
+                      >#{{ order?.id }}</span
+                    >
                   </p>
                 </div>
                 <!-- <div class="justify-between items-center xl:flex hidden">
@@ -92,7 +104,9 @@
               <div
                 class="body mt-6 pb-4 border-[0] border-b border-solid border-grey-8 xl:mt-4"
               >
-                <h1 class="title text-[24px] font-semibold text-black mb-4 xl:text-base">
+                <h1
+                  class="title text-[24px] font-semibold text-black mb-4 xl:text-base"
+                >
                   {{ order?.name }}
                 </h1>
 
@@ -102,17 +116,24 @@
                 >
                 </span>
               </div>
-              <div class="files flex flex-col gap-4 mt-4" v-if="order?.files?.length > 0">
+              <div
+                class="files flex flex-col gap-4 mt-4"
+                v-if="order?.files?.length > 0"
+              >
                 <h6 class="text-black text-[20px] font-semibold xl:text-[18px]">
-                  Файлы к задаче
+                  {{ $store.state.translations["profile.order-files"] }}
                 </h6>
                 <div class="file-list flex gap-4 justify-start xl:flex-wrap">
-                  <FileCard v-for="file in order?.files" :file="file" :key="file?.id" />
+                  <FileCard
+                    v-for="file in order?.files"
+                    :file="file"
+                    :key="file?.id"
+                  />
                 </div>
               </div>
               <div class="files flex flex-col gap-4 mt-4 xl:mt-6 mb-6">
                 <h6 class="text-black text-[20px] xl:text-[18px] font-semibold">
-                  Категории:
+                  {{ $store.state.translations["profile.categories"] }}
                 </h6>
                 <div class="flex gap-2 items-center xl:flex-col xl:items-start">
                   <div
@@ -175,7 +196,12 @@
                         stroke-width="1.5"
                         stroke-linejoin="round"
                       />
-                      <circle cx="9.99984" cy="9.99996" r="0.833333" fill="#5C46E6" />
+                      <circle
+                        cx="9.99984"
+                        cy="9.99996"
+                        r="0.833333"
+                        fill="#5C46E6"
+                      />
                       <ellipse
                         cx="13.3333"
                         cy="9.99996"
@@ -190,7 +216,8 @@
                         ry="0.833333"
                         fill="#5C46E6"
                       /></svg
-                    >{{ order?.request_count }} запросов
+                    >{{ order?.request_count }}
+                    {{ $store.state.translations["profile.requests"] }}
                   </p>
                 </div>
                 <!-- <p
@@ -229,8 +256,11 @@
               v-if="!openBlock && order?.status > 1"
               @click="openBlock = true"
             >
-              <button class="flex gap-2 text-purple text-base font-medium items-center">
-                Раскрыть<svg
+              <button
+                class="flex gap-2 text-purple text-base font-medium items-center"
+              >
+                {{ $store.state.translations["profile.reveal"]
+                }}<svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -270,7 +300,7 @@
                   fill="#F2994A"
                 />
               </svg>
-              Ваш заказ ожидание модерации. Скоро ваш заказ опубликуется
+              {{ $store.state.translations["profile.order-waiting-mod"] }}
             </p>
           </div>
         </div>
@@ -280,9 +310,11 @@
           >
             <div v-if="order?.selected_request?.id">
               <div class="flex flex-col gap-2 mb-4">
-                <h4 class="text-[20px] font-semibold text-black">Tanlangan frilanser</h4>
+                <h4 class="text-[20px] font-semibold text-black">
+                  {{ $store.state.translations["profile.choosen-free"] }}
+                </h4>
                 <p class="text-[14px] text-black">
-                  Tanlangan vaqti:
+                  {{ $store.state.translations["profile.choose-time"] }}
                   {{ selectedDate }}
                 </p>
               </div>
@@ -296,7 +328,9 @@
               <div
                 class="flex justify-between xl:flex-row xl:items-center xl:justify-between"
               >
-                <p class="text-grey-64 text-[14px] xl:font-semibold">Срок:</p>
+                <p class="text-grey-64 text-[14px] xl:font-semibold">
+                  {{ $store.state.translations["profile.deadline"] }}
+                </p>
                 <h2
                   class="text-blue text-[24px] font-semibold xl:text-[14px]"
                   v-if="order?.deadline"
@@ -307,7 +341,7 @@
                   v-else
                   class="text-black text-base font-semibold xl:text-[14px] xl:font-medium"
                 >
-                  По договоренности
+                  {{ $store.state.translations["profile.deal"] }}
                 </h4>
               </div>
               <div
@@ -316,21 +350,22 @@
                 <p
                   class="text-grey-64 text-[18px] font-medium xl:text-base xl:text-grey-64 xl:font-semibold"
                 >
-                  Buyrtma narxi:
+                  {{ $store.state.translations["profile.price"] }}
                 </p>
 
                 <h2
                   class="text-main-color text-[18px] font-semibold xl:text-[14px]"
                   v-if="order?.price"
                 >
-                  {{ order?.price.toLocaleString() }} so'm
+                  {{ order?.price.toLocaleString() }}
+                  {{ $store.state.translations["profile.sum"] }}
                 </h2>
 
                 <h4
                   v-else
                   class="text-black text-base font-semibold xl:text-[14px] xl:font-medium"
                 >
-                  По договоренности
+                  {{ $store.state.translations["profile.deal"] }}
                 </h4>
                 <!-- <p class="text-grey-40 text-[15px] line-through xl:hidden">750 000</p> -->
               </div>
@@ -341,10 +376,12 @@
             >
               <button
                 v-if="!status"
-                @click="$router.push(`/profile/customer/order/edit/${order?.id}`)"
+                @click="
+                  $router.push(`/profile/customer/order/edit/${order?.id}`)
+                "
                 class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-main-color border-main-color text-base xl:text-[14px] text-white font-medium"
               >
-                Изменить данные
+                {{ $store.state.translations["profile.change-data"] }}
                 <svg
                   width="25"
                   height="24"
@@ -373,12 +410,13 @@
                 <span class="flex w-full">
                   <button
                     :class="{
-                      'pointer-events-none opacity-50': !order?.complete_requests,
+                      'pointer-events-none opacity-50':
+                        !order?.complete_requests,
                     }"
                     @click="openCompliteOrder"
                     class="w-full h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-main-color border-main-color text-base xl:text-[14px] text-white font-medium"
                   >
-                    Завершить заказ
+                    {{ $store.state.translations["profile.finish-order"] }}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="25"
@@ -402,7 +440,7 @@
                 @click="cancelOrder"
                 class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-white border-grey-24 text-base xl:text-[14px] text-light-red font-medium"
               >
-                Отменить заказ
+                {{ $store.state.translations["profile.cancel-order"] }}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="18"
@@ -471,7 +509,7 @@
                 fill="#F2994A"
               />
             </svg>
-            Ваш заказ ожидание модерации. Скоро ваш заказ опубликуется
+            {{ $store.state.translations["profile.order-wait-moder"] }}
           </p>
         </div>
       </div>
@@ -487,11 +525,13 @@
         <div class="order-left-chat mb-6">
           <div class="flex justify-between xl:flex-col xl:gap-4">
             <h4 class="text-[24px] font-semibold text-black xl:text-[18px]">
-              Предложений ({{ order?.requests?.length }})
+              {{ $store.state.translations["profile.offers"] }} ({{
+                order?.requests?.length
+              }})
             </h4>
             <a-select
               v-model="is_positive"
-              placeholder="Сортировка"
+              :placeholder="$store.state.translations[`profile.sorting`]"
               class="min-w-[280px] xl:w-full"
             >
               <a-select-option
@@ -539,7 +579,7 @@
                   stroke-linejoin="round"
                 />
               </svg>
-              Предложений
+              {{ $store.state.translations["profile.offers"] }}
             </button>
           </div>
           <div
@@ -576,8 +616,10 @@
                 stroke-linejoin="round"
               />
             </svg>
-            <p class="text-[#F2994A] text-base font-medium xl:text-[14px] text-center">
-              Вы можете получать заявка после успешной прохождение модерации
+            <p
+              class="text-[#F2994A] text-base font-medium xl:text-[14px] text-center"
+            >
+              {{ $store.state.translations["profile.after-moder"] }}
             </p>
           </div>
         </div>
@@ -588,27 +630,28 @@
         ref="deleteOrder"
         @submit="submitCancel"
         :loadingBtn="loadingBtn"
-        title="Siz so'rovni bekor qilmoqchimisiz?"
-        save="Ha, albatta"
-        closeBtn="Yo’q"
+        :title="$store.state.translations[`profile.sure-cancel-request`]"
+        save="$store.state.translations[`modal.yes`]"
+        closeBtn="$store.state.translations[`modal.no`]"
       >
       </CancellationOrder>
       <CancellationOrder
         ref="deleteActiveOrder"
         @submit="submitCancel"
         :loadingBtn="loadingBtn"
-        title="Siz so'rovni bekor qilmoqchimisiz?"
-        save="Ha, albatta"
-        closeBtn="Yo’q"
+        :title="$store.state.translations[`profile.sure-cancel-request`]"
+        save="$store.state.translations[`modal.yes`]"
+        closeBtn="$store.state.translations[`modal.no`]"
       >
         <p class="text-base text-grey-64 mt-2 xl:text-center xl:px-4">
-          Agar buyurtmani bekor qilsangiz bu buyurtmani davom ettira olmaysiz
+          {{ $store.state.translations["profile.you-cant-continue"] }}
         </p>
 
         <span
           class="reyting mb-[10px] rounded-[15px] px-6 py-[10px] text-light-red text-base mx-auto mt-3"
         >
-          Vash reyting upadyot na -16 ballov
+          {{ $store.state.translations["profile.raiting-down"] }} -16
+          {{ $store.state.translations["profile.to-score"] }}
         </span>
       </CancellationOrder>
       <CancellationOrder
@@ -616,24 +659,27 @@
         @submit="submitCancel"
         :loadingBtn="loadingBtn"
         :disabled="disabledBtn"
-        title="Siz haqiqatdan buyurtmani bekor qilmoqchimisiz?"
-        save="Ha, albatta"
-        closeBtn="Yo’q"
+        :title="$store.state.translations[`profile.sure-cancel-order`]"
+        save="$store.state.translations[`modal.yes`]"
+        closeBtn="$store.state.translations[`modal.no`]"
         :width="584"
       >
         <p class="text-base text-grey-64 mt-2 xl:px-4 xl:text-center">
-          Agar buyurtmani bekor qilsangiz bu buyurtmani davom ettira olmaysiz
+          {{ $store.state.translations["profile.you-cant-continue"] }}
         </p>
 
         <span
           class="reyting mb-[10px] rounded-[15px] px-6 py-[10px] text-light-red text-base mx-auto mt-3 xl:px-4 xl:text-center"
         >
-          Vash reyting upadyot na -16 ballov
+          {{ $store.state.translations["profile.raiting-down"] }} -16
+          {{ $store.state.translations["profile.to-score"] }}
         </span>
         <div
           class="px-4 py-4 rounded-[16px] bg-bg-grey w-full mt-4 mb-[-32px] xl:bg-white"
         >
-          <h5 class="text-[18px] text-grey-80 font-bold">Prichina otmeni</h5>
+          <h5 class="text-[18px] text-grey-80 font-bold">
+            {{ $store.state.translations["profile.cancel-reason"] }}
+          </h5>
           <ul class="flex flex-col gap-6 mt-6">
             <li v-for="reason in reasons" :key="reason?.id">
               <a-checkbox
@@ -659,25 +705,28 @@
       class="fixed-btns fixed bottom-0 w-full z-[20000] py-4 px-4 bg-white left-0 hidden xl:grid gap-4"
     >
       <div class="flex flex-col gap-1">
-        <p class="text-[12px] text-grey-64">Buyrtma narxi:</p>
+        <p class="text-[12px] text-grey-64">
+          {{ $store.state.translations["profile.price"] }}
+        </p>
         <h5
           class="text-base text-main-color font-semibold whitespace-nowrap"
           v-if="order?.price"
         >
-          {{ order?.price.toLocaleString() }} so'm
+          {{ order?.price.toLocaleString() }}
+          {{ $store.state.translations["profile.sum"] }}
         </h5>
         <h4
           v-else
           class="text-black text-[12px] font-semibold xl:font-medium whitespace-nowrap"
         >
-          По договоренности
+          {{ $store.state.translations["profile.deal"] }}
         </h4>
       </div>
       <button
         @click="$router.push(`/profile/customer/order/edit/${order?.id}`)"
         class="border border-solid border-blue bg-blue rounded-[12px] h-11 w-full flex justify-center items-center text-[12px] text-white font-medium gap-2"
       >
-        Изменить данные
+        {{ $store.state.translations["profile.change-data"] }}
       </button>
       <Loader v-if="loading" />
     </div>
@@ -728,11 +777,11 @@ export default {
       chatHandle: false,
       options: [
         {
-          label: "Положительный",
+          label: this.$store.state.translations["modal.positive"],
           value: 1,
         },
         {
-          label: "Отрицательный",
+          label: this.$store.state.translations["modal.negative"],
           value: 0,
         },
       ],
@@ -754,12 +803,17 @@ export default {
       if (this.order?.selected_request?.id) {
         status = 2;
       }
-      if (this.order?.complete_requests?.length > 0 && this.order?.end_of_execution)
+      if (
+        this.order?.complete_requests?.length > 0 &&
+        this.order?.end_of_execution
+      )
         status = 3;
       return status;
     },
     selectedDate() {
-      return moment(this.order?.selected_request?.created_at).format("HH:mm DD.MM.YYYY");
+      return moment(this.order?.selected_request?.created_at).format(
+        "HH:mm DD.MM.YYYY"
+      );
     },
   },
   mounted() {
@@ -811,7 +865,9 @@ export default {
       if (!this.selectedReasons.includes(id)) {
         this.selectedReasons.push(id);
       } else {
-        this.selectedReasons = this.selectedReasons.filter((elem) => elem != id);
+        this.selectedReasons = this.selectedReasons.filter(
+          (elem) => elem != id
+        );
       }
       this.selectedReasons.length > 0
         ? (this.disabledBtn = false)
@@ -853,10 +909,13 @@ export default {
     async __CANCEL_ORDER(formData) {
       try {
         this.loadingBtn = true;
-        const data = await this.$store.dispatch("fetchOrders/postCanceledOrder", {
-          id: this.$route.params.id,
-          data: formData,
-        });
+        const data = await this.$store.dispatch(
+          "fetchOrders/postCanceledOrder",
+          {
+            id: this.$route.params.id,
+            data: formData,
+          }
+        );
         this.$emit("selected");
         this.handleOk();
       } catch (e) {
@@ -961,8 +1020,11 @@ export default {
   border-color: var(--blue);
   background-color: var(--blue);
 }
-:deep(.ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover
-    .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner) {
+:deep(
+    .ant-checkbox-wrapper:hover .ant-checkbox-inner,
+    .ant-checkbox:hover .ant-checkbox-inner,
+    .ant-checkbox-input:focus + .ant-checkbox-inner
+  ) {
   border-color: var(--blue);
 }
 :deep(.ant-checkbox-checked::after) {
@@ -980,8 +1042,11 @@ export default {
   border-color: var(--blue);
   background-color: var(--blue);
 }
-:deep(.ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover
-    .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner) {
+:deep(
+    .ant-checkbox-wrapper:hover .ant-checkbox-inner,
+    .ant-checkbox:hover .ant-checkbox-inner,
+    .ant-checkbox-input:focus + .ant-checkbox-inner
+  ) {
   border-color: var(--blue);
 }
 :deep(.ant-checkbox-checked::after) {

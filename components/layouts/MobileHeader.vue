@@ -125,7 +125,7 @@
           :class="{ active: !$route.name.includes('specialities') }"
           class="px-6 py-3 xl:relative rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] xl:font-semibold text-base text-grey-64 font-medium xl:py-0 xl:flex xl:items-center xl:h-9 whitespace-nowrap xl:rounded-lg"
         >
-          Shaxsiy ma'lumotlar
+          {{ $store.state.translations["header.personal-data"] }}
         </button>
         <button
           @click="
@@ -134,7 +134,7 @@
           :class="{ active: $route.name.includes('specialities') }"
           class="px-6 py-0 xl:flex xl:items-center xl:relative rounded-[12px] border-solid border-[2px] xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] xl:font-semibold border-bg-grey bg-bg-grey text-base text-grey-64 font-medium xl:py-2 xl:h-9 whitespace-nowrap xl:rounded-lg"
         >
-          Mutaxassisliklar
+          {{ $store.state.translations["header.specs"] }}
         </button>
       </div>
     </div>
@@ -459,7 +459,7 @@
                 @click="userType = !userType"
                 class="rounded-[12px] bg-green py-4 w-full flex justify-center text-white font-medium text-base hover:text-white"
               >
-                Перейти на “заказчик”
+                {{ $store.state.translations["header.goto-customer"] }}
               </button>
             </li>
             <li>
@@ -495,7 +495,7 @@
                       stroke-linejoin="round"
                     />
                   </svg>
-                  Профиль
+                  {{ $store.state.translations["header.profile"] }}
                 </span>
                 <span v-html="iconArrow"></span>
               </button>
@@ -527,7 +527,7 @@
                     />
                   </svg>
 
-                  Проект
+                  {{ $store.state.translations["header.project"] }}
                 </span>
                 <span v-html="iconArrow"></span>
               </button>
@@ -575,7 +575,7 @@
                       fill="#353437"
                     />
                   </svg>
-                  Портфолио
+                  {{ $store.state.translations["header.portfolio"] }}
                 </span>
 
                 <span v-html="iconArrow"></span>
@@ -604,7 +604,7 @@
                     />
                   </svg>
 
-                  Настройки
+                  {{ $store.state.translations["header.settings"] }}
                 </span>
                 <span v-html="iconArrow"></span>
               </button>
@@ -633,7 +633,7 @@
                     <circle cx="8" cy="12" r="1" fill="#353437" />
                   </svg>
 
-                  Отзывы
+                  {{ $store.state.translations["header.reviews"] }}
                 </span>
                 <span v-html="iconArrow"></span>
               </button>
@@ -670,7 +670,7 @@
                   />
                 </svg>
 
-                Выход
+                {{ $store.state.translations["header.logout"] }}
               </button>
             </li>
           </ul>
@@ -680,7 +680,7 @@
                 @click="userType = !userType"
                 class="rounded-[12px] bg-main-color py-4 w-full flex justify-center text-white font-medium text-base hover:text-white"
               >
-                Перейти на “фрилансер”
+                {{ $store.state.translations["header.goto-freelancer"] }}
               </button>
             </li>
 
@@ -711,7 +711,7 @@
                     />
                   </svg>
 
-                  Проект
+                  {{ $store.state.translations["header.project"] }}
                 </span>
                 <span v-html="iconArrow"></span>
               </button>
@@ -740,7 +740,7 @@
                     />
                   </svg>
 
-                  Настройки
+                  {{ $store.state.translations["header.settings"] }}
                 </span>
                 <span v-html="iconArrow"></span>
               </button>
@@ -777,7 +777,7 @@
                   />
                 </svg>
 
-                Выход
+                {{ $store.state.translations["header.logout"] }}
               </button>
             </li>
           </ul>
@@ -785,10 +785,12 @@
       </div>
       <div class="bottom" v-else>
         <div class="grid grid-cols-2 gap-2 px-4">
-          <NuxtLink to="/" class="login">Kirish</NuxtLink>
-          <NuxtLink to="/registration" class="registration"
-            >Ro'yxatdan o'tish</NuxtLink
-          >
+          <NuxtLink to="/" class="login">{{
+            $store.state.translations["header.login"]
+          }}</NuxtLink>
+          <NuxtLink to="/registration" class="registration">{{
+            $store.state.translations["header.register"]
+          }}</NuxtLink>
         </div>
       </div>
     </div>
@@ -822,22 +824,22 @@ export default {
       userType: true,
       titleList: [
         {
-          title: "Buyurtmalar",
+          title: this.$store.state.translations["header.orders"],
           pathName: "orders",
           shodow: true,
         },
         {
-          title: "Freelanserlar",
+          title: this.$store.state.translations["header.freelancers"],
           pathName: "freelancers",
           shodow: true,
         },
         {
-          title: "Портфолио",
+          title: this.$store.state.translations["header.portfolio"],
           pathName: "profile-user-portfolio",
           shodow: true,
         },
         {
-          title: "Профиль",
+          title: this.$store.state.translations["header.profile"],
           pathName: "profile-user-info",
           shodow: true,
         },

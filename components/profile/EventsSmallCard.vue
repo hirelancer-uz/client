@@ -3,7 +3,9 @@
     class="events-small-card flex flex-col gap-4 border border-solid bg-white border-grey-8 rounded-[12px] px-4 py-4 card cursor-pointer"
   >
     <div class="body flex flex-col justify-between gap-2">
-      <h3 class="text-[20px] font-semibold text-black hover:text-blue">Innoweek 2023</h3>
+      <h3 class="text-[20px] font-semibold text-black hover:text-blue">
+        Innoweek 2023
+      </h3>
       <div class="flex justify-between">
         <p class="text-grey-40 text-[14px]">#innoweek2023</p>
         <p

@@ -4,14 +4,18 @@
   >
     <div class="body flex flex-col justify-between xl:py-1 xl:pl-1">
       <div class="flex flex-col gap-2">
-        <h3 class="text-[20px] font-semibold text-black hover:text-blue xl:text-[14px]">
+        <h3
+          class="text-[20px] font-semibold text-black hover:text-blue xl:text-[14px]"
+        >
           Innoweek 2023
         </h3>
         <p class="text-grey-40 text-[14px] xl:text-[12px]">#innoweek2023</p>
       </div>
-      <p class="text-grey-40 text-[14px] font-medium flex gap-2 items-center xl:text-[12px] ">
+      <p
+        class="text-grey-40 text-[14px] font-medium flex gap-2 items-center xl:text-[12px]"
+      >
         <svg
-        class="xl:h-4 xl:w-4"
+          class="xl:h-4 xl:w-4"
           xmlns="http://www.w3.org/2000/svg"
           width="18"
           height="18"

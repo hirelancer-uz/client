@@ -1,7 +1,13 @@
-<template lang="html">
-  <div class="profile-layout max-w-[1680px] w-full mx-auto pt-12 xl:pt-0 xl:pb-6 pb-[100px]">
+<template>
+  <div
+    class="profile-layout max-w-[1680px] w-full mx-auto pt-12 xl:pt-0 xl:pb-6 pb-[100px]"
+  >
     <div class="profile-grid">
-      <PersonalBlock :profile="profile" class="xl:hidden" :userInfo="freelancer" />
+      <PersonalBlock
+        :profile="profile"
+        class="xl:hidden"
+        :userInfo="freelancer"
+      />
 
       <div class="min-w-0">
         <PersonalBlockMobile

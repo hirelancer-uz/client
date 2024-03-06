@@ -1,10 +1,14 @@
-<template lang="html">
+<template>
   <div>
     <div class="xl:hidden">
       <a-modal
         class="complaint-modal xl:hidden"
         v-model="visible"
-        :body-style="{ padding: '16px', paddingLrft: '32px', borderRadius: '24px' }"
+        :body-style="{
+          padding: '16px',
+          paddingLrft: '32px',
+          borderRadius: '24px',
+        }"
         centered
         :closable="false"
         width="954px"
@@ -14,7 +18,7 @@
           <div class="flex flex-col gap-8">
             <div class="flex justify-between">
               <h4 class="text-black text-[24px] font-semibold">
-                Loyihani rostdan ham tugatmoqchimisiz?
+                {{ $store.state.translations["modal.sure-cancel"] }}
               </h4>
               <button @click="visible = false">
                 <svg
@@ -43,7 +47,7 @@
             </div> -->
               <a-select
                 v-model="form.is_positive"
-                placeholder="Положительный"
+                :placeholder="$store.state.translations[`modal.positive`]"
                 class="w-full"
               >
                 <a-select-option
@@ -63,7 +67,9 @@
                   v-model="form.feedback"
                   type="textarea"
                   rows="6"
-                  placeholder="Frilanserga fikr qoldirish"
+                  :placeholder="
+                    $store.state.translations[`modal.leave-comment`]
+                  "
                 />
               </a-form-model-item>
             </a-form-model>
@@ -71,7 +77,7 @@
               <span class="flex">
                 <a-checkbox v-model="done" class="flex items-center">
                   <p class="text-base text-grey-80 font-regular">
-                    Loyihani rostdan ham tugatmoqchimisiz?
+                    {{ $store.state.translations["modal.sure-cancel"] }}
                   </p></a-checkbox
                 >
                 <!-- <a-radio v-model="done" class="flex">
@@ -83,7 +89,7 @@
                   @click="closeModal"
                   class="h-[54px] gap-2 items-center w-[194px] flex justify-center border border-solid border-grey-24 bg-white rounded-[8px] text-base font-medium text-black"
                 >
-                  Bekor qilish
+                  {{ $store.state.translations["modal.cancel"] }}
                   <svg
                     width="25"
                     height="24"
@@ -107,7 +113,8 @@
                     'pointer-events-none opacity-50': loadingBtn || !done,
                   }"
                 >
-                  Saqlash <LoaderBtn v-if="loadingBtn" />
+                  {{ $store.state.translations["modal.save"] }}
+                  <LoaderBtn v-if="loadingBtn" />
                   <svg
                     v-else
                     xmlns="http://www.w3.org/2000/svg"
@@ -133,7 +140,11 @@
       </a-modal>
     </div>
     <div class="hidden xl:block">
-      <vue-bottom-sheet-vue2 @closed="closed" ref="compliteOrder" class="bottom-drawer">
+      <vue-bottom-sheet-vue2
+        @closed="closed"
+        ref="compliteOrder"
+        class="bottom-drawer"
+      >
         <div class="flex flex-col gap-4 relative xl:px-4 py-4">
           <div class="flex justify-end w-full">
             <button @click="close" class="">
@@ -156,7 +167,7 @@
           <div class="flex flex-col gap-4 w-full">
             <div class="flex justify-between">
               <h4 class="text-black text-[24px] font-semibold xl:text-[18px]">
-                Loyihani rostdan ham tugatmoqchimisiz?
+                {{ $store.state.translations["modal.sure-cancel"] }}
               </h4>
             </div>
             <div class="head flex gap-[37px] justify-start items-center">
@@ -168,7 +179,7 @@
             </div> -->
               <a-select
                 v-model="form.is_positive"
-                placeholder="Положительный"
+                :placeholder="$store.state.translations[`modal.positive`]"
                 class="w-full"
               >
                 <a-select-option
@@ -188,7 +199,9 @@
                   v-model="form.feedback"
                   type="textarea"
                   rows="6"
-                  placeholder="Frilanserga fikr qoldirish"
+                  :placeholder="
+                    $store.state.translations[`modal.leave-comment`]
+                  "
                 />
               </a-form-model-item>
             </a-form-model>
@@ -196,7 +209,7 @@
               <span class="flex">
                 <a-checkbox v-model="done" class="flex items-center">
                   <p class="text-base text-grey-80 font-regular xl:text-[14px]">
-                    Loyihani rostdan ham tugatmoqchimisiz?
+                    {{ $store.state.translations["modal.sure-cancel"] }}
                   </p></a-checkbox
                 >
                 <!-- <a-radio v-model="done" class="flex">
@@ -208,7 +221,7 @@
                   @click="close"
                   class="h-12 gap-2 items-center w-full flex justify-center border border-solid border-grey-24 bg-white rounded-[8px] text-[14px] font-medium text-black"
                 >
-                  Bekor qilish
+                  {{ $store.state.translations["modal.cancel"] }}
                   <svg
                     width="25"
                     height="24"
@@ -232,7 +245,8 @@
                     'pointer-events-none opacity-50': loadingBtn || !done,
                   }"
                 >
-                  Saqlash <LoaderBtn v-if="loadingBtn" />
+                  {{ $store.state.translations["modal.save"] }}
+                  <LoaderBtn v-if="loadingBtn" />
                   <svg
                     v-else
                     xmlns="http://www.w3.org/2000/svg"
@@ -270,18 +284,22 @@ export default {
       value: undefined,
       options: [
         {
-          label: "Положительный",
+          label: $store.state.translations[`modal.positive`],
           value: 1,
         },
         {
-          label: "Отрицательный",
+          label: $store.state.translations[`modal.negative`],
           value: 0,
         },
       ],
       text: "",
       rules: {
         feedback: [
-          { required: true, message: "This field is required", trigger: "blur" },
+          {
+            required: true,
+            message: $store.state.translations[`modal.required`],
+            trigger: "blur",
+          },
         ],
       },
       form: {
@@ -341,8 +359,11 @@ export default {
   border-color: var(--blue);
   background-color: var(--blue);
 }
-:deep(.ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover
-    .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner) {
+:deep(
+    .ant-checkbox-wrapper:hover .ant-checkbox-inner,
+    .ant-checkbox:hover .ant-checkbox-inner,
+    .ant-checkbox-input:focus + .ant-checkbox-inner
+  ) {
   border-color: var(--blue);
 }
 :deep(.ant-checkbox-checked::after) {

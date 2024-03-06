@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div class="2xl:container container mx-auto">
     <div
       class="banner bg-blue rounded-[32px] mt-[100px] xl:mt-[44px] xl:mx-[16px] xl:rounded-[16px] relative"
@@ -8,12 +8,12 @@
       >
         <div>
           <h4 class="text-[40px] text-white font-semibold xl:text-[20px]">
-            Начни зарабатывать с нами!
+            {{ $store.state.translations["header.start-earn"] }}
           </h4>
           <p
             class="text-white text-base font-medium mt-[40px] xl:mt-[8px] xl:text-[14px]"
           >
-            Лучшие фрилансеры для выполнения ваших задач
+            {{ $store.state.translations["header.the-bests"] }}
           </p>
         </div>
         <button
@@ -32,8 +32,9 @@
               stroke-width="1.5"
               stroke-linecap="round"
               stroke-linejoin="round"
-            /></svg
-          >Опубликовать заказ
+            />
+          </svg>
+          {{ $store.state.translations["header.share-order"] }}
         </button>
       </div>
       <div class="right h-[100%] xl:absolute xl:right-0 xl:top-0">

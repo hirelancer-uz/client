@@ -2,9 +2,11 @@
   <div class="telegram grid telegram-card relative rounded-2xl bg-bg-grey px-4">
     <div class="py-4 flex flex-col justify-between">
       <h6 class="text-base font-medium text-black">
-        Подписать на телеграм канал заказов
+        {{ $store.state.translations["header.sub-telega"] }}
       </h6>
-      <a class="text-blue text-[14px] font-medium font-tt underline" href="">Подробнее</a>
+      <a class="text-blue text-[14px] font-medium font-tt underline" href="">{{
+        $store.state.translations["header.more"]
+      }}</a>
     </div>
     <div>
       <img

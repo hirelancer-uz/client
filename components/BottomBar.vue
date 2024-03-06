@@ -12,7 +12,7 @@
       @click="$router.push('/profile/orders/add')"
       class="h-12 flex justify-center items-center bg-main-color rounded-[12px] text-[14px] font-semibold text-white w-full border-[1px] border-blue border-solid buttoner"
     >
-      Buyurtma qoshish
+      {{ $store.state.translations["header.add-order"] }}
     </button>
     <div class="menu flex justify-between">
       <button
@@ -56,7 +56,7 @@
             stroke-width="1.5"
             stroke-linecap="round"
           /></svg
-        >Bosh sahifa
+        >{{ $store.state.translations["header.main-page"] }}
       </button>
       <button
         @click="$router.push('/orders')"
@@ -109,7 +109,7 @@
             stroke-width="1.5"
             stroke-linejoin="round"
           /></svg
-        >Buyurtmalar
+        >{{ $store.state.translations["header.orders"] }}
       </button>
       <button
         @click="$router.push('/freelancers')"
@@ -181,7 +181,7 @@
             d="M7.30845 6.26711C7.20719 6.2558 7.10427 6.25 7 6.25C5.48122 6.25 4.25 7.48122 4.25 9C4.25 10.5188 5.48122 11.75 7 11.75C7.48537 11.75 7.94138 11.6243 8.33721 11.4036C7.99374 11.0341 7.70549 10.6126 7.4856 10.1522C7.33631 10.2152 7.17222 10.25 7 10.25C6.30964 10.25 5.75 9.69036 5.75 9C5.75 8.30964 6.30964 7.75 7 7.75C7.00205 7.75 7.00409 7.75 7.00614 7.75001C7.0317 7.23096 7.13641 6.73272 7.30845 6.26711Z"
             fill="#5D5D5F"
           /></svg
-        >Frilanserlar
+        >{{ $store.state.translations["header.freelancers"] }}
       </button>
       <button
         @click="

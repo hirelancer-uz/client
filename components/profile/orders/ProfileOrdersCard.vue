@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div
     class="profile-orders-card border border-solid rounded-2xl border-grey-8 px-8 py-6 flex flex-col gap-[21px] xl:px-4 xl:py-4"
   >
@@ -27,16 +27,24 @@
           <template slot="title">
             <span>{{ order?.name }}</span>
           </template>
-          <h3 class="text-[20px] xl:text-[18px] text-black font-medium max-w-full title">
+          <h3
+            class="text-[20px] xl:text-[18px] text-black font-medium max-w-full title"
+          >
             #{{ order?.id }}: {{ order?.name }}
           </h3>
         </a-tooltip>
       </div>
-      <p class="text-[20px] text-black font-medium xl:hidden" v-if="order?.price">
-        {{ order?.price }} сум
+      <p
+        class="text-[20px] text-black font-medium xl:hidden"
+        v-if="order?.price"
+      >
+        {{ order?.price }} {{ $store.state.translations["profile.sum"] }}
       </p>
-      <p class="text-[20px] text-black font-medium whitespace-nowrap xl:hidden" v-else>
-        По договоренности
+      <p
+        class="text-[20px] text-black font-medium whitespace-nowrap xl:hidden"
+        v-else
+      >
+        {{ $store.state.translations["profile.deal"] }}
       </p>
     </div>
     <div class="body flex justify-between">
@@ -55,25 +63,38 @@
           <div
             class="info gap-2 flex-row items-center xl:items-end xl:justify-between xl:w-full hidden xl:flex"
           >
-            <p class="text-[14px] text-grey-40 xl:text-grey-64 xl:text-base">Price:</p>
+            <p class="text-[14px] text-grey-40 xl:text-grey-64 xl:text-base">
+              {{ $store.state.translations["profile.price"] }}
+            </p>
             <span
               class="hidden xl:block flex-auto border-[0] border-dashed border-b border-grey-24 mb-[5px]"
             ></span>
-            <p class="text-[18px] text-main-color font-semibold" v-if="order?.price">
-              {{ order?.price }} сум
+            <p
+              class="text-[18px] text-main-color font-semibold"
+              v-if="order?.price"
+            >
+              {{ order?.price }}
+              {{ $store.state.translations["profile.sum"] }}
             </p>
-            <p class="text-[18px] text-main-color font-semibold whitespace-nowrap" v-else>
-              По договоренности
+            <p
+              class="text-[18px] text-main-color font-semibold whitespace-nowrap"
+              v-else
+            >
+              {{ $store.state.translations["profile.deal"] }}
             </p>
           </div>
           <div
             class="info flex gap-2 flex-row items-center xl:items-end xl:justify-between xl:w-full"
           >
-            <p class="text-[14px] text-grey-40 xl:text-grey-64 xl:text-base">Клиент</p>
+            <p class="text-[14px] text-grey-40 xl:text-grey-64 xl:text-base">
+              {{ $store.state.translations["profile.client"] }}
+            </p>
             <span
               class="hidden xl:block flex-auto border-[0] border-dashed border-b border-grey-24 mb-[5px]"
             ></span>
-            <p class="text-base text-grey-80 font-medium">{{ order?.client?.name }}</p>
+            <p class="text-base text-grey-80 font-medium">
+              {{ order?.client?.name }}
+            </p>
           </div>
         </div>
         <span class="h-full w-[1px] bg-grey-8 xl:hidden"></span>
@@ -81,21 +102,25 @@
           <p
             class="text-base text-grey-64 flex gap-[6px] xl:flex xl:justify-between w-full whitespace-nowrap"
           >
-            <span>Срок начала:</span>
+            <span>{{ $store.state.translations["profile.start-date"] }}</span>
             <span
               class="hidden xl:block flex-auto border-[0] border-dashed border-b border-grey-24 mb-[5px]"
             ></span>
-            <span class="text-black">{{ order?.start_of_execution || "----" }}</span>
+            <span class="text-black">{{
+              order?.start_of_execution || "----"
+            }}</span>
           </p>
           <span class="h-full w-[1px] bg-grey-8 xl:hidden"></span>
           <p
             class="text-base text-grey-64 flex gap-[6px] xl:flex xl:justify-between w-full whitespace-nowrap"
           >
-            Срок выполнение:
+            {{ $store.state.translations["profile.finish-date"] }}
             <span
               class="hidden xl:block flex-auto border-[0] border-dashed border-b border-grey-24 mb-[5px]"
             ></span>
-            <span class="text-black">{{ order?.end_of_execution || "----" }}</span>
+            <span class="text-black">{{
+              order?.end_of_execution || "----"
+            }}</span>
           </p>
         </div>
       </div>
@@ -103,7 +128,8 @@
         <nuxt-link
           :to="`/profile/freelancer/order/view/${order?.id}`"
           class="text-blue text-base font-medium flex gap-2 items-center"
-          >Подробнее<svg
+          >{{ $store.state.translations["profile.more"]
+          }}<svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -122,14 +148,18 @@
     </div>
     <div
       class="offers pt-[21px] border-[0] border-t border-solid border-grey-8 xl:border-[0] xl:pt-0"
-      v-if="$route.params.status == 'offers' || $route.params.status == 'completed'"
+      v-if="
+        $route.params.status == 'offers' || $route.params.status == 'completed'
+      "
     >
       <div
         class="rounded-[8px] border border-solid px-6 py-4 xl:px-4 cursor-pointer overflow-hidden border-[#C5EBC5] bg-[#FAFFFA]"
       >
         <div @click="open(1)" class="flex justify-between">
           <div class="flex gap-[80px] xl:flex-col xl:gap-4 xl:w-full">
-            <h4 class="text-base font-medium text-black flex items-center gap-2">
+            <h4
+              class="text-base font-medium text-black flex items-center gap-2"
+            >
               <svg
                 width="24"
                 height="24"
@@ -155,32 +185,38 @@
                   fill="#009A10"
                 />
               </svg>
-              Предложения
+              {{ $store.state.translations["profile.offers"] }}
             </h4>
             <div class="flex gap-[40px] xl:flex-col xl:gap-4">
               <p
                 class="text-base text-grey-64 flex gap-[6px] xl:justify-between xl:flex xl:w-full"
               >
-                <span>Срок:</span>
+                <span>{{ $store.state.translations["profile.deadline"] }}</span>
                 <span
                   class="hidden xl:block flex-auto border-[0] border-dashed border-b border-grey-24 mb-[5px]"
                 ></span>
                 <span v-if="order?.deadline" class="text-black xl:font-medium"
-                  >{{ order?.deadline }} дней</span
+                  >{{ order?.deadline }}
+                  {{ $store.state.translations["profile.days"] }}</span
                 >
-                <span v-else class="text-black xl:font-medium">По договоренности</span>
+                <span v-else class="text-black xl:font-medium">{{
+                  $store.state.translations["profile.deal"]
+                }}</span>
               </p>
               <p
                 class="text-base text-grey-64 flex gap-[6px] xl:justify-between xl:flex xl:w-full"
               >
-                <span> Цена:</span>
+                <span> {{ $store.state.translations["profile.price"] }}</span>
                 <span
                   class="hidden xl:block flex-auto border-[0] border-dashed border-b border-grey-24 mb-[5px]"
                 ></span>
                 <span v-if="order?.price" class="text-black xl:font-medium"
-                  >{{ order?.price }} сум</span
+                  >{{ order?.price }}
+                  {{ $store.state.translations["profile.sum"] }}</span
                 >
-                <span v-else class="text-black xl:font-medium">По договоренности</span>
+                <span v-else class="text-black xl:font-medium">{{
+                  $store.state.translations["profile.deal"]
+                }}</span>
               </p>
             </div>
           </div>
@@ -206,7 +242,8 @@
     <nuxt-link
       :to="`/profile/freelancer/order/view/${order?.id}`"
       class="text-main-color text-base hidden xl:flex font-medium gap-2 items-center xl:w-full xl:border xl:border-solid xl:border-main-color xl:rounded-[12px] xl:h-12 xl:justify-center xl:text-[14px] xl:font-semibold xl:gap-2 xl:items-center"
-      >Подробнее<svg
+      >{{ $store.state.translations["profile.more"]
+      }}<svg
         width="24"
         height="24"
         viewBox="0 0 24 24"

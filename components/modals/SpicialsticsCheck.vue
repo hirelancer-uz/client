@@ -13,13 +13,17 @@
       >
         <div class="flex flex-col gap-8">
           <div class="flex justify-between items-center">
-            <h6 class="text-black text-[24px] font-semibold">Sohangizni tanlang</h6>
+            <h6 class="text-black text-[24px] font-semibold">
+              {{ $store.state.translations["modal.choose-direction"] }}
+            </h6>
             <p
               class="text-[18px] text-grey-80 flex gap-2 items-center"
               v-if="maxSelectCount > 1"
             >
-              <span class="text-main-color font-medium">{{ checkedList.length }}</span
-              >: yonalish tanlandi
+              <span class="text-main-color font-medium">{{
+                checkedList.length
+              }}</span
+              >: {{ $store.state.translations["modal.choosen-one"] }}
               <span>(max {{ maxSelectCount }} ta)</span>
             </p>
           </div>
@@ -32,7 +36,8 @@
                 v-for="item in specialities"
                 @click="onSelect(item?.id)"
                 :class="{
-                  active: (modalList ? modalList : specialities[0]?.id) == item?.id,
+                  active:
+                    (modalList ? modalList : specialities[0]?.id) == item?.id,
                 }"
               >
                 <svg
@@ -76,24 +81,32 @@
               <div class="flex gap-3 flex-wrap items-start">
                 <button
                   :disabled="
-                    !Boolean(checkedList.find((elemChild) => elemChild.id == child.id)) &&
-                    checkedList.length == maxSelectCount
+                    !Boolean(
+                      checkedList.find((elemChild) => elemChild.id == child.id)
+                    ) && checkedList.length == maxSelectCount
                   "
                   class="px-4 py-2 bg-bg-grey rounded-[22px] flex items-center gap-2"
                   v-for="child in specialities?.find(
                     (elem) =>
-                      elem.id == (modalList != null ? modalList : specialities[0]?.id)
+                      elem.id ==
+                      (modalList != null ? modalList : specialities[0]?.id)
                   )?.children"
                   @click="onchecked(child)"
                 >
                   <a-checkbox
                     :disabled="
                       !Boolean(
-                        checkedList.find((elemChild) => elemChild.id == child.id)
+                        checkedList.find(
+                          (elemChild) => elemChild.id == child.id
+                        )
                       ) && checkedList.length == maxSelectCount
                     "
                     :checked="
-                      Boolean(checkedList.find((elemChild) => elemChild.id == child.id))
+                      Boolean(
+                        checkedList.find(
+                          (elemChild) => elemChild.id == child.id
+                        )
+                      )
                     "
                   />
                   <p class="text-grey-80 text-[14px] font-medium">
@@ -106,13 +119,13 @@
                   @click="closeChecked"
                   class="h-[60px] border border-solid w-[227px] border-border-darik rounded-[12px] flex justify-center items-center text-[18px] text-black font-medium"
                 >
-                  Bekor qilish
+                  {{ $store.state.translations["modal.cancel"] }}
                 </button>
                 <button
                   @click="$emit('saveChecked', checkedList)"
                   class="h-[60px] border border-solid w-[227px] border-blue bg-blue rounded-[12px] flex justify-center items-center text-[18px] text-white font-medium"
                 >
-                  Tasdiqlash
+                  {{ $store.state.translations["modal.save"] }}
                 </button>
               </div>
             </div>
@@ -132,13 +145,17 @@
             <div
               class="flex justify-between items-center flex-col gap-3 pb-6 border-[0] border-b border-solid border-grey-light"
             >
-              <h6 class="text-black text-[18px] font-semibold">Sohangizni tanlang</h6>
+              <h6 class="text-black text-[18px] font-semibold">
+                {{ $store.state.translations["modal.choose-direction"] }}
+              </h6>
               <p
                 class="text-[14px] text-grey-80 flex gap-2 items-center"
                 v-if="maxSelectCount > 1"
               >
-                <span class="text-main-color font-medium">{{ checkedList.length }}</span
-                >: yonalish tanlandi
+                <span class="text-main-color font-medium">{{
+                  checkedList.length
+                }}</span
+                >: {{ $store.state.translations["modal.choosen-one"] }}
                 <span>(max {{ maxSelectCount }} ta)</span>
               </p>
             </div>
@@ -227,19 +244,25 @@
                         @click="onchecked(child)"
                         :disabled="
                           !Boolean(
-                            checkedList.find((elemChild) => elemChild.id == child.id)
+                            checkedList.find(
+                              (elemChild) => elemChild.id == child.id
+                            )
                           ) && checkedList.length == maxSelectCount
                         "
                       >
                         <a-checkbox
                           :disabled="
                             !Boolean(
-                              checkedList.find((elemChild) => elemChild.id == child.id)
+                              checkedList.find(
+                                (elemChild) => elemChild.id == child.id
+                              )
                             ) && checkedList.length == maxSelectCount
                           "
                           :checked="
                             Boolean(
-                              checkedList.find((elemChild) => elemChild.id == child.id)
+                              checkedList.find(
+                                (elemChild) => elemChild.id == child.id
+                              )
                             )
                           "
                         />
@@ -259,13 +282,13 @@
               @click="saveSelected"
               class="h-[52px] border border-solid border-blue bg-blue rounded-[12px] flex justify-center items-center text-[14px] text-white font-medium"
             >
-              Tasdiqlash
+              {{ $store.state.translations["modal.save"] }}
             </button>
             <button
               @click="closeChecked"
               class="h-[52px] border border-solid border-border-darik rounded-[12px] flex justify-center items-center text-[14px] text-black font-medium"
             >
-              Bekor qilish
+              {{ $store.state.translations["modal.cancel"] }}
             </button>
           </div>
         </div>

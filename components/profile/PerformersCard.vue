@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div
     class="freelancer-card px-6 py-6 border border-solid border-grey-8 rounded-2xl cursor-pointer xl:rounded-[16px] xl:p-[16px] flex flex-col gap-4"
     @click="$router.push('/freelancer')"
@@ -33,7 +33,9 @@
             /></svg
         ></span>
       </div>
-      <div class="body flex flex-col justify-between xl:w-[70%] xl:gap-[8px] gap-3">
+      <div
+        class="body flex flex-col justify-between xl:w-[70%] xl:gap-[8px] gap-3"
+      >
         <div>
           <div class="flex justify-between">
             <h4
@@ -92,7 +94,8 @@
                   stroke-linecap="round"
                   stroke-linejoin="round"
                 /></svg
-              ><span class="text-green">26</span><span class="text-grey-40">/</span
+              ><span class="text-green">26</span
+              ><span class="text-grey-40">/</span
               ><span class="text-pantone-2023">2</span
               ><svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -139,7 +142,7 @@
           <nuxt-link
             to="/"
             class="text-blue flex gap-1 items-center text-[14px] font-medium font-tt"
-            >Узнать больше
+            >{{ $store.state.translations["profile.view-more"] }}
             <svg
               width="20"
               height="20"
@@ -161,8 +164,8 @@
     </div>
     <div>
       <h4 class="text-[20px] font-medium text-black">
-        Нужен разработчик в теме форекс/крипто/трейдинг, знаком с патернами графического
-        анализа на графиках
+        Нужен разработчик в теме форекс/крипто/трейдинг, знаком с патернами
+        графического анализа на графиках
       </h4>
     </div>
   </div>

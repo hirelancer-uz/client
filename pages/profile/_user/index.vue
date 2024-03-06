@@ -1,14 +1,24 @@
-<template lang="html">
+<template>
   <div class="profile">
     <!-- <ProfileLayout :profile="true"> -->
     <div class="mt-8">
       <Alerts />
     </div>
-    <div class="personal-information mt-8" v-if="$route.params.user == 'freelancer'">
-      <PersonalInfo :isEdit="true" :profile="true" :userInfo="$store.state.userInfo" />
+    <div
+      class="personal-information mt-8"
+      v-if="$route.params.user == 'freelancer'"
+    >
+      <PersonalInfo
+        :isEdit="true"
+        :profile="true"
+        :userInfo="$store.state.userInfo"
+      />
       <!-- <Achievements :profile="true" /> -->
     </div>
-    <div class="personal-information mt-10" v-if="$route.params.user == 'freelancer'">
+    <div
+      class="personal-information mt-10"
+      v-if="$route.params.user == 'freelancer'"
+    >
       <Statistics :userInfo="$store.state.userInfo" />
     </div>
     <!-- <div class="mt-[45px]">

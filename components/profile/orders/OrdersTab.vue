@@ -4,11 +4,13 @@
   >
     <button
       v-if="$route.params.user == 'customer'"
-      @click="$router.push(`/profile/${$route.params.user}/orders/pending/status`)"
+      @click="
+        $router.push(`/profile/${$route.params.user}/orders/pending/status`)
+      "
       :class="{ active: $route.params.status == 'pending' }"
       class="xl:ml-4 px-6 py-3 xl:px-0 gap-[6px] xl:pb-2 xl:relative xl:bg-white rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey whitespace-nowrap text-base text-grey-64 xl:text-grey-40 font-medium xl:whitespace-nowrap xl:border-[0] xl:py-0 xl:flex xl:items-center xl:rounded-[8px] xl:text-[14px]"
     >
-      Ожидание модерации
+      {{ $store.state.translations["profile.waiting-moder"] }}
       <span class="xl:hidden"
         >({{
           $store.state.orderCounts?.customer_orders_counts?.in_moderation || 0
@@ -16,91 +18,121 @@
       >
       <span
         class="xl:flex hidden h-6 w-6 items-center justify-center bg-grey-8 rounded-full"
-        >{{ $store.state.orderCounts?.customer_orders_counts?.in_moderation || 0 }}</span
+        >{{
+          $store.state.orderCounts?.customer_orders_counts?.in_moderation || 0
+        }}</span
       >
     </button>
     <button
-      @click="$router.push(`/profile/${$route.params.user}/orders/active/status`)"
+      @click="
+        $router.push(`/profile/${$route.params.user}/orders/active/status`)
+      "
       :class="{ active: $route.params.status == 'active' }"
       class="xl:ml-4 px-6 py-3 xl:px-0 gap-[6px] xl:pb-2 xl:relative xl:bg-white rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey whitespace-nowrap text-base text-grey-64 xl:text-grey-40 font-medium xl:whitespace-nowrap xl:border-[0] xl:py-0 xl:flex xl:items-center xl:rounded-[8px] xl:text-[14px]"
     >
-      Активные заказы
+      {{ $store.state.translations["profile.active-orders"] }}
       <span class="xl:hidden"
         >({{
-          $store.state.orderCounts[`${$route.params.user}_orders_counts`]?.active || 0
+          $store.state.orderCounts[`${$route.params.user}_orders_counts`]
+            ?.active || 0
         }})</span
       >
       <span
         class="xl:flex hidden h-6 w-6 items-center justify-center bg-grey-8 rounded-full"
         >{{
-          $store.state.orderCounts[`${$route.params.user}_orders_counts`]?.active || 0
+          $store.state.orderCounts[`${$route.params.user}_orders_counts`]
+            ?.active || 0
         }}</span
       >
     </button>
 
     <button
       v-if="$route.params.user == 'freelancer'"
-      @click="$router.push(`/profile/${$route.params.user}/orders/offers/status`)"
+      @click="
+        $router.push(`/profile/${$route.params.user}/orders/offers/status`)
+      "
       :class="{ active: $route.params.status == 'offers' }"
       class="px-6 py-3 xl:px-0 gap-[6px] xl:pb-2 xl:relative xl:bg-white rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey whitespace-nowrap text-base text-grey-64 xl:text-grey-40 font-medium xl:whitespace-nowrap xl:border-[0] xl:py-0 xl:flex xl:items-center xl:rounded-[8px] xl:text-[14px]"
     >
-      Ожидания подверждения
-      <span class="xl:hidden"
-        >({{ $store.state.orderCounts[`freelancer_orders_counts`]?.waiting || 0 }})</span
-      >
-      <span
-        class="xl:flex hidden h-6 w-6 items-center justify-center bg-grey-8 rounded-full"
-        >{{ $store.state.orderCounts[`freelancer_orders_counts`]?.waiting || 0 }}</span
-      >
-    </button>
-    <button
-      v-if="$route.params.user == 'customer'"
-      @click="$router.push(`/profile/${$route.params.user}/orders/in_progress/status`)"
-      :class="{ active: $route.params.status == 'in_progress' }"
-      class="px-6 py-3 xl:px-0 gap-[6px] xl:pb-2 xl:relative xl:bg-white rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey whitespace-nowrap text-base text-grey-64 xl:text-grey-40 font-medium xl:whitespace-nowrap xl:border-[0] xl:py-0 xl:flex xl:items-center xl:rounded-[8px] xl:text-[14px]"
-    >
-      В процессе
-      <span class="xl:hidden"
-        >({{ $store.state.orderCounts[`customer_orders_counts`]?.in_process || 0 }})</span
-      >
-      <span
-        class="xl:flex hidden h-6 w-6 items-center justify-center bg-grey-8 rounded-full"
-        >{{ $store.state.orderCounts[`customer_orders_counts`]?.in_process || 0 }}</span
-      >
-    </button>
-    <button
-      @click="$router.push(`/profile/${$route.params.user}/orders/completed/status`)"
-      :class="{ active: $route.params.status == 'completed' }"
-      class="px-6 py-3 xl:px-0 gap-[6px] xl:pb-2 xl:relative xl:bg-white rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey whitespace-nowrap text-base text-grey-64 xl:text-grey-40 font-medium xl:whitespace-nowrap xl:border-[0] xl:py-0 xl:flex xl:items-center xl:rounded-[8px] xl:text-[14px]"
-    >
-      {{ $route.params.user == "customer" ? "Выполненные" : "Завершено" }}
+      {{ $store.state.translations["profile.waiting-confirm"] }}
       <span class="xl:hidden"
         >({{
-          $store.state.orderCounts[`${$route.params.user}_orders_counts`]?.done || 0
+          $store.state.orderCounts[`freelancer_orders_counts`]?.waiting || 0
         }})</span
       >
       <span
         class="xl:flex hidden h-6 w-6 items-center justify-center bg-grey-8 rounded-full"
         >{{
-          $store.state.orderCounts[`${$route.params.user}_orders_counts`]?.done || 0
+          $store.state.orderCounts[`freelancer_orders_counts`]?.waiting || 0
         }}</span
       >
     </button>
     <button
-      @click="$router.push(`/profile/${$route.params.user}/orders/cancel/status`)"
-      :class="{ active: $route.params.status == 'cancel' }"
-      class="xl:mr-4 px-6 py-3 xl:px-0 gap-[6px] xl:pb-2 xl:relative xl:bg-white rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey whitespace-nowrap text-base text-grey-64 xl:text-grey-40 font-medium xl:whitespace-nowrap xl:border-[0] xl:py-0 xl:flex xl:items-center xl:rounded-[8px] xl:text-[14px]"
+      v-if="$route.params.user == 'customer'"
+      @click="
+        $router.push(`/profile/${$route.params.user}/orders/in_progress/status`)
+      "
+      :class="{ active: $route.params.status == 'in_progress' }"
+      class="px-6 py-3 xl:px-0 gap-[6px] xl:pb-2 xl:relative xl:bg-white rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey whitespace-nowrap text-base text-grey-64 xl:text-grey-40 font-medium xl:whitespace-nowrap xl:border-[0] xl:py-0 xl:flex xl:items-center xl:rounded-[8px] xl:text-[14px]"
     >
-      Отмена
+      {{ $store.state.translations["profile.in-process"] }}
       <span class="xl:hidden"
         >({{
-          $store.state.orderCounts[`${$route.params.user}_orders_counts`]?.canceled || 0
+          $store.state.orderCounts[`customer_orders_counts`]?.in_process || 0
         }})</span
       >
       <span
         class="xl:flex hidden h-6 w-6 items-center justify-center bg-grey-8 rounded-full"
         >{{
-          $store.state.orderCounts[`${$route.params.user}_orders_counts`]?.canceled || 0
+          $store.state.orderCounts[`customer_orders_counts`]?.in_process || 0
+        }}</span
+      >
+    </button>
+    <button
+      @click="
+        $router.push(`/profile/${$route.params.user}/orders/completed/status`)
+      "
+      :class="{ active: $route.params.status == 'completed' }"
+      class="px-6 py-3 xl:px-0 gap-[6px] xl:pb-2 xl:relative xl:bg-white rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey whitespace-nowrap text-base text-grey-64 xl:text-grey-40 font-medium xl:whitespace-nowrap xl:border-[0] xl:py-0 xl:flex xl:items-center xl:rounded-[8px] xl:text-[14px]"
+    >
+      {{
+        $route.params.user == "customer"
+          ? `${$store.state.translations["profile.done"]}`
+          : `${$store.state.translations["profile.finished"]}`
+      }}
+      <span class="xl:hidden"
+        >({{
+          $store.state.orderCounts[`${$route.params.user}_orders_counts`]
+            ?.done || 0
+        }})</span
+      >
+      <span
+        class="xl:flex hidden h-6 w-6 items-center justify-center bg-grey-8 rounded-full"
+        >{{
+          $store.state.orderCounts[`${$route.params.user}_orders_counts`]
+            ?.done || 0
+        }}</span
+      >
+    </button>
+    <button
+      @click="
+        $router.push(`/profile/${$route.params.user}/orders/cancel/status`)
+      "
+      :class="{ active: $route.params.status == 'cancel' }"
+      class="xl:mr-4 px-6 py-3 xl:px-0 gap-[6px] xl:pb-2 xl:relative xl:bg-white rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey whitespace-nowrap text-base text-grey-64 xl:text-grey-40 font-medium xl:whitespace-nowrap xl:border-[0] xl:py-0 xl:flex xl:items-center xl:rounded-[8px] xl:text-[14px]"
+    >
+      {{ $store.state.translations["profile.cancel"] }}
+      <span class="xl:hidden"
+        >({{
+          $store.state.orderCounts[`${$route.params.user}_orders_counts`]
+            ?.canceled || 0
+        }})</span
+      >
+      <span
+        class="xl:flex hidden h-6 w-6 items-center justify-center bg-grey-8 rounded-full"
+        >{{
+          $store.state.orderCounts[`${$route.params.user}_orders_counts`]
+            ?.canceled || 0
         }}</span
       >
     </button>

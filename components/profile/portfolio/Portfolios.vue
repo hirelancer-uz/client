@@ -1,12 +1,14 @@
 <template>
   <div class="portfolios flex flex-col gap-6 xl:gap-4">
     <div class="flex justify-between">
-      <h1 class="text-black text-[24px] font-semibold xl:text-[18px]">Portfolio</h1>
+      <h1 class="text-black text-[24px] font-semibold xl:text-[18px]">
+        {{ $store.state.translations["profile.portfolio"] }}
+      </h1>
       <nuxt-link
         v-if="portfolios.length > 0"
         class="flex gap-[6px] text-blue text-base font-medium xl:text-[14px]"
         :to="`/freelancer/${$route.params.index}/portfolio`"
-        >Ko’proq ko’rish
+        >{{ $store.state.translations["profile.view-more"] }}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -44,7 +46,7 @@
       @click="$router.push(`/freelancer/${$route.params.index}/portfolio`)"
       class="hidden gap-2 w-full justify-center h-[52px] items-center rounded-[12px] bg-main-color text-[14px] text-white font-medium"
     >
-      Ko'proq ko'rish
+      {{ $store.state.translations["profile.view-more"] }}
       <svg
         width="24"
         height="24"

@@ -254,7 +254,7 @@
                   @click="userType = !userType"
                   class="rounded-[12px] bg-green py-2 w-[230px] flex justify-center text-white font-medium text-base hover:text-white"
                 >
-                  Перейти на “заказчик”
+                  {{ $store.state.translations["header.goto-customer"] }}
                 </button>
               </li>
               <li key="1">
@@ -289,7 +289,7 @@
                       stroke-linejoin="round"
                     />
                   </svg>
-                  Профиль
+                  {{ $store.state.translations["header.profile"] }}
                 </button>
               </li>
               <li key="2">
@@ -320,7 +320,7 @@
                     />
                   </svg>
 
-                  Проект
+                  {{ $store.state.translations["header.project"] }}
                 </button>
               </li>
               <li key="3">
@@ -366,7 +366,7 @@
                     />
                   </svg>
 
-                  Портфолио
+                  {{ $store.state.translations["header.portfolio"] }}
                 </button>
               </li>
               <li key="4">
@@ -391,7 +391,7 @@
                     />
                   </svg>
 
-                  Настройки
+                  {{ $store.state.translations["header.settings"] }}
                 </button>
               </li>
               <li key="5">
@@ -417,7 +417,7 @@
                     <circle cx="8" cy="12" r="1" fill="#353437" />
                   </svg>
 
-                  Отзывы
+                  {{ $store.state.translations["header.reviews"] }}
                 </button>
               </li>
               <span class="w-full flex h-[1px] bg-border-darik"></span>
@@ -453,7 +453,7 @@
                     />
                   </svg>
 
-                  Выход
+                  {{ $store.state.translations["header.logout"] }}
                 </button>
               </li>
             </ul>
@@ -467,7 +467,7 @@
                   @click="userType = !userType"
                   class="rounded-[12px] bg-main-color py-2 w-[230px] flex justify-center text-white font-medium text-base hover:text-white"
                 >
-                  Перейти на “фрилансер”
+                  {{ $store.state.translations["header.goto-freelancer"] }}
                 </button>
               </li>
 
@@ -499,7 +499,7 @@
                     />
                   </svg>
 
-                  Проект
+                  {{ $store.state.translations["header.project"] }}
                 </button>
               </li>
 
@@ -525,7 +525,7 @@
                     />
                   </svg>
 
-                  Настройки
+                  {{ $store.state.translations["header.settings"] }}
                 </button>
               </li>
               <span class="w-full flex h-[1px] bg-border-darik"></span>
@@ -561,7 +561,7 @@
                     />
                   </svg>
 
-                  Выход
+                  {{ $store.state.translations["header.logout"] }}
                 </button>
               </li>
             </ul>

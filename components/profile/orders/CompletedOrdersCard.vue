@@ -1,8 +1,10 @@
-<template lang="html">
+<template>
   <div
     class="profile-orders-card border border-solid rounded-2xl border-grey-8 px-8 py-6 flex flex-col xl:px-4 xl:py-4"
   >
-    <div class="head flex justify-between items-center xl:flex-col xl:items-start">
+    <div
+      class="head flex justify-between items-center xl:flex-col xl:items-start"
+    >
       <div
         class="flex gap-[10px] flex-col items-start xl:border-[0] xl:border-b xl:border-grey-8 max-w-[76%] xl:max-w-full"
       >
@@ -24,8 +26,11 @@
       >
         {{ order?.price.toLocaleString() }} сум
       </p>
-      <p class="text-[20px] text-black font-medium xl:text-base xl:mt-4 xl:hidden" v-else>
-        По договоренности
+      <p
+        class="text-[20px] text-black font-medium xl:text-base xl:mt-4 xl:hidden"
+        v-else
+      >
+        {{ $store.state.translations["profile.deal"] }}
       </p>
     </div>
     <div class="body flex justify-between mt-6 xl:mt-6 xl:flex-col">
@@ -34,7 +39,7 @@
           <p
             class="text-base text-grey-64 flex gap-[6px] xl:text-[14px] xl:justify-between w-full"
           >
-            Цена:
+            {{ $store.state.translations["profile.price"] }}
             <span
               class="hidden xl:block flex-auto border-[0] border-dashed border-b border-grey-24 mb-[5px]"
             ></span>
@@ -48,7 +53,7 @@
               class="text-black xl:text-[18px] xl:text-main-color font-semibold"
               v-else
             >
-              По договоренности</span
+              {{ $store.state.translations["profile.deal"] }}</span
             >
           </p>
         </div>
@@ -56,7 +61,7 @@
           <p
             class="text-base text-grey-64 flex gap-[6px] xl:text-[14px] xl:justify-between w-full"
           >
-            Срок выполнение:
+            {{ $store.state.translations["profile.deadline"] }}
             <span
               class="hidden xl:block flex-auto border-[0] border-dashed border-b border-grey-24 mb-[5px]"
             ></span>
@@ -70,7 +75,7 @@
           <p
             class="text-base text-grey-64 flex gap-[6px] xl:text-[14px] xl:justify-between w-full"
           >
-            Срок начала:
+            {{ $store.state.translations["profile.start-date"] }}
             <span
               class="hidden xl:block flex-auto border-[0] border-dashed border-b border-grey-24 mb-[5px]"
             ></span>
@@ -83,7 +88,8 @@
       <nuxt-link
         :to="`/profile/customer/order/view/${order?.id}`"
         class="text-main-color text-base xl:hidden font-medium flex gap-2 items-center xl:w-full xl:border xl:border-solid xl:border-main-color xl:rounded-[8px] xl:h-11 xl:justify-center xl:text-[14px] xl:font-medium xl:gap-2 xl:items-center"
-        >Подробнее<svg
+        >{{ $store.state.translations["profile.more"]
+        }}<svg
           width="24"
           height="24"
           viewBox="0 0 24 24"
@@ -125,7 +131,7 @@
               fill="#F2994A"
             />
           </svg>
-          Ожидание ответа модератора
+          {{ $store.state.translations["profile.waiting-response"] }}
         </h4>
       </div>
       <div
@@ -162,7 +168,7 @@
               />
             </svg>
 
-            Предложений:</span
+            {{ $store.state.translations["profile.requests"] }}</span
           >
           <span
             class="text-white min-w-[28px] h-[28px] xl:h-6 xl:min-w-6 xl:max-w-6 bg-[#EB5757] rounded-full flex justify-center items-center px-1 text-base xl:text-[14px] font-medium"
@@ -193,7 +199,7 @@
               />
             </svg>
 
-            Сообщении
+            {{ $store.state.translations["profile.messages"] }}
           </span>
           <span
             class="text-white min-w-[28px] h-[28px] xl:h-6 xl:min-w-6 xl:max-w-6 bg-[#EB5757] rounded-full flex justify-center items-center px-1 text-base xl:text-[14px] font-medium"
@@ -206,7 +212,8 @@
       :to="`/profile/customer/order/view/${order?.id}`"
       class="text-main-color text-base hidden xl:flex font-medium gap-2 items-center xl:w-full xl:border xl:border-solid xl:border-main-color xl:rounded-[12px] xl:h-12 xl:justify-center xl:text-[14px] xl:font-semibold xl:gap-2 xl:items-center"
       :class="accessStatus.includes(order?.status) ? 'mt-4' : 'mt-6'"
-      >Подробнее<svg
+      >{{ $store.state.translations["profile.more"]
+      }}<svg
         width="24"
         height="24"
         viewBox="0 0 24 24"
@@ -243,7 +250,6 @@ export default {
       }
     },
   },
-
 };
 </script>
 <style lang="css" scoped>

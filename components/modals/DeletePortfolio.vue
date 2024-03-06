@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div>
     <vue-bottom-sheet-vue2 ref="deletePortfolio" class="bottom-drawer">
       <div class="flex flex-col items-center gap-6 relative xl:px-4">
@@ -22,7 +22,7 @@
           <h4
             class="text-[18px] text-black text-center font-semibold xl:text-[18px] xl:font-semibold max-w-[90%] mx-auto"
           >
-            Loyihani rostan ham o’chirib tashlamoqchimisiz
+            {{ $store.state.translations["modal.sure-delete"] }}
           </h4>
         </div>
         <div class="buttons grid grid-cols-2 gap-3 mb-6 xl:w-full">
@@ -30,13 +30,13 @@
             @click="close"
             class="h-[52px] border border-solid border-grey-light rounded-[8px] flex justify-center items-center text-base font-medium text-grey-64"
           >
-            Yo’q
+            {{ $store.state.translations["modal.yes"] }}
           </button>
           <button
             @click="submit"
             class="h-[52px] bg-light-red rounded-[8px] flex justify-center items-center text-base font-medium text-white"
           >
-            Ha
+            {{ $store.state.translations["modal.no"] }}
           </button>
         </div>
       </div>

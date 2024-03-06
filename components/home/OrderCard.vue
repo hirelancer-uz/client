@@ -3,7 +3,9 @@
     class="card relative order-card px-8 py-6 rounded-3xl bg-white cursor-pointer xl:border-[1px] xl:border-solid xl:border-grey-8 xl:rounded-[16px] xl:p-[16px]"
     @click="
       $router.push(
-        myRequest ? `/profile/freelancer/order/view/${order?.id}` : `/orders/${order?.id}`
+        myRequest
+          ? `/profile/freelancer/order/view/${order?.id}`
+          : `/orders/${order?.id}`
       )
     "
   >
@@ -66,7 +68,13 @@
             viewBox="0 0 24 24"
             fill="none"
           >
-            <rect width="24" height="24" rx="8" fill="#5C46E6" fill-opacity="0.4" />
+            <rect
+              width="24"
+              height="24"
+              rx="8"
+              fill="#5C46E6"
+              fill-opacity="0.4"
+            />
             <path
               d="M6 18V14.551C6 13.7054 6.66581 13.0205 7.48785 13.0205H14.4309C15.253 13.0205 15.9188 13.7054 15.9188 14.551V18M15.9196 8.25878L17.2862 9.66379L20 6.87213M13.164 8.26746C13.164 9.51974 12.1771 10.5349 10.9598 10.5349C9.74238 10.5349 8.7555 9.51974 8.7555 8.26746C8.7555 7.01518 9.74238 6 10.9598 6C12.1771 6 13.164 7.01518 13.164 8.26746Z"
               stroke="#5C46E6"
@@ -189,7 +197,7 @@
         <button
           class="underline text-grey-80 text-base font-medium text-center xl:text-main-color xl:text-[14px] more-btn"
         >
-        Подробнее
+          Подробнее
         </button>
       </div>
     </div>
@@ -224,7 +232,13 @@
                 stroke="#9A999B"
                 stroke-width="1.5"
               />
-              <circle cx="12" cy="12.5" r="3" stroke="#9A999B" stroke-width="1.5" /></svg
+              <circle
+                cx="12"
+                cy="12.5"
+                r="3"
+                stroke="#9A999B"
+                stroke-width="1.5"
+              /></svg
             >{{ order?.view_count }}
           </p>
           <span class="flex w-[1px] h-[27px] bg-grey-8"></span>
@@ -334,7 +348,10 @@ export default {
                 break;
               }
             }
-            this.visibleButtons = this.order?.specialities.slice(0, visibleButtonsCount);
+            this.visibleButtons = this.order?.specialities.slice(
+              0,
+              visibleButtonsCount
+            );
           }, 0);
         }
       }

@@ -1,10 +1,10 @@
-<template lang="html">
+<template>
   <div class="comments flex flex-col gap-4">
     <div class="flex justify-between">
       <h1
         class="text-black text-[24px] font-semibold xl:text-[18px] xl:flex xl:justify-between"
       >
-        Отзывы клиентов
+        {{ $store.state.translations["profile.clients-comments"] }}
         <!-- <span class="hidden xl:block">
           <svg
             width="24"
@@ -42,7 +42,7 @@
               ? `/profile/freelancer/comments`
               : `/freelancer/${$route.params.index}/comments`
           "
-          >Ko’proq ko’rish
+          >{{ $store.state.translations["profile.view-more"] }}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -61,7 +61,11 @@
       </div>
     </div>
     <div class="xl:hidden grid grid-cols-2 gap-4" v-if="feedbacks?.length > 0">
-      <div class="swiper-slide h-full" v-for="feedback in feedbacks" :key="feedback?.id">
+      <div
+        class="swiper-slide h-full"
+        v-for="feedback in feedbacks"
+        :key="feedback?.id"
+      >
         <CommentsCard :feedback="feedback" class="h-full" />
       </div>
       <!-- <div class="comments-swiper swiper">
@@ -85,7 +89,10 @@
         :feedback="feedback"
       />
     </div>
-    <div v-else class="h-[208px] hidden xl:flex justify-center items-center xl:h-[100px]">
+    <div
+      v-else
+      class="h-[208px] hidden xl:flex justify-center items-center xl:h-[100px]"
+    >
       <VEmpty />
     </div>
   </div>
@@ -104,11 +111,11 @@ export default {
       currentStatus: "positive",
       status: [
         {
-          label: "Ijobiy izohlar",
+          label: this.$store.state.translations["modal.positive"],
           value: "positive",
         },
         {
-          label: "Qoniqarsiz izohlar",
+          label: this.$store.state.translations["modal.negative"],
           value: "negative",
         },
       ],
@@ -164,8 +171,11 @@ export default {
   background: white;
 }
 .comments
-  :deep(.ant-select-focused
-    .ant-select-selection, .ant-select-selection:focus, .ant-select-selection:active) {
+  :deep(
+    .ant-select-focused .ant-select-selection,
+    .ant-select-selection:focus,
+    .ant-select-selection:active
+  ) {
   box-shadow: 0 0 0 2px rgba(92, 70, 229, 0.2);
 }
 @media (max-width: 1200px) {

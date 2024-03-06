@@ -2,9 +2,9 @@ export const state = () => ({
   userInfo: {},
   auth: false,
   pageData: {},
-
   translations: {},
   lang: "",
+  orderCounts: {},
 });
 
 export const mutations = {

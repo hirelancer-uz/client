@@ -1,11 +1,13 @@
-<template lang="html">
+<template>
   <div>
     <vue-bottom-sheet-vue2
       ref="customerChat"
       class="bottom-drawer h-full"
       :init-sheet-height="750"
     >
-      <div class="offers-chat rounded-[16px] bg-white relative flex flex-col h-full">
+      <div
+        class="offers-chat rounded-[16px] bg-white relative flex flex-col h-full"
+      >
         <div class="flex justify-end px-4 pt-4 mb-[-8px]">
           <button @click="close">
             <svg
@@ -24,7 +26,9 @@
             </svg>
           </button>
         </div>
-        <div class="head px-4 py-4 border-[0] border-b border-solid border-grey-8">
+        <div
+          class="head px-4 py-4 border-[0] border-b border-solid border-grey-8"
+        >
           <div
             class="image w-[52px] h-[52px] border-[2px] border-solid border-agro-green rounded-full overflow-hidden"
           >
@@ -96,7 +100,7 @@
           class="px-6 py-6 flex justify-center items-center italic text-base text-grey-80"
           v-if="status == 3"
         >
-          Chat yopilgan
+          {{ $store.state.translations["modal.chat-closed"] }}
         </div>
         <div class="footer px-4 py-4" v-else>
           <input type="text" placeholder="Напишите сообщение ..." />
@@ -119,7 +123,9 @@
                 />
               </svg>
             </button>
-            <button class="h-8 w-8 flex justify-center items-center rounded-full bg-blue">
+            <button
+              class="h-8 w-8 flex justify-center items-center rounded-full bg-blue"
+            >
               <svg
                 width="16"
                 height="16"

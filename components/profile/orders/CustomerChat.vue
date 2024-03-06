@@ -66,7 +66,8 @@
           class="content px-4 py-3 max-w-[642px] bg-purple rounded-[10px] rounded-br-none flex gap-6 items-end"
         >
           <p class="text-base text-white">
-            Меня заинтересовал ваш проект. Моя цель – создавать интересные и интуитивно по
+            Меня заинтересовал ваш проект. Моя цель – создавать интересные и
+            интуитивно по
           </p>
           <span class="text-[14px] text-white">14:30</span>
         </div>
@@ -84,7 +85,8 @@
           class="content px-4 py-3 max-w-[642px] bg-purple rounded-[10px] rounded-br-none flex gap-6 items-end"
         >
           <p class="text-base text-white">
-            Меня заинтересовал ваш проект. Моя цель – создавать интересные и интуитивно по
+            Меня заинтересовал ваш проект. Моя цель – создавать интересные и
+            интуитивно по
           </p>
           <span class="text-[14px] text-white">14:30</span>
         </div>
@@ -94,7 +96,7 @@
       class="px-6 py-6 flex justify-center items-center italic text-base text-grey-80"
       v-if="status == 3"
     >
-      Chat yopilgan
+      {{ $store.state.translations["modal.chat-closed"] }}
     </div>
     <div class="footer px-6 py-6" v-else>
       <input type="text" placeholder="Напишите сообщение ..." />
@@ -117,7 +119,9 @@
             />
           </svg>
         </button>
-        <button class="h-12 w-12 flex justify-center items-center rounded-full bg-blue">
+        <button
+          class="h-12 w-12 flex justify-center items-center rounded-full bg-blue"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

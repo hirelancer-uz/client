@@ -1,12 +1,16 @@
 <template>
   <div class="orders-list mt-[37px]">
     <div class="filter-head hidden xl:flex justify-between">
-      <h4 class="text-black text-[14px] font-medium xl:hidden">13 630 результатов</h4>
+      <h4 class="text-black text-[14px] font-medium xl:hidden">
+        13 630 результатов
+      </h4>
       <button
         @click="open"
         class="flex items-center gap-2 text-blue text-[14px] font-medium taeyeon"
       >
-        <span class="xl:hidden"> Фильтры </span>
+        <span class="xl:hidden">
+          {{ $store.state.translations["order.filters"] }}
+        </span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="20"
@@ -56,7 +60,13 @@
             stroke-linecap="round"
             stroke-linejoin="round"
           />
-          <circle cx="6.66667" cy="15" r="1.66667" stroke="#5C46E6" stroke-width="1.5" />
+          <circle
+            cx="6.66667"
+            cy="15"
+            r="1.66667"
+            stroke="#5C46E6"
+            stroke-width="1.5"
+          />
           <ellipse
             cx="14.1667"
             cy="10"
@@ -77,7 +87,10 @@
       </button>
     </div>
     <div class="left">
-      <div class="flex flex-col gap-4 mb-[100px] xl:mb-[24px]" v-if="orders?.length > 0">
+      <div
+        class="flex flex-col gap-4 mb-[100px] xl:mb-[24px]"
+        v-if="orders?.length > 0"
+      >
         <OrderCard
           class="border border-solid border-grey-8"
           v-for="order in orders"
@@ -85,7 +98,10 @@
           :key="order.id"
         />
       </div>
-      <div class="flex flex-col gap-4 items-center justify-center h-[300px]" v-else>
+      <div
+        class="flex flex-col gap-4 items-center justify-center h-[300px]"
+        v-else
+      >
         <svg
           width="80"
           height="80"
@@ -109,15 +125,17 @@
             fill="#5C46E6"
           />
         </svg>
-        <p class="text-[18px] font-medium text-grey-64">Afuski buyurtma topilmadi!</p>
+        <p class="text-[18px] font-medium text-grey-64">
+          {{ $store.state.translations["order.order-not-found"] }}
+        </p>
       </div>
-     <div class="flex justify-start">
-      <VPagination
-        :pageSize="pageSize"
-        @getData="$emit('getOrders')"
-        :totalPage="totalPage"
-      />
-     </div>
+      <div class="flex justify-start">
+        <VPagination
+          :pageSize="pageSize"
+          @getData="$emit('getOrders')"
+          :totalPage="totalPage"
+        />
+      </div>
     </div>
     <div class="right flex flex-col gap-6">
       <div
@@ -127,7 +145,7 @@
           <h4
             class="text-[20px] font-semibold text-grey-80 pb-4 border-[0] border-b border-grey-8 border-solid"
           >
-            Тип работы
+            {{ $store.state.translations["order.work-type"] }}
           </h4>
           <div class="drop-list flex flex-col mt-[4px] mx-[-16px]">
             <div
@@ -161,10 +179,13 @@
                   @click="handleDropdown(dropItem.id)"
                   :class="{
                     'rotate-180':
-                      (dropItem.children.find((item) => item.id == dropdownOpen) ||
+                      (dropItem.children.find(
+                        (item) => item.id == dropdownOpen
+                      ) ||
                         dropdownOpen == dropItem?.id) &&
                       dropItem.children.length > 0,
-                    'pointer-events-none opacity-50': dropItem.children.length == 0,
+                    'pointer-events-none opacity-50':
+                      dropItem.children.length == 0,
                   }"
                   class="drop-icon w-[24px] h-[24px] rounded-[50%] bg-[#F8F9FF] flex items-center justify-center"
                 >
@@ -185,7 +206,9 @@
               </button>
 
               <div class="drop-body relative z-10">
-                <div class="px-4 py-4 pt-[0] pb-[8px] flex flex-col gap-4 xl:gap-8">
+                <div
+                  class="px-4 py-4 pt-[0] pb-[8px] flex flex-col gap-4 xl:gap-8"
+                >
                   <button
                     class="text-[14px] text-grey-80 flex gap-2 items-center hover:text-main-color"
                     v-for="dropIn in dropItem.children"
@@ -213,15 +236,21 @@
         <div
           class="flex flex-col gap-4 border-[0] border-t border-grey-8 border-solid pt-4 mt-2"
         >
-          <h4 class="text-[20px] font-semibold text-grey-80">Статус заказов</h4>
+          <h4 class="text-[20px] font-semibold text-grey-80">
+            {{ $store.state.translations["order.orders-status"] }}
+          </h4>
           <div class="flex flex-col gap-6">
-            <a-checkbox :checked="Boolean(status)" @change="filterStatus"
-              >Прием заявок</a-checkbox
-            >
+            <a-checkbox :checked="Boolean(status)" @change="filterStatus">{{
+              $store.state.translations["order.recieve-requests"]
+            }}</a-checkbox>
           </div>
         </div>
       </div>
-      <vue-bottom-sheet-vue2 ref="myBottomSheet" class="bottom-drawer" :can-swipe="false">
+      <vue-bottom-sheet-vue2
+        ref="myBottomSheet"
+        class="bottom-drawer"
+        :can-swipe="false"
+      >
         <div
           class="filter relative px-6 xl:border-0 py-6 xl:px-4 xl:pb-4 xl:py-4 border border-solid border-grey-8 rounded-3xl flex flex-col gap-6 xl:justify-between h-full"
         >
@@ -244,14 +273,16 @@
           <div class="flex flex-col gap-6 xl:gap-[16px]">
             <h2 class="mt-[24px] text-[24px] xl:font-bold">Filtr</h2>
             <h4 class="text-[20px] xl:text-[18px] font-semibold text-black">
-              Тип работы
+              {{ $store.state.translations["order.work-type"] }}
             </h4>
             <div class="drop-list flex flex-col gap-[16px]">
               <div
                 class="dropdown overflow-hidden"
                 :class="{
                   active:
-                    (dropItem.children.find((item) => item.id == dropdownOpen) ||
+                    (dropItem.children.find(
+                      (item) => item.id == dropdownOpen
+                    ) ||
                       dropdownOpen == dropItem?.id) &&
                     dropItem.children.length > 0,
                 }"
@@ -278,10 +309,13 @@
                     @click="handleDropdown(dropItem.id)"
                     :class="{
                       'rotate-180':
-                        (dropItem.children.find((item) => item.id == dropdownOpen) ||
+                        (dropItem.children.find(
+                          (item) => item.id == dropdownOpen
+                        ) ||
                           dropdownOpen == dropItem?.id) &&
                         dropItem.children.length > 0,
-                      'pointer-events-none opacity-50': dropItem.children.length == 0,
+                      'pointer-events-none opacity-50':
+                        dropItem.children.length == 0,
                     }"
                     class="drop-icon w-[24px] h-[24px] rounded-[50%] bg-[#F8F9FF] flex items-center justify-center"
                   >
@@ -331,11 +365,13 @@
             <div
               class="flex flex-col gap-4 border-[0] border-t border-grey-8 border-solid pt-4 mt-2"
             >
-              <h4 class="text-[20px] font-semibold text-grey-80">Статус заказов</h4>
+              <h4 class="text-[20px] font-semibold text-grey-80">
+                {{ $store.state.translations["order.orders-status"] }}
+              </h4>
               <div class="flex flex-col gap-6">
-                <a-checkbox :checked="Boolean(status)" @change="filterStatus"
-                  >Прием заявок</a-checkbox
-                >
+                <a-checkbox :checked="Boolean(status)" @change="filterStatus">{{
+                  $store.state.translations["order.recieve-requests"]
+                }}</a-checkbox>
               </div>
             </div>
           </div>
@@ -343,12 +379,12 @@
             <button
               class="flex w-full justify-center py-[15px] rounded-lg xl:rounded-xl border border-blue border-solid text-[14px] font-tt font-semibold text-blue bg-white"
             >
-              Сбросить
+              {{ $store.state.translations["order.restore"] }}
             </button>
             <button
               class="flex w-full justify-center py-[15px] rounded-lg xl:rounded-xl border border-blue border-solid text-[14px] font-tt font-semibold text-white bg-blue"
             >
-              Применить
+              {{ $store.state.translations["order.apply"] }}
             </button>
           </div>
         </div>
@@ -357,6 +393,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import TelegramCard from "../TelegramCard.vue";
 import VPagination from "../VPagination.vue";
@@ -470,8 +507,11 @@ export default {
   background-color: var(--blue);
 }
 .orders-list
-  :deep(.ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover
-    .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner) {
+  :deep(
+    .ant-checkbox-wrapper:hover .ant-checkbox-inner,
+    .ant-checkbox:hover .ant-checkbox-inner,
+    .ant-checkbox-input:focus + .ant-checkbox-inner
+  ) {
   border-color: var(--blue);
 }
 .orders-list :deep(.ant-checkbox-checked::after) {

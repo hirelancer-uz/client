@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div>
     <a-modal
       class="close-modal"
@@ -70,7 +70,7 @@
             @click="visible = false"
             class="h-[54px] items-center w-full flex justify-center gap-2 border border-solid border-grey-light rounded-[8px] text-base font-medium text-grey-64"
           >
-            {{ cancel || "Yo'q" }}
+            {{ cancel || $store.state.translations["modal.no"] }}
           </button>
           <button
             @click="$emit('submit')"
@@ -79,7 +79,8 @@
               'pointer-events-none opacity-50': loadingBtn,
             }"
           >
-            {{ save || "Ha" }} <LoaderBtn v-if="loadingBtn" />
+            {{ save || $store.state.translations["modal.yes"] }}
+            <LoaderBtn v-if="loadingBtn" />
           </button>
         </div>
       </div>

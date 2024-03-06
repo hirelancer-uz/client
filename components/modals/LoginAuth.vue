@@ -31,9 +31,11 @@
             /></svg
         ></span>
         <div class="flex flex-col gap-4 items-center">
-          <h4 class="text-2xl text-black font-medium">Ваша заявка отправлена</h4>
+          <h4 class="text-2xl text-black font-medium">
+            {{ $store.state.translations["modal.request-sent"] }}
+          </h4>
           <p class="text text-base text-black">
-            Sledite za statusom zayavki cherez telegram bot
+            {{ $store.state.translations["modal.watch-telegtram"] }}
             <a class="text-blue" href="">@udoo_alert_bot</a>
           </p>
         </div>
@@ -42,7 +44,8 @@
             href="#"
             class="hover:text-white h-[52px] px-6 rounded-[8px] bg-blue text-white text-base font-medium flex gap-[10px] items-center"
           >
-            Открыть телеграм-бот<svg
+            {{ $store.state.translations["modal.open-telegram"] }}
+            <svg
               xmlns="http://www.w3.org/2000/svg"
               width="18"
               height="16"
@@ -59,7 +62,7 @@
             @click="visible = false"
             class="w-[168px] justify-center h-[52px] px-6 rounded-[8px] border border-solid border-grey-24 bg-white text-grey-64 text-base font-medium flex items-center"
           >
-            Закрыть
+            {{ $store.state.translations["modal.close"] }}
           </button>
         </div>
       </div>

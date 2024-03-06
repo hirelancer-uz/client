@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div
     class="offers-chat rounded-[16px] border border-solid border-grey-8 bg-white relative"
   >
@@ -31,7 +31,9 @@
         />
       </div>
       <div>
-        <h5 class="text-base text-black font-medium">Muhammadullo Egamberdiyev</h5>
+        <h5 class="text-base text-black font-medium">
+          Muhammadullo Egamberdiyev
+        </h5>
         <p class="text-grey-40 text-[14px]">14:30</p>
       </div>
     </div>
@@ -51,7 +53,8 @@
           class="content px-[10px] py-[10px] max-w-[295px] bg-blue rounded-[10px] rounded-br-none flex gap-2 items-end"
         >
           <p class="text-base text-white">
-            Меня заинтересовал ваш проект. Моя цель – создавать интересные и интуитивно по
+            Меня заинтересовал ваш проект. Моя цель – создавать интересные и
+            интуитивно по
           </p>
           <span class="text-[12px] text-grey-40">14:30</span>
         </div>
@@ -69,7 +72,8 @@
           class="content px-[10px] py-[10px] max-w-[295px] bg-blue rounded-[10px] rounded-br-none flex gap-2 items-end"
         >
           <p class="text-base text-white">
-            Меня заинтересовал ваш проект. Моя цель – создавать интересные и интуитивно по
+            Меня заинтересовал ваш проект. Моя цель – создавать интересные и
+            интуитивно по
           </p>
           <span class="text-[12px] text-grey-40">14:30</span>
         </div>
@@ -77,7 +81,9 @@
     </div>
     <div class="footer px-4 py-4">
       <input type="text" placeholder="Напишите сообщение ..." />
-      <button class="h-12 w-12 flex justify-center items-center rounded-full bg-blue">
+      <button
+        class="h-12 w-12 flex justify-center items-center rounded-full bg-blue"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"

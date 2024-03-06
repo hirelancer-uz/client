@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div
     class="card client-card px-[22px] py-[22px] xl:px-4 xl:py-4 border border-solid border-grey-8 rounded-2xl cursor-pointer"
   >
@@ -43,8 +43,12 @@
       </span>
     </div>
     <div class="body flex flex-col justify-center">
-      <div class="flex justify-between mb-[2px] xl:mb-[6px] xl:relative cursor-pointer">
-        <p class="text-[14px] xl:text-[12px] text-grey-64 leading-[15px]">Клиент:</p>
+      <div
+        class="flex justify-between mb-[2px] xl:mb-[6px] xl:relative cursor-pointer"
+      >
+        <p class="text-[14px] xl:text-[12px] text-grey-64 leading-[15px]">
+          {{ $store.state.translations["profile.client"] }}
+        </p>
         <!-- <svg
           class="xl:absolute xl:right-0"
           xmlns="http://www.w3.org/2000/svg"
