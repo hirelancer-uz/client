@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="notifications pt-12 pb-[400px] max-w-[954px] mx-auto">
     <div class="2xl:container container mx-auto flex flex-col gap-12">
-      <h2 class="text-black text-[32px] font-semibold">Bildirish nomalar</h2>
+      <h2 class="text-black text-[32px] font-semibold">Bildirishnomalar</h2>
       <div class="body flex flex-col gap-10">
         <div class="list grid grid-cols-1 gap-4">
           <NotificationCard />
