@@ -227,19 +227,19 @@
                         @click="onchecked(child)"
                         :disabled="
                           !Boolean(
-                            checkedList.find((elemChild) => elemChild.id == child.id)
-                          ) && checkedList.length == maxSelectCount
+                            checkedList.find((elemChild) => elemChild.id === child.id)
+                          ) && checkedList.length === maxSelectCount
                         "
                       >
                         <a-checkbox
                           :disabled="
                             !Boolean(
-                              checkedList.find((elemChild) => elemChild.id == child.id)
-                            ) && checkedList.length == maxSelectCount
+                              checkedList.find((elemChild) => elemChild.id === child.id)
+                            ) && checkedList.length === maxSelectCount
                           "
                           :checked="
                             Boolean(
-                              checkedList.find((elemChild) => elemChild.id == child.id)
+                              checkedList.find((elemChild) => elemChild.id === child.id)
                             )
                           "
                         />
@@ -322,10 +322,10 @@ export default {
       this.closeModal();
     },
     onchecked(obj) {
-      if (this.checkedList.find((item) => item.id == obj.id)) {
-        this.checkedList = this.checkedList.filter((item) => item.id != obj.id);
+      if (this.checkedList.find((item) => item.id === obj.id)) {
+        this.checkedList = this.checkedList.filter((item) => item.id !== obj.id);
       } else {
-        if (this.checkedList.length == this.maxSelectCount) {
+        if (this.checkedList.length === this.maxSelectCount) {
           this.checkedList.shift();
         }
         this.checkedList.push(obj);

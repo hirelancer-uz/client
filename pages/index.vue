@@ -22,6 +22,8 @@ import OrderBanner from "../components/home/OrderBanner.vue";
 export default {
   name: "IndexPage",
   middleware: "auth",
+  $nuxt: undefined,
+
   async asyncData({ store }) {
     const [freeLancersData, specialitiesData, ordersData] = await Promise.all([
       store.dispatch("fetchFreelancers/getFreelancers", {
@@ -50,8 +52,8 @@ export default {
       totalFreelancer,
     };
   },
-  async mounted() {
-    console.log(this.$route.name.split('___')[0]);
+  mounted() {
+    console.log(this.$config.baseURL);
     this.$store.dispatch("fetchOrders/getOrders");
   },
 
@@ -63,6 +65,7 @@ export default {
     TheFreelancers,
     OrderBanner,
   },
+
 };
 </script>
 <style lang="css" scoped>

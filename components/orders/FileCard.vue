@@ -8,7 +8,7 @@
         v-if="file?.file"
         loading="lazy"
         class="object-cover w-full h-full"
-        :src="`${baseUrl}/storage/${file?.file}`"
+        :src="`${imgUrl}${file?.file}`"
         alt=""
       />
       <img
@@ -80,8 +80,8 @@ export default {
     };
   },
   computed: {
-    baseUrl() {
-      return process.env.BASE_URL;
+    imgUrl() {
+      return this.$config.imgBaseUrl
     },
   },
   watch: {

@@ -48,16 +48,16 @@
           <a-form-model-item
             class="order-select w-full mb-0 required"
             label="Категорие"
-            :class="{ errorSelect: activeCheckedList.length == 0 && errorSelect }"
+            :class="{ errorSelect: activeCheckedList.length === 0 && errorSelect }"
           >
             <div
               class="min-h-[58px] items-center border border-solid flex justify-start border-grey-8 rounded-lg px-4 py-3 modal-select"
             >
-              <p class="text-grey-40 text-base" v-if="activeCheckedList.length == 0">
+              <p class="text-grey-40 text-base" v-if="activeCheckedList.length === 0">
                 Специальности
               </p>
 
-              <div v-else class="w-auto flex flex-wrap gap-[4px]">
+              <div v-else class="w-auto flex flex-wrap gap-[4px] relative z-[20] max-w-[90%]">
                 <div
                   v-for="listItem in activeCheckedList"
                   :key="listItem?.id"
@@ -85,8 +85,8 @@
               </div>
 
               <button
-                class="w-6 xl:hidden h-[34px] items-center flex-auto flex justify-end"
-                @click="openSpecial(), (checkedList = [...activeCheckedList])"
+                class=" h-[34px] items-center absolute z-[10] flex justify-end right-0 px-4 w-full"
+                @click="openSpecial(); (checkedList = [...activeCheckedList])"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -103,25 +103,7 @@
                   />
                 </svg>
               </button>
-              <button
-                class="w-10 h-full hidden flex-auto xl:flex justify-end"
-                @click="openSpecial"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="3"
-                  height="13"
-                  viewBox="0 0 3 13"
-                  fill="none"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M2.5 1.25C2.5 1.94036 1.94036 2.5 1.25 2.5C0.559644 2.5 0 1.94036 0 1.25C0 0.559644 0.559644 0 1.25 0C1.94036 0 2.5 0.559644 2.5 1.25ZM2.5 6.25C2.5 6.94036 1.94036 7.5 1.25 7.5C0.559644 7.5 0 6.94036 0 6.25C0 5.55964 0.559644 5 1.25 5C1.94036 5 2.5 5.55964 2.5 6.25ZM1.25 12.5C1.94036 12.5 2.5 11.9404 2.5 11.25C2.5 10.5596 1.94036 10 1.25 10C0.559644 10 0 10.5596 0 11.25C0 11.9404 0.559644 12.5 1.25 12.5Z"
-                    fill="#020105"
-                  />
-                </svg>
-              </button>
+
             </div>
             <!-- <a-select
               mode="multiple"
@@ -343,8 +325,8 @@ export default {
     this.$store.commit("setPageData", {});
   },
   computed: {
-    baseUrl() {
-      return process.env.BASE_URL;
+    imgUrl() {
+      return this.$config.imgBaseUrl
     },
     imageRequired() {
       return Object.values(this.fileList).some((elem) => elem.length);
@@ -397,7 +379,7 @@ export default {
           uid: "-1",
           name: "image.png",
           status: "done",
-          url: this.baseUrl + "/storage/" + item.img,
+          url: this.imgUrl + item.img,
           id: item.id,
         };
       });

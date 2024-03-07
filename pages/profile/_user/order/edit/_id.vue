@@ -61,7 +61,7 @@
                 Специальности
               </p>
 
-              <div v-else class="w-auto flex flex-wrap gap-[4px]">
+              <div v-else class="w-auto flex flex-wrap gap-[4px]  relative z-[20] max-w-[90%]">
                 <div
                   v-for="listItem in activeCheckedList"
                   :key="listItem?.id"
@@ -89,8 +89,8 @@
               </div>
 
               <button
-                class="w-6 xl:hidden h-[34px] flex-auto flex justify-end items-center"
-                @click="openSpecial(), (checkedList = [...activeCheckedList])"
+                  class="h-[34px] flex justify-end my-[-10px] items-center absolute z-[10] right-0 px-4 w-full"
+                  @click="openSpecial(); (checkedList = [...activeCheckedList])"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -107,55 +107,37 @@
                   />
                 </svg>
               </button>
-              <button
-                class="w-6 hidden flex-auto xl:flex justify-end items-center"
-                @click="openSpecial"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="3"
-                  height="13"
-                  viewBox="0 0 3 13"
-                  fill="none"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M2.5 1.25C2.5 1.94036 1.94036 2.5 1.25 2.5C0.559644 2.5 0 1.94036 0 1.25C0 0.559644 0.559644 0 1.25 0C1.94036 0 2.5 0.559644 2.5 1.25ZM2.5 6.25C2.5 6.94036 1.94036 7.5 1.25 7.5C0.559644 7.5 0 6.94036 0 6.25C0 5.55964 0.559644 5 1.25 5C1.94036 5 2.5 5.55964 2.5 6.25ZM1.25 12.5C1.94036 12.5 2.5 11.9404 2.5 11.25C2.5 10.5596 1.94036 10 1.25 10C0.559644 10 0 10.5596 0 11.25C0 11.9404 0.559644 12.5 1.25 12.5Z"
-                    fill="#020105"
-                  />
-                </svg>
-              </button>
+
             </div>
 
             <!-- <a-select
-    
+
                   mode="multiple"
-    
+
                   v-model="form.specialities"
-    
+
                   style="width: 100%"
-    
+
                   placeholder="Категорие"
-    
+
                   option-label-prop="label"
-    
+
                 >
-    
+
                   <a-select-option
-    
+
                     v-for="elem in specialities"
-    
+
                     :value="elem?.id"
-    
+
                     :label="elem?.name_ru"
-    
+
                     :key="elem?.id"
-    
+
                     >{{ elem?.name_ru }}
-    
+
                   </a-select-option>
-    
+
                 </a-select> -->
           </a-form-model-item>
 
@@ -500,6 +482,7 @@ import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
 import CancellationOrder from "@/components/modals/CancellationOrder.vue";
+
 function getBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -548,8 +531,8 @@ export default {
     };
   },
   computed: {
-    baseUrl() {
-      return process.env.BASE_URL;
+    imgUrl() {
+      return this.$config.imgBaseUrl
     },
   },
   destroyed() {
@@ -607,20 +590,18 @@ export default {
       this.activeCheckedList = [...checkedList];
       this.checkedList = [];
       this.closeSpecial();
-      this.close();
     },
     onchecked(obj) {
       if (this.checkedList.includes(obj)) {
-        this.checkedList = this.checkedList.filter((item) => item.id != obj.id);
+        this.checkedList = this.checkedList.filter((item) => item.id !== obj.id);
       } else {
-        if (this.checkedList.length == 3) {
+        if (this.checkedList.length === 3)
           this.checkedList.shift();
-        }
         this.checkedList.push(obj);
       }
     },
     deleteChecked(id) {
-      this.activeCheckedList = this.activeCheckedList.filter((item) => item.id != id);
+      this.activeCheckedList = this.activeCheckedList.filter((item) => item.id !== id);
     },
     onSelect(id) {
       this.modalList = id;
@@ -690,7 +671,7 @@ export default {
             uid: (index + 1) * -1,
             name: "image.png",
             status: "done",
-            url: this.baseUrl + "/storage/" + item.file,
+            url: this.imgUrl + item.file,
             id: item.id,
           };
         });

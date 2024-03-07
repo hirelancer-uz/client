@@ -115,7 +115,7 @@
       </div>
       <div class="modal__images px-[120px] grid gap-[16px] grid-cols-3">
         <div v-for="image in portfolio?.images" :key="image?.id">
-          <img :src="`${baseUrl}/storage/${image.img}`" alt="" />
+          <img :src="`${imgUrl}${image.img}`" alt="" />
         </div>
       </div>
       <div
@@ -133,7 +133,7 @@
             <div class="modal__cardo-person">
               <img
                 v-if="freelancer?.avatar"
-                :src="`${baseUrl}/storage/${freelancer?.avatar}`"
+                :src="`${imgUrl}${freelancer?.avatar}`"
                 alt=""
               />
               <img v-else src="@/assets/images/user-avatar.jpg" alt="" />
@@ -315,8 +315,8 @@ export default {
       return moment(this.portfolio?.created_at).format("HH:mm DD.MM.YYYY");
     },
 
-    baseUrl() {
-      return process.env.BASE_URL;
+    imgUrl() {
+      return this.$config.imgBaseUrl
     },
   },
   methods: {

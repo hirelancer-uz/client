@@ -59,7 +59,7 @@
               :loading="!userInfo['name'] || !userInfo['surname']"
             >
               <p class="text-base text-center text-grey-40">
-                Ro'yxatdan o'tgan: {{ dateFormat }}
+                Oxirgi kirilgan vaqt: {{ dateFormat }}
               </p>
             </a-skeleton>
           </div>
@@ -197,7 +197,7 @@
           </div>
           <a-skeleton :paragraph="false" v-else />
         </div>
-        <div class="buttons" v-if="$route.name == 'freelancer-index'">
+        <div class="buttons" v-if="$route.name === 'freelancer-index'">
           <button
             class="border-[2px] border-solid border-main-color rounded-[12px] h-12 flex gap-2 justify-center items-center text-base text-main-color font-medium"
             :class="{ 'pointer-events-none opacity-50': !userInfo?.contacts?.telegram }"
@@ -245,7 +245,7 @@
         <div class="grid grid-cols-2 client-types" v-if="profile">
           <button
             @click="$router.push(`/profile/freelancer`)"
-            :class="{ activeF: $route.params.user == 'freelancer' }"
+            :class="{ activeF: $route.params.user === 'freelancer' }"
             class="border-[2px] border-solid border-grey-light h-12 flex justify-center items-center gap-2 rounded-l-[12px]"
           >
             Men Frilanser
@@ -268,7 +268,7 @@
           </button>
           <button
             @click="$router.push(`/profile/customer/orders/active/status`)"
-            :class="{ activeC: $route.params.user == 'customer' }"
+            :class="{ activeC: $route.params.user === 'customer' }"
             class="border-[2px] border-solid border-grey-light h-12 flex justify-center items-center gap-2 rounded-r-[12px]"
           >
             Men buyurtmachi
@@ -578,12 +578,11 @@ export default {
     dateFormat() {
       return moment(this.userInfo?.created_at).format("DD-MMM. YYYY");
     },
-
-    baseUrl() {
-      return process.env.BASE_URL;
+    userChange() {
+      return this.$route.params.user
     },
     imgUrl() {
-      return this.baseUrl + "/storage/";
+      return this.$config.imgBaseUrl
     },
     messengersHandle() {
       return (
@@ -620,6 +619,11 @@ export default {
     handleOk() {
       this.visibleLogout = false;
     },
+  },
+  watch: {
+    userChange(val) {
+      this.$store.commit('setUserType',val)
+    }
   },
   components: { PersonalMessengers, EventsSmallCard, Logout },
 };

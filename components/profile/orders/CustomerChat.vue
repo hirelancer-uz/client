@@ -143,11 +143,8 @@
 export default {
   props: ["order", "status"],
   computed: {
-    baseUrl() {
-      return process.env.BASE_URL;
-    },
     imgUrl() {
-      return this.baseUrl + "/storage/";
+      return this.$config.imgBaseUrl
     },
   },
 };

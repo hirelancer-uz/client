@@ -75,11 +75,11 @@ button {
 .font-tt {
   font-family: "TT Interfaces";
 }
-*:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol
-      *)) {
-  all: unset;
-  display: revert;
-}
+/**:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol*/
+/*      *)) {*/
+/*  all: unset;*/
+/*  display: revert;*/
+/*}*/
 *,
 *::before,
 *::after {

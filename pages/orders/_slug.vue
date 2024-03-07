@@ -22,7 +22,7 @@
         Orqaga
       </nuxt-link>
       <div class="content-box mt-6 xl:mt-0 xl:px-4 xl:mt-[4px]">
-        <div>
+        <div class="max-w-[922px]">
           <div
             class="info rounded-3xl xl:rounded-2xl border-solid border-grey-8 xl:border-[0] pr-8 pl-6 py-6 xl:px-0 xl:py-4 border xl:pb-0 xl:pt-0"
           >
@@ -219,7 +219,7 @@
                 {{ order?.name }}
               </h1>
               <span
-                class="text-base text-grey-80 xl:text-grey-64 xl:text-[14px]"
+                class="text-base text-grey-80 xl:text-grey-64 xl:text-[14px] break-words"
                 v-html="order?.description"
               >
               </span>

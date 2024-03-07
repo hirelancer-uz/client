@@ -3,6 +3,7 @@ export const state = () => ({
   auth: false,
   pageData: {},
   orderCounts: {},
+  userType: 'freelancer'
 });
 
 export const mutations = {
@@ -12,6 +13,9 @@ export const mutations = {
     localStorage.getItem("auth-token")
       ? (state.auth = true)
       : (state.auth = false);
+  },
+  setUserType(state, payload) {
+    state.userType = payload;
   },
   setPageData(state, payload) {
     state.pageData = payload;

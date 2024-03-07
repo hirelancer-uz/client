@@ -294,18 +294,15 @@ export default {
   },
   mounted() {},
   computed: {
-    baseUrl() {
-      return process.env.BASE_URL;
-    },
     imgUrl() {
-      return this.baseUrl + "/storage/";
+      return this.$config.imgBaseUrl
     },
   },
   methods: {
     openSelectFreelancer() {
       this.$refs.selectFreelancer.openModal();
       this.$refs.selectFreelancer.open();
-  
+
     },
     closeSelectFreelancer() {
       this.$refs.selectFreelancer.closeModal();

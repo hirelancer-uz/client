@@ -38,8 +38,8 @@
         class="user-type h-12 xl:h-11 flex client-types mt-6 xl:mt-4 xl:w-full xl:grid xl:grid-cols-2"
       >
         <button
-          @click="userType = true"
-          :class="{ 'activeF bg-blue': userType }"
+            @click="userType = true"
+            :class="{ 'activeF bg-blue': userType }"
           class="border-[2px] border-solid border-grey-light rounded-l-[12px] h-full w-[235px] xl:w-auto flex gap-2 text-base xl:text-[14px] text-black font-medium items-center justify-center"
         >
           Frilanser<svg
@@ -113,7 +113,7 @@
                 <button
                   @click="form.gender = 'male'"
                   class="border-[2px] border-solid border-border-darik px-4 py-4 rounded-lg flex flex-col gap-6 xl:flex-row-reverse xl:px-3 xl:py-[14px]"
-                  :class="{ active: form.gender == 'male' }"
+                  :class="{ active: form.gender === 'male' }"
                 >
                   <div
                     class="flex justify-between items-center w-full xl:justify-end xl:pr-1"
@@ -159,7 +159,7 @@
                 <button
                   @click="form.gender = 'female'"
                   class="border-[2px] border-solid border-border-darik px-4 py-4 rounded-lg flex flex-col gap-6 xl:flex-row-reverse xl:px-3 xl:py-[14px]"
-                  :class="{ active: form.gender == 'female' }"
+                  :class="{ active: form.gender === 'female' }"
                 >
                   <div
                     class="flex justify-between items-center w-full xl:justify-end xl:pr-1"
@@ -222,11 +222,11 @@
             >
               <p
                 class="text-grey-40 text-base xl:text-[14px]"
-                v-if="activeCheckedList == 0"
+                v-if="activeCheckedList === 0"
               >
                 Mutaxassisligingizni tanlang
               </p>
-              <div v-else class="w-auto flex flex-wrap gap-[4px]">
+              <div v-else class="w-auto flex flex-wrap gap-[4px] relative z-[20] max-w-[90%]">
                 <div
                   v-for="listItem in activeCheckedList"
                   :key="listItem?.id"
@@ -252,8 +252,8 @@
                 </div>
               </div>
               <button
-                class="w-6 xl:hidden h-[34px] flex justify-end items-center flex-auto min-w-[60px]"
-                @click="openSpecial(), (checkedList = [...activeCheckedList])"
+                class="h-[34px] flex justify-end items-center flex-auto absolute z-[10] right-0 px-4 w-full"
+                @click="openSpecial(); (checkedList = [...activeCheckedList])"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -270,26 +270,7 @@
                   />
                 </svg>
               </button>
-              <button
-                class="w-6 hidden xl:flex flex-auto justify-end"
-                @click="openSpecial"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="3"
-                  height="13"
-                  viewBox="0 0 3 13"
-                  fill="none"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M2.5 1.25C2.5 1.94036 1.94036 2.5 1.25 2.5C0.559644 2.5 0 1.94036 0 1.25C0 0.559644 0.559644 0 1.25 0C1.94036 0 2.5 0.559644 2.5 1.25ZM2.5 6.25C2.5 6.94036 1.94036 7.5 1.25 7.5C0.559644 7.5 0 6.94036 0 6.25C0 5.55964 0.559644 5 1.25 5C1.94036 5 2.5 5.55964 2.5 6.25ZM1.25 12.5C1.94036 12.5 2.5 11.9404 2.5 11.25C2.5 10.5596 1.94036 10 1.25 10C0.559644 10 0 10.5596 0 11.25C0 11.9404 0.559644 12.5 1.25 12.5Z"
-                    fill="#020105"
-                  />
-                </svg>
-              </button>
-            </div>
+           </div>
           </a-form-model-item>
           <div class="py-4 w-full flex justify-center items-center relative xl:py-[18px]">
             <span class="h-[1px] w-full absolute z-0 bg-border-darik"></span>
@@ -373,8 +354,8 @@ export default {
       checkedList: [],
       activeCheckedList: [],
       modalList: null,
-      userType: true,
       userGender: true,
+      userType: true,
       form: {
         name: "",
         surname: "",
@@ -415,6 +396,7 @@ export default {
       },
     };
   },
+
   methods: {
     openSpecial() {
       this.$refs.specialities.open();
@@ -425,7 +407,7 @@ export default {
       this.$refs.specialities.closeModal();
     },
     checkValue(str, max) {
-      if (str.charAt(0) !== "0" || str == "00") {
+      if (str.charAt(0) !== "0" || str === "00") {
         var num = parseInt(str);
         if (isNaN(num) || num <= 0 || num > max) num = 1;
         str =
@@ -485,14 +467,14 @@ export default {
 
     onchecked(obj) {
       if (this.checkedList.includes(obj)) {
-        this.checkedList = this.checkedList.filter((item) => item.id != obj.id);
+        this.checkedList = this.checkedList.filter((item) => item.id !== obj.id);
       } else {
-        if (this.checkedList.length == 3) this.checkedList.shift();
+        if (this.checkedList.length === 3) this.checkedList.shift();
         this.checkedList.push(obj);
       }
     },
     deleteChecked(id) {
-      this.activeCheckedList = this.activeCheckedList.filter((item) => item.id != id);
+      this.activeCheckedList = this.activeCheckedList.filter((item) => item.id !== id);
     },
 
     onChange(date, dateString) {},

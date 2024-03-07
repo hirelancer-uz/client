@@ -5,7 +5,7 @@
   >
     <img
       class="w-[56px] h-[56px] xl:w-[32px] xl:h-[32px] object-contain"
-      :src="`${baseUrl}/storage/${obj?.icon}`"
+      :src="`${imgUrl}${obj?.icon}`"
       v-if="obj?.icon"
       alt=""
     />
@@ -55,10 +55,9 @@
 export default {
   props: ["obj"],
   computed: {
-    baseUrl() {
-      return process.env.BASE_URL;
+    imgUrl() {
+      return this.$config.imgBaseUrl
     },
   },
 };
 </script>
-<style lang=""></style>

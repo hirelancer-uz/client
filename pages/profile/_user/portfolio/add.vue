@@ -49,16 +49,16 @@
           <a-form-model-item
             class="order-select w-full mb-0 required"
             label="Категорие"
-            :class="{ errorSelect: activeCheckedList.length == 0 && errorSelect }"
+            :class="{ errorSelect: activeCheckedList.length === 0 && errorSelect }"
           >
             <div
               class="min-h-[58px] xl:min-h-[50px] items-center border border-solid flex justify-start border-grey-8 rounded-lg px-4 py-3 modal-select"
             >
-              <p class="text-grey-40 text-base" v-if="activeCheckedList.length == 0">
+              <p class="text-grey-40 text-base" v-if="activeCheckedList.length === 0">
                 Специальности
               </p>
 
-              <div v-else class="w-auto flex flex-wrap gap-[4px]">
+              <div v-else class="w-auto flex flex-wrap gap-[4px] relative z-[20] max-w-[90%]">
                 <div
                   v-for="listItem in activeCheckedList"
                   :key="listItem?.id"
@@ -86,27 +86,8 @@
               </div>
 
               <button
-                class="w-10 h-[34px] flex justify-end items-center flex-auto xl:hidden"
-                @click="openSpecial(), (checkedList = [...activeCheckedList])"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="3"
-                  height="13"
-                  viewBox="0 0 3 13"
-                  fill="none"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M2.5 1.25C2.5 1.94036 1.94036 2.5 1.25 2.5C0.559644 2.5 0 1.94036 0 1.25C0 0.559644 0.559644 0 1.25 0C1.94036 0 2.5 0.559644 2.5 1.25ZM2.5 6.25C2.5 6.94036 1.94036 7.5 1.25 7.5C0.559644 7.5 0 6.94036 0 6.25C0 5.55964 0.559644 5 1.25 5C1.94036 5 2.5 5.55964 2.5 6.25ZM1.25 12.5C1.94036 12.5 2.5 11.9404 2.5 11.25C2.5 10.5596 1.94036 10 1.25 10C0.559644 10 0 10.5596 0 11.25C0 11.9404 0.559644 12.5 1.25 12.5Z"
-                    fill="#020105"
-                  />
-                </svg>
-              </button>
-              <button
-                class="w-6 xl:flex justify-end items-center flex-auto hidden"
-                @click="openSpecial"
+                  class="h-[34px] flex justify-end items-center flex-auto  absolute z-[10] right-0 px-4 w-full"
+                  @click="openSpecial(); (checkedList = [...activeCheckedList])"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -153,7 +134,7 @@
                   :key="item"
                   list-type="picture-card"
                   :file-list="fileList[item]"
-                
+
                   @change="($event) => handleChange($event, item)"
                 >
                   <div v-if="fileList[item].length < 1" class="flex justify-center">
@@ -307,7 +288,6 @@ export default {
       checkedList: [],
       activeCheckedList: [],
       modalList: null,
-      visible: false,
       form: {
         name: "",
         link: "",
@@ -426,40 +406,28 @@ export default {
         this.loadingBtn = false;
       }
     },
-    handleOk() {
-      this.visible = false;
-    },
+
     closeChecked() {
       this.checkedList = [];
-      this.visible = false;
+      this.closeSpecial();
     },
     saveChecked(checkedList) {
       this.activeCheckedList = [...checkedList];
       this.checkedList = [];
-      this.visible = false;
-      this.close();
+      this.closeSpecial();
     },
     onchecked(obj) {
       if (this.checkedList.includes(obj)) {
-        this.checkedList = this.checkedList.filter((item) => item.id != obj.id);
+        this.checkedList = this.checkedList.filter((item) => item.id !== obj.id);
       } else {
-        if (this.checkedList.length == 3) {
-          this.checkedList.shift();
-        }
+        if (this.checkedList.length === 3) this.checkedList.shift();
+
         this.checkedList.push(obj);
       }
     },
-    open() {
-      this.openBottom = true;
-      setTimeout(() => {
-        if (this.openBottom) this.openBottom = false;
-      }, 10);
-    },
-    close() {
-      this.openBottom = false;
-    },
+
     deleteChecked(id) {
-      this.activeCheckedList = this.activeCheckedList.filter((item) => item.id != id);
+      this.activeCheckedList = this.activeCheckedList.filter((item) => item.id !== id);
     },
     onSelect(id) {
       this.modalList = id;

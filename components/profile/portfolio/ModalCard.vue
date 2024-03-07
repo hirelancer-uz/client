@@ -4,7 +4,7 @@
       <img
         v-if="portfolio?.images[0]?.img"
         class="h-full w-full object-cover"
-        :src="`${baseUrl}/storage/${portfolio?.images[0]?.img}`"
+        :src="`${imgUrl}${portfolio?.images[0]?.img}`"
         alt=""
       />
       <img
@@ -84,8 +84,8 @@ export default {
   name: "ModalCard",
 
   computed: {
-    baseUrl() {
-      return process.env.BASE_URL;
+    imgUrl() {
+      return this.$config.imgBaseUrl
     },
   },
 };

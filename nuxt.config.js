@@ -36,12 +36,16 @@ export default {
     init(axios) {
       axios.defaults.withCredentials = true;
     },
-    baseURL: process.env.BASE_URL,
+    baseURL: process.env.BASE_URL
   },
-  env: {
-    baseUrl: process.env.BASE_URL || "https://api.hirelancer.ndc.uz",
+  publicRuntimeConfig: {
+    baseURL: process.env.BASE_URL || 'https://api.hirelancer.ndc.uz',
+    imgBaseUrl: (process.env.BASE_URL || 'https://api.hirelancer.ndc.uz') + "/storage/"
   },
-  // pageTransition: "fade",
+  target: 'static',
+  generate: {
+    routes: ['/freelancer/1']
+  },
   build: {
     babel: {
       compact: true,
@@ -52,7 +56,7 @@ export default {
       config.externals = [
         {
           encoding: "encoding",
-        },
+        }
       ];
     },
   },

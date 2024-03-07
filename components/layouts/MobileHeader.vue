@@ -799,11 +799,8 @@ export default {
     };
   },
   computed: {
-    baseUrl() {
-      return process.env.BASE_URL;
-    },
     imgUrl() {
-      return this.baseUrl + "/storage/";
+      return this.$config.imgBaseUrl
     },
     pageData() {
       return this.$store.state.pageData;

@@ -1,23 +1,17 @@
 <template lang="html">
   <div class="profile">
-    <!-- <ProfileLayout :profile="true"> -->
     <div class="mt-8">
       <Alerts />
     </div>
-    <div class="personal-information mt-8" v-if="$route.params.user == 'freelancer'">
+    <div class="personal-information mt-8" v-if="$route.params.user === 'freelancer'">
       <PersonalInfo :isEdit="true" :profile="true" :userInfo="$store.state.userInfo" />
-      <!-- <Achievements :profile="true" /> -->
     </div>
-    <div class="personal-information mt-10" v-if="$route.params.user == 'freelancer'">
+    <div class="personal-information mt-10" v-if="$route.params.user === 'freelancer'">
       <Statistics :userInfo="$store.state.userInfo" />
     </div>
-    <!-- <div class="mt-[45px]">
-      <Events />
-    </div> -->
-    <div class="mt-10" v-if="$route.params.user == 'freelancer'">
+    <div class="mt-10" v-if="$route.params.user === 'freelancer'">
       <Comments :feedbacks="comments" @getComments="__GET_COMMENTS" />
     </div>
-    <!-- </ProfileLayout> -->
   </div>
 </template>
 <script>
@@ -39,13 +33,13 @@ export default {
     };
   },
   async mounted() {
-    this.__GET_COMMENTS();
     this.$store.commit("setPageData", {
       title: "Kabinetim",
       center: true,
       info: "",
       link: false,
     });
+    await this.__GET_COMMENTS();
   },
 
   destroyed() {
@@ -53,21 +47,16 @@ export default {
   },
   methods: {
     async __GET_COMMENTS() {
+      const params = {
+        freelancer: this.$store.state.userInfo["id"],
+        page_size: 2,
+      }
       try {
         this.loading = true;
-        const commentsData = await this.$store.dispatch(
-          "fetchOrders/getFreelancerComments",
-          {
-            params: {
-              freelancer: this.$store.state.userInfo["id"],
-              page_size: 2,
-            },
-          }
-        );
+        const commentsData = await this.$store.dispatch("fetchOrders/getFreelancerComments", {params});
         this.comments = commentsData.content.data;
         this.totalPage = commentsData.content.total;
-      } catch (e) {
-      } finally {
+      }  finally {
         this.loading = false;
       }
     },
@@ -90,11 +79,6 @@ export default {
 };
 </script>
 <style lang="css" scoped>
-.personal-information {
-  /* display: grid; */
-  /* grid-template-columns: 2fr 1fr; */
-  /* grid-gap: 16px; */
-}
 @media (max-width: 1200px) {
   .personal-information {
     display: flex;

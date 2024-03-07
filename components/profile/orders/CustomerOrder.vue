@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="pt-[72px] order xl:px-4 xl:pt-0" :class="{ 'pb-10': order?.status != 0 }">
+  <div class="pt-[72px] order xl:px-4 xl:pt-0" :class="{ 'pb-10': order?.status > 1 }">
     <div class="max-w-[1200px] mx-auto">
       <button
         @click="$router.go(-1)"
@@ -508,7 +508,7 @@
         <div class="order-left-chat">
           <div
             class="list flex flex-col gap-4"
-            v-if="!order?.selected_request?.id && order?.status"
+            v-if="!order?.selected_request?.id && order?.status === 1"
           >
             <OffersOrderCard
               v-for="request in order?.requests"
@@ -545,12 +545,12 @@
           <div
             class="xl:hidden customer-chat"
             :class="{ activeChat: chatHandle }"
-            v-if="!order?.selected_request?.id && order?.status == 3"
+            v-if="!order?.selected_request?.id && order?.status === 1"
           >
             <OffersChat @close="chatHandle = false" />
           </div>
           <div
-            v-else
+            v-if="order?.status === 0"
             class="flex gap-6 items-center justify-center py-4 xl:py-2 xl:px-[14px] w-full border border-solid border-[#EDE5E0] bg-[#FFF5EC] rounded-[12px] xl:bg-white"
           >
             <svg
