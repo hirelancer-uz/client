@@ -42,6 +42,7 @@ export default {
 
   data() {
     return {
+
       routes: [
         "/freelancers",
         "/profile/freelancer",
@@ -62,23 +63,7 @@ export default {
 
     await this.$store.commit("getTranslations", translations);
   },
-
-  watch: {
-    async currentLang() {
-      const translations = await translationsApi.getTranslations(this.$axios, {
-        headers: {
-          Language: this.$i18n.locale,
-        },
-      });
-
-      await this.$store.commit("getTranslations", translations);
-    },
-  },
-
   computed: {
-    layoutData() {
-      return this.$store.state.pageData || {};
-    },
     authCheck() {
       return this.$store.state.auth;
     },
@@ -88,10 +73,7 @@ export default {
     },
   },
   async mounted() {
-    console.log(this.$route.path == "/profile/freelancer");
-    // this.$router.afterEach(() => {
-    //   window.scrollTo(0, 0);
-    // });
+    console.log(this.$route.path === "/profile/freelancer");
     if (localStorage.getItem("auth-token")) {
       try {
         const [userInfoData] = await Promise.all([
@@ -106,6 +88,14 @@ export default {
       if (!val && this.$route.name.includes("profile")) {
         this.$router.push("/");
       }
+    },
+    async currentLang() {
+      const translations = await translationsApi.getTranslations(this.$axios, {
+        headers: {
+          Lang: this.$i18n.locale,
+        },
+      });
+      await this.$store.commit("getTranslations", translations);
     },
   },
   components: { TheHeader, TheFooter, BottomBar, MobileHeader },

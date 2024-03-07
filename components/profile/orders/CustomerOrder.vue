@@ -62,7 +62,7 @@
         <OrderStatus :status="order?.status" :order="order" />
       </div>
       <div class="content-box mt-6 xl:mt-6">
-        <div class="flex flex-col gap-6">
+        <div class="flex flex-col gap-6 max-w-[834px]">
           <div
             class="info-box rounded-3xl border-solid border-grey-8 border relative max-h-[430px] overflow-hidden xl:border-[0] xl:rounded-none"
             :class="{ active: openBlock || order?.status < 2 }"
@@ -780,11 +780,11 @@ export default {
       chatHandle: false,
       options: [
         {
-          label: this.$store.state.translations["modal.positive"],
+          label: this.$store.state.translations["order.with-price"],
           value: 1,
         },
         {
-          label: this.$store.state.translations["modal.negative"],
+          label: this.$store.state.translations["order.with-time"],
           value: 0,
         },
       ],

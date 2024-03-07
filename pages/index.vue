@@ -52,11 +52,6 @@ export default {
       totalFreelancer,
     };
   },
-  mounted() {
-    console.log(this.$config.baseURL);
-    this.$store.dispatch("fetchOrders/getOrders");
-  },
-
   components: {
     Banner,
     PlaceOrder,

@@ -504,7 +504,7 @@ export default {
   },
   computed: {
       imgUrl() {
-          return this.$config.imgBaseUrl
+        return this.$config.baseURL + "/storage/"
       },
   },
   async asyncData({ store }) {
@@ -745,7 +745,9 @@ export default {
 :deep(.ql-editor) {
   min-height: 250px;
 }
-
+:deep(.quill-editor p) {
+  word-break: break-all;
+}
 :deep(.quill-editor) {
   border-radius: 8px;
   border: 1px solid var(--grey-8);

@@ -32,7 +32,7 @@
         <OrderStatus :status="order?.status" :order="order" />
       </div> -->
       <div class="content-box mt-6 xl:mt-0">
-        <div class="flex flex-col gap-6">
+        <div class="flex flex-col gap-6 max-w-[918px]">
           <div
             class="info-box rounded-3xl border-solid border-grey-light border-[2px] relative overflow-hidden max-h-[430px] xl:rounded-none xl:px-0 xl:border-[0]"
             :class="{ active: openBlock || order?.status < 2 }"

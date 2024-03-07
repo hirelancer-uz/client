@@ -532,7 +532,7 @@ export default {
   },
   computed: {
     imgUrl() {
-      return this.$config.imgBaseUrl
+      return this.$config.baseURL + "/storage/"
     },
   },
   destroyed() {

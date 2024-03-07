@@ -58,13 +58,7 @@
       </div>
       <div class="buttons flex gap-4">
         <button
-          @click="
-            $router.push(
-              $store.state.auth && Boolean($store.state.userInfo['name'])
-                ? 'profile/orders/add'
-                : 'registration'
-            )
-          "
+          @click="redirectLink('/profile/orders/add')"
           class="flex justify-center gap-2 h-[60px] px-[20px] min-w-[243px] text-base bg-blue rounded-xl text-white font-tt items-center font-medium xl:hidden"
         >
           <svg
@@ -79,17 +73,12 @@
               stroke="white"
               stroke-width="1.5"
               stroke-linecap="round"
-            /></svg
-          >{{ $store.state.translations["main.order-it"] }}
+            />
+          </svg>
+          {{ $store.state.translations["main.order-it"] }}
         </button>
         <button
-          @click="
-            $router.push(
-              $store.state.auth && Boolean($store.state.userInfo['name'])
-                ? 'orders'
-                : 'registration'
-            )
-          "
+          @click="$router.push('/orders')"
           class="h-[60px] flex justify-center min-w-[220px] px-[20px] border-solid text-base border-main-color bg-transparent border rounded-xl text-main-color font-tt items-center font-semibold mobile-button"
         >
           {{ $store.state.translations["main.lets-earn"] }}
@@ -110,6 +99,14 @@
 <script>
 export default {
   props: ["specialities"],
+  methods: {
+    redirectLink(path) {
+      localStorage.setItem("return_link", path);
+      const authCheck = this.$store.state.auth && Boolean(this.$store.state.userInfo["name"]);
+      const url = authCheck ? path : "registration";
+      this.$router.push(url);
+    },
+  },
 };
 </script>
 <style scoped>
@@ -122,6 +119,7 @@ export default {
   .banner {
     grid-template-columns: 6.5fr 3.5fr;
   }
+
   .mobile-button {
     position: absolute;
     width: 100%;

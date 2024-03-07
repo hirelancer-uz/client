@@ -237,7 +237,7 @@ export default {
   props: ["order"],
   computed: {
     imgUrl() {
-      return this.$config.imgBaseUrl
+      return this.$config.baseURL + "/storage/"
     },
   },
 };

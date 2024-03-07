@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="header bg-white h-[108px] flex items-center">
-    <div class="max-w-[1776px] mx-auto flex justify-between w-full">
+    <div class="max-w-[1776px] mx-auto flex justify-between w-full header-container">
       <div class="left flex gap-[80px] items-center">
         <div class="logo">
           <nuxt-link to="/">
@@ -136,6 +136,7 @@
           <a-dropdown
             :trigger="['click']"
             v-model="dropdown"
+            placement="bottomRight"
             v-if="$store.state.auth && Boolean($store.state.userInfo['name'])"
           >
             <button
@@ -569,10 +570,10 @@ export default {
       return this.$store.state.userType === "freelancer";
     },
     imgUrl() {
-      return this.$config.imgBaseUrl
+      return this.$config.baseURL + "/storage/"
     },
     currentLangObj() {
-      return this.langList.find((elem) => elem.id === this.currentLang);
+      return this.langList.find((elem) => elem.code === this.$i18n.locale);
     },
   },
   methods: {
@@ -610,10 +611,17 @@ export default {
 .menu-container li button {
   transition: 0.3s;
 }
+@media (max-width: 1800px) {
+  .header-container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
 @media (max-width: 1440px) {
   .header {
     padding-left: 16px;
     padding-right: 16px;
   }
+
 }
 </style>

@@ -40,11 +40,7 @@ export default {
   },
   publicRuntimeConfig: {
     baseURL: process.env.BASE_URL || 'https://api.hirelancer.ndc.uz',
-    imgBaseUrl: (process.env.BASE_URL || 'https://api.hirelancer.ndc.uz') + "/storage/"
-  },
-  target: 'static',
-  generate: {
-    routes: ['/freelancer/1']
+    // imgBaseUrl: (process.env.BASE_URL || 'https://api.hirelancer.ndc.uz') + "/storage/"
   },
   build: {
     babel: {

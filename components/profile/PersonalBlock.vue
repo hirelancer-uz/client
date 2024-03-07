@@ -598,7 +598,7 @@ export default {
       return this.$route.params.user
     },
     imgUrl() {
-      return this.$config.imgBaseUrl
+      return this.$config.baseURL + "/storage/"
     },
     messengersHandle() {
       return (

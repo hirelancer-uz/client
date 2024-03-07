@@ -389,6 +389,7 @@ export default {
   display: none;
 }
 :deep(.order-desc p:first-child) {
+  word-break: break-word;
   display: block;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;

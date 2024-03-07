@@ -164,7 +164,7 @@ export default {
     },
   },
   async mounted() {
-    if (this.$store.state.userInfo["id"]) this.__GET_ORDERS();
+    if (this.$store.state.userInfo["id"]) await this.__GET_ORDERS();
     this.$store.commit("setPageData", {
       title: "Проект",
       center: false,

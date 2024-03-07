@@ -326,7 +326,7 @@ export default {
     },
 
     imgUrl() {
-      return this.$config.imgBaseUrl
+      return this.$config.baseURL + "/storage/"
     },
   },
   methods: {

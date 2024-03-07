@@ -12,6 +12,7 @@
 </template>
 <script>
 import NumberCheck from "@/components/registration/NumberCheck.vue";
+import translationsApi from "@/store/fetchTranslations";
 export default {
   layout: "empty",
   data() {
@@ -19,15 +20,28 @@ export default {
       loading: false,
     };
   },
+  // async fetch() {
+  //   const translations = await translationsApi.getTranslations(this.$axios, {
+  //     headers: {
+  //       Language: this.$i18n.locale,
+  //     },
+  //   });
+  //
+  //   await this.$store.commit("getTranslations", translations);
+  // },
   methods: {
     async __POST_SEND_CODE(form) {
       try {
         this.loading = true;
         const data = await this.$store.dispatch("fetchAuth/postSendCode", form);
         if (data.success) {
-          this.$router.push("/registration/user-type");
+          await this.$router.push("/registration/user-type");
         }
       } catch (e) {
+        this.$notification["error"]({
+          message: "Error",
+          description: e.response?.statusText,
+        });
       } finally {
         this.loading = false;
       }

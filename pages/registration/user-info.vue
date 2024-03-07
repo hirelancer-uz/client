@@ -15,6 +15,7 @@
 </template>
 <script>
 import UserInfo from "../../components/registration/UserInfo.vue";
+
 export default {
   layout: "empty",
   data() {
@@ -42,11 +43,16 @@ export default {
         const data = await this.$store.dispatch("fetchAuth/postRegister", form);
         if (data.success) {
           const returnLink = localStorage.getItem("return_link2");
-          returnLink
-            ? this.$router.push(returnLink)
-            : this.$router.push("/profile/freelancer");
+          JSON.parse(returnLink) !== null
+            ? await this.$router.push(returnLink)
+            : await this.$router.push("/profile/freelancer");
         }
-      } catch (e) {}
+      } catch (e) {
+        this.$notification["error"]({
+          message: "Error",
+          description: e.response?.statusText,
+        });
+      }
     },
   },
   destroyed() {

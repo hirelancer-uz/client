@@ -81,7 +81,7 @@
                   </p></a-checkbox
                 >
                 <!-- <a-radio v-model="done" class="flex">
-               
+
               </a-radio> -->
               </span>
               <div class="flex gap-4">
@@ -213,7 +213,7 @@
                   </p></a-checkbox
                 >
                 <!-- <a-radio v-model="done" class="flex">
-               
+
               </a-radio> -->
               </span>
               <div class="grid grid-cols-2 gap-3 mt-10">
@@ -284,11 +284,11 @@ export default {
       value: undefined,
       options: [
         {
-          label: $store.state.translations[`modal.positive`],
+          label: this.$store.state.translations[`modal.positive`],
           value: 1,
         },
         {
-          label: $store.state.translations[`modal.negative`],
+          label: this.$store.state.translations[`modal.negative`],
           value: 0,
         },
       ],
@@ -297,7 +297,7 @@ export default {
         feedback: [
           {
             required: true,
-            message: $store.state.translations[`modal.required`],
+            message: this.$store.state.translations[`modal.required`],
             trigger: "blur",
           },
         ],

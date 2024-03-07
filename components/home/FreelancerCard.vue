@@ -4,7 +4,7 @@
     @click="$router.push(`/freelancer/${freelancer?.id}`)"
   >
     <div class="card flex items-center gap-4 flex-row">
-      <div class="image relative min-w-[88px] h-[88px] xl:w-16 xl:h-16 xl:min-w-16">
+      <div class="image relative min-w-[88px] max-w-[88px] h-[88px] xl:w-16 xl:h-16 xl:min-w-16">
         <!-- <img v-if="freelancer?.avatar" class="w-full h-full object-cover" :src="freelancer?.avatar" alt="" /> -->
         <div
           class="rounded-full overflow-hidden h-full w-full border border-solid border-grey-8"
@@ -156,7 +156,7 @@ export default {
   props: ["freelancer"],
   computed: {
     imgUrl() {
-      return this.$config.imgBaseUrl
+      return this.$config.baseURL + "/storage/"
     },
   },
 };

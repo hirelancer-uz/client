@@ -253,15 +253,15 @@
             >
               <p
                 class="text-grey-40 text-base xl:text-[14px]"
-                v-if="activeCheckedList === 0"
+                v-if="activeCheckedList.length === 0"
               >
                 {{ $store.state.translations["auth.spec"] }}
               </p>
-              <div v-else class="w-auto flex flex-wrap gap-[4px] relative z-[20] max-w-[90%]">
+              <div v-else class="w-auto flex flex-wrap gap-[4px] max-w-[90%]">
                 <div
                   v-for="listItem in activeCheckedList"
                   :key="listItem?.id"
-                  class="px-4 h-[34px] rounded-[4px] bg-apple-grey flex gap-1 items-center text-blue text-[14px] font-medium"
+                  class="px-4 h-[34px] rounded-[4px] bg-apple-grey flex gap-1 items-center text-blue text-[14px] font-medium relative z-[20]"
                 >
                   {{ listItem?.name_ru }}
                   <button @click="deleteChecked(listItem?.id)">
@@ -283,7 +283,7 @@
                 </div>
               </div>
               <button
-                class="h-[34px] flex justify-end items-center flex-auto absolute z-[10] right-0 px-4 w-full"
+                class="h-full flex justify-end items-center flex-auto absolute z-[10] right-0 px-4 w-full"
                 @click="openSpecial(); (checkedList = [...activeCheckedList])"
               >
                 <svg
@@ -307,9 +307,7 @@
               class="py-4 w-full flex justify-center items-center relative xl:py-[18px]"
           >
             <span class="h-[1px] w-full absolute z-0 bg-border-darik"></span>
-            <p
-                class="relative text-base font-medium text-grey-80 z-10 bg-white px-2"
-            >
+            <p>
               {{ $store.state.translations["auth.add-info"] }}
             </p>
           </div>
@@ -361,7 +359,7 @@
       class="buttons grid grid-cols-2 gap-4 xl:flex xl:flex-col-reverse xl:gap-2 xl:pt-6"
     >
       <button
-        @click="$router.go(-1)"
+        @click="$router.push('/registration')"
         class="h-[60px] xl:h-[52px] border border-solid border-border-darik rounded-[12px] flex justify-center items-center text-[18px] xl:text-[14px] text-black font-medium"
       >
         {{ $store.state.translations["auth.cancel"] }}
@@ -461,40 +459,40 @@ export default {
     },
     formatDate() {
       this.$refs.date.type = "text";
-      var input = this.form.date_of_birth;
+      let input = this.form.date_of_birth;
       if (/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
-      var values = input.split("/").map(function (v) {
+      let values = input.split("/").map(function (v) {
         return v.replace(/\D/g, "");
       });
       if (values[0]) values[0] = this.checkValue(values[0], 31);
       if (values[1]) values[1] = this.checkValue(values[1], 12);
-      var output = values.map(function (v, i) {
-        return v.length == 2 && i < 2 ? v + " / " : v;
+      let output = values.map(function (v, i) {
+        return v.length === 2 && i < 2 ? v + " / " : v;
       });
       this.form.date_of_birth = output.join("").substr(0, 14);
     },
     blurHandler() {
       this.$refs.date.type = "text";
-      var input = this.form.date_of_birth;
-      var values = input.split("/").map(function (v, i) {
+      let input = this.form.date_of_birth;
+      let values = input.split("/").map(function (v, i) {
         return v.replace(/\D/g, "");
       });
-      var output = "";
-      if (values.length == 3) {
-        var year =
+      let output = "";
+      if (values.length === 3) {
+        let year =
             values[2].length !== 4
                 ? parseInt(values[2]) + 2000
                 : parseInt(values[2]);
-        var month = parseInt(values[1]) - 1;
-        var day = parseInt(values[0]);
-        var d = new Date(year, month, day);
+        let month = parseInt(values[1]) - 1;
+        let day = parseInt(values[0]);
+        let d = new Date(year, month, day);
         if (!isNaN(d)) {
           this.formattedDate = d.toString();
-          var dates = [d.getDate(), d.getMonth() + 1, d.getFullYear()];
+          let dates = [d.getDate(), d.getMonth() + 1, d.getFullYear()];
           output = dates
             .map(function (v) {
               v = v.toString();
-              return v.length == 1 ? "0" + v : v;
+              return v.length === 1 ? "0" + v : v;
             })
             .join(" / ");
         }

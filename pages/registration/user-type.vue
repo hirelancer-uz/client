@@ -36,8 +36,13 @@ export default {
           await this.__GET_USER();
         }
       } catch (e) {
-        if (e.response.status === 401)
+        if (e.response.status === 401) {
           this.codeInvalid = true
+        }
+        this.$notification["error"]({
+          message: "Error",
+          description: e.response?.statusText,
+        });
       } finally {
         this.loading = false;
       }
@@ -51,11 +56,11 @@ export default {
           this.$store.commit("getUserInfo", userInfoData);
           if (this.userInfo?.name) {
             returnLink
-              ? this.$router.push(returnLink)
-              : this.$router.push("/profile/freelancer");
+              ? await this.$router.push(returnLink)
+              : await this.$router.push("/profile/freelancer");
           } else {
             localStorage.setItem("return_link2", returnLink);
-            this.$router.push("/registration/user-info");
+            await this.$router.push("/registration/user-info");
           }
         }
       } catch (e) {}

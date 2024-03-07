@@ -326,7 +326,7 @@ export default {
   },
   computed: {
     imgUrl() {
-      return this.$config.imgBaseUrl
+      return this.$config.baseURL + "/storage/"
     },
     imageRequired() {
       return Object.values(this.fileList).some((elem) => elem.length);

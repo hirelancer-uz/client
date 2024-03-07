@@ -56,7 +56,7 @@ export default {
   props: ["obj"],
   computed: {
     imgUrl() {
-      return this.$config.imgBaseUrl
+      return this.$config.baseURL + "/storage/"
     },
   },
 };

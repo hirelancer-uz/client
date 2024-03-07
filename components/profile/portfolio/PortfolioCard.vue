@@ -133,7 +133,7 @@ export default {
       return this.portfolio?.specialities.length - this.visibleButtons.length;
     },
     imgUrl() {
-      return this.$config.imgBaseUrl
+      return this.$config.baseURL + "/storage/"
     },
   },
   async mounted() {

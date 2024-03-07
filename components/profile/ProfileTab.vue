@@ -48,7 +48,7 @@
           />
         </svg>
 
-        {{ $store.state.translations["profile.project"] }}</nuxt-link
+        {{ $store.state.translations["profile.projects"] }}</nuxt-link
       >
 
       <nuxt-link

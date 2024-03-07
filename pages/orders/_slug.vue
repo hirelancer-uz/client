@@ -71,7 +71,12 @@
                         stroke-width="1.5"
                         stroke-linejoin="round"
                       />
-                      <circle cx="9.99984" cy="9.99996" r="0.833333" fill="#5C46E6" />
+                      <circle
+                        cx="9.99984"
+                        cy="9.99996"
+                        r="0.833333"
+                        fill="#5C46E6"
+                      />
                       <ellipse
                         cx="13.3333"
                         cy="9.99996"
@@ -94,7 +99,9 @@
                 >
                   <span> {{ moment(order?.created_at).format("HH:mm") }}</span>
                   <span class="bg-grey-8 w-[1px] h-4"></span>
-                  <span> {{ moment(order?.created_at).format("DD.MM.YYYY") }}</span>
+                  <span>
+                    {{ moment(order?.created_at).format("DD.MM.YYYY") }}</span
+                  >
                 </p>
               </div>
               <div class="flex gap-4 items-center justify-between">
@@ -119,7 +126,10 @@
                     /></svg
                   >Срочный заказ</span
                 >
-                <span v-if="order?.urgent" class="h-[19px] w-[1px] bg-grey-8"></span>
+                <span
+                  v-if="order?.urgent"
+                  class="h-[19px] w-[1px] bg-grey-8"
+                ></span>
                 <span
                   v-if="step1"
                   class="flex gap-[7px] items-center rounded-[8px] text-dark-yellow text-[14px] font-medium"
@@ -196,8 +206,12 @@
 
                   Выполненно</span
                 >
-                <p class="hidden xl:flex text-base text-grey-64 xl:text-[14px] gap-[6px]">
-                  Заказ:<span class="font-medium text-black">#{{ order?.id }}</span>
+                <p
+                  class="hidden xl:flex text-base text-grey-64 xl:text-[14px] gap-[6px]"
+                >
+                  Заказ:<span class="font-medium text-black"
+                    >#{{ order?.id }}</span
+                  >
                 </p>
               </div>
 
@@ -206,7 +220,9 @@
                   {{ moment(order?.created_at).format(dateFormat) }}
                 </p>
                 <p class="text-base text-grey-64 xl:text-[14px] flex gap-[6px]">
-                  Заказ:<span class="font-medium text-black">#{{ order?.id }}</span>
+                  Заказ:<span class="font-medium text-black"
+                    >#{{ order?.id }}</span
+                  >
                 </p>
               </div>
             </div>
@@ -239,11 +255,19 @@
               <h6 class="text-black text-[20px] font-semibold xl:text-[18px]">
                 Файлы к задаче
               </h6>
-              <div class="file-list flex gap-4 justify-start xl:grid xl:grid-cols-3">
-                <FileCard v-for="file in order?.files" :file="file" :key="file?.id" />
+              <div
+                class="file-list flex gap-4 justify-start xl:grid xl:grid-cols-3"
+              >
+                <FileCard
+                  v-for="file in order?.files"
+                  :file="file"
+                  :key="file?.id"
+                />
               </div>
             </div>
-            <div class="files flex flex-col gap-4 mt-4 xl:mt-6 mb-6 pl-2 xl:pl-0 xl:mb-0">
+            <div
+              class="files flex flex-col gap-4 mt-4 xl:mt-6 mb-6 pl-2 xl:pl-0 xl:mb-0"
+            >
               <h6 class="text-black text-[20px] xl:text-[18px] font-semibold">
                 Категории:
               </h6>
@@ -268,7 +292,9 @@
               class="xl:hidden content-bottom border-[0] border-t border-solid border-grey-8 pt-4 flex justify-between xl:flex-col xl:gap-6 xl:max-w-[90%] xl:mx-auto white-space-nowrap pl-2"
             >
               <div class="flex items-center gap-[28px] xl:justify-between">
-                <p class="text-base xl:text-[14px] text-grey-64 flex gap-2 items-center">
+                <p
+                  class="text-base xl:text-[14px] text-grey-64 flex gap-2 items-center"
+                >
                   <svg
                     class="min-w-5"
                     xmlns="http://www.w3.org/2000/svg"
@@ -291,7 +317,9 @@
                     /></svg
                   >{{ order?.view_count }}
                 </p>
-                <p class="text-base xl:text-[14px] text-grey-64 flex gap-2 items-center">
+                <p
+                  class="text-base xl:text-[14px] text-grey-64 flex gap-2 items-center"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -305,7 +333,12 @@
                       stroke-width="1.5"
                       stroke-linejoin="round"
                     />
-                    <circle cx="9.99984" cy="9.99996" r="0.833333" fill="#5C46E6" />
+                    <circle
+                      cx="9.99984"
+                      cy="9.99996"
+                      r="0.833333"
+                      fill="#5C46E6"
+                    />
                     <ellipse
                       cx="13.3333"
                       cy="9.99996"
@@ -463,6 +496,9 @@ export default {
     };
   },
   computed: {
+    handleUser() {
+      return this.$store.state.userInfo["id"];
+    },
     step1() {
       return !this.order?.selected_request && !this.order?.start_of_execution;
     },
@@ -490,7 +526,6 @@ export default {
       link: true,
     });
   },
-
   destroyed() {
     this.$store.commit("setPageData", {});
   },
@@ -521,6 +556,31 @@ export default {
     }
   },
   methods: {
+    isOffer() {
+      if (this.$store.state.auth && this.$store.state.userInfo["id"]) {
+        const isMyOffer = Boolean(
+          this.order.requests.find(
+            (request) =>
+              request.freelancer_id === this.$store.state.userInfo["id"]
+          )
+        );
+        if (isMyOffer)
+          this.$router.push(
+            this.localePath(`/profile/freelancer/order/view/${this.order.id}`)
+          );
+      }
+    },
+    isClient() {
+      if (this.$store.state.auth && this.$store.state.userInfo["id"]) {
+        const isMyOrder = Boolean(
+          this.order.client.id === this.$store.state.userInfo["id"]
+        );
+        if (isMyOrder)
+          this.$router.push(
+            this.localePath(`/profile/customer/order/view/${this.order.id}`)
+          );
+      }
+    },
     openSuccessModal() {
       this.$refs.successModal.open();
       this.$refs.successModal.openModal();
@@ -530,7 +590,6 @@ export default {
       this.$refs.successModal.closeModal();
     },
     openSpecial() {
-      console.log("asdjksahdusep");
       this.$refs.specialities.open();
       this.$refs.specialities.openModal();
     },
@@ -592,7 +651,7 @@ export default {
     },
     async openModal() {
       if (this.$store.state.auth && this.$store.state.userInfo?.name) {
-        this.$store.state.userInfo?.specialities.length == 0
+        this.$store.state.userInfo?.specialities.length === 0
           ? this.openBeFreelancer()
           : this.openSendApp();
       } else {
@@ -608,6 +667,8 @@ export default {
         const data = await this.$store.dispatch("fetchOrders/getOrderById", {
           id: this.$route.params.slug,
         });
+        this.isOffer();
+        this.isClient();
       } finally {
       }
     },
@@ -620,12 +681,20 @@ export default {
         this.openSuccessModal();
         this.closeBeFreelancer();
         this.openSuccess();
-        this.__GET_ORDERS();
+        await this.__GET_ORDERS();
       } catch (e) {
         this.$notification["error"]({
           message: "Error",
           description: e.response.statusText,
         });
+      }
+    },
+  },
+  watch: {
+    handleUser(val) {
+      if (val) {
+        this.isOffer();
+        this.isClient();
       }
     },
   },

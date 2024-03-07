@@ -202,11 +202,11 @@
               v-for="region in regions"
               :key="region?.id"
             >
-              {{ region?.name_ru }} {{ region?.id }}</a-select-option
-            >
+              {{ region?.name_ru }} {{ region?.id }}
+            </a-select-option>
           </a-select>
         </div>
-        <div class="flex gap-4 xl:flex-col buttoners">
+          <div class="flex gap-4 xl:flex-col buttoners">
           <button
             @click="clearFilter"
             class="flex w-full justify-center xl:h-[52px] py-[15px] rounded-lg border border-blue border-solid text-[14px] font-tt font-semibold xl:font-medium text-blue bg-white"
@@ -217,13 +217,13 @@
           >
             {{ $store.state.translations["freelancers.cancel"] }}
           </button>
-          <button
-            :class="{ 'pointer-events-none opacity-50': !disabledFilter }"
-            @click="sendFilter"
-            class="flex w-full justify-center xl:h-[52px] py-[15px] rounded-lg border border-blue border-solid text-[14px] font-tt font-semibold xl:font-medium text-white bg-blue"
-          >
-            {{ $store.state.translations["freelancers.show-it"] }}
-          </button>
+<!--          <button-->
+<!--            :class="{ 'pointer-events-none opacity-50': !disabledFilter }"-->
+<!--            @click="sendFilter"-->
+<!--            class="flex w-full justify-center xl:h-[52px] py-[15px] rounded-lg border border-blue border-solid text-[14px] font-tt font-semibold xl:font-medium text-white bg-blue"-->
+<!--          >-->
+<!--            {{ $store.state.translations["freelancers.show-it"] }}-->
+<!--          </button>-->
         </div>
       </div>
     </div>
@@ -313,36 +313,45 @@ export default {
   overflow: hidden;
   transition: max-height 0.2s linear;
 }
+
 .drop-icon {
   transition: 0.2s linear;
 }
+
 .drop-list .active .drop-body {
   max-height: 200px;
   /* height: auto; */
 }
+
 .drop-head {
   transition: 0.2s linear;
 }
+
 .drop-list .active {
   border-radius: 16px;
   /* border: 1px solid var(--Border-darik, #e0e0ed); */
   background: var(--BG-grey, #f8f9ff);
   margin-bottom: 4px;
 }
+
 .drop-list .dropdown:last-child.active {
   margin-bottom: 0;
 }
+
 .drop-list .active .drop-head {
   padding: 16px;
   padding-top: 8px;
   background-color: var(--bg-grey);
 }
+
 .bounce-enter-active {
   animation: bounce-in 0.5s;
 }
+
 .bounce-leave-active {
   animation: bounce-in 0.5s reverse;
 }
+
 @keyframes bounce-in {
   0% {
     transform: translateY(-100%);
@@ -351,6 +360,7 @@ export default {
     transform: translateY(0);
   }
 }
+
 .filter-container :deep(.ant-checkbox + span) {
   padding-left: 16px;
   color: var(--blue-night);
@@ -365,6 +375,7 @@ export default {
   border-color: var(--blue);
   background-color: var(--blue);
 }
+
 .filter-container
   :deep(
     .ant-checkbox-wrapper:hover .ant-checkbox-inner,
@@ -373,21 +384,26 @@ export default {
   ) {
   border-color: var(--blue);
 }
+
 .filter-container :deep(.ant-checkbox-checked::after) {
   border-color: var(--blue);
 }
+
 :deep(.ant-select-selection--single) {
   height: 53px;
 }
+
 :deep(.ant-select-selection__rendered) {
   line-height: 53px;
 }
+
 :deep(.ant-select-selection) {
   border-radius: 8px;
   border: 1px solid var(--border-darik);
 
   background: var(--bg-grey);
 }
+
 :deep(
     .ant-select-selection__placeholder,
     .ant-select-search__field__placeholder,
@@ -402,9 +418,11 @@ export default {
   display: flex;
   align-items: center;
 }
+
 :deep(.ant-select-selection__placeholder) {
   margin-top: -14px;
 }
+
 :deep(
     .ant-select-focused .ant-select-selection,
     .ant-select-selection:focus,
@@ -412,18 +430,21 @@ export default {
   ) {
   box-shadow: 0 0 0 2px rgba(92, 70, 229, 0.2);
 }
+
 @media (max-width: 1200px) {
   .drop-list .active {
     margin-inline: 0;
     border-radius: 12px;
     margin: 0;
   }
+
   .drop-list {
     margin: 0;
   }
+
   .buttoners {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    //display: grid;
+    //grid-template-columns: repeat(2, 1fr);
   }
 }
 </style>
