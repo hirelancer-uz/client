@@ -1,8 +1,10 @@
-<template lang="html">
-  <div class="create-order pt-[110px] pb-[120px] max-w-[953px] mx-auto xl:pt-6 xl:px-4">
+<template>
+  <div
+    class="create-order pt-[110px] pb-[120px] max-w-[953px] mx-auto xl:pt-6 xl:px-4"
+  >
     <div class="head flex justify-between items-center">
       <h1 class="flex text-[24px] text-black font-semibold xl:hidden">
-        Buyurtma qo’shish
+        {{ $store.state.translations["header.add-order"] }}
       </h1>
 
       <div class="buttons flex gap-4 xl:hidden">
@@ -10,7 +12,7 @@
           @click="openDeleteOrder"
           class="border-[2px] border-solid border-grey-24 rounded-[8px] h-[54px] w-[194px] flex justify-center items-center gap-2 text-base text-grey-64 font-medium"
         >
-          Bekor qilish
+          {{ $store.state.translations["order.cancel"] }}
           <svg
             width="25"
             height="24"
@@ -31,37 +33,50 @@
     </div>
 
     <div
-      class="form-block px-8 py-8  xl:py-0 rounded-[16px] bg-white border-border-darik xl:border-[0] border-solid border mt-4 xl:mt-0 xl:px-0"
+      class="form-block px-8 py-8 xl:py-0 rounded-[16px] bg-white border-border-darik xl:border-[0] border-solid border mt-4 xl:mt-0 xl:px-0"
     >
-      <h2 class="text-[20px] text-black font-semibold mb-6 xl:mb-4 xl:text-base">
-        Информация о заказе
+      <h2
+        class="text-[20px] text-black font-semibold mb-6 xl:mb-4 xl:text-base"
+      >
+        {{ $store.state.translations["order.order-info"] }}
       </h2>
 
       <a-form-model ref="ruleForm" :model="form" :rules="rules">
         <div class="flex flex-col gap-6">
           <a-form-model-item
             class="order-item w-full mb-0"
-            label="Название работы"
+            :label="$store.state.translations['order.work-name']"
             prop="name"
           >
-            <a-input v-model="form.name" placeholder="Название работы" />
+            <a-input
+              v-model="form.name"
+              :placeholder="$store.state.translations['order.work-name']"
+            />
           </a-form-model-item>
 
           <a-form-model-item
             class="order-select w-full mb-0 required"
-            label="Категорие"
+            :label="$store.state.translations['order.category']"
             prop="activeCheckedList"
-            :class="{ errorSelect: activeCheckedList.length == 0 && errorSelect }"
+            :class="{
+              errorSelect: activeCheckedList.length == 0 && errorSelect,
+            }"
           >
             <div
               ref="spicial"
               class="min-h-[58px] items-center border border-solid flex justify-start border-grey-8 rounded-lg px-4 py-3 modal-select"
             >
-              <p class="text-grey-40 text-base" v-if="activeCheckedList.length == 0">
-                Специальности
+              <p
+                class="text-grey-40 text-base"
+                v-if="activeCheckedList.length == 0"
+              >
+                {{ $store.state.translations["profile.specs"] }}
               </p>
 
-              <div v-else class="w-auto flex flex-wrap gap-[4px]  relative z-[20] max-w-[90%]">
+              <div
+                v-else
+                class="w-auto flex flex-wrap gap-[4px] relative z-[20] max-w-[90%]"
+              >
                 <div
                   v-for="listItem in activeCheckedList"
                   :key="listItem?.id"
@@ -89,8 +104,11 @@
               </div>
 
               <button
-                  class="h-[34px] flex justify-end my-[-10px] items-center absolute z-[10] right-0 px-4 w-full"
-                  @click="openSpecial(); (checkedList = [...activeCheckedList])"
+                class="h-[34px] flex justify-end my-[-10px] items-center absolute z-[10] right-0 px-4 w-full"
+                @click="
+                  openSpecial();
+                  checkedList = [...activeCheckedList];
+                "
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -107,7 +125,6 @@
                   />
                 </svg>
               </button>
-
             </div>
 
             <!-- <a-select
@@ -143,11 +160,11 @@
 
           <div class="order-item">
             <label class="flex gap-3 mb-3"
-              >Buyurtma tavsifi
+              >{{ $store.state.translations["order.comment"] }}
 
               <a-tooltip placement="top">
                 <template slot="title">
-                  <span>{{ `\u{1F600}` }}</span>
+                  {{ $store.state.translations["order.comment"] }}
                 </template>
                 <svg
                   class="cursor-pointer"
@@ -168,13 +185,16 @@
                 </svg>
               </a-tooltip>
             </label>
-            <a-form-model-item class="order-item w-full mb-0" prop="description">
+            <a-form-model-item
+              class="order-item w-full mb-0"
+              prop="description"
+            >
               <quill-editor
                 style="min-height: 250px"
                 :options="editorOption"
                 :value="form.description"
                 v-model="form.description"
-                placeholder="Большое спасибо за всю мебель. Очень качественно и по доступным ценам Мы очень рады совместной работе с вами!  "
+                :placeholder="$store.state.translations[`order.comment`]"
               />
               <!-- <a-input
                 type="textarea"
@@ -189,10 +209,10 @@
           >
             <div class="flex flex-col">
               <h2 class="text-[20px] text-black font-semibold xl:text-[18px]">
-                Файлы к задаче
+                {{ $store.state.translations["profile.order-files"] }}
               </h2>
               <p class="text-[14px] text-grey-64">
-                Загрузите локалние файли для деталной информатсии для заказа
+                {{ $store.state.translations["order.upload-files"] }}
               </p>
             </div>
             <div class="clearfix flex flex-col mt-6">
@@ -229,7 +249,10 @@
                   :custom-request="customRequest"
                   accept=".jpg, .png, .jpeg, .gif, .svg"
                 >
-                  <div v-if="fileList.length < 10" class="flex justify-center bg-bg-grey">
+                  <div
+                    v-if="fileList.length < 10"
+                    class="flex justify-center bg-bg-grey"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="20"
@@ -285,21 +308,27 @@
                 </div>
               </div>
             </div>
-            <a-modal :visible="previewVisible" :footer="null" @cancel="handleCancel">
+            <a-modal
+              :visible="previewVisible"
+              :footer="null"
+              @cancel="handleCancel"
+            >
               <img alt="example" style="width: 100%" :src="previewImage" />
             </a-modal>
           </div>
           <div class="grid grid-cols-2 gap-[70px] xl:grid-cols-1 xl:gap-4">
             <a-form-model-item
               class="order-item w-full mb-0"
-              label="Срок исполнения в днях"
+              :label="$store.state.translations['order.deadline-days']"
               prop="deadline"
             >
               <a-input
                 type="number"
-                :class="{ 'opacity-50 pointer-events-none': form.deadline_negotiable }"
+                :class="{
+                  'opacity-50 pointer-events-none': form.deadline_negotiable,
+                }"
                 v-model="form.deadline"
-                placeholder="0 дней"
+                placeholder="0"
               />
             </a-form-model-item>
             <div class="flex items-end mb-3">
@@ -314,12 +343,12 @@
                     }
                   "
                 />
-                <p class="text-[20px] text-black font-medium xl:text-[14px]">
-                  Договорная дней
-                </p>
+                <p
+                  class="text-[20px] text-black font-medium xl:text-[14px]"
+                ></p>
                 <a-tooltip placement="top">
                   <template slot="title">
-                    <span>prompt text</span>
+                    {{ $store.state.translations["order.deadline-days"] }}
                   </template>
                   <svg
                     class="cursor-pointer"
@@ -342,13 +371,21 @@
               </div>
             </div>
           </div>
-          <div class="border-[0] border-b border-solid border-border-darik"></div>
+          <div
+            class="border-[0] border-b border-solid border-border-darik"
+          ></div>
           <div class="grid grid-cols-2 gap-[70px] xl:grid-cols-1 xl:gap-4">
-            <a-form-model-item class="order-item w-full mb-0" label="Цена" prop="price">
+            <a-form-model-item
+              class="order-item w-full mb-0"
+              :label="$store.state.translations['order.price']"
+              prop="price"
+            >
               <a-input
-                :class="{ 'opacity-50 pointer-events-none': form.price_negotiable }"
+                :class="{
+                  'opacity-50 pointer-events-none': form.price_negotiable,
+                }"
                 v-model="form.price"
-                placeholder="0 сум"
+                placeholder="0"
               />
             </a-form-model-item>
             <div class="flex items-end mb-3">
@@ -364,11 +401,11 @@
                   "
                 />
                 <p class="text-[20px] text-black font-medium xl:text-[14px]">
-                  Договорная цена
+                  {{ $store.state.translations["order.deal-price"] }}
                 </p>
                 <a-tooltip placement="top">
                   <template slot="title">
-                    <span>prompt text</span>
+                    {{ $store.state.translations["order.deal-price"] }}
                   </template>
                   <svg
                     class="cursor-pointer"
@@ -400,7 +437,7 @@
         class="w-full border border-solid border-blue bg-blue rounded-[8px] h-[60px] flex justify-center items-center text-base text-white font-medium gap-2 xl:hidden"
         :class="{ 'pointer-events-none opacity-50': loadingBtn }"
       >
-        Опубликовать
+        {{ $store.state.translations["order.share"] }}
         <LoaderBtn v-if="loadingBtn" />
         <svg
           v-else
@@ -426,14 +463,14 @@
           @click="openDeleteOrder"
           class="border border-solid border-border-darik bg-white rounded-[12px] h-[52px] w-full flex justify-center items-center text-[14px] text-grey-64 font-medium gap-2"
         >
-          Bekor qilish
+          {{ $store.state.translations["modal.cancel"] }}
         </button>
         <button
           @click="onSubmit"
           class="border border-solid border-blue bg-blue rounded-[12px] h-[52px] w-full flex justify-center items-center text-[14px] text-white font-medium gap-2"
           :class="{ 'pointer-events-none opacity-50': loadingBtn }"
         >
-          Опубликовать
+          {{ $store.state.translations["order.share"] }}
           <LoaderBtn v-if="loadingBtn" />
           <svg
             v-else
@@ -457,12 +494,12 @@
     <CancellationOrder
       ref="deleteOrder"
       @submit="submitCancel"
-      title="Bekor qilsangiz ma'lumotlaringiz saqlanmaydi! "
-      save="Ha, albatta"
-      close="Yo’q"
+      :title="$store.state.translations[`order.not-save`]"
+      :save="$store.state.translations[`modal.yes`]"
+      :close="$store.state.translations[`modal.no`]"
     >
       <h5 class="text-[24px] font-semibold text-black text-center">
-        Ma'lumotlar bekor bo'lsinmi?
+        {{ $store.state.translations["order.reset-data"] }}
       </h5>
     </CancellationOrder>
     <SpicialsticsCheck
@@ -515,13 +552,33 @@ export default {
         files: [],
       },
       rules: {
-        name: [{ required: true, message: "This field is required", trigger: "change" }],
-        description: [
-          { required: true, message: "This field is required", trigger: "change" },
+        name: [
+          {
+            required: true,
+            message: this.$store.state.translations["auth.required"],
+            trigger: "change",
+          },
         ],
-        price: [{ required: true, message: "This field is required", trigger: "change" }],
+        description: [
+          {
+            required: true,
+            message: this.$store.state.translations["auth.required"],
+            trigger: "change",
+          },
+        ],
+        price: [
+          {
+            required: true,
+            message: this.$store.state.translations["auth.required"],
+            trigger: "change",
+          },
+        ],
         deadline: [
-          { required: true, message: "This field is required", trigger: "change" },
+          {
+            required: true,
+            message: this.$store.state.translations["auth.required"],
+            trigger: "change",
+          },
         ],
       },
       previewVisible: false,
@@ -540,7 +597,7 @@ export default {
   },
   mounted() {
     this.$store.commit("setPageData", {
-      title: `Buyurtmani o'zgartirish`,
+      title: this.$store.state.translations["profile.edit"],
       center: false,
       info: "",
       link: true,
@@ -593,15 +650,18 @@ export default {
     },
     onchecked(obj) {
       if (this.checkedList.includes(obj)) {
-        this.checkedList = this.checkedList.filter((item) => item.id !== obj.id);
+        this.checkedList = this.checkedList.filter(
+          (item) => item.id !== obj.id
+        );
       } else {
-        if (this.checkedList.length === 3)
-          this.checkedList.shift();
+        if (this.checkedList.length === 3) this.checkedList.shift();
         this.checkedList.push(obj);
       }
     },
     deleteChecked(id) {
-      this.activeCheckedList = this.activeCheckedList.filter((item) => item.id !== id);
+      this.activeCheckedList = this.activeCheckedList.filter(
+        (item) => item.id !== id
+      );
     },
     onSelect(id) {
       this.modalList = id;
@@ -738,7 +798,11 @@ export default {
         delete this.rules.deadline;
       } else {
         this.rules.deadline = [
-          { required: true, message: "This field is required", trigger: "blur" },
+          {
+            required: true,
+            message: this.$store.state.translations["auth.required"],
+            trigger: "blur",
+          },
         ];
       }
     },
@@ -747,7 +811,11 @@ export default {
         delete this.rules.price;
       } else {
         this.rules.price = [
-          { required: true, message: "This field is required", trigger: "blur" },
+          {
+            required: true,
+            message: this.$store.state.translations["auth.required"],
+            trigger: "blur",
+          },
         ];
       }
     },
@@ -915,8 +983,11 @@ export default {
   color: var(--blue);
 }
 
-:deep(.ant-select-focused
-    .ant-select-selection, .ant-select-selection:focus, .ant-select-selection:active) {
+:deep(
+    .ant-select-focused .ant-select-selection,
+    .ant-select-selection:focus,
+    .ant-select-selection:active
+  ) {
   border: 1px solid var(--blue);
   box-shadow: 0px 0px 0px 3px rgba(70, 105, 229, 0.2);
 }

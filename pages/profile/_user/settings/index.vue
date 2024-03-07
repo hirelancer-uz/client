@@ -1,8 +1,10 @@
-<template lang="html">
+<template>
   <div class="profile">
     <!-- <ProfileLayout :profile="true"> -->
     <div class="head flex flex-col gap-4 mt-8 xl:mt-0">
-      <h3 class="text-[24px] text-black font-semibold xl:hidden">Настройки</h3>
+      <h3 class="text-[24px] text-black font-semibold xl:hidden">
+        {{ $store.state.translations["profile.settings"] }}
+      </h3>
     </div>
     <div
       class="buttons xl:justify-center bg-white flex gap-6 mt-4 xl:gap-12 xl:mt-[-3px] xl:relative z-[2000] xl:pt-[3px] xl:hidden"
@@ -13,18 +15,22 @@
         :class="{ active: !$route.name.includes('specialities') }"
         class="px-6 py-3 relative rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] text-base text-grey-64 font-medium xl:font-semibold xl:py-0 xl:flex xl:items-center xl:h-9 whitespace-nowrap xl:rounded-lg"
       >
-        Shaxsiy ma'lumotlar
+        {{ $store.state.translations["header.personal-data"] }}
       </button>
       <button
-        @click="$router.push(`/profile/${$route.params.user}/settings/specialities`)"
+        @click="
+          $router.push(`/profile/${$route.params.user}/settings/specialities`)
+        "
         :class="{ active: $route.name.includes('specialities') }"
         class="px-6 py-0 xl:flex xl:items-center relative rounded-[12px] border-solid border-[2px] xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] border-bg-grey bg-bg-grey text-base text-grey-64 font-medium xl:font-semibold xl:py-2 xl:h-9 whitespace-nowrap xl:rounded-lg"
       >
-        Mutaxassisliklar
+        {{ $store.state.translations["header.specs"] }}
       </button>
     </div>
     <a-form-model ref="ruleForm" :model="form" :rules="rules">
-      <div class="max-w-[818px] pt-6 xl:pt-4 flex flex-col gap-6 relative container">
+      <div
+        class="max-w-[818px] pt-6 xl:pt-4 flex flex-col gap-6 relative container"
+      >
         <div
           v-if="laoding"
           class="loader h-full w-full flex justify-center absolute top-0 left-0 pointer-events-none z-100 items-center"
@@ -51,7 +57,7 @@
             </div>
             <div class="body flex flex-col gap-4">
               <p class="text-[14px] text-black max-w-[157px]">
-                Foto hajmi 4 mb dan oshmasligi kerak
+                {{ $store.state.translations["profile.size-warn"] }}
               </p>
               <div class="flex gap-4">
                 <a-upload
@@ -117,11 +123,13 @@
           <h3
             class="text-[20px] text-black font-medium mb-6 xl:text-base xl:font-semibold xl:mb-4"
           >
-            Shaxsiy ma'lumotlar
+            {{ $store.state.translations["header.personal-data"] }}
           </h3>
           <div>
             <div class="gap-6 hidden xl:grid xl:grid-cols-2 mb-6">
-              <div class="image w-[148px] h-[148px] rounded-full overflow-hidden">
+              <div
+                class="image w-[148px] h-[148px] rounded-full overflow-hidden"
+              >
                 <img
                   class="w-full h-full object-cover"
                   v-if="fileList.length > 0"
@@ -137,7 +145,7 @@
               </div>
               <div class="body flex flex-col gap-4 justify-center">
                 <p class="text-[14px] text-black max-w-[157px]">
-                  Foto hajmi 4 mb dan oshmasligi kerak
+                  {{ $store.state.translations["profile.size-warn"] }}
                 </p>
                 <div class="flex gap-4">
                   <a-upload
@@ -194,28 +202,51 @@
             </div>
             <div class="flex flex-col gap-6 xl:gap-4">
               <div class="grid grid-cols-2 gap-4 xl:grid-cols-1">
-                <a-form-model-item class="form-item" label="Ism" prop="name">
-                  <a-input v-model="form.name" placeholder="Ism" />
+                <a-form-model-item
+                  class="form-item"
+                  :label="$store.state.translations['auth.name']"
+                  prop="name"
+                >
+                  <a-input
+                    v-model="form.name"
+                    :placeholder="$store.state.translations['auth.name']"
+                  />
                 </a-form-model-item>
-                <a-form-model-item class="form-item" label="Familya" prop="surname">
-                  <a-input v-model="form.surname" placeholder="Familya" />
+                <a-form-model-item
+                  class="form-item"
+                  :label="$store.state.translations['auth.name']"
+                  prop="surname"
+                >
+                  <a-input
+                    v-model="form.surname"
+                    :placeholder="$store.state.translations['auth.name']"
+                  />
                 </a-form-model-item>
               </div>
               <div class="grid grid-cols-2 gap-4 xl:grid-cols-1">
                 <a-form-model-item
                   class="form-item"
-                  label="Tug’ilgan kuningiz"
+                  :label="$store.state.translations['auth.birthday']"
                   prop="date_of_birth"
                 >
                   <a-date-picker
                     @change="onChange"
                     v-model="form.date_of_birth"
                     class="w-full"
-                    placeholder="kk/oo/yy"
+                    :placeholder="
+                      $store.state.translations['profile.date-format']
+                    "
                   />
                 </a-form-model-item>
-                <a-form-model-item class="form-item" label="Your gender" prop="gender">
-                  <a-select v-model="form.gender" placeholder="Jinsingizni tanlang">
+                <a-form-model-item
+                  class="form-item"
+                  :label="$store.state.translations['auth.sex']"
+                  prop="gender"
+                >
+                  <a-select
+                    v-model="form.gender"
+                    :placeholder="$store.state.translations['auth.sex']"
+                  >
                     <a-select-option
                       :value="item.value"
                       v-for="item in gendertypes"
@@ -227,8 +258,14 @@
                 </a-form-model-item>
               </div>
               <div class="grid grid-cols-2 gap-4 xl:grid-cols-1">
-                <a-form-model-item class="form-item" label="Mamlakatingiz">
-                  <a-select v-model="form.country_id" placeholder="Mamlakatingiz">
+                <a-form-model-item
+                  class="form-item"
+                  :label="$store.state.translations['auth.country']"
+                >
+                  <a-select
+                    v-model="form.country_id"
+                    :placeholder="$store.state.translations['auth.country']"
+                  >
                     <a-select-option
                       :value="region?.id"
                       v-for="region in countries"
@@ -238,8 +275,14 @@
                     >
                   </a-select>
                 </a-form-model-item>
-                <a-form-model-item class="form-item" label="Mintaqangiz">
-                  <a-select v-model="form.region_id" placeholder="Mintaqangiz">
+                <a-form-model-item
+                  class="form-item"
+                  :label="$store.state.translations['auth.region']"
+                >
+                  <a-select
+                    v-model="form.region_id"
+                    :placeholder="$store.state.translations['auth.region']"
+                  >
                     <a-select-option
                       :value="region?.id"
                       v-for="region in regions"
@@ -251,14 +294,18 @@
                 </a-form-model-item>
               </div>
               <div class="grid">
-                <a-form-model-item class="form-item" label="Bio" prop="bio">
+                <a-form-model-item
+                  class="form-item"
+                  :label="$store.state.translations['auth.bio']"
+                  prop="bio"
+                >
                   <!-- <a-input v-model="form.bio" placeholder="O’zhaqingizda ma’lumot" /> -->
                   <quill-editor
                     style="min-height: 250px"
                     :options="editorOption"
                     :value="form.bio"
                     v-model="form.bio"
-                    placeholder="O’zingiz haqingizda ma’lumot"
+                    :placeholder="$store.state.translations['auth.about-you']"
                   />
                 </a-form-model-item>
               </div>
@@ -272,14 +319,14 @@
           <h3
             class="text-[20px] text-black font-medium mb-6 xl:text-base xl:font-semibold"
           >
-            Aloqa ma'lumotlarim
+            {{ $store.state.translations["auth.contact-data"] }}
           </h3>
           <div>
             <div class="flex flex-col gap-6 xl:gap-4">
               <div class="grid grid-cols-2 gap-4 xl:grid-cols-1">
                 <a-form-model-item
                   class="form-item relative flex items-center"
-                  label="Telefon raqamim"
+                  :label="$store.state.translations['auth.number']"
                 >
                   <a-input
                     v-model="form.phone"
@@ -340,7 +387,10 @@
                     </svg>
                   </span>
                 </a-form-model-item>
-                <a-form-model-item class="form-item" label="Eletron pochtam">
+                <a-form-model-item
+                  class="form-item"
+                  :label="$store.state.translations['auth.email']"
+                >
                   <a-input v-model="form.email" placeholder="http://" />
                   <span class="absolute right-4"
                     ><svg
@@ -399,13 +449,13 @@
         <button
           class="text-[18px] font-medium text-black border-[2px] border-solid border-border-darik rounded-[12px] h-[60px] w-[204px] flex justify-center items-center"
         >
-          Bekor qilish
+          {{ $store.state.translations["auth.cancel"] }}
         </button>
         <button
           @click="onSubmit"
           class="text-[18px] font-medium text-white border-[2px] border-solid border-blue bg-blue rounded-[12px] h-[60px] w-[204px] flex justify-center items-center"
         >
-          Saqlash
+          {{ $store.state.translations["auth.save"] }}
         </button>
       </div>
     </a-form-model>
@@ -417,7 +467,7 @@
         @click="$router.go(-1)"
         class="border border-solid border-border-darik rounded-[12px] h-11 w-full flex justify-center items-center text-[12px] text-grey-64 font-medium"
       >
-        Bekor qilish
+        {{ $store.state.translations["auth.cancel"] }}
       </button>
       <button
         @click="onSubmit()"
@@ -425,11 +475,12 @@
         :class="{ 'pointer-events-none opacity-50': laoding }"
       >
         <LoaderBtn v-if="laoding" />
-        <span v-else>Saqlash</span>
+        <span v-else>{{ $store.state.translations["auth.save"] }}</span>
       </button>
     </div>
   </div>
 </template>
+
 <script>
 import PersonalInfo from "@/components/profile/portfolio/PersonalInfo.vue";
 import Achievements from "@/components/profile/portfolio/Achievements.vue";
@@ -485,15 +536,47 @@ export default {
         },
       ],
       rules: {
-        name: [{ required: true, message: "This field is required", trigger: "blur" }],
-        surname: [{ required: true, message: "This field is required", trigger: "blur" }],
-        gender: [{ required: true, message: "This field is required", trigger: "blur" }],
-        date_of_birth: [
-          { required: true, message: "This field is required", trigger: "blur" },
+        name: [
+          {
+            required: true,
+            message: this.$store.state.translations["auth.required"],
+            trigger: "blur",
+          },
         ],
-        bio: [{ required: true, message: "This field is required", trigger: "blur" }],
+        surname: [
+          {
+            required: true,
+            message: this.$store.state.translations["auth.required"],
+            trigger: "blur",
+          },
+        ],
+        gender: [
+          {
+            required: true,
+            message: this.$store.state.translations["auth.required"],
+            trigger: "blur",
+          },
+        ],
+        date_of_birth: [
+          {
+            required: true,
+            message: this.$store.state.translations["auth.required"],
+            trigger: "blur",
+          },
+        ],
+        bio: [
+          {
+            required: true,
+            message: this.$store.state.translations["auth.required"],
+            trigger: "blur",
+          },
+        ],
         specialities: [
-          { required: true, message: "This field is required", trigger: "blur" },
+          {
+            required: true,
+            message: this.$store.state.translations["auth.required"],
+            trigger: "blur",
+          },
         ],
       },
     };
@@ -583,7 +666,9 @@ export default {
       try {
         this.laoding = true;
         if (localStorage.getItem("auth-token")) {
-          const userInfoData = await this.$store.dispatch("fetchAuth/getUserInfo");
+          const userInfoData = await this.$store.dispatch(
+            "fetchAuth/getUserInfo"
+          );
           this.userInfo = userInfoData;
           this.$store.commit("getUserInfo", userInfoData);
           if (userInfoData["name"]) {
@@ -609,7 +694,9 @@ export default {
             ];
             this.form["country_id"] = userInfoData?.country?.id;
             this.form["region_id"] = userInfoData?.region?.id;
-            this.form["bio"] = (await userInfoData?.bio) ? userInfoData?.bio : "";
+            this.form["bio"] = (await userInfoData?.bio)
+              ? userInfoData?.bio
+              : "";
             window.scrollTo(0, 0);
           }
         }
@@ -696,7 +783,8 @@ export default {
   display: flex;
   align-items: center;
 }
-.form-item :deep(.ant-select-selection__rendered .ant-select-selection-selected-value) {
+.form-item
+  :deep(.ant-select-selection__rendered .ant-select-selection-selected-value) {
   color: var(--grey-80, #353437);
   font-family: "TT Interfaces";
   font-size: 16px;

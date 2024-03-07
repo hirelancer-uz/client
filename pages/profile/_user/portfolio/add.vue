@@ -1,21 +1,25 @@
-<template lang="html">
-  <div class="create-order pt-[110px] pb-[112px] max-w-[1200px] mx-auto xl:pt-4 xl:px-4">
+<template>
+  <div
+    class="create-order pt-[110px] pb-[112px] max-w-[1200px] mx-auto xl:pt-4 xl:px-4"
+  >
     <div class="head flex justify-between">
-      <h1 class="flex text-[32px] text-black font-semibold xl:text-[18px] xl:hidden">
-        Добавить портфолио
+      <h1
+        class="flex text-[32px] text-black font-semibold xl:text-[18px] xl:hidden"
+      >
+        {{ $store.state.translations["profile.add-portfolio"] }}
       </h1>
       <div class="buttons flex gap-4 xl:hidden">
         <button
           @click="$router.go(-1)"
           class="border border-solid border-grey-24 rounded-[8px] h-[52px] w-[168px] flex justify-center items-center text-base text-grey-64 font-medium"
         >
-          Отмена
+          {{ $store.state.translations["auth.cancel"] }}
         </button>
         <button
           @click="onSubmit()"
           class="border border-solid border-blue bg-blue rounded-[8px] h-[52px] w-[232px] flex justify-center items-center text-base text-white font-medium gap-2"
         >
-          Опубликовать
+          {{ $store.state.translations["order.share"] }}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -41,24 +45,35 @@
         <div class="flex flex-col gap-6">
           <a-form-model-item
             class="order-item w-full mb-0"
-            label="Название портфолио"
+            :label="$store.state.translations[`order.work-name`]"
             prop="name"
           >
-            <a-input v-model="form.name" placeholder="Название портфолио" />
+            <a-input
+              v-model="form.name"
+              :placeholder="$store.state.translations[`order.work-name`]"
+            />
           </a-form-model-item>
           <a-form-model-item
             class="order-select w-full mb-0 required"
             label="Категорие"
-            :class="{ errorSelect: activeCheckedList.length === 0 && errorSelect }"
+            :class="{
+              errorSelect: activeCheckedList.length === 0 && errorSelect,
+            }"
           >
             <div
               class="min-h-[58px] xl:min-h-[50px] items-center border border-solid flex justify-start border-grey-8 rounded-lg px-4 py-3 modal-select"
             >
-              <p class="text-grey-40 text-base" v-if="activeCheckedList.length === 0">
+              <p
+                class="text-grey-40 text-base"
+                v-if="activeCheckedList.length === 0"
+              >
                 Специальности
               </p>
 
-              <div v-else class="w-auto flex flex-wrap gap-[4px] relative z-[20] max-w-[90%]">
+              <div
+                v-else
+                class="w-auto flex flex-wrap gap-[4px] relative z-[20] max-w-[90%]"
+              >
                 <div
                   v-for="listItem in activeCheckedList"
                   :key="listItem?.id"
@@ -86,8 +101,11 @@
               </div>
 
               <button
-                  class="h-[34px] flex justify-end items-center flex-auto  absolute z-[10] right-0 px-4 w-full"
-                  @click="openSpecial(); (checkedList = [...activeCheckedList])"
+                class="h-[34px] flex justify-end items-center flex-auto absolute z-[10] right-0 px-4 w-full"
+                @click="
+                  openSpecial();
+                  checkedList = [...activeCheckedList];
+                "
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -120,11 +138,10 @@
           <div class="images">
             <div class="flex flex-col gap-2">
               <h2 class="text-base text-black font-medium xl:text-[14px]">
-                Добавить фото
+                {{ $store.state.translations["profile.add-photo"] }}
               </h2>
               <p class="text-[14px] text-grey-64">
-                Первое фото будет на обложке объявления. Перетащите, чтобы изменить
-                порядок.
+                {{ $store.state.translations["profile.first-photo"] }}
               </p>
             </div>
             <div class="clearfix flex flex-col gap-2 mt-4">
@@ -152,21 +169,31 @@
                   :custom-request="($event) => customRequest($event, item)"
                   accept=".jpg, .png, .jpeg, .gif, .svg"
                 >
-                  <div v-if="fileList[item].length < 1" class="flex justify-center">
+                  <div
+                    v-if="fileList[item].length < 1"
+                    class="flex justify-center"
+                  >
                     <img src="@/assets/images/image-add.png" alt="" />
                   </div>
                 </a-upload>
               </div>
             </div>
-            <a-modal :visible="previewVisible" :footer="null" @cancel="handleCancel">
+            <a-modal
+              :visible="previewVisible"
+              :footer="null"
+              @cancel="handleCancel"
+            >
               <img alt="example" style="width: 100%" :src="previewImage" />
             </a-modal>
           </div>
           <a-form-model-item
             class="order-item w-full mb-0 relative flex items-center"
-            label="Link to work"
+            :label="$store.state.translations[`profile.link`]"
           >
-            <a-input v-model="form.link" placeholder="Link to work" />
+            <a-input
+              v-model="form.link"
+              :placeholder="$store.state.translations[`profile.link`]"
+            />
             <svg
               class="absolute right-4 top-[-3px]"
               width="24"
@@ -185,12 +212,15 @@
               />
             </svg>
           </a-form-model-item>
-          <a-form-model-item class="order-item w-full mb-0" label="Description">
+          <a-form-model-item
+            class="order-item w-full mb-0"
+            :label="$store.state.translations[`profile.desc`]"
+          >
             <a-input
               type="textarea"
               rows="5"
               v-model="form.desc"
-              placeholder="Большое спасибо за всю мебель. Очень качественно и по доступным ценам Мы очень рады совместной работе с вами!  "
+              :placeholder="$store.state.translations[`profile.desc`]"
             />
           </a-form-model-item>
         </div>
@@ -201,7 +231,7 @@
           class="border border-solid border-blue bg-blue rounded-[8px] h-[52px] w-[232px] flex justify-center items-center text-base text-white font-medium gap-2"
           :class="{ 'pointer-events-none opacity-50': loadingBtn }"
         >
-          Опубликовать
+          {{ $store.state.translations["order.share"] }}
           <LoaderBtn v-if="loadingBtn" />
           <svg
             v-else
@@ -229,7 +259,7 @@
           class="border border-solid border-blue bg-blue rounded-[12px] h-[52px] w-full flex justify-center items-center text-[14px] text-white font-medium gap-2"
           :class="{ 'pointer-events-none opacity-50': loadingBtn }"
         >
-          Опубликовать
+          {{ $store.state.translations["order.share"] }}
           <LoaderBtn v-if="loadingBtn" />
           <svg
             v-else
@@ -252,7 +282,7 @@
           @click="$router.go(-1)"
           class="border border-solid border-grey-24 rounded-[12px] h-[52px] w-full flex justify-center items-center text-[14px] text-grey-64 font-medium"
         >
-          Отмена
+          {{ $store.state.translations["auth.cancel"] }}
         </button>
       </div>
     </div>
@@ -297,7 +327,11 @@ export default {
       },
       rules: {
         name: [
-          { required: true, message: "Please input Activity name", trigger: "blur" },
+          {
+            required: true,
+            message: "Please input Activity name",
+            trigger: "blur",
+          },
         ],
       },
       previewVisible: false,
@@ -336,7 +370,9 @@ export default {
       link: true,
     });
     this.loading = true;
-    !localStorage.getItem("auth-token") ? this.$router.push("/") : (this.loading = false);
+    !localStorage.getItem("auth-token")
+      ? this.$router.push("/")
+      : (this.loading = false);
   },
   async asyncData({ store }) {
     const [specialitiesData] = await Promise.all([
@@ -418,7 +454,9 @@ export default {
     },
     onchecked(obj) {
       if (this.checkedList.includes(obj)) {
-        this.checkedList = this.checkedList.filter((item) => item.id !== obj.id);
+        this.checkedList = this.checkedList.filter(
+          (item) => item.id !== obj.id
+        );
       } else {
         if (this.checkedList.length === 3) this.checkedList.shift();
 
@@ -427,7 +465,9 @@ export default {
     },
 
     deleteChecked(id) {
-      this.activeCheckedList = this.activeCheckedList.filter((item) => item.id !== id);
+      this.activeCheckedList = this.activeCheckedList.filter(
+        (item) => item.id !== id
+      );
     },
     onSelect(id) {
       this.modalList = id;
@@ -609,8 +649,11 @@ export default {
   color: var(--blue);
 }
 
-:deep(.ant-select-focused
-    .ant-select-selection, .ant-select-selection:focus, .ant-select-selection:active) {
+:deep(
+    .ant-select-focused .ant-select-selection,
+    .ant-select-selection:focus,
+    .ant-select-selection:active
+  ) {
   border: 1px solid var(--blue);
   box-shadow: 0px 0px 0px 3px rgba(70, 105, 229, 0.2);
 }

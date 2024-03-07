@@ -19,7 +19,7 @@
             fill="#5C46E6"
           />
         </svg>
-        Orqaga
+        {{ $store.state.translations["modal.back"] }}
       </nuxt-link>
       <div class="content-box mt-6 xl:mt-0 xl:px-4 xl:mt-[4px]">
         <div class="max-w-[922px]">
@@ -91,7 +91,8 @@
                         ry="0.833333"
                         fill="#5C46E6"
                       /></svg
-                    >{{ order?.request_count }} запросов
+                    >{{ order?.request_count }}
+                    {{ $store.state.translations["profile.requests"] }}
                   </p>
                 </div>
                 <p
@@ -124,7 +125,9 @@
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     /></svg
-                  >Срочный заказ</span
+                  >{{
+                    $store.state.translations["profile.emergency-order"]
+                  }}</span
                 >
                 <span
                   v-if="order?.urgent"
@@ -152,7 +155,9 @@
                       fill="#F2994A"
                     />
                   </svg>
-                  Идет прием заявок</span
+                  {{
+                    $store.state.translations["profile.recieving-requests"]
+                  }}</span
                 >
                 <span
                   v-if="step2"
@@ -179,7 +184,7 @@
                       stroke-linejoin="round"
                     />
                   </svg>
-                  Испольнитель выбран</span
+                  {{ $store.state.translations["order.already-choosen"] }}</span
                 >
                 <span
                   v-if="step3"
@@ -204,14 +209,19 @@
                     />
                   </svg>
 
-                  Выполненно</span
+                  {{ $store.state.translations["profile.done"] }}</span
                 >
                 <p
                   class="hidden xl:flex text-base text-grey-64 xl:text-[14px] gap-[6px]"
                 >
+<<<<<<< HEAD
                   Заказ:<span class="font-medium text-black"
                     >#{{ order?.id }}</span
                   >
+=======
+                  {{ $store.state.translations["profile.order"]
+                  }}<span class="font-medium text-black">#{{ order?.id }}</span>
+>>>>>>> 7d0425cfb07b9d63f4d55435c55fda0b612145dc
                 </p>
               </div>
 
@@ -220,9 +230,14 @@
                   {{ moment(order?.created_at).format(dateFormat) }}
                 </p>
                 <p class="text-base text-grey-64 xl:text-[14px] flex gap-[6px]">
+<<<<<<< HEAD
                   Заказ:<span class="font-medium text-black"
                     >#{{ order?.id }}</span
                   >
+=======
+                  {{ $store.state.translations["profile.order"]
+                  }}<span class="font-medium text-black">#{{ order?.id }}</span>
+>>>>>>> 7d0425cfb07b9d63f4d55435c55fda0b612145dc
                 </p>
               </div>
             </div>
@@ -253,7 +268,7 @@
               v-if="order?.files?.length > 0"
             >
               <h6 class="text-black text-[20px] font-semibold xl:text-[18px]">
-                Файлы к задаче
+                {{ $store.state.translations["profile.order-files"] }}
               </h6>
               <div
                 class="file-list flex gap-4 justify-start xl:grid xl:grid-cols-3"
@@ -269,7 +284,7 @@
               class="files flex flex-col gap-4 mt-4 xl:mt-6 mb-6 pl-2 xl:pl-0 xl:mb-0"
             >
               <h6 class="text-black text-[20px] xl:text-[18px] font-semibold">
-                Категории:
+                {{ $store.state.translations["profile.categories"] }}
               </h6>
               <div class="flex gap-2 items-center xl:flex-col xl:items-start">
                 <div
@@ -353,7 +368,8 @@
                       ry="0.833333"
                       fill="#5C46E6"
                     /></svg
-                  >{{ order?.request_count }} запросов
+                  >{{ order?.request_count }}
+                  {{ $store.state.translations["profile.requests"] }}
                 </p>
               </div>
               <!-- <p

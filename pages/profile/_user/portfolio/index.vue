@@ -1,14 +1,16 @@
-<template lang="html">
+<template>
   <div class="portfolio xl:px-4">
     <!-- <ProfileLayout :profile="true"> -->
     <div class="head flex justify-between items-center gap-4 mt-8 xl:mt-0">
-      <h3 class="text-[24px] text-black font-semibold xl:hidden">Портфолио</h3>
+      <h3 class="text-[24px] text-black font-semibold xl:hidden">
+        {{ $store.state.translations["profile.portfolio"] }}
+      </h3>
       <div class="flex justify-between items-center xl:hidden">
         <button
           @click="$router.push('/profile/portfolio/add')"
           class="bg-main-color flex gap-2 h-12 px-6 rounded-[8px] text-white text-base text-medium items-center"
         >
-          Добавить портфолио
+          {{ $store.state.translations["profile.add-portfolio"] }}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="21"
@@ -65,7 +67,7 @@
         @click="$router.push('/profile/portfolio/add')"
         class="border border-solid border-blue bg-blue rounded-[12px] h-[52px] w-full flex justify-center items-center text-[14px] text-white font-medium gap-2"
       >
-        Добавить портфолио
+        {{ $store.state.translations["profile.portfolio"] }}
         <svg
           width="21"
           height="20"
@@ -158,7 +160,7 @@ export default {
   components: {
     ProfileLayout,
     PortfolioCard,
-    VEmpty
+    VEmpty,
   },
 };
 </script>

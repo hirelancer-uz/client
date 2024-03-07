@@ -1,22 +1,28 @@
-<template lang="html">
+<template>
   <div class="portfolio xl:px-4 xl:pt-6">
     <!-- <ProfileLayout :profile="true"> -->
     <div class="head flex flex-col gap-4 xl:gap-6 mt-8 xl:mt-0">
       <div class="flex justify-between xl:hidden">
-        <h3 class="text-[24px] text-black font-semibold">Заказы</h3>
+        <h3 class="text-[24px] text-black font-semibold">
+          {{ $store.state.translations["header.orders"] }}
+        </h3>
         <button
           v-if="$route.params.user == 'customer'"
           @click="$router.push('/profile/orders/add')"
           class="bg-blue flex justify-center gap-2 h-[60px] w-[220px] px-6 rounded-[8px] text-white text-base text-medium items-center"
         >
-          Добавить проект
+          {{ $store.state.translations["header.add-order"] }}
         </button>
       </div>
       <div>
         <div
           class="border border-solid border-grey-8 rounded-[12px] h-12 px-5 w-full gap-4 items-center hidden xl:flex"
         >
-          <input placeholder="Qidirish..." type="text" class="w-full h-full text-base" />
+          <input
+            :placeholder="$store.state.translations[`freelancers.search`]"
+            type="text"
+            class="w-full h-full text-base"
+          />
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="18"
@@ -38,7 +44,11 @@
         <div
           class="border border-solid border-grey-8 rounded-[12px] h-12 px-5 w-full flex gap-4 items-center xl:hidden"
         >
-          <input placeholder="Qidirish..." type="text" class="w-full h-full text-base" />
+          <input
+            :placeholder="$store.state.translations[`freelancers.search`]"
+            type="text"
+            class="w-full h-full text-base"
+          />
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="18"
@@ -69,7 +79,11 @@
       class="list flex flex-col gap-4 mt-6 mb-[40px] xl:mt-4"
       v-if="$route.params.user == 'customer' && !loading"
     >
-      <CompletedOrdersCard v-for="order in orders" :order="order" :key="order?.id" />
+      <CompletedOrdersCard
+        v-for="order in orders"
+        :order="order"
+        :key="order?.id"
+      />
     </div>
     <!-- <div
       class="list grid grid-cols-2 gap-4 mt-6 mb-[40px] xl:grid-cols-1"
@@ -85,13 +99,21 @@
       class="list flex flex-col gap-4 mt-6 mb-[40px] xl:hidden"
       v-if="$route.params.user == 'freelancer' && !loading"
     >
-      <ProfileOrdersCard v-for="order in orders" :order="order" :key="order?.id" />
+      <ProfileOrdersCard
+        v-for="order in orders"
+        :order="order"
+        :key="order?.id"
+      />
     </div>
     <div
       class="list flex-col gap-4 mt-6 mb-[40px] xl:flex hidden"
       v-if="$route.params.user == 'freelancer' && !loading"
     >
-      <ProfileOrdersCard v-for="order in orders" :order="order" :key="order?.id" />
+      <ProfileOrdersCard
+        v-for="order in orders"
+        :order="order"
+        :key="order?.id"
+      />
 
       <!-- <ProfileOrderCardMobile v-for="order in orders" :order="order" :key="order?.id" /> -->
     </div>
@@ -109,11 +131,15 @@
         @click="$router.push('/profile/orders/add')"
         class="border border-solid border-blue bg-blue rounded-[12px] h-[52px] w-full flex justify-center items-center text-[14px] text-white font-medium gap-2"
       >
-        Добавить проект
+        {{ $store.state.translations["header.add-order"] }}
       </button>
     </div>
     <div>
-      <VPagination :totalPage="totalPage" @getData="__GET_ORDERS" :pageSize="pageSize" />
+      <VPagination
+        :totalPage="totalPage"
+        @getData="__GET_ORDERS"
+        :pageSize="pageSize"
+      />
     </div>
     <!-- </ProfileLayout> -->
   </div>

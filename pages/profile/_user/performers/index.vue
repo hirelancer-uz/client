@@ -1,24 +1,26 @@
-<template lang="html">
+<template>
   <div class="portfolio">
     <!-- <ProfileLayout :profile="true"> -->
     <div class="head flex flex-col gap-4 mt-8">
-      <h3 class="text-[24px] text-black font-semibold">Портфолио</h3>
+      <h3 class="text-[24px] text-black font-semibold">
+        {{ $store.state.translations["profile.portfolio"] }}
+      </h3>
       <div class="flex justify-between items-center">
         <div class="buttons flex gap-6">
           <button
             class="px-6 py-3 rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey text-base text-grey-64 font-medium"
           >
-            Активные исполнители (1)
+            {{ $store.state.translations["order.active-workers"] }} (1)
           </button>
           <button
             class="active px-6 py-3 rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey text-base text-grey-64 font-medium"
           >
-            Выполненные (56)
+            {{ $store.state.translations["profile.done"] }} (56)
           </button>
           <button
             class="px-6 py-3 rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey text-base text-grey-64 font-medium"
           >
-            Отмена (56)
+            {{ $store.state.translations["auth.cancel"] }} (56)
           </button>
         </div>
         <div class="flex gap-[27px]">
