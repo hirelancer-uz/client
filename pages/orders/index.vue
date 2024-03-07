@@ -1,11 +1,17 @@
 <template>
   <div class="orders pt-8 pb-[170px] xl:pt-6 xl:pb-6 relative">
     <transition name="fade-left" mode="out-in">
-      <div class="2xl:container container mx-auto xl:flex xl:flex-col xl:gap-[16px]">
+      <div
+        class="2xl:container container mx-auto xl:flex xl:flex-col xl:gap-[16px]"
+      >
         <Banner class="" />
-        <div class="flex justify-between items-end mt-8 xl:mt-0 xl:flex-col-reverse">
+        <div
+          class="flex justify-between items-end mt-8 xl:mt-0 xl:flex-col-reverse"
+        >
           <div class="flex flex-col gap-4 xl:w-full">
-            <h1 class="text-[32px] font-semibold text-black xl:hidden">Buyurtmalar</h1>
+            <h1 class="text-[32px] font-semibold text-black xl:hidden">
+              {{ $store.state.translations["main.orders"] }}
+            </h1>
             <!-- <div class="buttons flex gap-4 xl:grid xl:grid-cols-2 xl:w-full">
               <button
                 :class="{ active: tab }"
@@ -23,7 +29,7 @@
           <a
             href="#"
             class="telegram flex gap-2 h-12 px-[20px] items-center rounded-lg text-white font-semibold text-[16px] xl:w-full xl:justify-center"
-            >Телеграм канал заказов
+            >{{ $store.state.translations["profile.telegram-channel"] }}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="18"

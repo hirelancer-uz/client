@@ -1,10 +1,10 @@
-<template lang="html">
+<template>
   <div
     class="create-order pt-[110px] pb-[120px] xl:pb-0 max-w-[953px] mx-auto xl:pt-0"
   >
     <div class="head flex justify-between items-center">
       <h1 class="flex text-[24px] text-black font-semibold xl:hidden">
-        Buyurtma qo’shish
+        {{ $store.state.translations["header.add-order"] }}
       </h1>
 
       <div class="buttons flex gap-4 xl:hidden">
@@ -12,7 +12,7 @@
           @click="$router.go(-1)"
           class="border-[2px] border-solid border-border-darik rounded-[12px] h-[60px] w-[204px] flex justify-center items-center text-[18px] text-grey-64 font-medium"
         >
-          Отмена
+          {{ $store.state.translations["auth.cancel"] }}
         </button>
       </div>
     </div>
@@ -23,22 +23,25 @@
       <h2
         class="text-[20px] text-black font-semibold mb-6 xl:text-[18px] xl:mb-4"
       >
-        Информация о заказе
+        {{ $store.state.translations["order.order-info"] }}
       </h2>
 
       <a-form-model ref="ruleForm" :model="form" :rules="rules">
         <div class="flex flex-col gap-6 xl:gap-4">
           <a-form-model-item
             class="order-item w-full mb-0"
-            label="Название работы"
+            :label="$store.state.translations[`order.work-name`]"
             prop="name"
           >
-            <a-input v-model="form.name" placeholder="Название работы" />
+            <a-input
+              v-model="form.name"
+              :placeholder="$store.state.translations[`order.work-name`]"
+            />
           </a-form-model-item>
 
           <a-form-model-item
             class="order-select w-full mb-0 required"
-            label="Категорие"
+            :label="$store.state.translations[`order.category`]"
             prop="activeCheckedList"
             :class="{
               errorSelect: activeCheckedList.length == 0 && errorSelect,
@@ -51,7 +54,7 @@
                 class="text-grey-40 text-base"
                 v-if="activeCheckedList.length == 0"
               >
-                Специальности
+                {{ $store.state.translations["header.specs"] }}
               </p>
 
               <div v-else class="w-auto flex flex-wrap gap-[4px]">
@@ -152,8 +155,8 @@
                 </a-select> -->
           </a-form-model-item>
           <div class="order-item">
-            <label class="flex gap-3 mb-3"
-              >Buyurtma tavsifi
+            <label class="flex gap-3 mb-3">
+              {{ $store.state.translations["order.order-comment"] }}
 
               <a-tooltip placement="top">
                 <template slot="title">
@@ -189,7 +192,7 @@
                 :options="editorOption"
                 :value="form.description"
                 v-model="form.description"
-                placeholder="Большое спасибо за всю мебель. Очень качественно и по доступным ценам Мы очень рады совместной работе с вами!  "
+                :placeholder="$store.state.translations[`order.order-comment`]"
               />
               <!-- <a-input
                 type="textarea"
@@ -205,10 +208,10 @@
           >
             <div class="flex flex-col">
               <h2 class="text-[20px] text-black font-semibold xl:text-[18px]">
-                Файлы к задаче
+                {{ $store.state.translations["order.order-files"] }}
               </h2>
               <p class="text-[14px] text-grey-64">
-                Загрузите локалние файли для деталной информатсии для заказа
+                {{ $store.state.translations["order.upload-files"] }}
               </p>
             </div>
             <div class="clearfix flex flex-col mt-6">
@@ -316,7 +319,7 @@
           <div class="grid grid-cols-2 gap-[70px] xl:grid-cols-1 xl:gap-4">
             <a-form-model-item
               class="order-item w-full mb-0"
-              label="Срок исполнения в днях"
+              :label="$store.state.translations[`order.deadline-days`]"
               prop="deadline"
             >
               <a-input
@@ -325,7 +328,7 @@
                   'opacity-50 pointer-events-none': form.deadline_negotiable,
                 }"
                 v-model="form.deadline"
-                placeholder="0 дней"
+                placeholder="0"
               />
             </a-form-model-item>
             <div class="flex items-end mb-3">
@@ -342,12 +345,12 @@
                   "
                 >
                   <p class="text-[20px] text-black font-medium xl:text-[14px]">
-                    Договорная дней
+                    {{ $store.state.translations["order.deal-deadline"] }}
                   </p>
                 </a-checkbox>
                 <a-tooltip placement="top">
                   <template slot="title">
-                    <span>prompt text</span>
+                    {{ $store.state.translations["order.deal-deadline"] }}
                   </template>
                   <svg
                     class="cursor-pointer"
@@ -376,7 +379,7 @@
           <div class="grid grid-cols-2 gap-[70px] xl:grid-cols-1 xl:gap-4">
             <a-form-model-item
               class="order-item w-full mb-0"
-              label="Цена"
+              :label="$store.state.translations[`order.price`]"
               prop="price"
             >
               <a-input
@@ -384,7 +387,7 @@
                   'opacity-50 pointer-events-none': form.price_negotiable,
                 }"
                 v-model="form.price"
-                placeholder="0 сум"
+                placeholder="0"
               />
             </a-form-model-item>
             <div class="flex items-end mb-3">
@@ -401,12 +404,12 @@
                   "
                 >
                   <p class="text-[20px] text-black font-medium xl:text-[14px]">
-                    Договорная цена
+                    {{ $store.state.translations["order.price"] }}
                   </p>
                 </a-checkbox>
                 <a-tooltip placement="top">
                   <template slot="title">
-                    <span>prompt text</span>
+                    {{ $store.state.translations["order.price"] }}
                   </template>
                   <svg
                     class="cursor-pointer"
@@ -438,7 +441,7 @@
         class="w-full border border-solid border-blue bg-blue rounded-[8px] h-[60px] flex justify-center items-center text-base text-white font-medium gap-2 xl:hidden"
         :class="{ 'pointer-events-none opacity-50': loadingBtn }"
       >
-        Опубликовать
+        {{ $store.state.translations["order.share"] }}
         <LoaderBtn v-if="loadingBtn" />
         <svg
           v-else
@@ -464,14 +467,14 @@
           @click="$router.go(-1)"
           class="border border-solid border-border-darik bg-white rounded-[12px] h-[52px] w-full flex justify-center items-center text-[14px] text-grey-64 font-medium gap-2"
         >
-          Bekor qilish
+          {{ $store.state.translations["auth.cancel"] }}
         </button>
         <button
           @click="onSubmit"
           class="border border-solid border-blue bg-blue rounded-[12px] h-[52px] w-full flex justify-center items-center text-[14px] text-white font-medium gap-2"
           :class="{ 'pointer-events-none opacity-50': loadingBtn }"
         >
-          Опубликовать
+          {{ $store.state.translations["order.share"] }}
           <LoaderBtn v-if="loadingBtn" />
           <svg
             v-else

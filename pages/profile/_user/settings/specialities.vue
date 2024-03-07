@@ -1,8 +1,10 @@
-<template lang="html">
+<template>
   <div class="profile">
     <!-- <ProfileLayout :profile="true"> -->
     <div class="head flex flex-col gap-4 mt-8 xl:hidden">
-      <h3 class="text-[24px] text-black font-semibold">Настройки</h3>
+      <h3 class="text-[24px] text-black font-semibold">
+        {{ $store.state.translations["profile.settings"] }}
+      </h3>
     </div>
     <div
       class="buttons xl:justify-center bg-white flex gap-6 mt-4 xl:gap-12 xl:mt-[-3px] xl:relative z-[2000] xl:pt-[3px] xl:hidden"
@@ -13,22 +15,28 @@
         :class="{ active: !$route.name.includes('specialities') }"
         class="px-6 py-3 relative rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] xl:font-semibold text-base text-grey-64 font-medium xl:py-0 xl:flex xl:items-center xl:h-9 whitespace-nowrap xl:rounded-lg"
       >
-        Shaxsiy ma'lumotlar
+        {{ $store.state.translations["header.personal-data"] }}
       </button>
       <button
-        @click="$router.push(`/profile/${$route.params.user}/settings/specialities`)"
+        @click="
+          $router.push(`/profile/${$route.params.user}/settings/specialities`)
+        "
         :class="{ active: $route.name.includes('specialities') }"
         class="px-6 py-0 xl:flex xl:items-center relative rounded-[12px] border-solid border-[2px] xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] xl:font-semibold border-bg-grey bg-bg-grey text-base text-grey-64 font-medium xl:py-2 xl:h-9 whitespace-nowrap xl:rounded-lg"
       >
-        Mutaxassisliklar
+        {{ $store.state.translations["header.specs"] }}
       </button>
     </div>
-    <div class="max-w-[818px] pt-6 xl:pt-4 flex flex-col gap-6 relative container">
+    <div
+      class="max-w-[818px] pt-6 xl:pt-4 flex flex-col gap-6 relative container"
+    >
       <div
         class="px-8 py-6 border border-solid border-border-darik rounded-[16px] xl:px-4 xl:py-4"
       >
-        <h3 class="text-[20px] text-black font-medium mb-6 xl:text-base xl:font-semibold">
-          Mutaxassisligingizni tanlang
+        <h3
+          class="text-[20px] text-black font-medium mb-6 xl:text-base xl:font-semibold"
+        >
+          {{ $store.state.translations["auth.spec"] }}
         </h3>
 
         <div
@@ -91,7 +99,7 @@
                 stroke-linecap="round"
                 stroke-linejoin="round"
               /></svg
-            >Qo’shish
+            >{{ $store.state.translations["profile.just-add"] }}
           </button>
           <button
             @click="openSpecial"
@@ -111,14 +119,17 @@
                 stroke-linecap="round"
                 stroke-linejoin="round"
               /></svg
-            >Qo’shish
+            >{{ $store.state.translations["profile.just-add"] }}
           </button>
         </div>
         <div class="flex justify-between mt-4">
           <p class="text-[14px] text-grey-64 xl:text-[12px]">
-            Mutaxasliklaringizni tanlang. Max 3 ta
+            {{ $store.state.translations["auth.spec"] }}
+            {{ $store.state.translations["profile.max-three"] }}
           </p>
-          <button class="text-main-color text-[14px] xl:text-[12px]">Kopaytirish</button>
+          <button class="text-main-color text-[14px] xl:text-[12px]">
+            {{ $store.state.translations["profile.add-more"] }}
+          </button>
         </div>
       </div>
     </div>

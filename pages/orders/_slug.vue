@@ -19,7 +19,7 @@
             fill="#5C46E6"
           />
         </svg>
-        Orqaga
+        {{ $store.state.translations["modal.back"] }}
       </nuxt-link>
       <div class="content-box mt-6 xl:mt-0 xl:px-4 xl:mt-[4px]">
         <div>
@@ -71,7 +71,12 @@
                         stroke-width="1.5"
                         stroke-linejoin="round"
                       />
-                      <circle cx="9.99984" cy="9.99996" r="0.833333" fill="#5C46E6" />
+                      <circle
+                        cx="9.99984"
+                        cy="9.99996"
+                        r="0.833333"
+                        fill="#5C46E6"
+                      />
                       <ellipse
                         cx="13.3333"
                         cy="9.99996"
@@ -86,7 +91,8 @@
                         ry="0.833333"
                         fill="#5C46E6"
                       /></svg
-                    >{{ order?.request_count }} запросов
+                    >{{ order?.request_count }}
+                    {{ $store.state.translations["profile.requests"] }}
                   </p>
                 </div>
                 <p
@@ -94,7 +100,9 @@
                 >
                   <span> {{ moment(order?.created_at).format("HH:mm") }}</span>
                   <span class="bg-grey-8 w-[1px] h-4"></span>
-                  <span> {{ moment(order?.created_at).format("DD.MM.YYYY") }}</span>
+                  <span>
+                    {{ moment(order?.created_at).format("DD.MM.YYYY") }}</span
+                  >
                 </p>
               </div>
               <div class="flex gap-4 items-center justify-between">
@@ -117,9 +125,14 @@
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     /></svg
-                  >Срочный заказ</span
+                  >{{
+                    $store.state.translations["profile.emergency-order"]
+                  }}</span
                 >
-                <span v-if="order?.urgent" class="h-[19px] w-[1px] bg-grey-8"></span>
+                <span
+                  v-if="order?.urgent"
+                  class="h-[19px] w-[1px] bg-grey-8"
+                ></span>
                 <span
                   v-if="step1"
                   class="flex gap-[7px] items-center rounded-[8px] text-dark-yellow text-[14px] font-medium"
@@ -142,7 +155,9 @@
                       fill="#F2994A"
                     />
                   </svg>
-                  Идет прием заявок</span
+                  {{
+                    $store.state.translations["profile.recieving-requests"]
+                  }}</span
                 >
                 <span
                   v-if="step2"
@@ -169,7 +184,7 @@
                       stroke-linejoin="round"
                     />
                   </svg>
-                  Испольнитель выбран</span
+                  {{ $store.state.translations["order.already-choosen"] }}</span
                 >
                 <span
                   v-if="step3"
@@ -194,10 +209,13 @@
                     />
                   </svg>
 
-                  Выполненно</span
+                  {{ $store.state.translations["profile.done"] }}</span
                 >
-                <p class="hidden xl:flex text-base text-grey-64 xl:text-[14px] gap-[6px]">
-                  Заказ:<span class="font-medium text-black">#{{ order?.id }}</span>
+                <p
+                  class="hidden xl:flex text-base text-grey-64 xl:text-[14px] gap-[6px]"
+                >
+                  {{ $store.state.translations["profile.order"]
+                  }}<span class="font-medium text-black">#{{ order?.id }}</span>
                 </p>
               </div>
 
@@ -206,7 +224,8 @@
                   {{ moment(order?.created_at).format(dateFormat) }}
                 </p>
                 <p class="text-base text-grey-64 xl:text-[14px] flex gap-[6px]">
-                  Заказ:<span class="font-medium text-black">#{{ order?.id }}</span>
+                  {{ $store.state.translations["profile.order"]
+                  }}<span class="font-medium text-black">#{{ order?.id }}</span>
                 </p>
               </div>
             </div>
@@ -237,15 +256,23 @@
               v-if="order?.files?.length > 0"
             >
               <h6 class="text-black text-[20px] font-semibold xl:text-[18px]">
-                Файлы к задаче
+                {{ $store.state.translations["profile.order-files"] }}
               </h6>
-              <div class="file-list flex gap-4 justify-start xl:grid xl:grid-cols-3">
-                <FileCard v-for="file in order?.files" :file="file" :key="file?.id" />
+              <div
+                class="file-list flex gap-4 justify-start xl:grid xl:grid-cols-3"
+              >
+                <FileCard
+                  v-for="file in order?.files"
+                  :file="file"
+                  :key="file?.id"
+                />
               </div>
             </div>
-            <div class="files flex flex-col gap-4 mt-4 xl:mt-6 mb-6 pl-2 xl:pl-0 xl:mb-0">
+            <div
+              class="files flex flex-col gap-4 mt-4 xl:mt-6 mb-6 pl-2 xl:pl-0 xl:mb-0"
+            >
               <h6 class="text-black text-[20px] xl:text-[18px] font-semibold">
-                Категории:
+                {{ $store.state.translations["profile.categories"] }}
               </h6>
               <div class="flex gap-2 items-center xl:flex-col xl:items-start">
                 <div
@@ -268,7 +295,9 @@
               class="xl:hidden content-bottom border-[0] border-t border-solid border-grey-8 pt-4 flex justify-between xl:flex-col xl:gap-6 xl:max-w-[90%] xl:mx-auto white-space-nowrap pl-2"
             >
               <div class="flex items-center gap-[28px] xl:justify-between">
-                <p class="text-base xl:text-[14px] text-grey-64 flex gap-2 items-center">
+                <p
+                  class="text-base xl:text-[14px] text-grey-64 flex gap-2 items-center"
+                >
                   <svg
                     class="min-w-5"
                     xmlns="http://www.w3.org/2000/svg"
@@ -291,7 +320,9 @@
                     /></svg
                   >{{ order?.view_count }}
                 </p>
-                <p class="text-base xl:text-[14px] text-grey-64 flex gap-2 items-center">
+                <p
+                  class="text-base xl:text-[14px] text-grey-64 flex gap-2 items-center"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -305,7 +336,12 @@
                       stroke-width="1.5"
                       stroke-linejoin="round"
                     />
-                    <circle cx="9.99984" cy="9.99996" r="0.833333" fill="#5C46E6" />
+                    <circle
+                      cx="9.99984"
+                      cy="9.99996"
+                      r="0.833333"
+                      fill="#5C46E6"
+                    />
                     <ellipse
                       cx="13.3333"
                       cy="9.99996"
@@ -320,7 +356,8 @@
                       ry="0.833333"
                       fill="#5C46E6"
                     /></svg
-                  >{{ order?.request_count }} запросов
+                  >{{ order?.request_count }}
+                  {{ $store.state.translations["profile.requests"] }}
                 </p>
               </div>
               <!-- <p

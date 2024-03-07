@@ -1,11 +1,13 @@
-<template lang="html">
+<template>
   <div class="orders pt-8 pb-[170px] xl:px-4 xl:pt-6 xl:pb-6 relative">
     <transition name="fade-left" mode="out-in">
       <div class="2xl:container container mx-auto xl:flex xl:flex-col xl:gap-6">
         <Banner class="xl:hidden" />
         <div class="flex justify-between items-end mt-8 xl:mt-0">
           <div class="flex flex-col gap-4 xl:w-full">
-            <h1 class="text-[32px] font-semibold xl:hidden text-black">Buyurtmalar</h1>
+            <h1 class="text-[32px] font-semibold xl:hidden text-black">
+              {{ $store.state.translations["main.orders"] }}
+            </h1>
             <!-- <div class="buttons flex gap-4 xl:grid xl:grid-cols-2 xl:w-full">
               <button
                 :class="{ active: tab }"
@@ -23,7 +25,7 @@
           <a
             href="#"
             class="telegram xl:hidden flex gap-2 h-12 px-[20px] items-center rounded-lg text-white font-semibold text-[16px]"
-            >Телеграм канал заказов
+            >{{ $store.state.translations["profile.telegram-channel"] }}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="18"
@@ -62,7 +64,7 @@ export default {
       tab: true,
     };
   },
-  async asyncData({ store,params }) {
+  async asyncData({ store, params }) {
     const [ordersData, specialitiesData] = await Promise.all([
       store.dispatch("fetchOrders/getOrders", {
         params: {
