@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div class="card file-card flex flex-col gap-[8px]">
     <div
       class="image h-[104px] w-[104px] xl:w-full xl:h-[90px] rounded-[4px] xl:rounded-lg overflow-hidden cursor-pointer"
@@ -64,7 +64,7 @@
             class="hidden xl:flex text-black text-[14px] font-semibold bg-white justify-center h-12 rounded-[12px] border border-solid border-border-darik items-center w-full"
             @click="previewImg = false"
           >
-            Yopish
+            {{ $store.state.translations["order.close"] }}
           </button>
         </div>
       </div>

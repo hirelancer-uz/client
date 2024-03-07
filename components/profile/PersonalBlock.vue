@@ -59,7 +59,8 @@
               :loading="!userInfo['name'] || !userInfo['surname']"
             >
               <p class="text-base text-center text-grey-40">
-                Oxirgi kirilgan vaqt: {{ dateFormat }}
+                {{ $store.state.translations["profile.registrated"] }}
+                {{ dateFormat }}
               </p>
             </a-skeleton>
           </div>
@@ -160,7 +161,9 @@
                 /></svg
               ><span class="text-green">{{ userInfo["likes_count"] }}</span
               ><span class="text-grey-40">/</span
-              ><span class="text-pantone-2023">{{ userInfo["dislikes_count"] }}</span
+            ><span class="text-pantone-2023">{{
+                userInfo["dislikes_count"]
+              }}</span
               ><svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="14"
@@ -200,9 +203,11 @@
         <div class="buttons" v-if="$route.name === 'freelancer-index'">
           <button
             class="border-[2px] border-solid border-main-color rounded-[12px] h-12 flex gap-2 justify-center items-center text-base text-main-color font-medium"
-            :class="{ 'pointer-events-none opacity-50': !userInfo?.contacts?.telegram }"
+            :class="{
+              'pointer-events-none opacity-50': !userInfo?.contacts?.telegram,
+            }"
           >
-            Xabar yuborish
+            {{ $store.state.translations["profile.send-sms"] }}
             <svg
               width="25"
               height="24"
@@ -248,7 +253,7 @@
             :class="{ activeF: $route.params.user === 'freelancer' }"
             class="border-[2px] border-solid border-grey-light h-12 flex justify-center items-center gap-2 rounded-l-[12px]"
           >
-            Men Frilanser
+            {{ $store.state.translations["profile.im-free"] }}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -271,7 +276,7 @@
             :class="{ activeC: $route.params.user === 'customer' }"
             class="border-[2px] border-solid border-grey-light h-12 flex justify-center items-center gap-2 rounded-r-[12px]"
           >
-            Men buyurtmachi
+            {{ $store.state.translations["profile.im-customer"] }}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="25"
@@ -290,13 +295,19 @@
                 d="M2.83541 16.3292C2.46493 16.1439 2.01442 16.2941 1.82918 16.6646C1.64394 17.0351 1.79411 17.4856 2.16459 17.6708L2.83541 16.3292ZM11.8354 13.3292L11.1646 12.9938L10.4938 14.3354L11.1646 14.6708L11.8354 13.3292ZM19.75 18C19.75 18.4142 20.0858 18.75 20.5 18.75C20.9142 18.75 21.25 18.4142 21.25 18H19.75ZM14.2331 15.3666L13.8977 16.0374L14.2331 15.3666ZM16.9164 16.75H18.5V15.25H16.9164V16.75ZM18.5 19.25H10.3885V20.75H18.5V19.25ZM7.14625 18.4846L2.83541 16.3292L2.16459 17.6708L6.47542 19.8262L7.14625 18.4846ZM14.5685 14.6957L11.8354 13.3292L11.1646 14.6708L13.8977 16.0374L14.5685 14.6957ZM10.3885 19.25C9.26302 19.25 8.15295 18.9879 7.14625 18.4846L6.47542 19.8262C7.69041 20.4337 9.03015 20.75 10.3885 20.75V19.25ZM19.75 18C19.75 18.6904 19.1904 19.25 18.5 19.25V20.75C20.0188 20.75 21.25 19.5188 21.25 18H19.75ZM18.5 16.75C19.1904 16.75 19.75 17.3096 19.75 18H21.25C21.25 16.4812 20.0188 15.25 18.5 15.25V16.75ZM16.9164 15.25C16.1014 15.25 15.2975 15.0602 14.5685 14.6957L13.8977 16.0374C14.835 16.506 15.8685 16.75 16.9164 16.75V15.25Z"
                 fill="#28303F"
               />
-              <circle cx="18.5" cy="8" r="4" stroke="#28303F" stroke-width="1.5" />
+              <circle
+                  cx="18.5"
+                  cy="8"
+                  r="4"
+                  stroke="#28303F"
+                  stroke-width="1.5"
+              />
             </svg>
           </button>
         </div>
         <div class="messengers flex flex-col gap-3" v-if="messengersHandle">
           <h6 class="text-[12px] font-semibold text-grey-40 uppercase">
-            Ijtimoiy tarmoqlar
+            {{ $store.state.translations["profile.social-media"] }}
           </h6>
           <PersonalMessengers :userInfo="userInfo" />
         </div>
@@ -456,7 +467,8 @@
 
       <div class="flex flex-col gap-4 items-center mt-[100px]">
         <p class="text-grey-40 text-[12px] font-semibold uppercase">
-          ISHTIROKCHI: {{ dateFormat }}
+          {{ $store.state.translations["profile.player"] }}
+          {{ dateFormat }}
         </p>
         <span
           class="h-[1px] w-full bg-grey-8"
@@ -468,7 +480,10 @@
           @click="openLogout"
           class="underline text-base text-pantone-2023 flex items-center gap-[10px]"
         >
-          Chiqish<svg
+          {{
+            $store.state.translations["profile.exit"]
+          }}
+          <svg
             xmlns="http://www.w3.org/2000/svg"
             width="21"
             height="18"
@@ -500,7 +515,7 @@
           v-if="$route.name != 'freelancer-index' && !profile"
           class="underline text-base text-pantone-2023 flex items-center gap-[10px] xl:text-center mx-auto xl:text-[14px] white-space-nowrap"
         >
-          Moderatorga xatolik haqida xabar berish
+          {{ $store.state.translations["profile.inform-mod"] }}
           <svg
             class="min-w-5"
             xmlns="http://www.w3.org/2000/svg"
@@ -559,11 +574,12 @@
 </template>
 <script>
 import PersonalMessengers from "./PersonalMessengers.vue";
-import { Swiper, Navigation } from "swiper";
+import {Navigation, Swiper} from "swiper";
 import "swiper/swiper-bundle.min.css";
 import EventsSmallCard from "./EventsSmallCard.vue";
 import Logout from "../modals/Logout.vue";
 import moment from "moment";
+
 export default {
   props: ["profile", "userInfo"],
   data() {

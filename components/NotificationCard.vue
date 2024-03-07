@@ -5,17 +5,20 @@
     <h5 class="text-dark-grey-100 text-[20px] font-medium mb-4">
       Davlat idorasining bo’lim boshlig’idan
     </h5>
-    <div class="body pb-12 border-[0] border-b border-border-darik border-solid">
+    <div
+      class="body pb-12 border-[0] border-b border-border-darik border-solid"
+    >
       <p class="text-base text-dark-grey-80 desc">
-        O’zbekiston respublikasi milly gvardiyasi qo’riqlash bosh boshqarmasining idoraviy
-        jihatdan tegishly bo’lmagan qorovullik bo’linmalariga ish (xizmat)ga qabul qilish
-        va idoraviy jihatdan tegishly bo’lmagan xabriylashtirilgan O’zbekiston
-        respublikasi milly gvardiyasi qo’riqlash bosh boshqarmasining idoraviy jihatdan
-        tegishly bo’lmagan qorovullik bo’linmalariga ish (xizmat)ga qabul qilish va
-        idoraviy jihatdan tegishly bo’lmagan xabriylashtirilgan O’zbekiston respublikasi
-        milly gvardiyasi qo’riqlash bosh boshqarmasining idoraviy jihatdan tegishly
-        bo’lmagan qorovullik bo’linmalariga ish (xizmat)ga qabul qilish va idoraviy
-        jihatdan tegishly bo’lmagan xabriylashtirilgan
+        O’zbekiston respublikasi milly gvardiyasi qo’riqlash bosh
+        boshqarmasining idoraviy jihatdan tegishly bo’lmagan qorovullik
+        bo’linmalariga ish (xizmat)ga qabul qilish va idoraviy jihatdan tegishly
+        bo’lmagan xabriylashtirilgan O’zbekiston respublikasi milly gvardiyasi
+        qo’riqlash bosh boshqarmasining idoraviy jihatdan tegishly bo’lmagan
+        qorovullik bo’linmalariga ish (xizmat)ga qabul qilish va idoraviy
+        jihatdan tegishly bo’lmagan xabriylashtirilgan O’zbekiston respublikasi
+        milly gvardiyasi qo’riqlash bosh boshqarmasining idoraviy jihatdan
+        tegishly bo’lmagan qorovullik bo’linmalariga ish (xizmat)ga qabul qilish
+        va idoraviy jihatdan tegishly bo’lmagan xabriylashtirilgan
       </p>
     </div>
     <div class="footer mt-6 flex justify-between items-center">
@@ -39,7 +42,8 @@
       <nuxt-link
         to="/"
         class="text-main-color text-base font-medium flex items-center gap-2"
-        >Ko’rish<svg
+        >{{ $store.state.translations["header.open"]
+        }}<svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -104,19 +108,23 @@
             /></svg
         ></span>
         <div class="flex flex-col gap-4 items-center mt-[-16px]">
-          <h4 class="text-[24px] text-black font-medium">Ваша заявка отправлена</h4>
+          <h4 class="text-[24px] text-black font-medium">
+            {{ $store.state.translations["modal.request-sent"] }}
+          </h4>
           <div class="flex flex-col justify-center items-center">
             <p class="text text-base text-black">
-              Sledite za statusom zayavki cherez telegram bot
+              {{ $store.state.translations["modal.watch-telegram"] }}
             </p>
-            <a class="text-black" href="">Открыть телеграм-бот</a>
+            <a class="text-black" href="">{{
+              $store.state.translations["modal.open-telegram"]
+            }}</a>
           </div>
         </div>
         <div class="buttons flex flex-col gap-4 items-center mb-6">
           <button
             class="px-6 justify-center h-[40px] rounded-[8px] border border-solid border-blue bg-white text-blue text-base font-medium flex items-center"
           >
-            Посмотреть заказ
+            {{ $store.state.translations["modal.open-telegram"] }}
           </button>
         </div>
       </div>
@@ -125,7 +133,7 @@
 </template>
 <script>
 export default {
-  methods: {}
+  methods: {},
 };
 </script>
 <style lang="css" scoped>

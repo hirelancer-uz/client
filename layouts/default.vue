@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div class="layout W-100 min-h-[100vh] flex flex-col">
     <div class="fixed top-0 left-0 w-full z-50" ref="mHeader">
       <MobileHeader class="xl:block" />
@@ -25,6 +25,8 @@ import MobileHeader from "../components/layouts/MobileHeader.vue";
 import TheFooter from "../components/layouts/TheFooter.vue";
 import TheHeader from "../components/layouts/TheHeader.vue";
 
+import translationsApi from "@/store/fetchTranslations.js";
+
 export default {
   name: "defalut",
   head() {
@@ -50,12 +52,39 @@ export default {
       layoutHeight: 63,
     };
   },
+
+  async fetch() {
+    const translations = await translationsApi.getTranslations(this.$axios, {
+      headers: {
+        Language: this.$i18n.locale,
+      },
+    });
+
+    await this.$store.commit("getTranslations", translations);
+  },
+
+  watch: {
+    async currentLang() {
+      const translations = await translationsApi.getTranslations(this.$axios, {
+        headers: {
+          Language: this.$i18n.locale,
+        },
+      });
+
+      await this.$store.commit("getTranslations", translations);
+    },
+  },
+
   computed: {
     layoutData() {
       return this.$store.state.pageData || {};
     },
     authCheck() {
       return this.$store.state.auth;
+    },
+
+    currentLang() {
+      return this.$i18n.locale;
     },
   },
   async mounted() {

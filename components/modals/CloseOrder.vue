@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div>
     <a-modal
       class="close-modal"
@@ -51,7 +51,9 @@
             />
           </svg>
           <h4 class="text-[#000] text-[24px] font-semibold mb-6">
-            Loyihani yakunlash uchun mijozni tasdig’i kutilmoqda
+            {{
+              closeBtn || $store.state.translations["modal.waiting-customer"]
+            }}
           </h4>
         </div>
         <div class="flex justify-center mb-8">
@@ -59,7 +61,7 @@
             @click="visible = false"
             class="h-[54px] items-center w-[332px] flex justify-center gap-2 border border-solid border-main-color bg-main-color rounded-[8px] text-base font-medium text-white"
           >
-            Tushunarli
+            {{ closeBtn || $store.state.translations["modal.OK"] }}
           </button>
         </div>
       </div>

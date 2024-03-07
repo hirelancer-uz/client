@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div class="pt-12 order xl:px-4 xl:pt-0">
     <div class="max-w-[1286px] mx-auto pb-[55px]">
       <button
@@ -19,7 +19,7 @@
             fill="#5C46E6"
           />
         </svg>
-        Назад
+        {{ $store.state.translations["modal.back"] }}
       </button>
       <div
         class="status xl:flex hidden justify-center mx-[-24px] mb-6 pb-[18px] xl:pb-0 border-[0] border-b-[2px] border-solid border-grey-light relative"
@@ -67,16 +67,23 @@
                 <!-- </div> -->
 
                 <div class="flex gap-6">
-                  <p class="text-base text-grey-64">{{ orderDate }}, {{ orderHours }}</p>
+                  <p class="text-base text-grey-64">
+                    {{ orderDate }}, {{ orderHours }}
+                  </p>
                   <p class="text-base text-grey-64 flex gap-[6px]">
-                    Заказ:<span class="font-medium text-black">#{{ order?.id }}</span>
+                    {{ $store.state.translations["modal.order"]
+                    }}<span class="font-medium text-black"
+                      >#{{ order?.id }}</span
+                    >
                   </p>
                 </div>
               </div>
               <div
                 class="body mt-6 pb-4 border-[0] border-b border-solid border-grey-8 xl:mt-4"
               >
-                <h1 class="title text-[24px] font-semibold text-black mb-4 xl:text-base">
+                <h1
+                  class="title text-[24px] font-semibold text-black mb-4 xl:text-base"
+                >
                   {{ order?.name }}
                 </h1>
 
@@ -86,17 +93,24 @@
                 >
                 </span>
               </div>
-              <div class="files flex flex-col gap-4 mt-4" v-if="order?.files?.length > 0">
+              <div
+                class="files flex flex-col gap-4 mt-4"
+                v-if="order?.files?.length > 0"
+              >
                 <h6 class="text-black text-[20px] font-semibold xl:text-[18px]">
-                  Файлы к задаче
+                  {{ $store.state.translations["modal.order-files"] }}
                 </h6>
                 <div class="file-list flex gap-4 justify-start xl:flex-wrap">
-                  <FileCard v-for="file in order?.files" :file="file" :key="file?.id" />
+                  <FileCard
+                    v-for="file in order?.files"
+                    :file="file"
+                    :key="file?.id"
+                  />
                 </div>
               </div>
               <div class="files flex flex-col gap-4 mt-6 xl:mt-6 mb-6">
                 <h6 class="text-black text-[20px] xl:text-[18px] font-semibold">
-                  Категории:
+                  {{ $store.state.translations["profile.categories"] }}
                 </h6>
                 <div class="flex gap-2 items-center xl:flex-col xl:items-start">
                   <div
@@ -159,7 +173,12 @@
                         stroke-width="1.5"
                         stroke-linejoin="round"
                       />
-                      <circle cx="9.99984" cy="9.99996" r="0.833333" fill="#5C46E6" />
+                      <circle
+                        cx="9.99984"
+                        cy="9.99996"
+                        r="0.833333"
+                        fill="#5C46E6"
+                      />
                       <ellipse
                         cx="13.3333"
                         cy="9.99996"
@@ -174,7 +193,8 @@
                         ry="0.833333"
                         fill="#5C46E6"
                       /></svg
-                    >{{ order?.request_count }} запросов
+                    >{{ order?.request_count }}
+                    {{ $store.state.translations["profile.requests"] }}
                   </p>
                 </div>
                 <!-- <p
@@ -213,8 +233,11 @@
               v-if="!openBlock && order?.status > 1"
               @click="openBlock = true"
             >
-              <button class="flex gap-2 text-purple text-base font-medium items-center">
-                Раскрыть<svg
+              <button
+                class="flex gap-2 text-purple text-base font-medium items-center"
+              >
+                {{ $store.state.translations["profile.reveal"]
+                }}<svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -241,7 +264,9 @@
           >
             <div class="flex flex-col gap-6">
               <div class="flex justify-between">
-                <p class="text-grey-64 text-[14px]">Срок:</p>
+                <p class="text-grey-64 text-[14px]">
+                  {{ $store.state.translations["profile.deadline"] }}
+                </p>
 
                 <h1
                   class="text-black text-base font-semibold xl:text-base"
@@ -249,18 +274,27 @@
                 >
                   {{ order?.deadline }}
                 </h1>
-                <h1 class="text-black text-base font-semibold xl:text-base" v-else>
-                  По договоренности
+                <h1
+                  class="text-black text-base font-semibold xl:text-base"
+                  v-else
+                >
+                  {{ $store.state.translations["profile.deal"] }}
                 </h1>
                 <!-- <p class="text-grey-40 text-[15px] line-through">750 000</p> -->
               </div>
               <div class="flex justify-between">
-                <p class="text-grey-64 font-medium text-[18px]">Buyrtma narxi:</p>
-                <h4 class="text-main-color text-[18px] font-semibold" v-if="order?.price">
-                  {{ order?.price.toLocaleString() }} so’m
+                <p class="text-grey-64 font-medium text-[18px]">
+                  {{ $store.state.translations["profile.price"] }}
+                </p>
+                <h4
+                  class="text-main-color text-[18px] font-semibold"
+                  v-if="order?.price"
+                >
+                  {{ order?.price.toLocaleString() }}
+                  {{ $store.state.translations["profile.sum"] }}
                 </h4>
                 <h4 class="text-main-color text-[18px] font-semibold" v-else>
-                  По договоренности
+                  {{ $store.state.translations["profile.deal"] }}
                 </h4>
               </div>
             </div>
@@ -278,11 +312,14 @@
               class="buttons flex flex-col gap-4"
               v-if="!order?.end_of_execution && order?.status < 4"
             >
-              <div class="flex flex-col gap-2" v-if="order?.status == 3 && myRequest">
+              <div
+                class="flex flex-col gap-2"
+                v-if="order?.status == 3 && myRequest"
+              >
                 <button
                   class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] bg-grey-light text-base text-grey-80 font-medium"
                 >
-                  Ожидание подверждение
+                  {{ $store.state.translations["modal.waiting-confirm"] }}
                   <svg
                     width="25"
                     height="24"
@@ -300,8 +337,12 @@
                     />
                   </svg>
                 </button>
-                <p class="text-grey-80 text-[14px] max-w-[90%] mx-auto text-center">
-                  Mijoz ishni bitganligni tasdiqlanishi kutilmoqda
+                <p
+                  class="text-grey-80 text-[14px] max-w-[90%] mx-auto text-center"
+                >
+                  {{
+                    $store.state.translations["modal.waiting-finish-confirm"]
+                  }}
                 </p>
               </div>
               <button
@@ -309,7 +350,7 @@
                 @click="openOrderComplite"
                 class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-main-color border-main-color text-base text-white font-medium"
               >
-                Завершить заказ
+                {{ $store.state.translations["profile.finish-order"] }}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="25"
@@ -333,7 +374,7 @@
                 @click="openOfferCancel"
                 class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] bg-[#667B8C] text-base text-white font-medium"
               >
-                Отменить заказ
+                {{ $store.state.translations["profile.cancel-order"] }}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -454,33 +495,36 @@
       <FreelancerComplite
         ref="orderComplite"
         @submit="submitFinish"
-        title="Loyihani rostdan ham yakunlamoqchimisiz?"
-        save="Ha, albatta"
-        cancel="Yo’q"
+        :title="$store.state.translations['profile.sure-cancel-project']"
+        save="$store.state.translations[`modal.yes`]"
+        closeBtn="$store.state.translations[`modal.no`]"
         :loadingBtn="loadingBtn"
       />
 
       <CancellationOrder
         ref="orderCancel"
         @submit="submitFinish"
-        title="Siz haqiqatdan buyurtmani bekor qilmoqchimisiz?"
-        save="Ha, albatta"
-        close="Yo’q"
+        :title="$store.state.translations[`profile.sure-cancel-order`]"
+        save="$store.state.translations[`modal.yes`]"
+        closeBtn="$store.state.translations[`modal.no`]"
         :width="584"
         :loadingBtn="loadingBtn"
         :disabled="disabledBtn"
       >
         <p class="text-base text-grey-64 mt-2">
-          Agar buyurtmani bekor qilsangiz bu buyurtmani davom ettira olmaysiz
+          {{ $store.state.translations["profile.you-cant-continue"] }}
         </p>
 
         <span
           class="reyting mb-[10px] rounded-[15px] px-6 py-[10px] text-light-red text-base mx-auto mt-3"
         >
-          Vash reyting upadyot na -16 ballov
+          {{ $store.state.translations["profile.raiting-down"] }} -16
+          {{ $store.state.translations["profile.to-score"] }}
         </span>
         <div class="px-4 py-4 rounded-[16px] bg-bg-grey w-full mt-4 mb-[-32px]">
-          <h5 class="text-[18px] text-grey-80 font-bold">Prichina otmeni</h5>
+          <h5 class="text-[18px] text-grey-80 font-bold">
+            {{ $store.state.translations["profile.cancel-reason"] }}
+          </h5>
           <ul class="flex flex-col gap-6 mt-6">
             <li v-for="reason in reasons" :key="reason?.id">
               <a-checkbox
@@ -497,7 +541,7 @@
       <CancellationOrder
         ref="offerCancel"
         @submit="submitCancel"
-        title="So'rovni bekor qilishingizga aminmisiz ?"
+        :title="$store.state.translations['profile.sure-cancel-request']"
         :loadingBtn="loadingBtn"
       />
       <!-- <ComplaintOrder
@@ -556,7 +600,10 @@ export default {
       let status = this.order?.status;
       if (this.order?.selected_request?.id) status = 2;
 
-      if (this.order?.complete_requests?.length > 0 && this.order?.end_of_execution)
+      if (
+        this.order?.complete_requests?.length > 0 &&
+        this.order?.end_of_execution
+      )
         status = 3;
       return status;
     },
@@ -598,7 +645,9 @@ export default {
       if (!this.selectedReasons.includes(id)) {
         this.selectedReasons.push(id);
       } else {
-        this.selectedReasons = this.selectedReasons.filter((elem) => elem != id);
+        this.selectedReasons = this.selectedReasons.filter(
+          (elem) => elem != id
+        );
       }
       this.selectedReasons.length > 0
         ? (this.disabledBtn = false)
@@ -626,11 +675,16 @@ export default {
     async __CANCEL_OFFER() {
       try {
         this.loadingBtn = true;
-        const data = await this.$store.dispatch("fetchOrders/postCanceledOffer", {
-          order_request_id: this.order?.requests
-            .filter((item) => item?.freelancer?.id == this.$store.state.userInfo?.id)
-            .at(-1).id,
-        });
+        const data = await this.$store.dispatch(
+          "fetchOrders/postCanceledOffer",
+          {
+            order_request_id: this.order?.requests
+              .filter(
+                (item) => item?.freelancer?.id == this.$store.state.userInfo?.id
+              )
+              .at(-1).id,
+          }
+        );
         this.$router.go(-1);
       } catch (e) {
         if (e.response) {
@@ -646,9 +700,12 @@ export default {
     async __COMPLETE_ORDER() {
       try {
         this.loadingBtn = true;
-        const data = await this.$store.dispatch("fetchOrders/postCompleteOrder", {
-          order_id: this.$route.params.id,
-        });
+        const data = await this.$store.dispatch(
+          "fetchOrders/postCompleteOrder",
+          {
+            order_id: this.$route.params.id,
+          }
+        );
         this.closeOrderComplite();
         this.$emit("selected");
       } catch (e) {
@@ -665,7 +722,10 @@ export default {
     async __COMPLAINTS_ORDER(formData) {
       try {
         this.loadingBtn = true;
-        const data = await this.$store.dispatch("fetchOrders/postComplaints", formData);
+        const data = await this.$store.dispatch(
+          "fetchOrders/postComplaints",
+          formData
+        );
         this.handleOkComplaint();
       } catch (e) {
         if (e.response) {
@@ -700,8 +760,11 @@ export default {
   border-color: var(--blue);
   background-color: var(--blue);
 }
-:deep(.ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover
-    .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner) {
+:deep(
+    .ant-checkbox-wrapper:hover .ant-checkbox-inner,
+    .ant-checkbox:hover .ant-checkbox-inner,
+    .ant-checkbox-input:focus + .ant-checkbox-inner
+  ) {
   border-color: var(--blue);
 }
 :deep(.ant-checkbox-checked::after) {

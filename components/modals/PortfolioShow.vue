@@ -52,7 +52,9 @@
           <button
             v-if="$route.path == '/profile/freelancer/portfolio'"
             class="border border-solid border-main-color bg-bg-grey px-[10px] rounded-[6px] text-main-color text-base flex h-[37px] items-center gap-[6px] xl:hidden"
-            @click="$router.push(`/profile/freelancer/portfolio/${portfolio?.id}`)"
+            @click="
+              $router.push(`/profile/freelancer/portfolio/${portfolio?.id}`)
+            "
           >
             <svg
               width="18"
@@ -67,7 +69,7 @@
                 stroke-linecap="round"
               />
             </svg>
-            Изменять
+            {{ $store.state.translations["modal.edit"] }}
           </button>
           <div class="modal__views">
             <span>
@@ -92,7 +94,7 @@
           </div>
 
           <button class="modal__views" :class="{ 'text-main-color': true }">
-            <p>Понравилось</p>
+            <p>{{ $store.state.translations["modal.liked"] }}</p>
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -140,7 +142,10 @@
             </div>
             <div>
               <h4 class="modal__cardo-name">{{ freelancer?.name }}</h4>
-              <p class="modal__cardo-status">Зарегистрирован: более 5 лет назад</p>
+              <p class="modal__cardo-status">
+                {{ $store.state.translations["modal.registrated"] }} более 5 лет
+                назад
+              </p>
             </div>
           </div>
           <div class="modal__cardo-footer">
@@ -187,7 +192,9 @@
                   /></svg
                 ><span class="text-green">{{ freelancer?.likes_count }}</span
                 ><span class="text-grey-40">/</span
-                ><span class="text-pantone-2023">{{ freelancer?.dislikes_count }}</span
+                ><span class="text-pantone-2023">{{
+                  freelancer?.dislikes_count
+                }}</span
                 ><svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="14"
@@ -256,10 +263,13 @@
         v-if="$route.name.includes('profile')"
       >
         <button
-          @click="$router.push(`/profile/freelancer/portfolio/${portfolio?.id}`)"
+          @click="
+            $router.push(`/profile/freelancer/portfolio/${portfolio?.id}`)
+          "
           class="w-full h-12 flex justify-center items-center bg-main-color text-white rounded-xl"
         >
-          Изменить<svg
+          {{ $store.state.translations["modal.edit"]
+          }}<svg
             width="21"
             height="20"
             viewBox="0 0 21 20"
@@ -337,7 +347,10 @@ export default {
     },
     async __DELETE_WORK() {
       try {
-        await this.$store.dispatch("fetchPortfolio/deleteWork", this.portfolio?.id);
+        await this.$store.dispatch(
+          "fetchPortfolio/deleteWork",
+          this.portfolio?.id
+        );
         this.$notification["success"]({
           message: "Success",
           description: "Muvaffaqiyatli o'chirildi",

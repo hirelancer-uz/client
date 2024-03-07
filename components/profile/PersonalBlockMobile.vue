@@ -24,12 +24,17 @@
               <h4 class="text-black text-[14px] font-semibold leading-[19px]">
                 {{ `${freelancer["name"]} ${freelancer["surname"]}` }}
               </h4>
-              <p class="text-grey-40 text-[12px]">Зарегистрирован: более 5 лет назад</p>
+              <p class="text-grey-40 text-[12px]">
+                {{ $store.state.translations["profile.registrated"] }} более 5
+                лет назад
+              </p>
               <div
                 class="status flex gap-2 w-full mt-[4px]"
                 v-if="freelancer['name'] || freelancer['surname']"
               >
-                <p class="text-grey-80 text-[12px]">ID: {{ freelancer["id"] }}</p>
+                <p class="text-grey-80 text-[12px]">
+                  ID: {{ freelancer["id"] }}
+                </p>
                 <span class="w-[1px] h-[14px] bg-grey-8"> </span>
                 <p class="text-grey-80 text-[12px] flex gap-2 items-center">
                   <svg
@@ -66,9 +71,13 @@
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     /></svg
-                  ><span class="text-green">{{ freelancer["dislikes_count"] }}</span
+                  ><span class="text-green">{{
+                    freelancer["dislikes_count"]
+                  }}</span
                   ><span class="text-grey-40">/</span
-                  ><span class="text-pantone-2023">{{ freelancer["likes_count"] }}</span
+                  ><span class="text-pantone-2023">{{
+                    freelancer["likes_count"]
+                  }}</span
                   ><svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="14"
@@ -134,7 +143,8 @@
                       :href="freelancer?.contacts?.twitter"
                       target="_blank"
                       :class="{
-                        'pointer-events-none opacity-50': !freelancer?.contacts?.twitter,
+                        'pointer-events-none opacity-50':
+                          !freelancer?.contacts?.twitter,
                       }"
                       class="rounded-[12px] border border-solid border-grey-light flex w-[44px] h-[44px] justify-center items-center bg-white"
                     >
@@ -156,7 +166,8 @@
                       :href="freelancer?.contacts?.facebook"
                       target="_blank"
                       :class="{
-                        'pointer-events-none opacity-50': !freelancer?.contacts?.facebook,
+                        'pointer-events-none opacity-50':
+                          !freelancer?.contacts?.facebook,
                       }"
                       class="rounded-[12px] border border-solid border-grey-light flex w-[44px] h-[44px] justify-center items-center bg-white"
                     >
@@ -180,7 +191,8 @@
                       :href="freelancer?.contacts?.dribble"
                       target="_blank"
                       :class="{
-                        'pointer-events-none opacity-50': !freelancer?.contacts?.dribble,
+                        'pointer-events-none opacity-50':
+                          !freelancer?.contacts?.dribble,
                       }"
                     >
                       <svg
@@ -202,7 +214,8 @@
                       :href="freelancer?.contacts?.github"
                       target="_blank"
                       :class="{
-                        'pointer-events-none opacity-50': !freelancer?.contacts?.github,
+                        'pointer-events-none opacity-50':
+                          !freelancer?.contacts?.github,
                       }"
                     >
                       <svg
@@ -223,8 +236,8 @@
                       :href="freelancer?.contacts?.instagram"
                       target="_blank"
                       :class="{
-                        'pointer-events-none opacity-50': !freelancer?.contacts
-                          ?.instagram,
+                        'pointer-events-none opacity-50':
+                          !freelancer?.contacts?.instagram,
                       }"
                       class="rounded-[12px] border border-solid border-grey-light flex w-[44px] h-[44px] justify-center items-center bg-white"
                     >
@@ -247,7 +260,8 @@
                       :href="freelancer?.contacts?.telegram"
                       target="_blank"
                       :class="{
-                        'pointer-events-none opacity-50': !freelancer?.contacts?.telegram,
+                        'pointer-events-none opacity-50':
+                          !freelancer?.contacts?.telegram,
                       }"
                     >
                       <svg
@@ -269,7 +283,7 @@
           </div>
           <div class="smser" v-if="user">
             <button>
-              Написать
+              {{ $store.state.translations["profile.send-sms"] }}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="25"
@@ -295,7 +309,7 @@
               :class="{ activeF: $route.params.user == 'freelancer' }"
               class="border-[2px] text-[14px] border-solid border-grey-light h-[44px] flex justify-center items-center gap-2 rounded-l-[12px]"
             >
-              Я - Фрилансер
+              {{ $store.state.translations["profile.im-free"] }}
 
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -319,7 +333,7 @@
               :class="{ activeC: $route.params.user == 'customer' }"
               class="border-[2px] text-[14px] border-solid border-grey-light h-[44px] flex justify-center items-center gap-2 rounded-r-[12px]"
             >
-              Я - заказчик
+              {{ $store.state.translations["profile.im-customer"] }}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -385,7 +399,7 @@
                   fill="#009A10"
                 />
               </svg>
-              Профиль
+              {{ $store.state.translations["profile.profile"] }}
               <span class="absolute right-4"
                 ><svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -424,7 +438,7 @@
                   d="M16 5H0V2C0 0.895431 0.895431 0 2 0H14C15.1046 0 16 0.89543 16 2V5Z"
                   fill="#1878F3"
                 /></svg
-              >Проект
+              >{{ $store.state.translations["profile.project"] }}
               <span class="absolute right-4"
                 ><svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -479,7 +493,7 @@
                   rx="0.75"
                   fill="#5C46E6"
                 /></svg
-              >Портфолио
+              >{{ $store.state.translations["profile.portfolio"] }}
               <span class="absolute right-4"
                 ><svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -515,7 +529,7 @@
                 />
                 <circle cx="9" cy="9" r="3" fill="#781ECD" />
               </svg>
-              Настройки
+              {{ $store.state.translations["profile.settings"] }}
               <span class="absolute right-4"
                 ><svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -741,7 +755,7 @@
                   fill="#F2154A"
                 />
               </svg>
-              Выйти из профиля
+              {{ $store.state.translations["profile.exit"] }}
               <span class="absolute right-4"
                 ><svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -763,8 +777,13 @@
         </ul>
       </div>
     </div>
-    <div class="flex justify-center flex-col items-center gap-11 mt-6" v-if="!user">
-      <p class="text-[12px] text-grey-40">УЧАСТНИК С: 21 МАЯ 2010 ГОДА</p>
+    <div
+      class="flex justify-center flex-col items-center gap-11 mt-6"
+      v-if="!user"
+    >
+      <p class="text-[12px] text-grey-40">
+        {{ $store.state.translations["profile.player"] }} 21 МАЯ 2010 ГОДА
+      </p>
       <!-- <button
         class="pro-btn overflow-hidden relative h-[52px] w-full rounded-[12px] flex items-center justify-center"
       >

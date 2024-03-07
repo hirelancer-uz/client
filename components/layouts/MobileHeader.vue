@@ -28,8 +28,20 @@
               d="M88.7274 18.0769H77.7146C76.26 18.0769 75.0133 17.5526 73.9744 16.5039C72.9527 15.4374 72.4419 14.1665 72.4419 12.6912V5.41241C72.4419 3.91933 72.9527 2.64844 73.9744 1.59973C75.0133 0.533243 76.26 0 77.7146 0H88.7274C90.1819 0 91.42 0.533243 92.4416 1.59973C93.4805 2.64844 94 5.41241 94 5.41241V12.6912C94 14.1665 93.4805 15.4374 92.4416 16.5039C91.42 17.5526 90.1819 18.0769 88.7274 18.0769Z"
               fill="#5C46E6"
             />
-            <ellipse cx="53.3539" cy="5.27462" rx="2.70558" ry="2.7773" fill="white" />
-            <ellipse cx="78.2453" cy="5.27462" rx="2.70558" ry="2.7773" fill="white" />
+            <ellipse
+              cx="53.3539"
+              cy="5.27462"
+              rx="2.70558"
+              ry="2.7773"
+              fill="white"
+            />
+            <ellipse
+              cx="78.2453"
+              cy="5.27462"
+              rx="2.70558"
+              ry="2.7773"
+              fill="white"
+            />
           </svg>
         </nuxt-link>
         <button
@@ -113,14 +125,16 @@
           :class="{ active: !$route.name.includes('specialities') }"
           class="px-6 py-3 xl:relative rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] xl:font-semibold text-base text-grey-64 font-medium xl:py-0 xl:flex xl:items-center xl:h-9 whitespace-nowrap xl:rounded-lg"
         >
-          Shaxsiy ma'lumotlar
+          {{ $store.state.translations["header.personal-data"] }}
         </button>
         <button
-          @click="$router.push(`/profile/${$route.params.user}/settings/specialities`)"
+          @click="
+            $router.push(`/profile/${$route.params.user}/settings/specialities`)
+          "
           :class="{ active: $route.name.includes('specialities') }"
           class="px-6 py-0 xl:flex xl:items-center xl:relative rounded-[12px] border-solid border-[2px] xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] xl:font-semibold border-bg-grey bg-bg-grey text-base text-grey-64 font-medium xl:py-2 xl:h-9 whitespace-nowrap xl:rounded-lg"
         >
-          Mutaxassisliklar
+          {{ $store.state.translations["header.specs"] }}
         </button>
       </div>
     </div>
@@ -128,7 +142,7 @@
       <div class="top border-[0] border-apple-grey border-t-[2px] border-solid">
         <div class="links">
           <NuxtLink to="/orders"
-            >Buyurtmalar
+            >{{ $store.state.translations["header.orders"] }}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -146,7 +160,7 @@
             </svg>
           </NuxtLink>
           <NuxtLink to="/freelancers"
-            >Frilanserlar
+            >{{ $store.state.translations["header.freelancers"] }}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -179,7 +193,7 @@
                   fill="#5C46E6"
                 />
               </svg>
-              Bildirishnoma
+              {{ $store.state.translations["header.notifs"] }}
             </span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -214,7 +228,7 @@
                   stroke-linejoin="round"
                 />
               </svg>
-              Yozishmalar
+              {{ $store.state.translations["header.sms"] }}
             </span>
 
             <svg
@@ -278,7 +292,14 @@
                   fill="#F93939"
                 />
               </g>
-              <rect x="0.5" y="1" width="31" height="22" rx="2.5" stroke="#E7EDFB" />
+              <rect
+                x="0.5"
+                y="1"
+                width="31"
+                height="22"
+                rx="2.5"
+                stroke="#E7EDFB"
+              />
               <defs>
                 <clipPath id="clip0_3544_64885">
                   <rect y="0.5" width="32" height="23" rx="3" fill="white" />
@@ -310,7 +331,14 @@
                   fill="white"
                 />
               </g>
-              <rect x="0.5" y="1" width="31" height="22" rx="2.5" stroke="#E7EDFB" />
+              <rect
+                x="0.5"
+                y="1"
+                width="31"
+                height="22"
+                rx="2.5"
+                stroke="#E7EDFB"
+              />
               <defs>
                 <clipPath id="clip0_3544_64888">
                   <rect y="0.5" width="32" height="23" rx="3" fill="white" />
@@ -355,7 +383,14 @@
                   fill="#1A47B8"
                 />
               </g>
-              <rect x="0.5" y="1" width="31" height="22" rx="2.5" stroke="#E7EDFB" />
+              <rect
+                x="0.5"
+                y="1"
+                width="31"
+                height="22"
+                rx="2.5"
+                stroke="#E7EDFB"
+              />
               <defs>
                 <clipPath id="clip0_3544_64891">
                   <rect y="0.5" width="32" height="23" rx="3" fill="white" />
@@ -415,19 +450,23 @@
           :init-sheet-height="500"
           :can-swipe="false"
         >
-          <ul v-if="userType" class="rounded-[12px] px-2 py-3 flex flex-col gap-8">
+          <ul
+            v-if="userType"
+            class="rounded-[12px] px-2 py-3 flex flex-col gap-8"
+          >
             <li>
               <button
                 @click="userType = !userType"
                 class="rounded-[12px] bg-green py-4 w-full flex justify-center text-white font-medium text-base hover:text-white"
               >
-                Перейти на “заказчик”
+                {{ $store.state.translations["header.goto-customer"] }}
               </button>
             </li>
             <li>
               <button
                 :class="{
-                  ' pointer-events-none': $route.path == '/profile/freelancer/info',
+                  ' pointer-events-none':
+                    $route.path == '/profile/freelancer/info',
                 }"
                 @click="toPage('/profile/freelancer/info')"
                 class="w-full flex gap-2 justify-between items-center px-4 font-medium text-base text-black"
@@ -456,7 +495,7 @@
                       stroke-linejoin="round"
                     />
                   </svg>
-                  Профиль
+                  {{ $store.state.translations["header.profile"] }}
                 </span>
                 <span v-html="iconArrow"></span>
               </button>
@@ -488,7 +527,7 @@
                     />
                   </svg>
 
-                  Проект
+                  {{ $store.state.translations["header.project"] }}
                 </span>
                 <span v-html="iconArrow"></span>
               </button>
@@ -496,7 +535,8 @@
             <li>
               <button
                 :class="{
-                  ' pointer-events-none': $route.path == '/profile/freelancer/portfolio',
+                  ' pointer-events-none':
+                    $route.path == '/profile/freelancer/portfolio',
                 }"
                 @click="toPage('/profile/freelancer/portfolio')"
                 class="w-full flex justify-between gap-2 px-4 font-medium text-base text-black"
@@ -535,7 +575,7 @@
                       fill="#353437"
                     />
                   </svg>
-                  Портфолио
+                  {{ $store.state.translations["header.portfolio"] }}
                 </span>
 
                 <span v-html="iconArrow"></span>
@@ -545,7 +585,8 @@
               <button
                 @click="toPage('/profile/freelancer/settings')"
                 :class="{
-                  ' pointer-events-none': $route.path == '/profile/freelancer/settings',
+                  ' pointer-events-none':
+                    $route.path == '/profile/freelancer/settings',
                 }"
                 class="w-full flex justify-between gap-2 px-4 font-medium text-base text-black"
               >
@@ -563,7 +604,7 @@
                     />
                   </svg>
 
-                  Настройки
+                  {{ $store.state.translations["header.settings"] }}
                 </span>
                 <span v-html="iconArrow"></span>
               </button>
@@ -592,7 +633,7 @@
                     <circle cx="8" cy="12" r="1" fill="#353437" />
                   </svg>
 
-                  Отзывы
+                  {{ $store.state.translations["header.reviews"] }}
                 </span>
                 <span v-html="iconArrow"></span>
               </button>
@@ -601,7 +642,8 @@
               <button
                 @click="openLogout"
                 :class="{
-                  ' pointer-events-none': $route.path == '/profile/customer/settings',
+                  ' pointer-events-none':
+                    $route.path == '/profile/customer/settings',
                 }"
                 class="w-full py-3 rounded-[12px] flex justify-center gap-4 px-4 font-medium text-base text-light-red bg-[#FFE3EA]"
               >
@@ -628,7 +670,7 @@
                   />
                 </svg>
 
-                Выход
+                {{ $store.state.translations["header.logout"] }}
               </button>
             </li>
           </ul>
@@ -638,7 +680,7 @@
                 @click="userType = !userType"
                 class="rounded-[12px] bg-main-color py-4 w-full flex justify-center text-white font-medium text-base hover:text-white"
               >
-                Перейти на “фрилансер”
+                {{ $store.state.translations["header.goto-freelancer"] }}
               </button>
             </li>
 
@@ -669,7 +711,7 @@
                     />
                   </svg>
 
-                  Проект
+                  {{ $store.state.translations["header.project"] }}
                 </span>
                 <span v-html="iconArrow"></span>
               </button>
@@ -679,7 +721,8 @@
               <button
                 @click="toPage('/profile/customer/settings')"
                 :class="{
-                  ' pointer-events-none': $route.path == '/profile/customer/settings',
+                  ' pointer-events-none':
+                    $route.path == '/profile/customer/settings',
                 }"
                 class="w-full flex justify-between gap-2 px-4 font-medium text-base text-black"
               >
@@ -697,7 +740,7 @@
                     />
                   </svg>
 
-                  Настройки
+                  {{ $store.state.translations["header.settings"] }}
                 </span>
                 <span v-html="iconArrow"></span>
               </button>
@@ -706,7 +749,8 @@
               <button
                 @click="openLogout"
                 :class="{
-                  ' pointer-events-none': $route.path == '/profile/customer/settings',
+                  ' pointer-events-none':
+                    $route.path == '/profile/customer/settings',
                 }"
                 class="w-full py-3 rounded-[12px] flex justify-center gap-4 px-4 font-medium text-base text-light-red bg-[#FFE3EA]"
               >
@@ -733,7 +777,7 @@
                   />
                 </svg>
 
-                Выход
+                {{ $store.state.translations["header.logout"] }}
               </button>
             </li>
           </ul>
@@ -741,8 +785,12 @@
       </div>
       <div class="bottom" v-else>
         <div class="grid grid-cols-2 gap-2 px-4">
-          <NuxtLink to="/" class="login">Kirish</NuxtLink>
-          <NuxtLink to="/registration" class="registration">Ro'yxatdan o'tish</NuxtLink>
+          <NuxtLink to="/" class="login">{{
+            $store.state.translations["header.login"]
+          }}</NuxtLink>
+          <NuxtLink to="/registration" class="registration">{{
+            $store.state.translations["header.register"]
+          }}</NuxtLink>
         </div>
       </div>
     </div>
@@ -776,22 +824,22 @@ export default {
       userType: true,
       titleList: [
         {
-          title: "Buyurtmalar",
+          title: this.$store.state.translations["header.orders"],
           pathName: "orders",
           shodow: true,
         },
         {
-          title: "Freelanserlar",
+          title: this.$store.state.translations["header.freelancers"],
           pathName: "freelancers",
           shodow: true,
         },
         {
-          title: "Портфолио",
+          title: this.$store.state.translations["header.portfolio"],
           pathName: "profile-user-portfolio",
           shodow: true,
         },
         {
-          title: "Профиль",
+          title: this.$store.state.translations["header.profile"],
           pathName: "profile-user-info",
           shodow: true,
         },

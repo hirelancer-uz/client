@@ -2,13 +2,13 @@
   <div class="2xl:container container mx-auto mt-[120px] xl:mt-[40px] xl:px-4">
     <div class="flex justify-between mb-[40px] items-center xl:mb-[16px]">
       <h1 class="text-black text-[32px] font-semibold xl:text-[18px]">
-        Eng yaxshi frilanserlar
+        {{ $store.state.translations["main.the-best"] }}
       </h1>
       <nuxt-link
         v-if="totalFreelancer > 10"
         class="flex gap-[6px] items-center text-blue text-[18px] font-medium xl:text-[14px]"
         to="/freelancers"
-        >Ko’proq ko’rish
+        >{{ $store.state.translations["main.see-more"] }}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -36,7 +36,7 @@
       v-if="totalFreelancer > 10"
       class="hidden xl:flex mx-auto mt-4 rounded-lg gap-4 w-[352px] h-16 items-center justify-center border border-grey-8 border-solid text-blue font-medium text-[18px] font-tt xl:mx-0 xl:w-[100%] xl:mt-[12px] xl:h-12 xl:text-[14px] xl:border-main-color xl:font-semibold"
     >
-      Ko’proq ko’rish
+      {{ $store.state.translations["main.see-more"] }}
       <svg
         class="xl:w-[20px]"
         xmlns="http://www.w3.org/2000/svg"

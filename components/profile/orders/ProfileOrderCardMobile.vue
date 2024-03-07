@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div
     class="profile-orders-card border border-solid rounded-[16px] border-grey-8 px-4 py-4 flex flex-col gap-4"
   >
@@ -31,7 +31,7 @@
               stroke-linejoin="round"
             />
           </svg>
-          Срочный заказ</span
+          {{ $store.state.translations["profile.emergency-order"] }}</span
         >
       </div>
       <div class="mt-3">
@@ -44,21 +44,25 @@
             />
           </div>
           <div class="info flex flex-col">
-            <p class="text-[12px] text-grey-40">Клиент</p>
-            <p class="text-[14px] text-grey-80 font-medium">{{ order?.client?.name }}</p>
+            <p class="text-[12px] text-grey-40">
+              {{ $store.state.translations["profile.client"] }}
+            </p>
+            <p class="text-[14px] text-grey-80 font-medium">
+              {{ order?.client?.name }}
+            </p>
           </div>
         </div>
       </div>
       <div class="mt-4">
         <div class="grid grid-cols-2 gap-2">
           <p class="text-[12px] text-grey-64 flex gap-[6px] flex-col">
-            Срок начала:
+            {{ $store.state.translations["profile.start-date"] }}
             <span class="text-black text-[14px] font-medium">{{
               moment(order?.created_at).format(dateFormat)
             }}</span>
           </p>
           <p class="text-[12px] text-grey-64 flex gap-[6px] flex-col">
-            Срок выполнение:
+            {{ $store.state.translations["profile.finish-date"] }}
             <span class="text-black text-[14px] font-medium">05.04.2023</span>
           </p>
         </div>
@@ -67,7 +71,8 @@
         <nuxt-link
           :to="`/profile/customer/order/view/${order?.id}`"
           class="text-main-color border border-solid border-main-color rounded-[8px] h-11 justify-center text-[14px] font-medium flex gap-2 items-center"
-          >Подробнее<svg
+          >{{ $store.state.translations["profile.more"]
+          }}<svg
             width="24"
             height="24"
             viewBox="0 0 24 24"

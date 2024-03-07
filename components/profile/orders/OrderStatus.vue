@@ -1,7 +1,11 @@
-<template lang="html">
+<template>
   <div
     class="flex w-[90%] xl:w-full items-center relative xl:overflow-y-scroll xl:gap-3 scroll-none xl:mx-[-16px] xl:py-4 xl:bg-bg-grey"
-    :class="order?.selected_request || order?.status < 5 ? 'justify-between' : 'justify-start gap-5 xl:gap-3'"
+    :class="
+      order?.selected_request || order?.status < 5
+        ? 'justify-between'
+        : 'justify-start gap-5 xl:gap-3'
+    "
   >
     <div class="flex gap-[10px] xl:gap-2 items-center relative z-10 xl:ml-4">
       <span class="flex justify-center items-center relative">
@@ -32,7 +36,7 @@
       <p
         class="text-base xl:text-[14px] font-medium whitespace-nowrap text-black relative z-10"
       >
-        Идет прием заявок
+        {{ $store.state.translations["profile.recieving-requests"] }}
       </p>
     </div>
     <svg
@@ -77,8 +81,10 @@
           </svg>
         </span>
       </span>
-      <p class="text-base xl:text-[14px] font-medium whitespace-nowrap text-black">
-        Отменено
+      <p
+        class="text-base xl:text-[14px] font-medium whitespace-nowrap text-black"
+      >
+        {{ $store.state.translations["profile.cancel"] }}
       </p>
     </div>
     <div
@@ -98,7 +104,13 @@
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <rect width="24" height="24" rx="6" fill="#5C46E6" fill-opacity="0.4" />
+            <rect
+              width="24"
+              height="24"
+              rx="6"
+              fill="#5C46E6"
+              fill-opacity="0.4"
+            />
             <g clip-path="url(#clip0_3284_33692)">
               <path
                 fill-rule="evenodd"
@@ -151,7 +163,12 @@
             </g>
             <defs>
               <clipPath id="clip0_3284_33692">
-                <rect width="16" height="16" fill="white" transform="translate(4 4)" />
+                <rect
+                  width="16"
+                  height="16"
+                  fill="white"
+                  transform="translate(4 4)"
+                />
               </clipPath>
             </defs>
           </svg>
@@ -163,7 +180,13 @@
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <rect width="24" height="24" rx="6" fill="#9A999B" fill-opacity="0.4" />
+            <rect
+              width="24"
+              height="24"
+              rx="6"
+              fill="#9A999B"
+              fill-opacity="0.4"
+            />
             <g clip-path="url(#clip0_3284_33225)">
               <path
                 fill-rule="evenodd"
@@ -216,14 +239,21 @@
             </g>
             <defs>
               <clipPath id="clip0_3284_33225">
-                <rect width="16" height="16" fill="white" transform="translate(4 4)" />
+                <rect
+                  width="16"
+                  height="16"
+                  fill="white"
+                  transform="translate(4 4)"
+                />
               </clipPath>
             </defs>
           </svg>
         </span>
       </span>
-      <p class="text-base xl:text-[14px] font-medium whitespace-nowrap text-grey-40">
-        Процесс выполнения
+      <p
+        class="text-base xl:text-[14px] font-medium whitespace-nowrap text-grey-40"
+      >
+        {{ $store.state.translations["profile.work-process"] }}
       </p>
     </div>
     <span v-if="order?.selected_request || order?.status < 5">
@@ -284,8 +314,10 @@
           </svg>
         </span>
       </span>
-      <p class="text-base xl:text-[14px] font-medium whitespace-nowrap text-black">
-        Отменено
+      <p
+        class="text-base xl:text-[14px] font-medium whitespace-nowrap text-black"
+      >
+        {{ $store.state.translations["profile.cancelled"] }}
       </p>
     </div>
     <div
@@ -340,8 +372,10 @@
           </svg>
         </span>
       </span>
-      <p class="text-base xl:text-[14px] font-medium whitespace-nowrap text-grey-40">
-        Выполненно
+      <p
+        class="text-base xl:text-[14px] font-medium whitespace-nowrap text-grey-40"
+      >
+        {{ $store.state.translations["profile.done"] }}
       </p>
     </div>
   </div>

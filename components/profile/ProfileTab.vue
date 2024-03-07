@@ -22,7 +22,7 @@
             stroke-linejoin="round"
           />
         </svg>
-        Profil
+        {{ $store.state.translations["profile.profile"] }}
       </nuxt-link>
       <nuxt-link
         :to="`/profile/${$route.params.user}/orders/active/status`"
@@ -48,7 +48,7 @@
           />
         </svg>
 
-        Проект</nuxt-link
+        {{ $store.state.translations["profile.project"] }}</nuxt-link
       >
 
       <nuxt-link
@@ -71,7 +71,7 @@
             stroke-linejoin="round"
           />
         </svg>
-        Portfolio</nuxt-link
+        {{ $store.state.translations["profile.portfolio"] }}</nuxt-link
       >
       <!-- <nuxt-link
         v-if="$route.params.user == 'freelancer'"
@@ -184,7 +184,7 @@
             stroke-linejoin="round"
           />
         </svg>
-        Sozlamalar</nuxt-link
+        {{ $store.state.translations["profile.settings"] }}</nuxt-link
       >
       <nuxt-link
         :to="`/profile/${$route.params.user}/comments`"
@@ -207,7 +207,7 @@
           <circle cx="8" cy="12.5" r="1" fill="#353437" />
         </svg>
 
-        Izohlar</nuxt-link
+        {{ $store.state.translations["profile.comments"] }}</nuxt-link
       >
     </div>
   </div>

@@ -3,7 +3,9 @@
     <div
       class="select-freelancer-card relative px-4 py-4 rounded-2xl bg-white flex flex-col gap-4"
     >
-      <nuxt-link :to="`/freelancer/${freelancer?.id}`" class="absolute right-4 top-4"
+      <nuxt-link
+        :to="`/freelancer/${freelancer?.id}`"
+        class="absolute right-4 top-4"
         ><svg
           width="20"
           height="20"
@@ -69,7 +71,7 @@
         <a
           href=""
           class="border border-solid border-[#1878F3] rounded-lg flex gap-2 justify-center h-[43px] items-center text-base font-medium text-[#1878F3]"
-          :class="{'pointer-events-none opacity-50': true}"
+          :class="{ 'pointer-events-none opacity-50': true }"
           ><svg
             width="21"
             height="20"
@@ -85,7 +87,12 @@
             </g>
             <defs>
               <clipPath id="clip0_1559_17786">
-                <rect width="20" height="20" fill="white" transform="translate(0.5)" />
+                <rect
+                  width="20"
+                  height="20"
+                  fill="white"
+                  transform="translate(0.5)"
+                />
               </clipPath>
             </defs>
           </svg>

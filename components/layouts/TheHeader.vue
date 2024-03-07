@@ -32,11 +32,17 @@
           ></nuxt-link>
         </div>
         <div class="menu flex gap-[40px]">
-          <nuxt-link class="text-[18px] text-black font-tt font-normal" to="/orders"
-            >Buyurtmalar</nuxt-link
+          <nuxt-link
+            class="text-[18px] text-black font-tt font-normal"
+            to="/orders"
           >
-          <nuxt-link class="text-[18px] text-black font-tt font-normal" to="/freelancers"
-            >Frilanserlar</nuxt-link
+            {{ $store.state.translations["header.orders"] }}</nuxt-link
+          >
+          <nuxt-link
+            class="text-[18px] text-black font-tt font-normal"
+            to="/freelancers"
+          >
+            {{ $store.state.translations["header.freelancers"] }}</nuxt-link
           >
         </div>
       </div>
@@ -183,7 +189,7 @@
                   @click="$store.commit('setUserType','customer')"
                   class="rounded-[12px] bg-green py-2 w-[230px] flex justify-center text-white font-medium text-base hover:text-white"
                 >
-                  Перейти на “заказчик”
+                  {{ $store.state.translations["header.goto-customer"] }}
                 </button>
               </li>
               <li key="1">
@@ -218,7 +224,7 @@
                       stroke-linejoin="round"
                     />
                   </svg>
-                  Профиль
+                  {{ $store.state.translations["header.profile"] }}
                 </button>
               </li>
               <li key="2">
@@ -228,7 +234,9 @@
                       $route.path.includes('/profile/freelancer/orders') &&
                       $route.path.includes('status'),
                   }"
-                  @click="$router.push('/profile/freelancer/orders/active/status')"
+                  @click="
+                    $router.push('/profile/freelancer/orders/active/status')
+                  "
                   class="w-full py-2 flex gap-2 rounded-xl bg-bg-grey px-4 font-medium text-base text-black hover:bg-grey-light"
                 >
                   <svg
@@ -247,7 +255,7 @@
                     />
                   </svg>
 
-                  Проект
+                  {{ $store.state.translations["header.project"] }}
                 </button>
               </li>
               <li key="3">
@@ -293,7 +301,7 @@
                     />
                   </svg>
 
-                  Портфолио
+                  {{ $store.state.translations["header.portfolio"] }}
                 </button>
               </li>
               <li key="4">
@@ -318,7 +326,7 @@
                     />
                   </svg>
 
-                  Настройки
+                  {{ $store.state.translations["header.settings"] }}
                 </button>
               </li>
               <li key="5">
@@ -344,7 +352,7 @@
                     <circle cx="8" cy="12" r="1" fill="#353437" />
                   </svg>
 
-                  Отзывы
+                  {{ $store.state.translations["header.reviews"] }}
                 </button>
               </li>
               <span class="w-full flex h-[1px] bg-border-darik"></span>
@@ -380,7 +388,7 @@
                     />
                   </svg>
 
-                  Выход
+                  {{ $store.state.translations["header.logout"] }}
                 </button>
               </li>
             </ul>
@@ -394,7 +402,7 @@
                   @click="$store.commit('setUserType','freelancer')"
                   class="rounded-[12px] bg-main-color py-2 w-[230px] flex justify-center text-white font-medium text-base hover:text-white"
                 >
-                  Перейти на “фрилансер”
+                  {{ $store.state.translations["header.goto-freelancer"] }}
                 </button>
               </li>
 
@@ -405,7 +413,9 @@
                       $route.path.includes('/profile/customer/orders') &&
                       $route.path.includes('status'),
                   }"
-                  @click="$router.push('/profile/customer/orders/active/status')"
+                  @click="
+                    $router.push('/profile/customer/orders/active/status')
+                  "
                   class="w-full py-2 flex gap-2 rounded-xl bg-bg-grey px-4 font-medium text-base text-black hover:bg-grey-light"
                 >
                   <svg
@@ -424,7 +434,7 @@
                     />
                   </svg>
 
-                  Проект
+                  {{ $store.state.translations["header.project"] }}
                 </button>
               </li>
 
@@ -450,7 +460,7 @@
                     />
                   </svg>
 
-                  Настройки
+                  {{ $store.state.translations["header.settings"] }}
                 </button>
               </li>
               <span class="w-full flex h-[1px] bg-border-darik"></span>
@@ -486,7 +496,7 @@
                     />
                   </svg>
 
-                  Выход
+                  {{ $store.state.translations["header.logout"] }}
                 </button>
               </li>
             </ul>
@@ -506,7 +516,7 @@
               @click="$router.push('/registration')"
               class="rounded-xl text-4 py-3 px-6 font-medium font-tt bg-blue text-white"
             >
-              Ro’yxatdan o’ting
+              {{ $store.state.translations["header.lets-register"] }}
             </button>
           </div>
         </div>

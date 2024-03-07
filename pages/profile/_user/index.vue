@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div class="profile">
     <div class="mt-8">
       <Alerts />
@@ -7,7 +7,7 @@
       <PersonalInfo :isEdit="true" :profile="true" :userInfo="$store.state.userInfo" />
     </div>
     <div class="personal-information mt-10" v-if="$route.params.user === 'freelancer'">
-      <Statistics :userInfo="$store.state.userInfo" />
+      <Statistics :userInfo="$store.state.userInfo"/>
     </div>
     <div class="mt-10" v-if="$route.params.user === 'freelancer'">
       <Comments :feedbacks="comments" @getComments="__GET_COMMENTS" />

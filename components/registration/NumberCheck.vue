@@ -29,13 +29,20 @@
               fill="#5C46E6"
             />
             <circle cx="81.8028" cy="7.87821" r="4.14823" fill="white" />
-            <circle cx="119.966" cy="7.87821" r="4.14823" fill="white" /></svg></span
+            <circle
+              cx="119.966"
+              cy="7.87821"
+              r="4.14823"
+              fill="white"
+            /></svg></span
       ></nuxt-link>
-      <h4 class="flex text-black text-[24px] font-semibold mt-[31px] xl:text-[20px]">
-        Kirish yoki ro'yxatdan o'tish
+      <h4
+        class="flex text-black text-[24px] font-semibold mt-[31px] xl:text-[20px]"
+      >
+        {{ $store.state.translations["auth.auth"] }}
       </h4>
       <p class="flex text-base text-grey-64 mt-2 xl:text-[14px]">
-        Yagona avtorizatsiya va ro'yxatdan o'tish
+        {{ $store.state.translations["auth.auth-center"] }}
       </p>
     </div>
     <div class="xl:pt-2">
@@ -43,7 +50,7 @@
         <a-form-model-item
           ref="name"
           class="auth-item"
-          label="Telefon raqamingizni kiriting"
+          :label="$store.state.translations['auth.enter-number']"
           prop="phone"
         >
           <!-- <a-input v-model="form.name" /> -->
@@ -63,7 +70,7 @@
           </div>
         </a-form-model-item>
         <p class="text-grey-40 text-[14px] mt-[11px]">
-          Kiritgan telefon raqamingizga tasdiqlash kodi yuboriladi
+          {{ $store.state.translations["auth.sent-code"] }}
         </p>
       </a-form-model>
     </div>
@@ -74,7 +81,7 @@
         @click="$router.go(-1)"
         class="h-[60px] xl:h-[52px] border border-solid border-border-darik rounded-[12px] flex justify-center items-center text-[18px] xl:text-[14px] text-black font-medium"
       >
-        Bekor qilish
+        {{ $store.state.translations["auth.cancel"] }}
       </button>
       <button
         @click="onSubmit"
@@ -84,7 +91,7 @@
         }"
       >
         <LoaderBtn v-if="loading" />
-        <span v-else>Kodni jo’natish</span>
+        <span v-else>{{ $store.state.translations["auth.confirm-code"] }}</span>
       </button>
     </div>
   </div>
@@ -106,10 +113,14 @@ export default {
         phone: [
           {
             required: true,
-            message: "This field is required",
+            message: this.$store.state.translations["auth.required"],
             trigger: "blur",
           },
-          { min: 12, message: "Raqam 9 xonali bo'lishi kerak", trigger: "blur" },
+          {
+            min: 12,
+            message: this.$store.state.translations["auth.nine-digit"],
+            trigger: "blur",
+          },
         ],
       },
     };

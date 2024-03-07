@@ -1,9 +1,11 @@
-<template lang="html">
+<template>
   <div
     class="info-card px-6 py-6 xl:px-4 xl:py-4 rounded-[16px] bg-bg-grey flex justify-between items-center xl:flex-col xl:items-start xl:gap-6"
   >
     <div class="flex flex-col gap-2 max-w-[75%] xl:max-w-full">
-      <h5 class="text-[20px] xl:text-[18px] text-black font-medium xl:font-semibold">
+      <h5
+        class="text-[20px] xl:text-[18px] text-black font-medium xl:font-semibold"
+      >
         {{ title }}
       </h5>
       <span

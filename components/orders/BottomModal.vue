@@ -1,10 +1,14 @@
-<template lang="html">
+<template>
   <div>
     <div class="xl:hidden">
       <a-modal
         class="close-modal relative xl:hidden"
         v-model="visible"
-        :body-style="{ padding: '16px', paddingLrft: '32px', borderRadius: '24px' }"
+        :body-style="{
+          padding: '16px',
+          paddingLrft: '32px',
+          borderRadius: '24px',
+        }"
         centered
         :closable="false"
         width="1440px"
@@ -13,15 +17,15 @@
         <div
           class="modal h-[516px] xl:h-auto m-full mx-auto rounded-t-[16px] max-w-[1440px] bg-white xl:px-4 xl:pb-6"
         >
-          <div class="max-w-[1200px] mx-auto pt-[80px] xl:pt-3 grid-container h-full">
+          <div
+            class="max-w-[1200px] mx-auto pt-[80px] xl:pt-3 grid-container h-full"
+          >
             <div class="info flex flex-col gap-4 xl:gap-2">
               <h2 class="text-[24px] text-black font-semibold xl:text-[18px]">
-                Отправить заявку
+                {{ $store.state.translations["order.send-request"] }}
               </h2>
               <p class="text-base text-grey-80 xl:text-[14px]">
-                Join our world-class innovation team, revolutionizing education at ASU
-                Prep Digital. Our mission is to enhance student performance and provide
-                access
+                {{ $store.state.translations["order.txt"] }}
               </p>
               <img
                 loading="lazy"
@@ -37,47 +41,58 @@
                     <a-form-model-item
                       prop="deadline"
                       class="form-item w-full mb-0"
-                      label="Срок исполнения в днях"
+                      :label="$store.state.translations['order.date-days']"
                     >
                       <a-input
                         v-model="form.deadline"
-                        placeholder="0 дней"
+                        placeholder="0"
                         type="number"
                       />
                     </a-form-model-item>
-                    <a-form-model-item class="form-item w-full" label="Цена" prop="price">
-                      <a-input v-model="form.price" placeholder="0 сум" type="number" />
+                    <a-form-model-item
+                      class="form-item w-full"
+                      :label="$store.state.translations['order.price']"
+                      prop="price"
+                    >
+                      <a-input
+                        v-model="form.price"
+                        placeholder="0"
+                        type="number"
+                      />
                     </a-form-model-item>
                   </div>
                   <div>
-                    <a-form-model-item class="form-item w-full" label="Ваш отклик">
+                    <a-form-model-item
+                      class="form-item w-full"
+                      :label="$store.state.translations['order.comment']"
+                    >
                       <a-input
                         type="textarea"
                         rows="6"
                         v-model="form.additional_info"
-                        placeholder="Дополнительная информация"
+                        :placeholder="
+                          $store.state.translations['order.add-info']
+                        "
                       />
                     </a-form-model-item>
                   </div>
                 </div>
               </a-form-model>
               <p class="text-base text-grey-80 xl:mt-[-24px] xl:text-[14px]">
-                Join our world-class innovation team, revolutionizing education at ASU
-                Prep Digital. Our mission is to enhance student performance and provide
-                access
+                {{ $store.state.translations["order.txt"] }}
               </p>
               <div class="buttons flex justify-end gap-4 xl:flex-col-reverse">
                 <button
                   @click="closeModal"
                   class="px-[24px] w-[168px] items-center border border-solid rounded-[8px] xl:rounded-xl h-[52px] xl:h-12 border-grey-24 flex justify-center text-base xl:text-[14px] text-grey-64 font-medium"
                 >
-                  Отмена
+                  {{ $store.state.translations["order.cancel"] }}
                 </button>
                 <button
                   @click="submitForm"
                   class="px-6 gap-2 items-center border border-solid rounded-[8px] xl:rounded-xl h-[52px] xl:h-12 border-blue bg-blue flex justify-center text-base xl:text-[14px] text-white font-medium"
                 >
-                  Отправить заявку
+                  {{ $store.state.translations["order.send-request"] }}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -95,7 +110,10 @@
                   </svg>
                 </button>
               </div>
-              <button class="absolute top-5 right-8 xl:hidden" @click="closeModal">
+              <button
+                class="absolute top-5 right-8 xl:hidden"
+                @click="closeModal"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="40"
@@ -127,15 +145,15 @@
         <div
           class="modal h-[516px] xl:h-auto m-full mx-auto rounded-t-[16px] max-w-[1440px] bg-white xl:px-4 xl:pb-6"
         >
-          <div class="max-w-[1200px] mx-auto pt-[80px] xl:pt-3 grid-container h-full">
+          <div
+            class="max-w-[1200px] mx-auto pt-[80px] xl:pt-3 grid-container h-full"
+          >
             <div class="info flex flex-col gap-4 xl:gap-2">
               <h2 class="text-[24px] text-black font-semibold xl:text-[18px]">
-                Отправить заявку
+                {{ $store.state.translations["order.send-request"] }}
               </h2>
               <p class="text-base text-grey-80 xl:text-[14px]">
-                Join our world-class innovation team, revolutionizing education at ASU
-                Prep Digital. Our mission is to enhance student performance and provide
-                access
+                {{ $store.state.translations["order.txt"] }}
               </p>
               <img
                 loading="lazy"
@@ -151,20 +169,31 @@
                     <a-form-model-item
                       prop="deadline"
                       class="form-item w-full mb-0"
-                      label="Срок исполнения в днях"
+                      :label="$store.state.translations['order.date-days']"
                     >
                       <a-input
                         v-model="form.deadline"
-                        placeholder="0 дней"
+                        placeholder="0"
                         type="number"
                       />
                     </a-form-model-item>
-                    <a-form-model-item class="form-item w-full" label="Цена" prop="price">
-                      <a-input v-model="form.price" placeholder="0 сум" type="number" />
+                    <a-form-model-item
+                      class="form-item w-full"
+                      :label="$store.state.translations['order.price']"
+                      prop="price"
+                    >
+                      <a-input
+                        v-model="form.price"
+                        placeholder="0"
+                        type="number"
+                      />
                     </a-form-model-item>
                   </div>
                   <div>
-                    <a-form-model-item class="form-item w-full" label="Ваш отклик">
+                    <a-form-model-item
+                      class="form-item w-full"
+                      :label="$store.state.translations['order.comment']"
+                    >
                       <a-input
                         type="textarea"
                         rows="6"
@@ -176,22 +205,20 @@
                 </div>
               </a-form-model>
               <p class="text-base text-grey-80 xl:mt-[-24px] xl:text-[14px]">
-                Join our world-class innovation team, revolutionizing education at ASU
-                Prep Digital. Our mission is to enhance student performance and provide
-                access
+                {{ $store.state.translations["order.txt"] }}
               </p>
               <div class="buttons flex justify-end gap-4 xl:flex-col-reverse">
                 <button
                   @click="close"
                   class="px-[24px] w-[168px] xl:w-full items-center border border-solid rounded-[8px] xl:rounded-xl h-[52px] xl:h-12 border-grey-24 flex justify-center text-base xl:text-[14px] text-grey-64 font-medium"
                 >
-                  Отмена
+                  {{ $store.state.translations["order.cancel"] }}
                 </button>
                 <button
                   @click="submitForm"
                   class="px-6 gap-2 items-center border border-solid rounded-[8px] xl:rounded-xl h-[52px] xl:h-12 border-blue bg-blue flex justify-center text-base xl:text-[14px] text-white font-medium"
                 >
-                  Отправить заявку
+                  {{ $store.state.translations["order.send-request"] }}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -247,10 +274,18 @@ export default {
       },
       rules: {
         price: [
-          { required: true, message: "Please input Activity name", trigger: "blur" },
+          {
+            required: true,
+            message: this.$store.state.translations["order.required"],
+            trigger: "blur",
+          },
         ],
         deadline: [
-          { required: true, message: "Please input Activity name", trigger: "blur" },
+          {
+            required: true,
+            message: this.$store.state.translations["order.required"],
+            trigger: "blur",
+          },
         ],
       },
     };

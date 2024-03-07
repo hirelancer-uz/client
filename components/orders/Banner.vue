@@ -9,14 +9,19 @@
         <h3
           class="text-[27px] text-black font-bold xl:text-base xl:max-w-[75%] relative z-30"
         >
-          Nima uchun <span class="text-blue">korxonalar</span>
-          <span class="text-blue">Hirelancer’ga</span> murojaat qilishadi
+          {{ $store.state.translations["order.banner-title-1"] }}
+          <span class="text-blue">{{
+            $store.state.translations["order.banner-title-2"]
+          }}</span>
+          <span class="text-blue">{{
+            $store.state.translations["order.banner-title-3"]
+          }}</span>
+          {{ $store.state.translations["order.banner-title-4"] }}
         </h3>
         <p
           class="text-xs text-black xl:text-[12px] xl:max-w-[50%] relative z-30"
         >
-          Eski qoidalarni unuting. Siz eng yaxshi frilanserlarni shu yerda
-          topishingiz mumkin.
+          {{ $store.state.translations["order.banner-sub"] }}
         </p>
       </div>
     </div>

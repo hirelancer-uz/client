@@ -25,7 +25,7 @@
             stroke-linejoin="round"
           />
         </svg>
-        Profil
+        {{ $store.state.translations["profile.read"] }}
       </nuxt-link>
 
       <nuxt-link
@@ -47,7 +47,7 @@
             stroke-linejoin="round"
           />
         </svg>
-        Portfolio</nuxt-link
+        {{ $store.state.translations["profile.portfolio"] }}</nuxt-link
       >
       <nuxt-link
         :to="`/freelancer/${$route.params.index}/comments`"
@@ -70,7 +70,7 @@
           <circle cx="8" cy="12.5" r="1" fill="#353437" />
         </svg>
 
-        Izohlar</nuxt-link
+        {{ $store.state.translations["profile.comments"] }}</nuxt-link
       >
       <!--   <nuxt-link
         to="/"

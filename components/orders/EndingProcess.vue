@@ -31,10 +31,10 @@
           d="M6.75 12C6.75 11.5858 7.08579 11.25 7.5 11.25L11.5 11.25C11.9142 11.25 12.25 11.5858 12.25 12C12.25 12.4142 11.9142 12.75 11.5 12.75L7.5 12.75C7.08579 12.75 6.75 12.4142 6.75 12Z"
           fill="white"
         /></svg
-      >Процесс выполнения
+      >{{ $store.state.translations["profile.work-process"] }}
     </div>
     <p class="text-white text-[12px]">
-      Boshlangan vaqti:
+      {{ $store.state.translations["profile.start-date"] }}
       {{ moment(selected?.created_at).format("HH:mm DD.MM.YYYY") }}
     </p>
   </div>

@@ -6,14 +6,20 @@
       <div
         class="flex justify-between pricer items-center xl:flex-row xl:justify-between xl:items-center"
       >
-        <p class="text-grey-64 text-[14px] xl:text-base xl:font-semibold price__sup">
-          Buyrtma narxi:
+        <p
+          class="text-grey-64 text-[14px] xl:text-base xl:font-semibold price__sup"
+        >
+          {{ $store.state.translations["order.price"] }}
         </p>
         <h1
           class="text-black text-base font-semibold xl:text-base exact__price whitespace-nowrap"
         >
           {{
-            order?.price ? `${order?.price.toLocaleString()} so’m` : "По договоренности"
+            order?.price
+              ? `${order?.price.toLocaleString()}  ${
+                  $store.state.translations["profile.sum"]
+                }`
+              : `${$store.state.translations["profile.deal"]}`
           }}
         </h1>
       </div>
@@ -24,7 +30,7 @@
         <h4
           class="text-main-color text-[18px] font-semibold xl:font-medium xl:text-[14px]"
         >
-          По договоренности
+          {{ $store.state.translations["profile.deal"] }}
         </h4>
       </div>
     </div>
@@ -33,7 +39,9 @@
         @click="$emit('open')"
         class="app-btn relative over h-[52px] xl:h-12 justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-blue border-blue text-base xl:text-[14px] text-white font-medium"
       >
-        <span class="relative z-20"> Отправить заявку</span>
+        <span class="relative z-20">
+          {{ $store.state.translations["order.send-request"] }}</span
+        >
         <svg
           class="relative z-20 xl:hidden"
           xmlns="http://www.w3.org/2000/svg"
@@ -73,6 +81,7 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {
   props: ["order"],
@@ -100,7 +109,10 @@ export default {
   left: 0;
   height: 100%;
   width: 100%;
-  background: var(--Button-gradient, linear-gradient(0deg, #5c46e5 0%, #9882ff 106.73%));
+  background: var(
+    --Button-gradient,
+    linear-gradient(0deg, #5c46e5 0%, #9882ff 106.73%)
+  );
   box-shadow: 0px 12px 16px 0px rgba(92, 70, 229, 0.16);
   opacity: 0;
   transition: 0.3s;

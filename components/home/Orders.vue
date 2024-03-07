@@ -2,12 +2,14 @@
   <div class="orders bg-bg-grey py-[120px] xl:py-6 xl:px-4">
     <div class="max-w-[954px] mx-auto">
       <div class="flex justify-between">
-        <h1 class="text-black text-[32px] font-semibold xl:text-[18px]">Buyurtmalar</h1>
+        <h1 class="text-black text-[32px] font-semibold xl:text-[18px]">
+          {{ $store.state.translations["main.orders"] }}
+        </h1>
         <nuxt-link
           v-if="totalOrder > 10"
           class="flex gap-[6px] text-blue text-[18px] items-center font-medium xl:text-[14px]"
           to="/orders"
-          >Ko’proq ko’rish
+          >{{ $store.state.translations["main.see-more"] }}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

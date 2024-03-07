@@ -4,7 +4,7 @@
   >
     <div class="flex justify-between">
       <h1 class="text-black text-[24px] font-semibold xl:text-[18px]">
-        Участие в мероприятиях
+        {{ $store.state.translations["profile.events-relate"] }}
       </h1>
       <button class="xl:block hidden">
         <svg

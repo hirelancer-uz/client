@@ -29,22 +29,31 @@
               fill="#5C46E6"
             />
             <circle cx="81.8028" cy="7.87821" r="4.14823" fill="white" />
-            <circle cx="119.966" cy="7.87821" r="4.14823" fill="white" /></svg></span
+            <circle
+                cx="119.966"
+                cy="7.87821"
+                r="4.14823"
+                fill="white"
+            /></svg></span
       ></nuxt-link>
-      <h4 class="flex text-black text-[24px] font-semibold mt-[31px] xl:text-[20px]">
-        Royxatdan otish
+      <h4
+          class="flex text-black text-[24px] font-semibold mt-[31px] xl:text-[20px]"
+      >
+        {{ $store.state.translations["auth.registrate"] }}
       </h4>
       <p class="flex text-base text-grey-64 mt-2 xl:text-[14px]">
-        Foydalanuvchi turini tanlang
+        {{ $store.state.translations["auth.choose-type"] }}
       </p>
     </div>
-    <div class="xl:h-full xl:flex xl:flex-col xl:justify-between xl:pb-4 xl:pt-2">
+    <div
+        class="xl:h-full xl:flex xl:flex-col xl:justify-between xl:pb-4 xl:pt-2"
+    >
       <a-form-model ref="ruleForm" :model="form" :rules="rules">
         <div class="flex flex-col gap-8 xl:gap-6">
           <a-form-model-item
             ref="name"
             class="auth-item"
-            label="Telefon raqamingizni kiriting"
+            :label="$store.state.translations[`auth.number`]"
             prop="phone_number"
           >
             <!-- <a-input v-model="form.name" /> -->
@@ -79,7 +88,7 @@
           <a-form-model-item
             ref="name"
             class="auth-item required"
-            label="Tasdiqlash kodini kiriting"
+            :label="$store.state.translations['auth.enter-code']"
             prop="phone_number"
           >
             <div
@@ -121,7 +130,7 @@
           :class="{ 'opacity-50 pointer-events-none': time > 0 }"
           class="text-blue text-[15px] mt-3 xl:mt-2 xl:text-[14px]"
         >
-          Qayta jo'natish
+          {{ $store.state.translations["auth.resend-code"] }}
         </button>
 
         <p class="text-grey-40 text-[14px] mt-6 xl:hidden">
@@ -132,7 +141,7 @@
                 .filter((item, index) => index !== 0)
               .join(" ")
           }}
-          telefon raqamingizga tasdiqlash kodi yuborildi
+          {{ $store.state.translations["auth.sent-code"] }}
         </p>
 
       </a-form-model>
@@ -145,7 +154,7 @@
                 .filter((item, index) => index !== 0)
               .join(" ")
           }}
-          telefon raqamingizga tasdiqlash kodi yuborildi
+          {{ $store.state.translations["auth.sent-code"] }}
         </p>
         <div
             class="buttons grid grid-cols-2 gap-4 mt-6 xl:mt-0 xl:flex xl:flex-col-reverse xl:gap-2 xl:w-full xl:fixed xl:left-0 xl:px-4 xl:bottom-4"
@@ -155,7 +164,7 @@
               @click="$router.go(-1)"
               class="h-[60px] xl:h-[52px] border border-solid border-border-darik rounded-[12px] flex justify-center items-center text-[18px] xl:text-[14px] text-black font-medium"
           >
-            Bekor qilish
+            {{ $store.state.translations["auth.cancel"] }}
           </button>
           <button
               type="submit"
@@ -163,10 +172,12 @@
               class="h-[60px] xl:h-[52px] border border-solid border-blue bg-blue rounded-[12px] flex justify-center items-center text-[18px] xl:text-[14px] text-white font-medium"
               :class="{
               'pointer-events-none opacity-50': loading || form.password.length < 6,
-            }"
+                 }"
           >
             <LoaderBtn v-if="loading" />
-            <span v-else>Kodni jo’natish</span>
+            <span v-else>{{
+                $store.state.translations["auth.confirm-code"]
+              }}</span>
           </button>
         </div>
       </div>

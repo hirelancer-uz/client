@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div>
     <div class="xl:hidden">
       <a-modal
@@ -61,23 +61,26 @@
               /></svg
           ></span>
           <div class="flex flex-col gap-4 items-center mt-8">
-            <h4 class="text-[24px] max-w-[573px] text-black font-semibold text-center">
-              Siz mutaxassislik qo'shmagansiz, buyurtmani olishdan avval mutaxassislikni
-              qo'shishingiz kerak
+            <h4
+              class="text-[24px] max-w-[573px] text-black font-semibold text-center"
+            >
+              {{ $store.state.translations["modal.not-added"] }}
             </h4>
           </div>
-          <div class="buttons grid grid-cols-2 gap-4 w-full items-center mt-12 px-4">
+          <div
+            class="buttons grid grid-cols-2 gap-4 w-full items-center mt-12 px-4"
+          >
             <button
               @click="visible = false"
               class="border border-solid border-grey-light rounded-lg h-[54px] flex justify-center items-center text-base font-medium text-grey-64"
             >
-              Yopish
+              {{ $store.state.translations["modal.close"] }}
             </button>
             <button
               @click="send"
               class="bg-main-color rounded-lg h-[54px] flex justify-center items-center text-base font-medium text-white"
             >
-              Mutaxassislik qo'shish
+              {{ $store.state.translations["modal.add-spec"] }}
             </button>
           </div>
         </div>
@@ -142,8 +145,7 @@
           </span>
           <div class="flex flex-col gap-4 items-center mt-4">
             <h4 class="text-[18px] text-black font-semibold text-center">
-              Siz mutaxassislik qo'shmagansiz, buyurtmani olishdan avval mutaxassislikni
-              qo'shishingiz kerak
+              {{ $store.state.translations["modal.not-added"] }}
             </h4>
           </div>
           <div class="buttons flex flex-col gap-3 w-full mt-10 px-4">
@@ -151,13 +153,13 @@
               @click="send"
               class="bg-main-color w-full rounded-lg h-12 items-center flex justify-center text-[14px] font-medium text-white"
             >
-              Mutaxassislik qo'shish
+              {{ $store.state.translations["modal.add-spec"] }}
             </button>
             <button
               @click="close"
               class="border border-solid w-full border-grey-light rounded-lg h-12 flex justify-center items-center text-[14px] font-medium text-grey-64"
             >
-              Yopish
+              {{ $store.state.translations["modal.close"] }}
             </button>
           </div>
         </div>

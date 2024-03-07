@@ -1,9 +1,13 @@
-<template lang="html">
+<template>
   <div>
     <a-modal
       class="complaint-modal"
       v-model="visible"
-      :body-style="{ padding: '16px', paddingLrft: '32px', borderRadius: '24px' }"
+      :body-style="{
+        padding: '16px',
+        paddingLrft: '32px',
+        borderRadius: '24px',
+      }"
       centered
       :closable="false"
       width="954px"
@@ -69,7 +73,9 @@
               <div class="flex justify-between mb-[2px]">
                 <p class="text-[14px] text-grey-64">Клиент:</p>
               </div>
-              <h4 class="text-black text-base font-medium">Muhammadullo Egamberdiyev</h4>
+              <h4 class="text-black text-base font-medium">
+                Muhammadullo Egamberdiyev
+              </h4>
             </div>
           </div>
         </div>
@@ -80,7 +86,7 @@
                 v-model="form.complaints"
                 type="textarea"
                 rows="6"
-                placeholder="Frilanserga fikr qoldirish"
+                :placeholder="$store.state.translations[`modal.leave-comment`]"
               />
             </a-form-model-item>
           </a-form-model>
@@ -92,7 +98,7 @@
                 'pointer-events-none opacity-50': loadingBtn,
               }"
             >
-              Yuborish
+              {{ $store.state.translations["modal.send"] }}
               <LoaderBtn v-if="loadingBtn" />
               <svg
                 v-else
@@ -118,6 +124,7 @@
     </a-modal>
   </div>
 </template>
+
 <script>
 import LoaderBtn from "@/components/loader-btn.vue";
 export default {
@@ -128,7 +135,11 @@ export default {
       text: "",
       rules: {
         complaints: [
-          { required: true, message: "This field is required", trigger: "blur" },
+          {
+            required: true,
+            message: "This field is required",
+            trigger: "blur",
+          },
         ],
       },
       form: {

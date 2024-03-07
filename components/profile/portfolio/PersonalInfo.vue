@@ -6,14 +6,14 @@
     >
       <div class="flex justify-between">
         <h6 class="text-[18px] font-medium text-black xl:font-semibold">
-          Frilanser haqida
+          {{ $store.state.translations["profile.about-free"] }}
         </h6>
         <button
           v-if="isEdit"
           @click="$router.push(`/profile/${$route.params.user}/settings`)"
           class="flex gap-[6px] text-base text-blue font-medium items-center xl:text-[14px]"
         >
-         O'zgartirish
+          {{ $store.state.translations["profile.edit"] }}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"

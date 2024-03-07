@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div
     class="offers-order-card border border-solid border-border-darik rounded-2xl bg-white px-6 py-6 xl:px-4 xl:py-4"
   >
@@ -59,13 +59,18 @@
                 <path
                   d="M5.8528 1.90767C6.3222 0.918798 7.67845 0.918796 8.14785 1.90767L8.9591 3.6167C9.14549 4.00939 9.50581 4.28156 9.92261 4.34453L11.7366 4.61859C12.7862 4.77716 13.2053 6.11825 12.4458 6.88798L11.1332 8.21828C10.8316 8.52394 10.694 8.96433 10.7652 9.39593L11.075 11.2743C11.2543 12.3612 10.1571 13.1901 9.2183 12.6769L7.59581 11.79C7.22301 11.5863 6.77764 11.5863 6.40484 11.79L4.78235 12.6769C3.84355 13.1901 2.74632 12.3612 2.92562 11.2743L3.23549 9.39593C3.30668 8.96433 3.16906 8.52394 2.86746 8.21828L1.55484 6.88798C0.795331 6.11825 1.21443 4.77716 2.26404 4.61859L4.07804 4.34453C4.49484 4.28156 4.85516 4.00939 5.04155 3.6167L5.8528 1.90767Z"
                   fill="#F2C94C"
-                /></svg
-              >{{ request?.freelancer?.stars }}
+                />
+              </svg>
+              {{ request?.freelancer?.stars }}
             </p>
             <div class="flex gap-2">
-              <p class="text-grey-40 text-base xl:hidden">Oтзывы:</p>
+              <p class="text-grey-40 text-base xl:hidden">
+                {{ $store.state.translations["profile.comments"] }}
+              </p>
               <p class="text-[14px] flex gap-2 items-center">
-                <span class="text-green text-base flex gap-1 xl:text-[14px] items-center">
+                <span
+                  class="text-green text-base flex gap-1 xl:text-[14px] items-center"
+                >
                   <svg
                     class="xl:h-[14px]"
                     xmlns="http://www.w3.org/2000/svg"
@@ -144,29 +149,46 @@
           </svg>
         </button>
         <div class="flex flex-col gap-2 xl:hidden">
-          <h3 class="text-grey-80 text-[20px] font-semibold" v-if="request?.price">
-            {{ request?.price.toLocaleString() }} сум
+          <h3
+            class="text-grey-80 text-[20px] font-semibold"
+            v-if="request?.price"
+          >
+            {{ request?.price.toLocaleString() }}
+            {{ $store.state.translations["profile.sun"] }}
           </h3>
-          <h3 class="text-grey-80 text-[20px] font-semibold" v-else>По договоренности</h3>
+          <h3 class="text-grey-80 text-[20px] font-semibold" v-else>
+            {{ $store.state.translations["profile.deal"] }}
+          </h3>
           <p class="text-grey-64 text-[14px] flex gap-[6px]">
-            Срок:<span class="text-black" v-if="request?.deadline"
-              >{{ request?.deadline }} дней</span
+            {{ $store.state.translations["profile.deadline"]
+            }}<span class="text-black" v-if="request?.deadline"
+              >{{ request?.deadline }}
+              {{ $store.state.translations["profile.days"] }}</span
             >
-            <span v-else class="text-black"> По договоренности</span>
+            <span v-else class="text-black">
+              {{ $store.state.translations["profile.deal"] }}</span
+            >
           </p>
         </div>
       </div>
     </div>
     <div class="hidden justify-between gap-2 xl:flex mt-5">
       <h3 class="text-grey-80 text-base font-semibold" v-if="request?.price">
-        {{ request?.price.toLocaleString() }} сум
+        {{ request?.price.toLocaleString() }}
+        {{ $store.state.translations["profile.sun"] }}
       </h3>
-      <h3 class="text-grey-80 text-base font-semibold" v-else>По договоренности</h3>
+      <h3 class="text-grey-80 text-base font-semibold" v-else>
+        {{ $store.state.translations["profile.deal"] }}
+      </h3>
       <p class="text-grey-64 text-[12px] flex gap-[6px]">
-        Срок:<span class="text-black" v-if="request?.deadline"
-          >{{ request?.deadline }} дней</span
+        {{ $store.state.translations["profile.deadline"]
+        }}<span class="text-black" v-if="request?.deadline"
+          >{{ request?.deadline }}
+          {{ $store.state.translations["profile.days"] }}</span
         >
-        <span v-else class="text-black"> По договоренности</span>
+        <span v-else class="text-black">
+          {{ $store.state.translations["profile.deal"] }}</span
+        >
       </p>
     </div>
     <div class="hidden xl:block mt-3">
@@ -185,10 +207,15 @@
       </p>
       <button
         @click="openBlock = true"
-        v-if="!openBlock && request?.additional_info?.length > 400 && order?.status > 1"
+        v-if="
+          !openBlock &&
+          request?.additional_info?.length > 400 &&
+          order?.status > 1
+        "
         class="text-main-color text-base flex gap-1 mt-1"
       >
-        Раскрыть<svg
+        {{ $store.state.translations["profile.reveal"] }}
+        <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -212,9 +239,7 @@
         <button
           @click="sendRequest(request)"
           class="rounded-[8px] bg-main-color px-5 h-12 flex items-center text-base text-white font-semibold leading-6 xl:text-[14px] xl:font-medium xl:w-full xl:justify-center"
-        >
-          Выбрать исполнителем
-        </button>
+        ></button>
         <p class="flex gap-4 text-base text-grey-40 items-center xl:hidden">
           {{ moment(request?.created_at).format(hourFormat) }}
           <span class="bg-grey-8 h-[24px] flex w-[1px]"></span>
@@ -246,8 +271,10 @@
           @click="$emit('openChat')"
           class="w-[190px] xl:w-12 h-12 flex items-center justify-center gap-2 rounded-lg border-[2px] border-solid border-main-color bg-bg-grey text-blue text-base font-medium xl:border"
         >
-          <span class="xl:hidden">Написать</span
-          ><svg
+          <span class="xl:hidden">{{
+            $store.state.translations["profile.send-sms"]
+          }}</span>
+          <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -270,18 +297,20 @@
     <CancellationOrder
       ref="selectFreelancer"
       @submit="submit"
-      title="Vazifani bajarish uchun ushbu frilanser tanlansinmi?"
-      save="Ha, albatta"
-      close="Yo’q"
+      :title="$store.state.transitions['profile.choose-this-free']"
+      :save="$store.state.translations[`modal.yes`]"
+      :closeBtn="$store.state.translations[`modal.no`]"
       :primary="true"
       :loadingBtn="loadingBtn"
     >
     </CancellationOrder>
   </div>
 </template>
+
 <script>
 import moment from "moment";
 import CancellationOrder from "../../modals/CancellationOrder.vue";
+
 export default {
   props: ["request", "order"],
   data() {
@@ -295,20 +324,18 @@ export default {
   mounted() {},
   computed: {
     imgUrl() {
-      return this.$config.imgBaseUrl
+      return this.$config.imgBaseUrl;
     },
   },
   methods: {
     openSelectFreelancer() {
       this.$refs.selectFreelancer.openModal();
       this.$refs.selectFreelancer.open();
-
     },
     closeSelectFreelancer() {
       this.$refs.selectFreelancer.closeModal();
       this.$refs.selectFreelancer.close();
     },
-
     submit() {
       const data = {
         id: this.request?.order_id,
@@ -347,12 +374,15 @@ export default {
   grid-template-columns: 60px 1fr;
   gap: 14px;
 }
+
 .active {
   max-height: 1000px;
 }
+
 .text p {
   transition: 2s;
 }
+
 @media (max-width: 1200px) {
   .head {
     grid-template-columns: 52px 1fr;

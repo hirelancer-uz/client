@@ -7,7 +7,9 @@
       class="flex flex-col justify-center items-center gap-2 w-full h-full rounded-2xl bg-white"
     >
       <h3 class="text-blue text-[48px] font-400">{{ count }}+</h3>
-      <p class="text-base text-black font-medium">Barcha ishlarni korish</p>
+      <p class="text-base text-black font-medium">
+        {{ $store.state.translations["profile.all-works"] }}
+      </p>
     </div>
   </div>
 </template>

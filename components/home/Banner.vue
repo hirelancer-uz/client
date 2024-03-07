@@ -6,21 +6,27 @@
       class="left pt-16 pl-[80px] pb-[50px] flex flex-col justify-between xl:py-[28px] xl:px-[20px] xl:justify-center h-full"
     >
       <div class="flex flex-col">
-        <h3 class="font-semibold text-black text-[48px] xl:text-[16px] xl:text-white">
-          <span class="text-blue xl:text-yellow">Frilanserlar</span> sizga xizmat
-          ko‘rsatishga tayyor
+        <h3
+          class="font-semibold text-black text-[48px] xl:text-[16px] xl:text-white"
+        >
+          <span class="text-blue xl:text-yellow">{{
+            $store.state.translations["main.span"]
+          }}</span>
+          {{ $store.state.translations["main.title"] }}
         </h3>
         <p
           class="text-black text-[18px] mt-4 xl:mt-[6px] xl:text-[12px] xl:text-white xl:hidden"
         >
-          1000+ ortiq<span class="text-blue"
-            > dizaynerlar, dasturchilar, marketologlar </span
-          >va boshqa yo‘nalishdagi frilanserlar sizning buyurtmangizni bajarib berishga
-          tayyor!
+          {{ $store.state.translations["main.1000"]
+          }}<span class="text-blue">{{
+            $store.state.translations["main.directions"]
+          }}</span
+          >{{ $store.state.translations["main.sub"] }}
         </p>
-        <p class="hidden xl:block text-[12px] text-white leading-[130%] mt-[6px]">
-          Eski qoidalarni unuting. Siz eng yaxshi frilanserlarni mana shu yerda ega
-          chiqishingiz mumkin.
+        <p
+          class="hidden xl:block text-[12px] text-white leading-[130%] mt-[6px]"
+        >
+          {{ $store.state.translations["main.sub"] }}
         </p>
         <div class="list flex gap-3 mt-8 xl:hidden mb-[84px]">
           <span
@@ -74,7 +80,7 @@
               stroke-width="1.5"
               stroke-linecap="round"
             /></svg
-          >Buyurtma yuboring
+          >{{ $store.state.translations["main.order-it"] }}
         </button>
         <button
           @click="
@@ -86,7 +92,7 @@
           "
           class="h-[60px] flex justify-center min-w-[220px] px-[20px] border-solid text-base border-main-color bg-transparent border rounded-xl text-main-color font-tt items-center font-semibold mobile-button"
         >
-          Daromad topish
+          {{ $store.state.translations["main.lets-earn"] }}
         </button>
       </div>
     </div>

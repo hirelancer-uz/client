@@ -1,5 +1,7 @@
 <template lang="html">
-  <div class="create-order pt-[110px] pb-[120px] xl:pb-0 max-w-[953px] mx-auto xl:pt-0">
+  <div
+    class="create-order pt-[110px] pb-[120px] xl:pb-0 max-w-[953px] mx-auto xl:pt-0"
+  >
     <div class="head flex justify-between items-center">
       <h1 class="flex text-[24px] text-black font-semibold xl:hidden">
         Buyurtma qo’shish
@@ -18,7 +20,9 @@
     <div
       class="form-block px-8 py-8 xl:px-4 xl:py-6 rounded-[16px] bg-white border-border-darik border-solid border xl:border-[0] mt-4 xl:mt-0"
     >
-      <h2 class="text-[20px] text-black font-semibold mb-6 xl:text-[18px] xl:mb-4">
+      <h2
+        class="text-[20px] text-black font-semibold mb-6 xl:text-[18px] xl:mb-4"
+      >
         Информация о заказе
       </h2>
 
@@ -36,12 +40,17 @@
             class="order-select w-full mb-0 required"
             label="Категорие"
             prop="activeCheckedList"
-            :class="{ errorSelect: activeCheckedList.length == 0 && errorSelect }"
+            :class="{
+              errorSelect: activeCheckedList.length == 0 && errorSelect,
+            }"
           >
             <div
               class="min-h-[58px] items-center border border-solid flex border-grey-8 rounded-lg px-4 py-3 modal-select"
             >
-              <p class="text-grey-40 text-base" v-if="activeCheckedList.length == 0">
+              <p
+                class="text-grey-40 text-base"
+                v-if="activeCheckedList.length == 0"
+              >
                 Специальности
               </p>
 
@@ -129,7 +138,9 @@
 
               <a-tooltip placement="top">
                 <template slot="title">
-                  <span>{{ `\u{1F600}` }}</span>
+                  <span>
+                    {{ $store.state.translations["order.tooltip"] }}
+                  </span>
                 </template>
                 <svg
                   class="cursor-pointer"
@@ -150,7 +161,10 @@
                 </svg>
               </a-tooltip>
             </label>
-            <a-form-model-item class="order-item w-full mb-0" prop="description">
+            <a-form-model-item
+              class="order-item w-full mb-0"
+              prop="description"
+            >
               <quill-editor
                 style="min-height: 250px"
                 :options="editorOption"
@@ -213,7 +227,10 @@
                   :before-upload="handleBeforeUpload"
                   :custom-request="customRequest"
                 >
-                  <div v-if="fileList.length < 10" class="flex justify-center bg-bg-grey">
+                  <div
+                    v-if="fileList.length < 10"
+                    class="flex justify-center bg-bg-grey"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="20"
@@ -269,7 +286,11 @@
                 </div>
               </div>
             </div>
-            <a-modal :visible="previewVisible" :footer="null" @cancel="handleCancel">
+            <a-modal
+              :visible="previewVisible"
+              :footer="null"
+              @cancel="handleCancel"
+            >
               <img alt="example" style="width: 100%" :src="previewImage" />
             </a-modal>
           </div>
@@ -281,7 +302,9 @@
             >
               <a-input
                 type="number"
-                :class="{ 'opacity-50 pointer-events-none': form.deadline_negotiable }"
+                :class="{
+                  'opacity-50 pointer-events-none': form.deadline_negotiable,
+                }"
                 v-model="form.deadline"
                 placeholder="0 дней"
               />
@@ -328,11 +351,19 @@
               </div>
             </div>
           </div>
-          <div class="border-[0] border-b border-solid border-border-darik"></div>
+          <div
+            class="border-[0] border-b border-solid border-border-darik"
+          ></div>
           <div class="grid grid-cols-2 gap-[70px] xl:grid-cols-1 xl:gap-4">
-            <a-form-model-item class="order-item w-full mb-0" label="Цена" prop="price">
+            <a-form-model-item
+              class="order-item w-full mb-0"
+              label="Цена"
+              prop="price"
+            >
               <a-input
-                :class="{ 'opacity-50 pointer-events-none': form.price_negotiable }"
+                :class="{
+                  'opacity-50 pointer-events-none': form.price_negotiable,
+                }"
                 v-model="form.price"
                 placeholder="0 сум"
               />
@@ -495,13 +526,33 @@ export default {
         files: [],
       },
       rules: {
-        name: [{ required: true, message: "This field is required", trigger: "change" }],
-        description: [
-          { required: true, message: "This field is required", trigger: "change" },
+        name: [
+          {
+            required: true,
+            message: "This field is required",
+            trigger: "change",
+          },
         ],
-        price: [{ required: true, message: "This field is required", trigger: "change" }],
+        description: [
+          {
+            required: true,
+            message: "This field is required",
+            trigger: "change",
+          },
+        ],
+        price: [
+          {
+            required: true,
+            message: "This field is required",
+            trigger: "change",
+          },
+        ],
         deadline: [
-          { required: true, message: "This field is required", trigger: "change" },
+          {
+            required: true,
+            message: "This field is required",
+            trigger: "change",
+          },
         ],
       },
       previewVisible: false,
@@ -575,7 +626,9 @@ export default {
     },
 
     deleteChecked(id) {
-      this.activeCheckedList = this.activeCheckedList.filter((item) => item.id != id);
+      this.activeCheckedList = this.activeCheckedList.filter(
+        (item) => item.id != id
+      );
     },
 
     open() {
@@ -678,7 +731,11 @@ export default {
         delete this.rules.deadline;
       } else {
         this.rules.deadline = [
-          { required: true, message: "This field is required", trigger: "blur" },
+          {
+            required: true,
+            message: "This field is required",
+            trigger: "blur",
+          },
         ];
       }
     },
@@ -687,7 +744,11 @@ export default {
         delete this.rules.price;
       } else {
         this.rules.price = [
-          { required: true, message: "This field is required", trigger: "blur" },
+          {
+            required: true,
+            message: "This field is required",
+            trigger: "blur",
+          },
         ];
       }
     },
@@ -855,8 +916,11 @@ export default {
   color: var(--blue);
 }
 
-:deep(.ant-select-focused
-    .ant-select-selection, .ant-select-selection:focus, .ant-select-selection:active) {
+:deep(
+    .ant-select-focused .ant-select-selection,
+    .ant-select-selection:focus,
+    .ant-select-selection:active
+  ) {
   border: 1px solid var(--blue);
   box-shadow: 0px 0px 0px 3px rgba(70, 105, 229, 0.2);
 }

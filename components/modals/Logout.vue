@@ -1,10 +1,14 @@
-<template lang="html">
+<template>
   <div>
     <div class="xl:hidden">
       <a-modal
         class="close-modal xl:hidden"
         v-model="visible"
-        :body-style="{ padding: '16px', paddingLrft: '32px', borderRadius: '24px' }"
+        :body-style="{
+          padding: '16px',
+          paddingLrft: '32px',
+          borderRadius: '24px',
+        }"
         centered
         :closable="false"
         :width="712"
@@ -36,7 +40,7 @@
           </div>
           <div class="flex justify-between flex-col items-center w-full">
             <h4 class="text-black text-[24px] font-semibold">
-              Siz profildan chiqmoqchimisiz?
+              {{ $store.state.translations["modal.sure-exit"] }}
             </h4>
             <button @click="visible = false" class="absolute top-4 right-4">
               <svg
@@ -62,7 +66,7 @@
               @click="closeModal"
               class="h-[54px] items-center flex justify-center border border-solid border-grey-light rounded-[8px] text-base font-medium text-grey-64"
             >
-              Yo'q
+              {{ $store.state.translations["modal.no"] }}
             </button>
             <button
               @click="logout"
@@ -71,7 +75,9 @@
                 'pointer-events-none opacity-50': loadingBtn,
               }"
             >
-              <span> Ha</span>
+              <span>
+                {{ $store.state.translations["modal.yes"] }}
+              </span>
               <LoaderBtn v-if="loadingBtn" />
             </button>
           </div>
@@ -105,7 +111,7 @@
             <h4
               class="text-[18px] text-black text-center font-semibold xl:text-[18px] xl:font-semibold mx-auto"
             >
-              Siz profildan chiqmoqchimisiz?
+              {{ $store.state.translations["modal.sure-exit"] }}
             </h4>
           </div>
           <div class="buttons grid grid-cols-2 gap-3 mb-6 xl:w-full">
@@ -113,7 +119,7 @@
               @click="close"
               class="h-[52px] border border-solid border-grey-light rounded-[8px] flex justify-center items-center text-base font-medium text-grey-64"
             >
-              Yo’q
+              {{ $store.state.translations["modal.no"] }}
             </button>
             <button
               @click="logout"
@@ -122,7 +128,7 @@
                 'pointer-events-none opacity-50': loadingBtn,
               }"
             >
-              Ha
+              {{ $store.state.translations["modal.yes"] }}
               <LoaderBtn v-if="loadingBtn" />
             </button>
           </div>

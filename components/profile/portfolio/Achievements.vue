@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div class="achievements">
     <div
       class="border border-solid border-grey-8 rounded-2xl xl:border-b xl:pb-6 xl:border xl:border-solid xl:border-border-darik xl:px-4 xl:py-4"
@@ -10,7 +10,7 @@
         <h6
           class="text-[18px] font-medium text-black xl:flex xl:justify-between xl:w-full items-center"
         >
-          Достижения
+          {{ $store.state.translations["profile.achivements"] }}
           <span class="hidden xl:block">
             <svg
               width="24"
@@ -52,7 +52,8 @@
             </h6>
           </div>
           <p class="text-base text-grey-64 xl:text-[14px] leanding-[19px]">
-            Эффективный и яркий дизайн сайтов. 967+ успешных проектов. 16 лет опыта.
+            Эффективный и яркий дизайн сайтов. 967+ успешных проектов. 16 лет
+            опыта.
           </p>
         </div>
       </div>

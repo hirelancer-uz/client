@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div
     class="alerts-card rounded-[8px] bg-bg-grey px-6 pb-[25px] pt-[36px] xl:px-4 xl:pt-[28px] xl:pb-4 relative h-[195px] xl:h-auto xl:min-w-[270px]"
   >
@@ -31,7 +31,7 @@
       <nuxt-link
         to=""
         class="text-[12px] text-blue font-semibold uppercase flex gap-1 items-center"
-        >Прочитать
+        >{{ $store.state.translations["profile.read"] }}
         <svg
           width="20"
           height="20"

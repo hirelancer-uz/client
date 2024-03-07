@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <vue-bottom-sheet-vue2 ref="orderSucccess" class="bottom-drawer">
     <div class="flex flex-col items-center gap-6 relative xl:px-4">
       <button @click="$emit('close')" class="absolute top-1 right-2">
@@ -38,12 +38,14 @@
           /></svg
       ></span>
       <div class="flex flex-col gap-4 items-center mt-[-16px] xl:gap-2">
-        <h4 class="text-[24px] text-black font-medium xl:text-[18px] xl:font-semibold">
-          Ваша заявка отправлена
+        <h4
+          class="text-[24px] text-black font-medium xl:text-[18px] xl:font-semibold"
+        >
+          {{ $store.state.translations["modal.request-sent"] }}
         </h4>
         <div class="flex flex-col justify-center items-center">
           <p class="text text-base text-black xl:text-[14px]">
-            Sledite za statusom zayavki cherez telegram bot
+            {{ $store.state.translations["modal.watch-telegtram"] }}
           </p>
           <a class="text-black" href="">@udoo_alert_bot</a>
         </div>
@@ -53,7 +55,8 @@
           href="#"
           class="hover:text-white h-[40px] xl:h-[52px] px-6 rounded-[8px] xl:justify-center xl:w-full bg-light-blue2 text-white text-base xl:text-[14px] font-medium flex gap-[10px] items-center"
         >
-          Открыть телеграм-бот<svg
+          {{ $store.state.translations["modal.open-telegram"]
+          }}<svg
             xmlns="http://www.w3.org/2000/svg"
             width="18"
             height="16"
@@ -70,7 +73,7 @@
           @click="toProfile"
           class="px-6 justify-center h-[40px] xl:h-[52px] xl:w-full rounded-[8px] border border-solid border-blue bg-white text-blue text-base xl:text-[14px] font-medium flex items-center"
         >
-          Посмотреть заказ
+          {{ $store.state.translations["modal.order-show"] }}
         </button>
       </div>
     </div>

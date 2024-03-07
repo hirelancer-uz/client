@@ -1,14 +1,16 @@
-<template lang="html">
-  <div class="orders similar-orders bg-bg-grey py-[64px] xl:py-6 xl:px-4 xl:bg-white xl:pt-0">
+<template>
+  <div
+    class="orders similar-orders bg-bg-grey py-[64px] xl:py-6 xl:px-4 xl:bg-white xl:pt-0"
+  >
     <div class="max-w-[1286px] mx-auto list-grid mb-8 xl:mb-4">
       <div class="flex justify-between">
         <h1 class="text-black text-[32px] font-semibold xl:text-[18px]">
-          O’xshash buyurtmalar
+          {{ $store.state.translations["order.similar-orders"] }}
         </h1>
         <nuxt-link
           class="flex gap-[6px] xl:gap-1 text-blue text-[18px] font-medium xl:text-[14px] leading-[19px] xl:items-center"
           to="/orders"
-          >Ko’proq ko’rish
+          >{{ $store.state.translations["order.view-more"] }}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -35,12 +37,12 @@
         <div class="relative rounded-2xl bg-white px-4 h-[371px]">
           <div class="py-4 flex flex-col justify-between">
             <h6 class="text-base font-medium text-black">
-              Подписать на телеграм канал заказов
+              {{ $store.state.translations["order.subscribe-telegram"] }}
             </h6>
             <a
               class="text-blue text-[14px] font-medium font-tt underline mt-[19px]"
               href=""
-              >Подробнее</a
+              >{{ $store.state.translations["order.more"] }}</a
             >
           </div>
           <div>

@@ -1,10 +1,14 @@
-<template lang="html">
+<template>
   <div>
     <div class="flex xl:hidden">
       <a-modal
         class="close-modal xl:hidden"
         v-model="visible"
-        :body-style="{ padding: '16px', paddingLrft: '32px', borderRadius: '24px' }"
+        :body-style="{
+          padding: '16px',
+          paddingLrft: '32px',
+          borderRadius: '24px',
+        }"
         :width="width || 712"
         @ok="closeModal"
       >
@@ -70,7 +74,7 @@
               @click="closeModal"
               class="h-[54px] items-center flex justify-center border border-solid border-grey-light rounded-[8px] text-base font-medium text-grey-64"
             >
-              {{ closeBtn || "Yo'q" }}
+              {{ closeBtn || $store.state.translations["modal.no"] }}
             </button>
             <button
               @click="$emit('submit')"
@@ -81,7 +85,7 @@
                 'border-light-red bg-light-red': !primary,
               }"
             >
-              <span> {{ save || "Ha" }}</span>
+              <span> {{ save || $store.state.translations["modal.yes"] }}</span>
               <LoaderBtn v-if="loadingBtn" />
             </button>
           </div>
@@ -191,7 +195,9 @@
               @click="close"
               class="border border-solid w-full border-grey-light rounded-lg h-12 flex justify-center items-center text-[14px] font-medium text-grey-64"
             >
-              <span> {{ closeBtn || "Yo'q" }}</span>
+              <span>
+                {{ closeBtn || $store.state.translations["modal.no"] }}
+              </span>
             </button>
             <button
               @click="$emit('submit')"
@@ -202,7 +208,7 @@
                 'border-light-red bg-light-red': !primary,
               }"
             >
-              {{ save || "Ha" }}
+              {{ save || $store.state.translations["modal.yes"] }}
             </button>
           </div>
         </div>
@@ -213,7 +219,15 @@
 <script>
 import LoaderBtn from "@/components/loader-btn.vue";
 export default {
-  props: ["title", "save", "width", "closeBtn", "primary", "loadingBtn", "disabled"],
+  props: [
+    "title",
+    "save",
+    "width",
+    "closeBtn",
+    "primary",
+    "loadingBtn",
+    "disabled",
+  ],
   data() {
     return {
       visible: false,

@@ -1,15 +1,15 @@
-<template lang="html">
-  <div class="alerts ">
+<template>
+  <div class="alerts">
     <div class="flex justify-between">
       <h1
         class="text-black text-[24px] font-semibold flex gap-2 xl:text-[18px] xl:w-full xl:justify-between"
       >
-        Оповещение
+        {{ $store.state.translations["profile.notifs"] }}
       </h1>
       <nuxt-link
         class="flex gap-[6px] text-blue text-base font-medium xl:hidden"
         to="/orders"
-        >Ko’proq ko’rish
+        >{{ $store.state.translations["profile.view-more"] }}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -35,7 +35,10 @@
       <AlertsCard />
       <AlertsCard class="xl:mr-4" />
     </div>
-    <div v-else class="h-[208px] xl:h-[111px] flex justify-center items-center mb-[-24px]">
+    <div
+      v-else
+      class="h-[208px] xl:h-[111px] flex justify-center items-center mb-[-24px]"
+    >
       <VEmpty />
     </div>
   </div>

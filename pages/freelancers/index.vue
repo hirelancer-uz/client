@@ -4,9 +4,10 @@
       <div class="2xl:container container mx-auto">
         <div class="title items-center xl:hidden grider">
           <h2 class="text-black text-[32px] font-semibold titler xl:hidden">
-            Frilanserlar
+            {{ $store.state.translations["freelancers.title"] }}
             <span class="hidden xl:block" v-if="totalPage"
-              >{{ totalPage?.toLocaleString() }} результатов</span
+              >{{ totalPage?.toLocaleString() }}
+              {{ $store.state.translations["freelancers.count"] }}</span
             >
           </h2>
           <div class="button grid header gap-4 items-center">
@@ -15,7 +16,7 @@
             >
               <input
                 type="text"
-                placeholder="Поиск"
+                :placeholder="$store.state.translations[`freelancers.search`]"
                 v-model="search"
                 class="text-[16px] text-[#353437] leading-[150%] h-[100%] w-[90%]"
                 @input="handleInput"
@@ -41,26 +42,29 @@
               @click="$router.push('/profile/orders/add')"
               class="h-[60px] w-[204px] flex justify-center items-center bg-white rounded-[12px] text-base font-medium text-blue border-[1px] border-blue border-solid buttoner xl:hidden"
             >
-              Buyurtma qoshish
+              {{ $store.state.translations["freelancers.order"] }}
             </button>
             <button
               v-else
               @click="$router.push('/registration')"
               class="h-[60px] w-[204px] flex justify-center items-center bg-white rounded-[12px] text-base font-medium text-blue border-[1px] border-blue border-solid buttoner xl:hidden"
             >
-              Buyurtma qoshish
+              {{ $store.state.translations["freelancers.order"] }}
             </button>
           </div>
         </div>
         <div class="filter-head hidden xl:flex justify-between xl:mb-6">
           <h4 class="text-black text-[14px] font-medium xl:hidden">
-            {{ totalPage.toLocaleString() }} результатов
+            {{ totalPage.toLocaleString() }}
+            {{ $store.state.translations["freelancers.count"] }}
           </h4>
           <button
             @click="open"
             class="flex items-center gap-2 text-blue text-[14px] font-medium filterer"
           >
-            <span class="cole">Фильтры</span>
+            <span class="cole">{{
+              $store.state.translations["freelancers.filter"]
+            }}</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -287,7 +291,8 @@ export default {
             path: this.$route.path,
             query: { ...this.$route.query, search: this.searchVal, page: 1 },
           });
-        if (this.searchVal == this.$route.query.search) this.__GET_FREELANCERS();
+        if (this.searchVal == this.$route.query.search)
+          this.__GET_FREELANCERS();
       } else if (this.searchVal.length == 0) {
         this.clearFilter(this.$route.path);
       }
@@ -328,9 +333,12 @@ export default {
     async __GET_FREELANCERS() {
       this.loading = true;
       try {
-        const data = await this.$store.dispatch("fetchFreelancers/getFreelancers", {
-          params: { ...this.$route.query },
-        });
+        const data = await this.$store.dispatch(
+          "fetchFreelancers/getFreelancers",
+          {
+            params: { ...this.$route.query },
+          }
+        );
         this.freelancers = data.data;
         this.totalPage = data?.meta?.total;
         this.loading = false;
