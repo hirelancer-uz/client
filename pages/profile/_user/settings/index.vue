@@ -252,8 +252,8 @@
                       v-for="item in gendertypes"
                       :key="item.value"
                     >
-                      {{ item.name }}</a-select-option
-                    >
+                      {{ item.name }}
+                    </a-select-option>
                   </a-select>
                 </a-form-model-item>
               </div>
@@ -271,8 +271,8 @@
                       v-for="region in countries"
                       :key="region?.id"
                     >
-                      {{ region?.name_ru }}</a-select-option
-                    >
+                      {{ region?.name_ru }}
+                    </a-select-option>
                   </a-select>
                 </a-form-model-item>
                 <a-form-model-item
@@ -288,8 +288,8 @@
                       v-for="region in regions"
                       :key="region?.id"
                     >
-                      {{ region?.name_ru }}</a-select-option
-                    >
+                      {{ region?.name_ru }}
+                    </a-select-option>
                   </a-select>
                 </a-form-model-item>
               </div>
@@ -352,7 +352,16 @@
                   ></span>
                 </a-form-model-item>
                 <a-form-model-item class="form-item" label="Telegram">
-                  <a-input v-model="form.telegram" placeholder="@" />
+                  <a-input
+                    v-model="form.telegram"
+                    @focus="
+                      writeLinkTemplate('telegram', linkTemplates['telegram'])
+                    "
+                    @blur="
+                      removeLinkTemplate('telegram', linkTemplates['telegram'])
+                    "
+                    placeholder="https://t.me/username"
+                  />
                   <span class="absolute right-4">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -371,7 +380,16 @@
               </div>
               <div class="grid grid-cols-2 gap-4 xl:grid-cols-1">
                 <a-form-model-item class="form-item" label="Facebook">
-                  <a-input v-model="form.facebook" placeholder="@" />
+                  <a-input
+                    v-model="form.facebook"
+                    @focus="
+                      writeLinkTemplate('facebook', linkTemplates['facebook'])
+                    "
+                    @blur="
+                      removeLinkTemplate('facebook', linkTemplates['facebook'])
+                    "
+                    placeholder="https://www.facebook.com/username"
+                  />
                   <span class="absolute right-4">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -390,8 +408,9 @@
                 <a-form-model-item
                   class="form-item"
                   :label="$store.state.translations['auth.email']"
+                  prop="email"
                 >
-                  <a-input v-model="form.email" placeholder="http://" />
+                  <a-input type="email" v-model="form.email" placeholder="username@gmail.com" />
                   <span class="absolute right-4"
                     ><svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -409,7 +428,19 @@
               </div>
               <div class="grid grid-cols-2 gap-4 xl:grid-cols-1">
                 <a-form-model-item class="form-item" label="Instagram">
-                  <a-input v-model="form.instagram" placeholder="@" />
+                  <a-input
+                    v-model="form.instagram"
+                    @focus="
+                      writeLinkTemplate('instagram', linkTemplates['instagram'])
+                    "
+                    @blur="
+                      removeLinkTemplate(
+                        'instagram',
+                        linkTemplates['instagram']
+                      )
+                    "
+                    placeholder="https://www.instagram.com/username"
+                  />
                   <span class="absolute right-4"
                     ><svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -425,7 +456,16 @@
                   ></span>
                 </a-form-model-item>
                 <a-form-model-item class="form-item" label="Linkedin">
-                  <a-input v-model="form.linkedin" placeholder="@" />
+                  <a-input
+                    v-model="form.linkedin"
+                    @focus="
+                      writeLinkTemplate('linkedin', linkTemplates['linkedin'])
+                    "
+                    @blur="
+                      removeLinkTemplate('linkedin', linkTemplates['linkedin'])
+                    "
+                    placeholder="https://www.linkedin.com/in/username"
+                  />
                   <span class="absolute right-4"
                     ><svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -494,10 +534,17 @@ import moment from "moment";
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
+
 export default {
   layout: "profileLayout",
   data() {
     return {
+      linkTemplates: {
+        instagram: "https://www.instagram.com/",
+        telegram: "https://t.me/",
+        facebook: "https://www.facebook.com/",
+        linkedin: "https://www.linkedin.com/in/",
+      },
       editorOption: {
         theme: "snow",
       },
@@ -578,6 +625,13 @@ export default {
             trigger: "blur",
           },
         ],
+        email: [
+          {
+            type: 'email',
+            message: 'Please insert a valid email address.',
+            trigger: 'change',
+          },
+        ],
       },
     };
   },
@@ -586,9 +640,9 @@ export default {
     this.$store.commit("setPageData", {});
   },
   computed: {
-      imgUrl() {
-        return this.$config.baseURL + "/storage/"
-      },
+    imgUrl() {
+      return this.$config.baseURL + "/storage/";
+    },
   },
   async asyncData({ store }) {
     const [regionsData, countriesData] = await Promise.all([
@@ -614,6 +668,12 @@ export default {
     });
   },
   methods: {
+    writeLinkTemplate(key, link) {
+      if (this.form[key].length === 0) this.form[key] = link;
+    },
+    removeLinkTemplate(key, link) {
+      if (link.length >= this.form[key].length) this.form[key] = "";
+    },
     onChange(date, dateString) {},
     removeAvatar() {
       this.fileList = [];
@@ -746,11 +806,13 @@ export default {
   grid-template-columns: 2fr 1fr;
   grid-gap: 16px;
 }
+
 .buttons .active {
   border-color: var(--main-color);
   color: var(--main-color);
   background-color: #fff;
 }
+
 .form-item :deep(.ant-input) {
   border-radius: 8px;
   background: #fff;
@@ -763,10 +825,12 @@ export default {
   font-weight: 400;
   line-height: 150%;
 }
+
 .form-item :deep(.ant-input:focus) {
   border: 1px solid var(--blue);
   box-shadow: 0px 0px 0px 3px rgba(70, 105, 229, 0.2);
 }
+
 .form-item :deep(.ant-select-selection) {
   border-radius: 8px;
   background: #fff;
@@ -778,11 +842,13 @@ export default {
   font-weight: 400;
   line-height: 150%;
 }
+
 .form-item :deep(.ant-select-selection__rendered) {
   height: 100%;
   display: flex;
   align-items: center;
 }
+
 .form-item
   :deep(.ant-select-selection__rendered .ant-select-selection-selected-value) {
   color: var(--grey-80, #353437);
@@ -792,6 +858,7 @@ export default {
   font-weight: 400;
   line-height: 150%;
 }
+
 .form-item :deep(.ant-form-item-label label) {
   color: var(--black);
   font-family: "TT Interfaces";
@@ -802,30 +869,37 @@ export default {
   position: relative;
   padding-right: 12px;
 }
+
 .form-item :deep(label::before) {
   position: absolute;
   right: -3px;
   top: 0;
 }
+
 .form-item :deep(label::after) {
   display: none;
 }
+
 .form-item :deep(.ant-radio-group) {
   width: 100%;
 }
+
 .form-item :deep(.ant-form-item-children) {
   display: flex;
   align-items: center;
 }
+
 .loader {
   background-color: rgba(255, 255, 255, 0.3);
   z-index: 100;
   pointer-events: none;
 }
+
 .fixed-btns {
   border-radius: 16px 16px 0px 0px;
   box-shadow: 0px 4px 36px 0px rgba(0, 25, 53, 0.16);
 }
+
 :deep(.ant-upload-list) {
   display: none;
 }
@@ -833,25 +907,31 @@ export default {
 :deep(.ql-editor) {
   min-height: 250px;
 }
+
 :deep(.quill-editor p) {
   word-break: break-all;
 }
+
 :deep(.quill-editor) {
   border-radius: 8px;
   border: 1px solid var(--grey-8);
   font-family: "TT Interfaces";
   font-size: 16px;
 }
+
 :deep(.ql-toolbar),
 :deep(.ql-container) {
   border: 0 !important;
 }
+
 :deep(.ql-toolbar .ql-toolbar) {
   border-bottom: 1px solid var(--grey-8);
 }
+
 :deep(.has-error .quill-editor) {
   border-color: red;
 }
+
 .buttons button::after {
   content: "";
   position: absolute;
@@ -860,20 +940,25 @@ export default {
   width: 100%;
   border-radius: 5px 5px 0px 0px;
 }
+
 @media (max-width: 1200px) {
   .buttons .active::after {
     background: var(--Light-purple, #5d5fef);
   }
+
   .buttons {
     box-shadow: 0px 4px 8px 0px rgba(92, 70, 229, 0.08);
   }
+
   .form-item :deep(.ant-form-item-label label) {
     font-size: 14px;
   }
+
   .form-item :deep(.ant-select-selection) {
     height: 44px;
     font-size: 14px;
   }
+
   .form-item :deep(.ant-input) {
     height: 44px;
     font-size: 14px;

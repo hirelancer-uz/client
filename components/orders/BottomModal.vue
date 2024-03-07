@@ -5,39 +5,49 @@
         class="close-modal relative xl:hidden"
         v-model="visible"
         :body-style="{
-          padding: '16px',
-          paddingLrft: '32px',
-          borderRadius: '24px',
+          padding: '40px',
         }"
         centered
         :closable="false"
-        width="1440px"
+        width="831px"
         @ok="closeModal"
       >
         <div
-          class="modal h-[516px] xl:h-auto m-full mx-auto rounded-t-[16px] max-w-[1440px] bg-white xl:px-4 xl:pb-6"
+          class="modal xl:h-auto m-full mx-auto rounded-t-[16px] max-w-[1440px] bg-white xl:px-4 xl:pb-6 px-[50px]"
         >
           <div
-            class="max-w-[1200px] mx-auto pt-[80px] xl:pt-3 grid-container h-full"
+            class="head w-full flex justify-between items-center pb-6 border-[0] border-b border-solid border-grey-light"
           >
-            <div class="info flex flex-col gap-4 xl:gap-2">
-              <h2 class="text-[24px] text-black font-semibold xl:text-[18px]">
-                {{ $store.state.translations["order.send-request"] }}
-              </h2>
-              <p class="text-base text-grey-80 xl:text-[14px]">
-                {{ $store.state.translations["order.txt"] }}
-              </p>
-              <img
-                loading="lazy"
-                class="absolute bottom-0 xl:hidden w-[370px] h-[370px]"
-                src="@/assets/images/bottom.png"
-                alt=""
-              />
-            </div>
-            <div class="form flex flex-col gap-[26px] xl:gap-10">
+            <h4 class="text-[24px] font-semibold text-black">
+              Отправить заявку
+            </h4>
+            <button @click="closeModal">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M27.0718 12.929L12.9297 27.0712M27.0718 27.0711L12.9297 12.929" stroke="#EB5757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <div
+            class="max-w-[1200px] mx-auto pt-6 xl:pt-3 grid-container h-full"
+          >
+            <!--            <div class="info flex flex-col gap-4 xl:gap-2">-->
+            <!--              <h2 class="text-[24px] text-black font-semibold xl:text-[18px]">-->
+            <!--                {{ $store.state.translations["order.send-request"] }}-->
+            <!--              </h2>-->
+            <!--              <p class="text-base text-grey-80 xl:text-[14px]">-->
+            <!--                {{ $store.state.translations["order.txt"] }}-->
+            <!--              </p>-->
+            <!--              <img-->
+            <!--                loading="lazy"-->
+            <!--                class="absolute bottom-0 xl:hidden w-[370px] h-[370px]"-->
+            <!--                src="@/assets/images/bottom.png"-->
+            <!--                alt=""-->
+            <!--              />-->
+            <!--            </div>-->
+            <div class="form flex flex-col gap-6 xl:gap-10">
               <a-form-model :model="form" ref="ruleForm" :rules="rules">
-                <div class="grid grid-cols-2 gap-[19px] xl:grid-cols-1">
-                  <div class="flex flex-col justify-between">
+                <div class="flex flex-col gap-8 xl:grid-cols-1">
+                  <div class="grid grid-cols-2 gap-6 justify-between">
                     <a-form-model-item
                       prop="deadline"
                       class="form-item w-full mb-0"
@@ -81,7 +91,7 @@
               <p class="text-base text-grey-80 xl:mt-[-24px] xl:text-[14px]">
                 {{ $store.state.translations["order.txt"] }}
               </p>
-              <div class="buttons flex justify-end gap-4 xl:flex-col-reverse">
+              <div class="buttons flex justify-start gap-4 xl:flex-col-reverse">
                 <button
                   @click="closeModal"
                   class="px-[24px] w-[168px] items-center border border-solid rounded-[8px] xl:rounded-xl h-[52px] xl:h-12 border-grey-24 flex justify-center text-base xl:text-[14px] text-grey-64 font-medium"
@@ -110,26 +120,6 @@
                   </svg>
                 </button>
               </div>
-              <button
-                class="absolute top-5 right-8 xl:hidden"
-                @click="closeModal"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="40"
-                  height="40"
-                  viewBox="0 0 40 40"
-                  fill="none"
-                >
-                  <path
-                    d="M27.0713 12.929L12.9292 27.0711M27.0713 27.071L12.9292 12.9289"
-                    stroke="#BB2649"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </button>
             </div>
           </div>
         </div>
@@ -326,16 +316,16 @@ export default {
 };
 </script>
 <style lang="css" scoped>
-.grid-container {
-  display: grid;
-  grid-template-columns: 2fr 3fr;
-  grid-gap: 85px;
+:deep(.ant-modal-content) {
+  border-radius: 24px !important;
 }
+
 .form-item :deep(label) {
   color: var(--black);
   font-size: 16px;
   font-weight: 500;
 }
+
 .form-item :deep(input),
 .form-item :deep(textarea) {
   border-radius: 8px;
@@ -346,12 +336,15 @@ export default {
   font-weight: 400;
   width: 100%;
 }
+
 .form-item :deep(input) {
   height: 54px;
 }
+
 .form-item :deep(.ant-form-item-required) {
   padding-right: 10px;
 }
+
 .form-item :deep(.ant-form-item-required)::before {
   display: inline-block;
   margin-right: 4px;
@@ -363,17 +356,21 @@ export default {
   right: -5px;
   top: 0;
 }
+
 .form-item :deep(.ant-form-item-required)::after {
   display: none !important;
 }
+
 @media (max-width: 1200px) {
   .grid-container {
     grid-template-columns: 1fr;
     grid-gap: 24px;
   }
+
   .form-item :deep(label) {
     font-size: 14px;
   }
+
   .form-item :deep(input) {
     height: 44px;
   }

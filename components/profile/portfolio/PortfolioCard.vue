@@ -32,18 +32,18 @@
     >
       <div class="flex flex-col gap-2">
         <h4
-          v-if="$route.name.includes('profile')"
+
           @click="openShow"
           class="text-black text-[18px] font-semibold xl:text-[14px] xl:font-medium cursor-pointer"
         >
           {{ portfolio?.name }}
         </h4>
-        <h4
-          v-else
-          class="text-black text-[18px] font-semibold xl:text-[14px] xl:font-medium cursor-pointer"
-        >
-          {{ portfolio?.name }}
-        </h4>
+<!--        <h4-->
+<!--          v-else-->
+<!--          class="text-black text-[18px] font-semibold xl:text-[14px] xl:font-medium cursor-pointer"-->
+<!--        >-->
+<!--          {{ portfolio?.name }}-->
+<!--        </h4>-->
         <div class="flex gap-6">
           <p class="text-[14px] font-medium flex gap-[6px] items-center xl:text-[12px]">
             <svg

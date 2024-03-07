@@ -127,9 +127,9 @@
             {{ $store.state.translations["auth.spec"] }}
             {{ $store.state.translations["profile.max-three"] }}
           </p>
-          <button class="text-main-color text-[14px] xl:text-[12px]">
-            {{ $store.state.translations["profile.add-more"] }}
-          </button>
+<!--          <button class="text-main-color text-[14px] xl:text-[12px]">-->
+<!--            {{ $store.state.translations["profile.add-more"] }}-->
+<!--          </button>-->
         </div>
       </div>
     </div>

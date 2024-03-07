@@ -208,9 +208,7 @@ export default {
     };
   },
 
-  destroyed() {
-    this.$store.commit("setPageData", {});
-  },
+
   async asyncData({ store, query }) {
     const [freeLancersData, specialitiesData, regionsData] = await Promise.all([
       store.dispatch("fetchFreelancers/getFreelancers", {

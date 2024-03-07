@@ -6,8 +6,9 @@
       :body-style="{
         padding: '0',
         borderRadius: '24px',
-        margin: '120px 0 120px 0',
+        margin: '0 0 120px 0',
       }"
+      :dialog-style="{ top: '20px' }"
       :closable="false"
       width="1440px"
       @ok="closeModal"
