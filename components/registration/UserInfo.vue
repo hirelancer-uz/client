@@ -29,11 +29,11 @@
               fill="#5C46E6"
             />
             <circle cx="81.8028" cy="7.87821" r="4.14823" fill="white" />
-            <circle cx="119.966" cy="7.87821" r="4.14823" fill="white" />
+            <circle cx="119.966" cy="7.87821" r="4.14823" fill="white"/>
           </svg> </span
       ></nuxt-link>
       <h4
-        class="flex text-black text-[24px] font-semibold mt-[31px] xl:text-[20px]"
+          class="flex text-black text-[24px] font-semibold mt-[31px] xl:text-[20px]"
       >
         {{ $store.state.translations["auth.choose-type"] }}
       </h4>
@@ -41,12 +41,14 @@
         class="user-type h-12 xl:h-11 flex client-types mt-6 xl:mt-4 xl:w-full xl:grid xl:grid-cols-2"
       >
         <button
-          @click="userType = true"
-          :class="{ 'activeF bg-blue': userType }"
+            @click="userType = true"
+            :class="{ 'activeF bg-blue': userType }"
           class="border-[2px] border-solid border-grey-light rounded-l-[12px] h-full w-[235px] xl:w-auto flex gap-2 text-base xl:text-[14px] text-black font-medium items-center justify-center"
         >
-          {{ $store.state.translations["auth.freelancer"]
-          }}<svg
+          {{
+            $store.state.translations["auth.freelancer"]
+          }}
+          <svg
             class="xl:w-5 xl:h-5"
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -68,8 +70,10 @@
           :class="{ 'activeC bg-light-red': !userType }"
           class="border-[2px] border-solid border-grey-light rounded-r-[12px] h-full w-[235px] xl:w-auto flex gap-2 text-base xl:text-[14px] text-black font-medium items-center justify-center"
         >
-          {{ $store.state.translations["auth.customer"]
-          }}<svg
+        {{
+          $store.state.translations["auth.customer"]
+        }}
+        <svg
             class="xl:w-5 xl:h-5"
             xmlns="http://www.w3.org/2000/svg"
             width="25"
@@ -88,13 +92,13 @@
               d="M2.83541 16.3292C2.46493 16.1439 2.01442 16.2941 1.82918 16.6646C1.64394 17.0351 1.79411 17.4856 2.16459 17.6708L2.83541 16.3292ZM11.8354 13.3292L11.1646 12.9938L10.4938 14.3354L11.1646 14.6708L11.8354 13.3292ZM19.75 18C19.75 18.4142 20.0858 18.75 20.5 18.75C20.9142 18.75 21.25 18.4142 21.25 18H19.75ZM14.2331 15.3666L13.8977 16.0374L14.2331 15.3666ZM16.9164 16.75H18.5V15.25H16.9164V16.75ZM18.5 19.25H10.3885V20.75H18.5V19.25ZM7.14625 18.4846L2.83541 16.3292L2.16459 17.6708L6.47542 19.8262L7.14625 18.4846ZM14.5685 14.6957L11.8354 13.3292L11.1646 14.6708L13.8977 16.0374L14.5685 14.6957ZM10.3885 19.25C9.26302 19.25 8.15295 18.9879 7.14625 18.4846L6.47542 19.8262C7.69041 20.4337 9.03015 20.75 10.3885 20.75V19.25ZM19.75 18C19.75 18.6904 19.1904 19.25 18.5 19.25V20.75C20.0188 20.75 21.25 19.5188 21.25 18H19.75ZM18.5 16.75C19.1904 16.75 19.75 17.3096 19.75 18H21.25C21.25 16.4812 20.0188 15.25 18.5 15.25V16.75ZM16.9164 15.25C16.1014 15.25 15.2975 15.0602 14.5685 14.6957L13.8977 16.0374C14.835 16.506 15.8685 16.75 16.9164 16.75V15.25Z"
               fill="#28303F"
             />
-            <circle
+          <circle
               cx="18.5"
               cy="8"
               r="4"
               stroke="#28303F"
               stroke-width="1.5"
-            />
+          />
           </svg>
         </button>
       </div>
@@ -108,14 +112,14 @@
       <a-form-model ref="ruleForm" :model="form" :rules="rules">
         <div class="flex flex-col gap-8 pb-12 xl:gap-6 xl:pb-0">
           <a-form-model-item
-            ref="name"
-            class="form-item"
-            :label="$store.state.translations[`auth.name`]"
-            prop="name"
+              ref="name"
+              class="form-item"
+              :label="$store.state.translations[`auth.name`]"
+              prop="name"
           >
             <a-input
-              v-model="form.name"
-              :placeholder="$store.state.translations[`auth.name`]"
+                v-model="form.name"
+                :placeholder="$store.state.translations[`auth.name`]"
             />
           </a-form-model-item>
           <a-form-model-item
@@ -125,22 +129,22 @@
             prop="surname"
           >
             <a-input
-              v-model="form.surname"
-              :placeholder="$store.state.translations[`auth.surname`]"
+                v-model="form.surname"
+                :placeholder="$store.state.translations[`auth.surname`]"
             />
           </a-form-model-item>
           <a-form-model-item
-            ref="name"
-            class="form-item"
-            :label="$store.state.translations[`auth.sex`]"
-            prop="gender"
+              ref="name"
+              class="form-item"
+              :label="$store.state.translations[`auth.sex`]"
+              prop="gender"
           >
             <a-radio-group v-model="form.gender">
               <div class="grid grid-cols-2 gap-4 gender-btns">
                 <button
                   @click="form.gender = 'male'"
                   class="border-[2px] border-solid border-border-darik px-4 py-4 rounded-lg flex flex-col gap-6 xl:flex-row-reverse xl:px-3 xl:py-[14px]"
-                  :class="{ active: form.gender == 'male' }"
+                  :class="{ active: form.gender === 'male' }"
                 >
                   <div
                     class="flex justify-between items-center w-full xl:justify-end xl:pr-1"
@@ -186,7 +190,7 @@
                 <button
                   @click="form.gender = 'female'"
                   class="border-[2px] border-solid border-border-darik px-4 py-4 rounded-lg flex flex-col gap-6 xl:flex-row-reverse xl:px-3 xl:py-[14px]"
-                  :class="{ active: form.gender == 'female' }"
+                  :class="{ active: form.gender === 'female' }"
                 >
                   <div
                     class="flex justify-between items-center w-full xl:justify-end xl:pr-1"
@@ -249,11 +253,11 @@
             >
               <p
                 class="text-grey-40 text-base xl:text-[14px]"
-                v-if="activeCheckedList == 0"
+                v-if="activeCheckedList === 0"
               >
                 {{ $store.state.translations["auth.spec"] }}
               </p>
-              <div v-else class="w-auto flex flex-wrap gap-[4px]">
+              <div v-else class="w-auto flex flex-wrap gap-[4px] relative z-[20] max-w-[90%]">
                 <div
                   v-for="listItem in activeCheckedList"
                   :key="listItem?.id"
@@ -279,8 +283,8 @@
                 </div>
               </div>
               <button
-                class="w-6 xl:hidden h-[34px] flex justify-end items-center flex-auto min-w-[60px]"
-                @click="openSpecial(), (checkedList = [...activeCheckedList])"
+                class="h-[34px] flex justify-end items-center flex-auto absolute z-[10] right-0 px-4 w-full"
+                @click="openSpecial(); (checkedList = [...activeCheckedList])"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -297,33 +301,14 @@
                   />
                 </svg>
               </button>
-              <button
-                class="w-6 hidden xl:flex flex-auto justify-end"
-                @click="openSpecial"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="3"
-                  height="13"
-                  viewBox="0 0 3 13"
-                  fill="none"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M2.5 1.25C2.5 1.94036 1.94036 2.5 1.25 2.5C0.559644 2.5 0 1.94036 0 1.25C0 0.559644 0.559644 0 1.25 0C1.94036 0 2.5 0.559644 2.5 1.25ZM2.5 6.25C2.5 6.94036 1.94036 7.5 1.25 7.5C0.559644 7.5 0 6.94036 0 6.25C0 5.55964 0.559644 5 1.25 5C1.94036 5 2.5 5.55964 2.5 6.25ZM1.25 12.5C1.94036 12.5 2.5 11.9404 2.5 11.25C2.5 10.5596 1.94036 10 1.25 10C0.559644 10 0 10.5596 0 11.25C0 11.9404 0.559644 12.5 1.25 12.5Z"
-                    fill="#020105"
-                  />
-                </svg>
-              </button>
-            </div>
+           </div>
           </a-form-model-item>
           <div
-            class="py-4 w-full flex justify-center items-center relative xl:py-[18px]"
+              class="py-4 w-full flex justify-center items-center relative xl:py-[18px]"
           >
             <span class="h-[1px] w-full absolute z-0 bg-border-darik"></span>
             <p
-              class="relative text-base font-medium text-grey-80 z-10 bg-white px-2"
+                class="relative text-base font-medium text-grey-80 z-10 bg-white px-2"
             >
               {{ $store.state.translations["auth.add-info"] }}
             </p>
@@ -352,13 +337,13 @@
             />
           </a-form-model-item>
           <a-form-model-item
-            ref="name"
-            class="form-item"
-            :label="$store.state.translations[`auth.region`]"
+              ref="name"
+              class="form-item"
+              :label="$store.state.translations[`auth.region`]"
           >
             <a-select
-              v-model="form.region_id"
-              :placeholder="$store.state.translations[`auth.region`]"
+                v-model="form.region_id"
+                :placeholder="$store.state.translations[`auth.region`]"
             >
               <a-select-option
                 :value="region?.id"
@@ -411,8 +396,8 @@ export default {
       checkedList: [],
       activeCheckedList: [],
       modalList: null,
-      userType: true,
       userGender: true,
+      userType: true,
       form: {
         name: "",
         surname: "",
@@ -453,6 +438,7 @@ export default {
       },
     };
   },
+
   methods: {
     openSpecial() {
       this.$refs.specialities.open();
@@ -463,7 +449,7 @@ export default {
       this.$refs.specialities.closeModal();
     },
     checkValue(str, max) {
-      if (str.charAt(0) !== "0" || str == "00") {
+      if (str.charAt(0) !== "0" || str === "00") {
         var num = parseInt(str);
         if (isNaN(num) || num <= 0 || num > max) num = 1;
         str =
@@ -496,9 +482,9 @@ export default {
       var output = "";
       if (values.length == 3) {
         var year =
-          values[2].length !== 4
-            ? parseInt(values[2]) + 2000
-            : parseInt(values[2]);
+            values[2].length !== 4
+                ? parseInt(values[2]) + 2000
+                : parseInt(values[2]);
         var month = parseInt(values[1]) - 1;
         var day = parseInt(values[0]);
         var d = new Date(year, month, day);
@@ -525,16 +511,14 @@ export default {
 
     onchecked(obj) {
       if (this.checkedList.includes(obj)) {
-        this.checkedList = this.checkedList.filter((item) => item.id != obj.id);
+        this.checkedList = this.checkedList.filter((item) => item.id !== obj.id);
       } else {
-        if (this.checkedList.length == 3) this.checkedList.shift();
+        if (this.checkedList.length === 3) this.checkedList.shift();
         this.checkedList.push(obj);
       }
     },
     deleteChecked(id) {
-      this.activeCheckedList = this.activeCheckedList.filter(
-        (item) => item.id != id
-      );
+      this.activeCheckedList = this.activeCheckedList.filter((item) => item.id !== id);
     },
 
     onChange(date, dateString) {},
@@ -555,8 +539,8 @@ export default {
       const data = {
         ...this.form,
         date_of_birth: this.form.date_of_birth
-          .replaceAll(" ", "")
-          .replaceAll("/", "-"),
+            .replaceAll(" ", "")
+            .replaceAll("/", "-"),
         // [`specialities[]`]: this.form.specialities,
       };
       delete data["specialities"];
@@ -632,8 +616,9 @@ export default {
   display: flex;
   align-items: center;
 }
+
 .form-item
-  :deep(.ant-select-selection__rendered .ant-select-selection-selected-value) {
+:deep(.ant-select-selection__rendered .ant-select-selection-selected-value) {
   color: var(--grey-80, #353437);
   font-family: "TT Interfaces";
   font-size: 16px;
@@ -714,6 +699,7 @@ export default {
   border-color: var(--blue);
   color: var(--blue);
 }
+
 :deep(
     .ant-select-focused .ant-select-selection,
     .ant-select-selection:focus,

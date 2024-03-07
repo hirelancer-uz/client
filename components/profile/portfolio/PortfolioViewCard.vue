@@ -5,7 +5,7 @@
         <img
           v-if="portfolio?.images.length > 0"
           class="h-full w-full object-cover"
-          :src="`${baseUrl}/storage/${portfolio?.images[0]?.img}`"
+          :src="`${imgUrl}${portfolio?.images[0]?.img}`"
           alt=""
         />
         <img
@@ -66,7 +66,7 @@
       <div
         class="body px-4 pt-3 pb-4 flex rounded-b-lg flex-col gap-[6px] border-[0] border-t-0 border-b border-x border-solid border-grey-8"
       >
-        <h4 class="text-black text-[18px] font-semibold">
+        <h4 class="text-black text-[18px] font-semibold" @click="openShow">
           {{ portfolio?.name }}
         </h4>
         <div class="flex gap-2 xl:gap-2 w-full" ref="widthHandle">
@@ -113,8 +113,8 @@ export default {
     hiddenButtonsCount() {
       return this.portfolio?.specialities.length - this.visibleButtons.length;
     },
-    baseUrl() {
-      return process.env.BASE_URL;
+    imgUrl() {
+      return this.$config.imgBaseUrl
     },
   },
   async mounted() {
@@ -123,6 +123,7 @@ export default {
   },
   methods: {
     openShow() {
+      console.log('calaldsas')
       this.$refs.portfolioModal.openModal();
     },
     widthHandle() {

@@ -69,7 +69,7 @@ export default {
   data() {
     return {
       tab: true,
-      pageSize: 3,
+      pageSize: 10,
     };
   },
   mounted() {
@@ -84,7 +84,7 @@ export default {
     this.$store.commit("setPageData", {});
   },
   async asyncData({ store, query }) {
-    const pageSize = 3;
+    const pageSize = 10;
 
     const [ordersData, specialitiesData] = await Promise.all([
       store.dispatch("fetchOrders/getOrders", {

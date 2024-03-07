@@ -44,12 +44,6 @@
           >
             {{ $store.state.translations["header.freelancers"] }}</nuxt-link
           >
-          <!-- <nuxt-link class="text-[18px] text-black font-tt font-normal" to="/"
-            >Ishlar</nuxt-link
-          >
-          <nuxt-link class="text-[18px] text-black font-tt font-normal" to="/"
-            >Forum</nuxt-link
-          > -->
         </div>
       </div>
       <div class="flex gap-6 items-center">
@@ -58,7 +52,7 @@
             class="flex text-[18px] text-black gap-2 items-center"
             @click="(e) => e.preventDefault()"
           >
-            <span v-html="currentLangObj.icon"></span>
+            <component :is="currentLangObj.icon"></component>
             {{ currentLangObj.name }}
             <svg
               width="10"
@@ -84,34 +78,10 @@
               <span
                 class="flex gap-1 items-center justify-center"
                 @click="$router.push(switchLocalePath(lang.code))"
-                ><span v-html="lang.icon"></span>{{ lang.name }}</span
+              ><component :is="lang.icon"></component>{{ lang.name }}</span
               >
             </a-menu-item>
-            <!-- <a-menu-item key="1">
-              <span class="flex gap-1 items-center"
-                ><svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  width="34px"
-                  height="22px"
-                  viewBox="0 0 36 36"
-                  aria-hidden="true"
-                  role="img"
-                  class="iconify iconify--twemoji"
-                  preserveAspectRatio="xMidYMid meet"
-                >
-                  <path
-                    fill="#CE2028"
-                    d="M36 27a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4v-4h36v4z"
-                  />
-                  <path fill="#22408C" d="M0 13h36v10H0z" />
-                  <path
-                    fill="#EEE"
-                    d="M32 5H4a4 4 0 0 0-4 4v4h36V9a4 4 0 0 0-4-4z"
-                  /></svg
-                >RU</span
-              >
-            </a-menu-item> -->
+
           </a-menu>
         </a-dropdown>
         <span class="flex bg-grey-40 h-6 w-[1px]"></span>
@@ -121,26 +91,6 @@
             class="buttons flex gap-4"
             v-if="$store.state.auth && Boolean($store.state.userInfo['name'])"
           >
-            <!-- <button
-              class="w-[52px] h-[52px] rounded-full border-[2px] border-grey-8 border-solid flex items-center justify-center"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="30"
-                height="30"
-                viewBox="0 0 30 30"
-                fill="none"
-              >
-                <path
-                  d="M23.2544 24.7983L15 20.0564L6.74561 24.7983V8.91603C6.74561 6.8645 8.40837 5.20174 10.4599 5.20174H19.5388C21.5904 5.20174 23.2531 6.8645 23.2531 8.91603V24.7983H23.2544Z"
-                  stroke="#5C46E6"
-                  stroke-width="1.5"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </button> -->
             <button
               @click="$router.push('/notifications')"
               class="relative w-[52px] h-[52px] rounded-full border-[2px] border-grey-8 border-solid flex items-center justify-center"
@@ -161,17 +111,6 @@
                   stroke-linejoin="round"
                 />
               </svg>
-              <!-- <span class="absolute bottom-0 right-0">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                >
-                  <circle cx="6" cy="6" r="6" fill="#F2154A" />
-                </svg>
-              </span> -->
             </button>
             <button
               class="w-[52px] h-[52px] rounded-full border-[2px] border-grey-8 border-solid flex items-center justify-center"
@@ -217,9 +156,6 @@
                   alt=""
                 />
               </div>
-              <!-- <div class="flex flex-col"> -->
-              <!-- <p class="text-[18px] text-black">{{ $store.state.userInfo["name"] }}</p> -->
-              <!-- <p class="text-[14px] text-green">Я - Фрилансер</p> -->
               <p class="text-base text-black font-semibold">
                 {{ $store.state.userInfo["name"] }}
               </p>
@@ -243,7 +179,6 @@
               </button>
               <!-- </div> -->
             </button>
-
             <ul
               v-if="userType"
               class="menu-container bg-bg-grey rounded-[12px] px-2 py-3 flex flex-col gap-2"
@@ -251,7 +186,7 @@
             >
               <li key="0">
                 <button
-                  @click="userType = !userType"
+                  @click="$store.commit('setUserType','customer')"
                   class="rounded-[12px] bg-green py-2 w-[230px] flex justify-center text-white font-medium text-base hover:text-white"
                 >
                   {{ $store.state.translations["header.goto-customer"] }}
@@ -261,7 +196,7 @@
                 <button
                   :class="{
                     'bg-grey-light pointer-events-none':
-                      $route.path == '/profile/freelancer',
+                      $route.path === '/profile/freelancer',
                   }"
                   @click="$router.push('/profile/freelancer')"
                   class="w-full py-2 flex gap-2 rounded-xl bg-bg-grey px-4 font-medium text-base text-black hover:bg-grey-light"
@@ -327,7 +262,7 @@
                 <button
                   :class="{
                     'bg-grey-light pointer-events-none':
-                      $route.path == '/profile/freelancer/portfolio',
+                      $route.path === '/profile/freelancer/portfolio',
                   }"
                   @click="$router.push('/profile/freelancer/portfolio')"
                   class="w-full py-2 flex gap-2 rounded-xl bg-bg-grey px-4 font-medium text-base text-black hover:bg-grey-light"
@@ -374,7 +309,7 @@
                   @click="$router.push('/profile/freelancer/settings')"
                   :class="{
                     'bg-grey-light pointer-events-none':
-                      $route.path == '/profile/freelancer/settings',
+                      $route.path === '/profile/freelancer/settings',
                   }"
                   class="w-full py-2 flex gap-2 rounded-xl bg-bg-grey px-4 font-medium text-base text-black hover:bg-grey-light"
                 >
@@ -426,7 +361,7 @@
                   @click="logout"
                   :class="{
                     'bg-grey-light pointer-events-none':
-                      $route.path == '/profile/customer/settings',
+                      $route.path === '/profile/customer/settings',
                   }"
                   class="w-full py-2 flex gap-2 rounded-xl bg-bg-grey px-4 font-medium text-base text-light-red hover:bg-grey-light"
                 >
@@ -464,7 +399,7 @@
             >
               <li key="0">
                 <button
-                  @click="userType = !userType"
+                  @click="$store.commit('setUserType','freelancer')"
                   class="rounded-[12px] bg-main-color py-2 w-[230px] flex justify-center text-white font-medium text-base hover:text-white"
                 >
                   {{ $store.state.translations["header.goto-freelancer"] }}
@@ -508,7 +443,7 @@
                   @click="$router.push('/profile/customer/settings')"
                   :class="{
                     'bg-grey-light pointer-events-none':
-                      $route.path == '/profile/customer/settings',
+                      $route.path === '/profile/customer/settings',
                   }"
                   class="w-full py-2 flex gap-2 rounded-xl bg-bg-grey px-4 font-medium text-base text-black hover:bg-grey-light"
                 >
@@ -534,7 +469,7 @@
                   @click="logout"
                   :class="{
                     'bg-grey-light pointer-events-none':
-                      $route.path == '/profile/customer/settings',
+                      $route.path === '/profile/customer/settings',
                   }"
                   class="w-full py-2 flex gap-2 rounded-xl bg-bg-grey px-4 font-medium text-base text-light-red hover:bg-grey-light"
                 >
@@ -592,99 +527,31 @@
 </template>
 <script>
 import Logout from "../modals/Logout.vue";
+import uzbFlag from "@/components/icons/uzbFlag.vue";
+import engFlag from "@/components/icons/engFlag.vue";
+import rusFlag from "@/components/icons/rusFlag.vue";
 
 export default {
   data() {
     return {
       dropdown: false,
-      userType: true,
       currentLang: 1,
       langList: [
         {
           name: "Uzb",
-          icon: `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="34px" height="22px" viewBox="0 0 36 36" aria-hidden="true" role="img" class="iconify iconify--twemoji" preserveAspectRatio="xMidYMid meet"><script xmlns=""/><path fill="#0099B5" d="M0 9v4h36V9a4 4 0 0 0-4-4H4a4 4 0 0 0-4 4z"/><path fill="#1EB53A" d="M36 27v-4H0v4a4 4 0 0 0 4 4h28a4 4 0 0 0 4-4z"/><path fill="#CE1126" d="M0 13h36v1.5H0zm0 8.5h36V23H0z"/><path fill="#EEE" d="M0 18v3.5h36v-7H0z"/><path fill="#FFF" d="M4.2 9.16a3.12 3.12 0 0 1 2.6-3.076a3.12 3.12 0 1 0 0 6.152A3.12 3.12 0 0 1 4.2 9.16zm4.683 2.303l-.14-.431l-.14.431h-.454l.367.267l-.14.431l.367-.267l.366.267l-.14-.431l.367-.267zm2.702 0l-.14-.431l-.14.431h-.453l.367.267l-.14.431l.366-.267l.367.267l-.14-.431l.367-.267zm-.14-2.927l-.14.431h-.453l.367.267l-.14.431l.366-.267l.367.267l-.14-.431l.367-.267h-.454zm2.843 2.927l-.14-.431l-.14.431h-.453l.366.267l-.14.431l.367-.267l.367.267l-.14-.431l.366-.267zm-.14-2.927l-.14.431h-.453l.366.267l-.14.431l.367-.267l.367.267l-.14-.431l.366-.267h-.453zm0-2.496l-.14.431h-.453l.366.267l-.14.431l.367-.267l.367.267l-.14-.431l.366-.267h-.453zm2.843 5.423l-.14-.431l-.14.431h-.454l.367.267l-.14.431l.367-.267l.366.267l-.14-.431l.367-.267zm-.14-2.927l-.14.431h-.454l.367.267l-.14.431l.367-.267l.366.267l-.14-.431l.367-.267h-.453zm0-2.496l-.14.431h-.454l.367.267l-.14.431l.367-.267l.366.267l-.14-.431l.367-.267h-.453zm2.842 5.423l-.14-.431l-.14.431h-.453l.367.267l-.14.431l.366-.267l.367.267l-.14-.431l.367-.267zm-.14-2.927l-.14.431h-.453l.367.267l-.14.431l.366-.267l.367.267l-.14-.431l.367-.267h-.454zm0-2.496l-.14.431h-.453l.367.267l-.14.431l.366-.267l.367.267l-.14-.431l.367-.267h-.454z"/><script xmlns=""/></svg>`,
+          icon: 'uzbFlag',
           id: 1,
           code: "uz",
         },
-        {
-          name: "Eng",
-          icon: `<svg
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              version="1.1"
-              id="Layer_1"
-              width="22"
-              height="22"
-              x="0px"
-              y="0px"
-              viewBox="0 0 55.2 38.4"
-              style="enable-background: new 0 0 55.2 38.4"
-              xml:space="preserve"
-            >
-              <style type="text/css">
-                .st0 {
-                  fill: #fefefe;
-                }
-                .st1 {
-                  fill: #c8102e;
-                }
-                .st2 {
-                  fill: #012169;
-                }
-              </style>
-              <g>
-                <path
-                  class="st0"
-                  d="M2.87,38.4h49.46c1.59-0.09,2.87-1.42,2.87-3.03V3.03c0-1.66-1.35-3.02-3.01-3.03H3.01 C1.35,0.01,0,1.37,0,3.03v32.33C0,36.98,1.28,38.31,2.87,38.4L2.87,38.4z"
-                />
-                <polygon
-                  class="st1"
-                  points="23.74,23.03 23.74,38.4 31.42,38.4 31.42,23.03 55.2,23.03 55.2,15.35 31.42,15.35 31.42,0 23.74,0 23.74,15.35 0,15.35 0,23.03 23.74,23.03"
-                />
-                <path
-                  class="st2"
-                  d="M33.98,12.43V0h18.23c1.26,0.02,2.34,0.81,2.78,1.92L33.98,12.43L33.98,12.43z"
-                />
-                <path
-                  class="st2"
-                  d="M33.98,25.97V38.4h18.35c1.21-0.07,2.23-0.85,2.66-1.92L33.98,25.97L33.98,25.97z"
-                />
-                <path
-                  class="st2"
-                  d="M21.18,25.97V38.4H2.87c-1.21-0.07-2.24-0.85-2.66-1.94L21.18,25.97L21.18,25.97z"
-                />
-                <path
-                  class="st2"
-                  d="M21.18,12.43V0H2.99C1.73,0.02,0.64,0.82,0.21,1.94L21.18,12.43L21.18,12.43z"
-                />
-                <polygon class="st2" points="0,12.8 7.65,12.8 0,8.97 0,12.8" />
-                <polygon class="st2" points="55.2,12.8 47.51,12.8 55.2,8.95 55.2,12.8" />
-                <polygon class="st2" points="55.2,25.6 47.51,25.6 55.2,29.45 55.2,25.6" />
-                <polygon class="st2" points="0,25.6 7.65,25.6 0,29.43 0,25.6" />
-                <polygon
-                  class="st1"
-                  points="55.2,3.25 36.15,12.8 40.41,12.8 55.2,5.4 55.2,3.25"
-                />
-                <polygon
-                  class="st1"
-                  points="19.01,25.6 14.75,25.6 0,32.98 0,35.13 19.05,25.6 19.01,25.6"
-                />
-                <polygon
-                  class="st1"
-                  points="10.52,12.81 14.78,12.81 0,5.41 0,7.55 10.52,12.81"
-                />
-                <polygon
-                  class="st1"
-                  points="44.63,25.59 40.37,25.59 55.2,33.02 55.2,30.88 44.63,25.59"
-                />
-              </g>
-            </svg>`,
-          id: 2,
-          code: "en",
-        },
+        // {
+        //   name: "Eng",
+        //   icon: 'engFlag',
+        //   id: 2,
+        //   code: "en",
+        // },
         {
           name: "Rus",
-          icon: `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="34px" height="22px" viewBox="0 0 36 36" aria-hidden="true" role="img" class="iconify iconify--twemoji" preserveAspectRatio="xMidYMid meet"><path fill="#CE2028" d="M36 27a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4v-4h36v4z"/><path fill="#22408C" d="M0 13h36v10H0z"/><path fill="#EEE" d="M32 5H4a4 4 0 0 0-4 4v4h36V9a4 4 0 0 0-4-4z"/></svg>`,
+          icon: 'rusFlag',
           id: 3,
           code: "ru",
         },
@@ -692,17 +559,20 @@ export default {
     };
   },
   computed: {
+    userChange() {
+      return this.$store.state.userType
+    },
     routerPath() {
       return this.$route.path;
     },
-    baseUrl() {
-      return process.env.BASE_URL;
+    userType() {
+      return this.$store.state.userType === "freelancer";
     },
     imgUrl() {
-      return this.baseUrl + "/storage/";
+      return this.$config.imgBaseUrl
     },
     currentLangObj() {
-      return this.langList.find((elem) => elem.id == this.currentLang);
+      return this.langList.find((elem) => elem.id === this.currentLang);
     },
   },
   methods: {
@@ -715,8 +585,14 @@ export default {
     routerPath() {
       this.dropdown = false;
     },
+    userChange() {
+      if (this.$route.params?.user !== this.$store.state.userType && this.$route.name.includes('profile')) {
+        this.$route.params?.user === 'freelancer' ? this.$router.push(`/profile/customer/orders/active/status`) :
+          this.$router.push(`/profile/freelancer`)
+      }
+    }
   },
-  components: { Logout },
+  components: { Logout,uzbFlag,rusFlag,engFlag },
 };
 </script>
 <style lang="css" scoped>

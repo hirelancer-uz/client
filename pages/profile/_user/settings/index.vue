@@ -586,12 +586,9 @@ export default {
     this.$store.commit("setPageData", {});
   },
   computed: {
-    baseUrl() {
-      return process.env.BASE_URL;
-    },
-    imgUrl() {
-      return this.baseUrl + "/storage/";
-    },
+      imgUrl() {
+          return this.$config.imgBaseUrl
+      },
   },
   async asyncData({ store }) {
     const [regionsData, countriesData] = await Promise.all([

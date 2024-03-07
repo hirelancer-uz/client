@@ -21,8 +21,8 @@
               v-if="maxSelectCount > 1"
             >
               <span class="text-main-color font-medium">{{
-                checkedList.length
-              }}</span
+                  checkedList.length
+                }}</span
               >: {{ $store.state.translations["modal.choosen-one"] }}
               <span>(max {{ maxSelectCount }} ta)</span>
             </p>
@@ -37,7 +37,7 @@
                 @click="onSelect(item?.id)"
                 :class="{
                   active:
-                    (modalList ? modalList : specialities[0]?.id) == item?.id,
+                    (modalList ? modalList : specialities[0]?.id) === item?.id,
                 }"
               >
                 <svg
@@ -88,8 +88,8 @@
                   class="px-4 py-2 bg-bg-grey rounded-[22px] flex items-center gap-2"
                   v-for="child in specialities?.find(
                     (elem) =>
-                      elem.id ==
-                      (modalList != null ? modalList : specialities[0]?.id)
+                      elem.id ===
+                      (modalList !== null ? modalList : specialities[0]?.id)
                   )?.children"
                   @click="onchecked(child)"
                 >
@@ -153,8 +153,8 @@
                 v-if="maxSelectCount > 1"
               >
                 <span class="text-main-color font-medium">{{
-                  checkedList.length
-                }}</span
+                    checkedList.length
+                  }}</span
                 >: {{ $store.state.translations["modal.choosen-one"] }}
                 <span>(max {{ maxSelectCount }} ta)</span>
               </p>
@@ -244,25 +244,19 @@
                         @click="onchecked(child)"
                         :disabled="
                           !Boolean(
-                            checkedList.find(
-                              (elemChild) => elemChild.id == child.id
-                            )
-                          ) && checkedList.length == maxSelectCount
+                            checkedList.find((elemChild) => elemChild.id === child.id)
+                          ) && checkedList.length === maxSelectCount
                         "
                       >
                         <a-checkbox
                           :disabled="
                             !Boolean(
-                              checkedList.find(
-                                (elemChild) => elemChild.id == child.id
-                              )
-                            ) && checkedList.length == maxSelectCount
+                              checkedList.find((elemChild) => elemChild.id === child.id)
+                            ) && checkedList.length === maxSelectCount
                           "
                           :checked="
                             Boolean(
-                              checkedList.find(
-                                (elemChild) => elemChild.id == child.id
-                              )
+                              checkedList.find((elemChild) => elemChild.id === child.id)
                             )
                           "
                         />
@@ -345,10 +339,10 @@ export default {
       this.closeModal();
     },
     onchecked(obj) {
-      if (this.checkedList.find((item) => item.id == obj.id)) {
-        this.checkedList = this.checkedList.filter((item) => item.id != obj.id);
+      if (this.checkedList.find((item) => item.id === obj.id)) {
+        this.checkedList = this.checkedList.filter((item) => item.id !== obj.id);
       } else {
-        if (this.checkedList.length == this.maxSelectCount) {
+        if (this.checkedList.length === this.maxSelectCount) {
           this.checkedList.shift();
         }
         this.checkedList.push(obj);

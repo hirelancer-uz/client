@@ -30,14 +30,14 @@
             />
             <circle cx="81.8028" cy="7.87821" r="4.14823" fill="white" />
             <circle
-              cx="119.966"
-              cy="7.87821"
-              r="4.14823"
-              fill="white"
+                cx="119.966"
+                cy="7.87821"
+                r="4.14823"
+                fill="white"
             /></svg></span
       ></nuxt-link>
       <h4
-        class="flex text-black text-[24px] font-semibold mt-[31px] xl:text-[20px]"
+          class="flex text-black text-[24px] font-semibold mt-[31px] xl:text-[20px]"
       >
         {{ $store.state.translations["auth.registrate"] }}
       </h4>
@@ -46,7 +46,7 @@
       </p>
     </div>
     <div
-      class="xl:h-full xl:flex xl:flex-col xl:justify-between xl:pb-4 xl:pt-2"
+        class="xl:h-full xl:flex xl:flex-col xl:justify-between xl:pb-4 xl:pt-2"
     >
       <a-form-model ref="ruleForm" :model="form" :rules="rules">
         <div class="flex flex-col gap-8 xl:gap-6">
@@ -58,34 +58,29 @@
           >
             <!-- <a-input v-model="form.name" /> -->
             <div
-              class="rounded-[8px] px-4 xl:pl-2 py-3 h-[47px] xl:h-11 bg-bg-grey border border-solid border-border-darik flex items-center justify-between gap-4"
+                class="rounded-[8px] pl-2 pr-4 xl:pl-2 py-3 h-[53px] xl:h-11 bg-bg-grey border border-solid border-border-darik flex items-center justify-between gap-4"
             >
               <span
-                class="mr-1 text-base xl:text-[14px] text-black px-3 py-[6px] rounded-[4px] bg-white xl:leading-5"
+                  class="mr-1 text-base xl:text-[14px] text-grey-40 font-medium px-3 py-[6px] rounded-[4px] bg-white xl:leading-5"
                 >+998</span
               >
-              <input
-                class="w-full pointer-events-none"
-                v-mask="'## ### ## ##'"
-                v-model="form.phone_number"
-                type="text"
-              />
-              <button class="">
-                <svg
-                  class="xl:w-5 xl:h-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="25"
-                  viewBox="0 0 24 25"
-                  fill="none"
-                >
+              <p class="w-full text-base xl:text-[14px] text-grey-80 font-medium py-[6px] rounded-[4px]  xl:leading-5">
+                {{
+                  `${form.phone_number}`
+                      .match(/(\d{2})(\d{3})(\d{2})(\d{2})/).filter((_, index) => index !== 0)
+                      .join(" ")
+                }}</p>
+              <!--              <input-->
+              <!--                class="w-full pointer-events-none"-->
+              <!--                v-mask="'## ### ## ##'"-->
+              <!--                v-model="form.phone_number"-->
+              <!--                type="text"-->
+              <!--              />-->
+              <button @click="$router.push('/registration')">
+                <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
-                    d="M14.3865 6.33114L18.169 10.1136M3 21.5L6.67278 20.8008C7.45152 20.6526 8.16769 20.2736 8.72823 19.713L20.1837 8.25754C21.2721 7.16918 21.2721 5.40462 20.1837 4.31626C19.0954 3.22791 17.3308 3.22791 16.2425 4.31627L4.78696 15.7718C4.22642 16.3323 3.8474 17.0485 3.69916 17.8272L3 21.5Z"
-                    stroke="#020105"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
+                      d="M14.3865 6.33114L18.169 10.1136M3 21.5L6.67278 20.8008C7.45152 20.6526 8.16769 20.2736 8.72823 19.713L20.1837 8.25754C21.2721 7.16918 21.2721 5.40462 20.1837 4.31626C19.0954 3.22791 17.3308 3.22791 16.2425 4.31627L4.78696 15.7718C4.22642 16.3323 3.8474 17.0485 3.69916 17.8272L3 21.5Z"
+                      stroke="#020105" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </button>
             </div>
@@ -97,8 +92,8 @@
             prop="phone_number"
           >
             <div
-              class="rounded-[8px] xl:h-11 sms-input pl-4 pr-2 py-3 h-[47px] bg-white border border-solid border-border-darik flex items-center justify-between gap-4"
-              :class="{ 'border-red': smsError && form.password.length != 6 }"
+                class="rounded-[8px] h-[53px] xl:h-11 sms-input pl-4 pr-2 py-2 h-[47px] bg-white border border-solid border-border-darik flex items-center justify-between gap-4"
+                :class="{ 'border-red': smsError && form.password.length !== 6 }"
             >
               <v-otp-input
                 ref="otpInput"
@@ -124,7 +119,11 @@
                   00:{{ time >= 10 ? time : `0${time}` }}
                 </p>
               </div>
-            </div></a-form-model-item
+
+            </div>
+            <span class="code-invalid opacity-0 absolute text-light-red text-[15px] xl:text-[14px]"
+                  :class="{'relative opacity-100': codeInvalid}">Tasdiqlash kodini to'g'ri kiriting</span>
+          </a-form-model-item
           >
         </div>
         <button
@@ -139,11 +138,12 @@
           {{
             `${form?.phone_number}`
               .match(/(\d{2})(\d{3})(\d{2})(\d{2})/)
-              .filter((item, index) => index != 0)
+                .filter((item, index) => index !== 0)
               .join(" ")
           }}
           {{ $store.state.translations["auth.sent-code"] }}
         </p>
+
       </a-form-model>
       <div class="w-full flex flex-col gap-6">
         <p class="text-grey-40 text-[14px] mt-6 xl:block hidden text-center">
@@ -151,32 +151,33 @@
           {{
             `${form?.phone_number}`
               .match(/(\d{2})(\d{3})(\d{2})(\d{2})/)
-              .filter((item, index) => index != 0)
+                .filter((item, index) => index !== 0)
               .join(" ")
           }}
           {{ $store.state.translations["auth.sent-code"] }}
         </p>
         <div
-          class="buttons grid grid-cols-2 gap-4 mt-6 xl:mt-0 xl:flex xl:flex-col-reverse xl:gap-2 xl:w-full xl:fixed xl:left-0 xl:px-4 xl:bottom-4"
+            class="buttons grid grid-cols-2 gap-4 mt-6 xl:mt-0 xl:flex xl:flex-col-reverse xl:gap-2 xl:w-full xl:fixed xl:left-0 xl:px-4 xl:bottom-4"
         >
           <button
-            @click="$router.go(-1)"
-            class="h-[60px] xl:h-[52px] border border-solid border-border-darik rounded-[12px] flex justify-center items-center text-[18px] xl:text-[14px] text-black font-medium"
+              type="submit"
+              @click="$router.go(-1)"
+              class="h-[60px] xl:h-[52px] border border-solid border-border-darik rounded-[12px] flex justify-center items-center text-[18px] xl:text-[14px] text-black font-medium"
           >
             {{ $store.state.translations["auth.cancel"] }}
           </button>
           <button
-            @click="onSubmit"
-            class="h-[60px] xl:h-[52px] border border-solid border-blue bg-blue rounded-[12px] flex justify-center items-center text-[18px] xl:text-[14px] text-white font-medium"
-            :class="{
-              'pointer-events-none opacity-50':
-                loading || form.password.length < 6,
-            }"
+              type="submit"
+              @click="onSubmit"
+              class="h-[60px] xl:h-[52px] border border-solid border-blue bg-blue rounded-[12px] flex justify-center items-center text-[18px] xl:text-[14px] text-white font-medium"
+              :class="{
+              'pointer-events-none opacity-50': loading || form.password.length < 6,
+                 }"
           >
             <LoaderBtn v-if="loading" />
             <span v-else>{{
-              $store.state.translations["auth.confirm-code"]
-            }}</span>
+                $store.state.translations["auth.confirm-code"]
+              }}</span>
           </button>
         </div>
       </div>
@@ -185,12 +186,13 @@
 </template>
 <script>
 export default {
-  props: ["loading"],
+  props: ["loading", "codeInvalid"],
   data() {
     return {
       other: "",
       timeProgress: 100,
       smsError: false,
+
       time: 60,
       form: {
         phone_number: "999999990",
@@ -232,6 +234,7 @@ export default {
     },
     handleOnChange(value) {
       this.form.password = value;
+      this.$emit('clearError')
     },
     handleClearInput() {
       this.$refs.otpInput.clearInput();
@@ -242,7 +245,7 @@ export default {
         password: this.form.password,
         role: "Freelancer",
       };
-      if (this.form.password.length != 6) {
+      if (this.form.password.length !== 6) {
         this.smsError = true;
       } else {
         this.smsError = false;
@@ -260,6 +263,9 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+.code-invalid {
+
+}
 :deep(.otp-input) {
   width: 24px;
   height: 24px;
@@ -288,6 +294,7 @@ export default {
 }
 .sms-progress {
   display: flex !important;
+  transform: rotateY(-180deg);
 }
 .sms-progress :deep(.ant-progress-inner) {
   width: 20px !important;

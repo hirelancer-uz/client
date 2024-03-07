@@ -77,11 +77,8 @@
 export default {
   props: ["client"],
   computed: {
-    baseUrl() {
-      return process.env.BASE_URL;
-    },
     imgUrl() {
-      return this.baseUrl + "/storage/";
+      return this.$config.imgBaseUrl
     },
   },
 };

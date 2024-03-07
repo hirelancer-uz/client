@@ -161,7 +161,7 @@
                 /></svg
               ><span class="text-green">{{ userInfo["likes_count"] }}</span
               ><span class="text-grey-40">/</span
-              ><span class="text-pantone-2023">{{
+            ><span class="text-pantone-2023">{{
                 userInfo["dislikes_count"]
               }}</span
               ><svg
@@ -200,7 +200,7 @@
           </div>
           <a-skeleton :paragraph="false" v-else />
         </div>
-        <div class="buttons" v-if="$route.name == 'freelancer-index'">
+        <div class="buttons" v-if="$route.name === 'freelancer-index'">
           <button
             class="border-[2px] border-solid border-main-color rounded-[12px] h-12 flex gap-2 justify-center items-center text-base text-main-color font-medium"
             :class="{
@@ -250,7 +250,7 @@
         <div class="grid grid-cols-2 client-types" v-if="profile">
           <button
             @click="$router.push(`/profile/freelancer`)"
-            :class="{ activeF: $route.params.user == 'freelancer' }"
+            :class="{ activeF: $route.params.user === 'freelancer' }"
             class="border-[2px] border-solid border-grey-light h-12 flex justify-center items-center gap-2 rounded-l-[12px]"
           >
             {{ $store.state.translations["profile.im-free"] }}
@@ -273,7 +273,7 @@
           </button>
           <button
             @click="$router.push(`/profile/customer/orders/active/status`)"
-            :class="{ activeC: $route.params.user == 'customer' }"
+            :class="{ activeC: $route.params.user === 'customer' }"
             class="border-[2px] border-solid border-grey-light h-12 flex justify-center items-center gap-2 rounded-r-[12px]"
           >
             {{ $store.state.translations["profile.im-customer"] }}
@@ -296,11 +296,11 @@
                 fill="#28303F"
               />
               <circle
-                cx="18.5"
-                cy="8"
-                r="4"
-                stroke="#28303F"
-                stroke-width="1.5"
+                  cx="18.5"
+                  cy="8"
+                  r="4"
+                  stroke="#28303F"
+                  stroke-width="1.5"
               />
             </svg>
           </button>
@@ -480,8 +480,10 @@
           @click="openLogout"
           class="underline text-base text-pantone-2023 flex items-center gap-[10px]"
         >
-          {{ $store.state.translations["profile.exit"]
-          }}<svg
+          {{
+            $store.state.translations["profile.exit"]
+          }}
+          <svg
             xmlns="http://www.w3.org/2000/svg"
             width="21"
             height="18"
@@ -572,11 +574,12 @@
 </template>
 <script>
 import PersonalMessengers from "./PersonalMessengers.vue";
-import { Swiper, Navigation } from "swiper";
+import {Navigation, Swiper} from "swiper";
 import "swiper/swiper-bundle.min.css";
 import EventsSmallCard from "./EventsSmallCard.vue";
 import Logout from "../modals/Logout.vue";
 import moment from "moment";
+
 export default {
   props: ["profile", "userInfo"],
   data() {
@@ -591,12 +594,11 @@ export default {
     dateFormat() {
       return moment(this.userInfo?.created_at).format("DD-MMM. YYYY");
     },
-
-    baseUrl() {
-      return process.env.BASE_URL;
+    userChange() {
+      return this.$route.params.user
     },
     imgUrl() {
-      return this.baseUrl + "/storage/";
+      return this.$config.imgBaseUrl
     },
     messengersHandle() {
       return (
@@ -633,6 +635,11 @@ export default {
     handleOk() {
       this.visibleLogout = false;
     },
+  },
+  watch: {
+    userChange(val) {
+      this.$store.commit('setUserType',val)
+    }
   },
   components: { PersonalMessengers, EventsSmallCard, Logout },
 };

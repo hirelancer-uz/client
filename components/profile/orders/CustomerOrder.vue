@@ -1,7 +1,7 @@
-<template>
+<template lang="html">
   <div
     class="pt-[72px] order xl:px-4 xl:pt-0"
-    :class="{ 'pb-10': order?.status != 0 }"
+    :class="{ 'pb-10': order?.status > 1 }"
   >
     <div class="max-w-[1200px] mx-auto">
       <button
@@ -177,8 +177,9 @@
                         r="2.5"
                         stroke="#5C46E6"
                         stroke-width="1.5"
-                      /></svg
-                    >{{ order?.view_count }}
+                      />
+                    </svg>
+                    {{ order?.view_count }}
                   </p>
                   <p
                     class="text-base xl:text-[14px] text-grey-64 flex gap-2 items-center"
@@ -215,8 +216,9 @@
                         rx="0.833333"
                         ry="0.833333"
                         fill="#5C46E6"
-                      /></svg
-                    >{{ order?.request_count }}
+                      />
+                    </svg>
+                    {{ order?.request_count }}
                     {{ $store.state.translations["profile.requests"] }}
                   </p>
                 </div>
@@ -259,8 +261,8 @@
               <button
                 class="flex gap-2 text-purple text-base font-medium items-center"
               >
-                {{ $store.state.translations["profile.reveal"]
-                }}<svg
+                {{ $store.state.translations["profile.reveal"] }}
+                <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -539,8 +541,8 @@
                 v-for="optin in options"
                 :key="optin.value"
               >
-                {{ optin.label }}</a-select-option
-              >
+                {{ optin.label }}
+              </a-select-option>
             </a-select>
           </div>
         </div>
@@ -548,7 +550,7 @@
         <div class="order-left-chat">
           <div
             class="list flex flex-col gap-4"
-            v-if="!order?.selected_request?.id && order?.status"
+            v-if="!order?.selected_request?.id && order?.status === 1"
           >
             <OffersOrderCard
               v-for="request in order?.requests"
@@ -585,12 +587,12 @@
           <div
             class="xl:hidden customer-chat"
             :class="{ activeChat: chatHandle }"
-            v-if="!order?.selected_request?.id && order?.status == 3"
+            v-if="!order?.selected_request?.id && order?.status === 1"
           >
             <OffersChat @close="chatHandle = false" />
           </div>
           <div
-            v-else
+            v-if="order?.status === 0"
             class="flex gap-6 items-center justify-center py-4 xl:py-2 xl:px-[14px] w-full border border-solid border-[#EDE5E0] bg-[#FFF5EC] rounded-[12px] xl:bg-white"
           >
             <svg
@@ -687,8 +689,8 @@
                 @change="onSelectReasons(reason?.id)"
                 class="text-[18px]"
               >
-                {{ reason?.text_ru }}</a-checkbox
-              >
+                {{ reason?.text_ru }}
+              </a-checkbox>
             </li>
           </ul>
         </div>
@@ -769,6 +771,7 @@ import moment from "moment";
 import SelectedFreelancer from "./SelectedFreelancer.vue";
 import CompliteOrder from "../../modals/CompliteOrder.vue";
 import CustomerChatMobile from "../../modals/CustomerChatMobile.vue";
+
 export default {
   props: ["order", "loading", "reasons"],
   data() {
@@ -974,10 +977,12 @@ export default {
   transform: translateX(100%);
   opacity: 0;
 }
+
 .activeChat {
   transform: translateX(0);
   opacity: 1;
 }
+
 :deep(.ant-select-selection__placeholder) {
   color: var(--grey-80);
   font-family: "TT Interfaces";
@@ -985,6 +990,7 @@ export default {
   font-style: normal;
   font-weight: 500;
 }
+
 :deep(.ant-select-selection--single) {
   height: 50px;
   border-radius: 8px;
@@ -996,15 +1002,18 @@ export default {
   font-style: normal;
   font-weight: 500;
 }
+
 :deep(.ant-rate) {
   height: 20px;
   display: flex;
   align-items: center;
 }
+
 :deep(.ant-select-selection__rendered),
 :deep(.ant-select-selection-selected-value) {
   height: 100%;
 }
+
 :deep(.ant-select-selection-selected-value) {
   display: flex !important;
   align-items: center;
@@ -1016,10 +1025,12 @@ export default {
 
   line-height: 150%;
 }
+
 :deep(.ant-checkbox-checked .ant-checkbox-inner) {
   border-color: var(--blue);
   background-color: var(--blue);
 }
+
 :deep(
     .ant-checkbox-wrapper:hover .ant-checkbox-inner,
     .ant-checkbox:hover .ant-checkbox-inner,
@@ -1027,9 +1038,11 @@ export default {
   ) {
   border-color: var(--blue);
 }
+
 :deep(.ant-checkbox-checked::after) {
   border-color: var(--blue);
 }
+
 :deep(.ant-checkbox + span) {
   color: var(--grey-80);
   font-family: "TT Interfaces";
@@ -1038,10 +1051,12 @@ export default {
   font-weight: 400;
   line-height: 150%; /* 27px */
 }
+
 :deep(.ant-checkbox-checked .ant-checkbox-inner) {
   border-color: var(--blue);
   background-color: var(--blue);
 }
+
 :deep(
     .ant-checkbox-wrapper:hover .ant-checkbox-inner,
     .ant-checkbox:hover .ant-checkbox-inner,
@@ -1049,9 +1064,11 @@ export default {
   ) {
   border-color: var(--blue);
 }
+
 :deep(.ant-checkbox-checked::after) {
   border-color: var(--blue);
 }
+
 :deep(.ant-checkbox + span) {
   color: var(--grey-80);
   font-family: "TT Interfaces";
@@ -1060,36 +1077,45 @@ export default {
   font-weight: 400;
   line-height: 150%; /* 27px */
 }
+
 .reyting {
   background: rgba(237, 50, 55, 0.13);
 }
+
 .back-btn {
   transition: 0.3s;
 }
+
 .back-btn:hover {
   border: 1px solid var(--main-color);
   background: #f5f3ff;
   box-shadow: 0px 12px 16px 0px rgba(92, 70, 229, 0.08);
 }
+
 /* 1200px */
 .content-box {
   display: grid;
   grid-template-columns: 1fr 348px;
   gap: 16px;
 }
+
 .status-red {
   background: rgba(237, 50, 55, 0.1);
 }
+
 .modal-bg {
   background: rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(6px);
 }
+
 .nested-enter-active {
   animation: to-top 0.3s;
 }
+
 .nested-leave-active {
   animation: to-top 0.3s reverse;
 }
+
 @keyframes to-top {
   0% {
     bottom: -60px;
@@ -1101,18 +1127,23 @@ export default {
     opacity: 1;
   }
 }
+
 .opacity-enter-active {
   animation: opacityAnim 0.25s;
 }
+
 .opacity-leave-active {
   animation: opacityAnim 0.25s reverse;
 }
+
 .info-box {
   transition: 0.3s;
 }
+
 .active {
   max-height: 2000px;
 }
+
 @keyframes opacityAnim {
   0% {
     opacity: 0;
@@ -1122,11 +1153,13 @@ export default {
     opacity: 1;
   }
 }
+
 .order-left-chat {
   display: grid;
   grid-template-columns: 1fr 470px;
   gap: 16px;
 }
+
 .show-all {
   /* background: linear-gradient(
     180deg,
@@ -1135,6 +1168,7 @@ export default {
     #fff 100%
   ); */
 }
+
 @media (max-width: 1200px) {
   .content-box {
     grid-template-columns: 1fr;
@@ -1144,21 +1178,25 @@ export default {
   .order-left-chat {
     grid-template-columns: 1fr;
   }
+
   .file-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
   }
+
   .fixed-btns {
     border-radius: 16px 16px 0px 0px;
     box-shadow: 0px 4px 36px 0px rgba(0, 25, 53, 0.16);
 
     grid-template-columns: 1fr 2fr;
   }
+
   :deep(.ant-select-selection--single) {
     height: 48px;
     max-width: 100%;
     font-size: 14px;
   }
+
   :deep(.ant-select-selection__placeholder) {
     font-size: 14px;
   }

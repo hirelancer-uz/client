@@ -59,8 +59,9 @@
                 <path
                   d="M5.8528 1.90767C6.3222 0.918798 7.67845 0.918796 8.14785 1.90767L8.9591 3.6167C9.14549 4.00939 9.50581 4.28156 9.92261 4.34453L11.7366 4.61859C12.7862 4.77716 13.2053 6.11825 12.4458 6.88798L11.1332 8.21828C10.8316 8.52394 10.694 8.96433 10.7652 9.39593L11.075 11.2743C11.2543 12.3612 10.1571 13.1901 9.2183 12.6769L7.59581 11.79C7.22301 11.5863 6.77764 11.5863 6.40484 11.79L4.78235 12.6769C3.84355 13.1901 2.74632 12.3612 2.92562 11.2743L3.23549 9.39593C3.30668 8.96433 3.16906 8.52394 2.86746 8.21828L1.55484 6.88798C0.795331 6.11825 1.21443 4.77716 2.26404 4.61859L4.07804 4.34453C4.49484 4.28156 4.85516 4.00939 5.04155 3.6167L5.8528 1.90767Z"
                   fill="#F2C94C"
-                /></svg
-              >{{ request?.freelancer?.stars }}
+                />
+              </svg>
+              {{ request?.freelancer?.stars }}
             </p>
             <div class="flex gap-2">
               <p class="text-grey-40 text-base xl:hidden">
@@ -213,8 +214,8 @@
         "
         class="text-main-color text-base flex gap-1 mt-1"
       >
-        {{ $store.state.translations["profile.reveal"]
-        }}<svg
+        {{ $store.state.translations["profile.reveal"] }}
+        <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -272,8 +273,8 @@
         >
           <span class="xl:hidden">{{
             $store.state.translations["profile.send-sms"]
-          }}</span
-          ><svg
+          }}</span>
+          <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -297,8 +298,8 @@
       ref="selectFreelancer"
       @submit="submit"
       :title="$store.state.transitions['profile.choose-this-free']"
-      save="$store.state.translations[`modal.yes`]"
-      closeBtn="$store.state.translations[`modal.no`]"
+      :save="$store.state.translations[`modal.yes`]"
+      :closeBtn="$store.state.translations[`modal.no`]"
       :primary="true"
       :loadingBtn="loadingBtn"
     >
@@ -309,6 +310,7 @@
 <script>
 import moment from "moment";
 import CancellationOrder from "../../modals/CancellationOrder.vue";
+
 export default {
   props: ["request", "order"],
   data() {
@@ -321,11 +323,8 @@ export default {
   },
   mounted() {},
   computed: {
-    baseUrl() {
-      return process.env.BASE_URL;
-    },
     imgUrl() {
-      return this.baseUrl + "/storage/";
+      return this.$config.imgBaseUrl;
     },
   },
   methods: {
@@ -337,7 +336,6 @@ export default {
       this.$refs.selectFreelancer.closeModal();
       this.$refs.selectFreelancer.close();
     },
-
     submit() {
       const data = {
         id: this.request?.order_id,
@@ -376,12 +374,15 @@ export default {
   grid-template-columns: 60px 1fr;
   gap: 14px;
 }
+
 .active {
   max-height: 1000px;
 }
+
 .text p {
   transition: 2s;
 }
+
 @media (max-width: 1200px) {
   .head {
     grid-template-columns: 52px 1fr;
