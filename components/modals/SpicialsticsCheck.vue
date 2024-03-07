@@ -21,8 +21,8 @@
               v-if="maxSelectCount > 1"
             >
               <span class="text-main-color font-medium">{{
-                  checkedList.length
-                }}</span
+                checkedList.length
+              }}</span
               >: {{ $store.state.translations["modal.choosen-one"] }}
               <span>(max {{ maxSelectCount }} ta)</span>
             </p>
@@ -153,8 +153,8 @@
                 v-if="maxSelectCount > 1"
               >
                 <span class="text-main-color font-medium">{{
-                    checkedList.length
-                  }}</span
+                  checkedList.length
+                }}</span
                 >: {{ $store.state.translations["modal.choosen-one"] }}
                 <span>(max {{ maxSelectCount }} ta)</span>
               </p>
@@ -244,19 +244,25 @@
                         @click="onchecked(child)"
                         :disabled="
                           !Boolean(
-                            checkedList.find((elemChild) => elemChild.id === child.id)
+                            checkedList.find(
+                              (elemChild) => elemChild.id === child.id
+                            )
                           ) && checkedList.length === maxSelectCount
                         "
                       >
                         <a-checkbox
                           :disabled="
                             !Boolean(
-                              checkedList.find((elemChild) => elemChild.id === child.id)
+                              checkedList.find(
+                                (elemChild) => elemChild.id === child.id
+                              )
                             ) && checkedList.length === maxSelectCount
                           "
                           :checked="
                             Boolean(
-                              checkedList.find((elemChild) => elemChild.id === child.id)
+                              checkedList.find(
+                                (elemChild) => elemChild.id === child.id
+                              )
                             )
                           "
                         />
@@ -325,9 +331,7 @@ export default {
     },
 
     open() {
-      if (this.activeCheckedList.length > 0) {
-        this.checkedList = [...this.activeCheckedList];
-      }
+      this.checkedList = [...this.activeCheckedList];
       this.$refs.openSpecials?.open();
     },
     close() {
@@ -340,7 +344,9 @@ export default {
     },
     onchecked(obj) {
       if (this.checkedList.find((item) => item.id === obj.id)) {
-        this.checkedList = this.checkedList.filter((item) => item.id !== obj.id);
+        this.checkedList = this.checkedList.filter(
+          (item) => item.id !== obj.id
+        );
       } else {
         if (this.checkedList.length === this.maxSelectCount) {
           this.checkedList.shift();
@@ -373,6 +379,7 @@ export default {
   color: var(--blue);
   background-color: #fff;
 }
+
 .specialities-list :deep(.ant-skeleton-title) {
   height: 38px;
   margin-top: 0;
@@ -419,16 +426,20 @@ export default {
   overflow: hidden;
   transition: max-height 0.2s linear;
 }
+
 .drop-icon {
   transition: 0.2s linear;
 }
+
 .drop-list .active .drop-body {
   max-height: 200px;
   /* height: auto; */
 }
+
 .drop-list .active .drop-head h2 {
   color: var(--main-color);
 }
+
 .drop-head {
   transition: 0.2s linear;
 }
@@ -436,9 +447,11 @@ export default {
 .bounce-enter-active {
   animation: bounce-in 0.5s;
 }
+
 .bounce-leave-active {
   animation: bounce-in 0.5s reverse;
 }
+
 @keyframes bounce-in {
   0% {
     transform: translateY(-100%);
@@ -447,14 +460,17 @@ export default {
     transform: translateY(0);
   }
 }
+
 @media (max-width: 1200px) {
   .form-item :deep(.ant-form-item-label label) {
     font-size: 14px;
   }
+
   .form-item :deep(.ant-select-selection) {
     height: 44px;
     font-size: 14px;
   }
+
   .form-item :deep(.ant-input) {
     height: 44px;
     font-size: 14px;

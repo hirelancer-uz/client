@@ -214,14 +214,8 @@
                 <p
                   class="hidden xl:flex text-base text-grey-64 xl:text-[14px] gap-[6px]"
                 >
-<<<<<<< HEAD
-                  Заказ:<span class="font-medium text-black"
-                    >#{{ order?.id }}</span
-                  >
-=======
                   {{ $store.state.translations["profile.order"]
                   }}<span class="font-medium text-black">#{{ order?.id }}</span>
->>>>>>> 7d0425cfb07b9d63f4d55435c55fda0b612145dc
                 </p>
               </div>
 
@@ -230,14 +224,8 @@
                   {{ moment(order?.created_at).format(dateFormat) }}
                 </p>
                 <p class="text-base text-grey-64 xl:text-[14px] flex gap-[6px]">
-<<<<<<< HEAD
-                  Заказ:<span class="font-medium text-black"
-                    >#{{ order?.id }}</span
-                  >
-=======
                   {{ $store.state.translations["profile.order"]
                   }}<span class="font-medium text-black">#{{ order?.id }}</span>
->>>>>>> 7d0425cfb07b9d63f4d55435c55fda0b612145dc
                 </p>
               </div>
             </div>

@@ -59,8 +59,8 @@
               :loading="!userInfo['name'] || !userInfo['surname']"
             >
               <p class="text-base text-center text-grey-40">
-                {{ $store.state.translations["profile.registrated"] }}
-                {{ dateFormat }}
+                {{ $store.state.translations["profile.last-time-online"] }}
+                {{ lastLoginDate }}
               </p>
             </a-skeleton>
           </div>
@@ -593,6 +593,9 @@ export default {
   computed: {
     dateFormat() {
       return moment(this.userInfo?.created_at).format("DD-MMM. YYYY");
+    },
+    lastLoginDate() {
+      return moment(this.userInfo?.last_login_at).format("DD-MMM. YYYY");
     },
     userChange() {
       return this.$route.params.user

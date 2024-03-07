@@ -2,7 +2,7 @@
   <div class="pt-12 order xl:px-4 xl:pt-0">
     <div class="max-w-[1286px] mx-auto pb-[55px]">
       <button
-        @click="$router.go(-1)"
+        @click="$router.push('/profile/freelancer/orders/active/status')"
         class="back-btn flex gap-4 w-[162px] py-3 border border-grey-24 border-solid rounded-lg justify-center items-center text-base font-medium text-blue hover:text-blue xl:hidden"
       >
         <svg

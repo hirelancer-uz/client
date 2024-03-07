@@ -5,7 +5,7 @@
   >
     <div class="max-w-[1200px] mx-auto">
       <button
-        @click="$router.go(-1)"
+        @click="$router.push('/profile/customer/orders/active/status')"
         class="back-btn flex gap-2 w-[126px] py-3 border border-main-color border-solid rounded-lg justify-center items-center text-base font-medium text-grey-80 hover:text-blue xl:hidden"
       >
         <svg
