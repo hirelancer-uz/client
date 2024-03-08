@@ -3,22 +3,13 @@
     class="notification-card border border-solid border-border-darik rounded-[16px] px-6 py-4"
   >
     <h5 class="text-dark-grey-100 text-[20px] font-medium mb-4">
-      Davlat idorasining bo’lim boshlig’idan
+      {{ notification.theme }}
     </h5>
     <div
       class="body pb-12 border-[0] border-b border-border-darik border-solid"
     >
       <p class="text-base text-dark-grey-80 desc">
-        O’zbekiston respublikasi milly gvardiyasi qo’riqlash bosh
-        boshqarmasining idoraviy jihatdan tegishly bo’lmagan qorovullik
-        bo’linmalariga ish (xizmat)ga qabul qilish va idoraviy jihatdan tegishly
-        bo’lmagan xabriylashtirilgan O’zbekiston respublikasi milly gvardiyasi
-        qo’riqlash bosh boshqarmasining idoraviy jihatdan tegishly bo’lmagan
-        qorovullik bo’linmalariga ish (xizmat)ga qabul qilish va idoraviy
-        jihatdan tegishly bo’lmagan xabriylashtirilgan O’zbekiston respublikasi
-        milly gvardiyasi qo’riqlash bosh boshqarmasining idoraviy jihatdan
-        tegishly bo’lmagan qorovullik bo’linmalariga ish (xizmat)ga qabul qilish
-        va idoraviy jihatdan tegishly bo’lmagan xabriylashtirilgan
+        {{ notification.message }}
       </p>
     </div>
     <div class="footer mt-6 flex justify-between items-center">
@@ -37,13 +28,14 @@
             stroke-linecap="round"
             stroke-linejoin="round"
           /></svg
-        >11.09.2023</span
+        >{{ dateFormat }}</span
       >
       <button
-       @click="openModal"
+        @click="openModal"
         class="text-main-color text-base font-medium flex items-center gap-2"
-        >{{ $store.state.translations["header.open"]
-        }}<svg
+      >
+        {{ $store.state.translations["header.open"] }}
+        <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -56,24 +48,34 @@
             stroke-width="1.5"
             stroke-linecap="round"
             stroke-linejoin="round"
-          /></svg
-      ></button>
+          />
+        </svg>
+      </button>
     </div>
-<NotificationShow ref="notificationShow" />
+    <NotificationShow ref="notificationShow" :notification="notification" :date="dateFormat"/>
   </div>
 </template>
 <script>
 import NotificationShow from "@/components/modals/NotificationShow.vue";
+import moment from "moment";
+
 export default {
+  props: ["notification"],
+  computed: {
+    dateFormat() {
+      return moment(this.notification?.created_at).format("DD.MM.YYYY");
+    },
+  },
   methods: {
+    moment,
     openModal() {
-      this.$refs.notificationShow.openModal()
-      this.$refs.notificationShow.open()
-    }
+      this.$refs.notificationShow.openModal();
+      this.$refs.notificationShow.open();
+    },
   },
   components: {
-    NotificationShow
-  }
+    NotificationShow,
+  },
 };
 </script>
 <style lang="css" scoped>
