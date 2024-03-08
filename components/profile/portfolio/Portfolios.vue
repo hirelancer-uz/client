@@ -41,7 +41,12 @@
         :count="portfolios.length - 5"
       />
     </div>
-    <FrelancerEmptyBlock v-else />
+   <div class="list grid grid-cols-3 gap-4 xl:grid-cols-1 xl:gap-4">
+     <PortfolioEmptyCard />
+     <PortfolioEmptyCard />
+     <PortfolioEmptyCard />
+
+   </div>
     <button
       @click="$router.push(`/freelancer/${$route.params.index}/portfolio`)"
       class="hidden gap-2 w-full justify-center h-[52px] items-center rounded-[12px] bg-main-color text-[14px] text-white font-medium"
@@ -67,13 +72,14 @@
   </div>
 </template>
 <script>
+import PortfolioEmptyCard from "@/components/profile/portfolio/PortfolioEmptyCard.vue";
 import FrelancerEmptyBlock from "../../freelancers/FrelancerEmptyBlock.vue";
 import PortfolioCard from "./PortfolioCard.vue";
 import PortfolioMoreCard from "./PortfolioMoreCard.vue";
 
 export default {
   props: ["portfolios"],
-  components: { PortfolioCard, PortfolioMoreCard, FrelancerEmptyBlock },
+  components: { PortfolioCard, PortfolioMoreCard, FrelancerEmptyBlock,PortfolioEmptyCard },
 };
 </script>
 <style lang="css" scoped></style>

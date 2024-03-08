@@ -76,8 +76,9 @@
         </div>
       </div> -->
     </div>
-    <div v-else class="h-[208px] flex justify-center items-center xl:hidden">
-      <VEmpty />
+    <div v-else class="grid grid-cols-2 gap-4 xl:hidden">
+      <CoomentsEmptyCard />
+      <CoomentsEmptyCard />
     </div>
     <div
       class="hidden xl:flex gap-3 xl:overflow-x-scroll comments-grid xl:flex-col"
@@ -91,9 +92,10 @@
     </div>
     <div
       v-else
-      class="h-[208px] hidden xl:flex justify-center items-center xl:h-[100px]"
+      class="hidden xl:grid grid-cols-1 gap-4"
     >
-      <VEmpty />
+      <CoomentsEmptyCard />
+      <CoomentsEmptyCard />
     </div>
   </div>
 </template>
@@ -103,6 +105,7 @@ import "swiper/swiper-bundle.min.css";
 import AlertsCard from "./AlertsCard.vue";
 import CommentsCard from "./CommentsCard.vue";
 import VEmpty from "./VEmpty.vue";
+import CoomentsEmptyCard from "@/components/profile/portfolio/CoomentsEmptyCard.vue";
 
 export default {
   props: ["feedbacks"],
@@ -146,7 +149,7 @@ export default {
       if (val == this.$route.query.type) this.$emit("getComments");
     },
   },
-  components: { AlertsCard, CommentsCard, VEmpty },
+  components: { CoomentsEmptyCard, AlertsCard, CommentsCard, VEmpty },
 };
 </script>
 <style lang="css" scoped>

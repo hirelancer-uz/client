@@ -26,7 +26,7 @@
             />
           </div>
           <div
-            v-else
+            v-if="!loading && comments.length > 0"
             class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 xl:grid-cols-1 gap-4 mb-[40px]"
           >
             <CommentsCard
@@ -43,9 +43,10 @@
         </div>
         <div
           v-if="freelancer?.customers_feedbacks?.length == 0 && !loading"
-          class="h-[400px] flex justify-center items-center xl:h-[200px]"
+          class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 xl:grid-cols-1 gap-4 mb-[40px]"
         >
-          <VEmpty />
+          <CoomentsEmptyCard />
+          <CoomentsEmptyCard />
           <!-- <div
         class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 gap-4 mb-[40px] xl:grid-cols-1 xl:gap-[16px] xl:mb-[16px] xl:mt-[16px]"
       >
@@ -64,9 +65,11 @@ import ProfileLayout from "@/components/profile/ProfileLayout.vue";
 import CommentsCard from "@/components/profile/CommentsCard.vue";
 import VPagination from "@/components/VPagination.vue";
 import VEmpty from "@/components/profile/VEmpty.vue";
+import CoomentsEmptyCard from "@/components/profile/portfolio/CoomentsEmptyCard.vue";
 
 export default {
   components: {
+    CoomentsEmptyCard,
     ProfileLayout,
     CommentsCard,
     VPagination,

@@ -22,8 +22,20 @@
               Отправить заявку
             </h4>
             <button @click="closeModal">
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M27.0718 12.929L12.9297 27.0712M27.0718 27.0711L12.9297 12.929" stroke="#EB5757" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 40 40"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M27.0718 12.929L12.9297 27.0712M27.0718 27.0711L12.9297 12.929"
+                  stroke="#EB5757"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
             </button>
           </div>
@@ -136,22 +148,36 @@
           class="modal h-[516px] xl:h-auto m-full mx-auto rounded-t-[16px] max-w-[1440px] bg-white xl:px-4 xl:pb-6"
         >
           <div
-            class="max-w-[1200px] mx-auto pt-[80px] xl:pt-3 grid-container h-full"
+            class="mx-auto xl:pt-4 grid-container h-full"
           >
-            <div class="info flex flex-col gap-4 xl:gap-2">
-              <h2 class="text-[24px] text-black font-semibold xl:text-[18px]">
-                {{ $store.state.translations["order.send-request"] }}
-              </h2>
-              <p class="text-base text-grey-80 xl:text-[14px]">
-                {{ $store.state.translations["order.txt"] }}
-              </p>
-              <img
-                loading="lazy"
-                class="absolute bottom-0 xl:hidden w-[370px] h-[370px]"
-                src="@/assets/images/bottom.png"
-                alt=""
-              />
+            <div class="flex flex-col gap-4">
+              <div class="flex justify-end">
+                <button @click="close">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M16.2426 7.75739L7.75732 16.2427M16.2426 16.2426L7.75732 7.75734"
+                      stroke="#353437"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div class="info flex flex-col gap-4 xl:gap-2">
+                <h2
+                  class="text-[24px] text-black font-semibold xl:text-[18px] xl:mb-6"
+                >
+                  {{ $store.state.translations["order.send-request"] }}
+                </h2>
+              </div>
             </div>
+
             <div class="form flex flex-col gap-[26px] xl:gap-10">
               <a-form-model :model="form" ref="ruleForm" :rules="rules">
                 <div class="grid grid-cols-2 gap-[19px] xl:grid-cols-1">
@@ -163,7 +189,7 @@
                     >
                       <a-input
                         v-model="form.deadline"
-                        placeholder="0"
+                        placeholder="0 дней"
                         type="number"
                       />
                     </a-form-model-item>
@@ -174,7 +200,7 @@
                     >
                       <a-input
                         v-model="form.price"
-                        placeholder="0"
+                        placeholder="0 сум"
                         type="number"
                       />
                     </a-form-model-item>
@@ -316,6 +342,9 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+:deep(.bottom-sheet__draggable-area) {
+  display: none;
+}
 :deep(.ant-modal-content) {
   border-radius: 24px !important;
 }

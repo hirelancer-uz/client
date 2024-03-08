@@ -20,7 +20,7 @@
         </div>
         <div
           class="list grid grid-cols-3 gap-4 mb-[40px] xl:grid-cols-1 mt-6"
-          v-else
+          v-if="!loading && portfolios.length > 0"
         >
           <PortfolioViewCard
             v-for="portfolio in portfolios"
@@ -32,9 +32,11 @@
         </div>
         <div
           v-if="portfolios.length == 0 && !loading"
-          class="h-[208px] xl:h-[111px] flex justify-center items-center mb-[-24px]"
+          class="list grid grid-cols-3 gap-4 mb-[40px] xl:grid-cols-1 mt-6"
         >
-          <VEmpty />
+          <PortfolioEmptyCard />
+          <PortfolioEmptyCard />
+          <PortfolioEmptyCard />
         </div>
         <!-- <div
         class="list grid-cols-3 gap-4 xl:grid-cols-1 mt-4 xl:mt-0 xl:gap-[16px] hidden xl:grid"
@@ -65,6 +67,7 @@ import VPagination from "@/components/VPagination.vue";
 import PortfolioViewCard from "@/components/profile/portfolio/PortfolioViewCard.vue";
 import ModalCard from "@/components/profile/portfolio/ModalCard.vue";
 import VEmpty from "../../../components/profile/VEmpty.vue";
+import PortfolioEmptyCard from "@/components/profile/portfolio/PortfolioEmptyCard.vue";
 
 export default {
   data() {
@@ -129,6 +132,7 @@ export default {
     },
   },
   components: {
+    PortfolioEmptyCard,
     ProfileLayout,
     PortfolioCard,
     PortfolioViewCard,
