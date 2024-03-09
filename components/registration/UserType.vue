@@ -115,7 +115,7 @@
                 :num-inputs="6"
                 separator=""
                 :should-auto-focus="true"
-                placeholder="*"
+                placeholder="o"
                 :is-input-num="true"
                 @on-change="handleOnChange"
                 @on-complete="handleOnComplete"
@@ -242,7 +242,7 @@ export default {
     setInputPlaceholder() {
       this.$refs.otpInput.$el
         .querySelectorAll("input")
-        .forEach((input) => (input.placeholder = "*"));
+        .forEach((input) => (input.placeholder = "●"));
     },
     handleOnComplete(value) {
       this.form.password = value;
@@ -276,7 +276,7 @@ export default {
     },
   },
   destroyed() {
-    localStorage.removeItem("phone")
+    localStorage.removeItem("phone");
   },
 };
 </script>

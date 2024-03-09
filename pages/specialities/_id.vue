@@ -45,6 +45,9 @@
           :orders="orders"
           :specialities="specialities"
           @filter="queryCreater"
+          @getOrders="__GET_ORDERS"
+          :totalPage="totalPage"
+          :pageSize="pageSize"
         />
       </div>
     </transition>
@@ -62,12 +65,16 @@ export default {
   data() {
     return {
       tab: true,
+      pageSize: 10,
     };
   },
   async asyncData({ store, params }) {
+    const pageSize = 10;
+
     const [ordersData, specialitiesData] = await Promise.all([
       store.dispatch("fetchOrders/getOrders", {
         params: {
+          page_size: pageSize,
           [`specialities[${params.id}]`]: params.id,
         },
       }),
@@ -75,9 +82,11 @@ export default {
     ]);
     const orders = ordersData.data;
     const specialities = specialitiesData.content;
+    const totalPage = ordersData?.meta?.total;
     return {
       orders,
       specialities,
+      totalPage,
     };
   },
   methods: {

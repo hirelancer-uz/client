@@ -161,7 +161,7 @@
                 /></svg
               ><span class="text-green">{{ userInfo["likes_count"] }}</span
               ><span class="text-grey-40">/</span
-            ><span class="text-pantone-2023">{{
+              ><span class="text-pantone-2023">{{
                 userInfo["dislikes_count"]
               }}</span
               ><svg
@@ -200,9 +200,11 @@
           </div>
           <a-skeleton :paragraph="false" v-else />
         </div>
-        <div class="buttons" v-if="$route.name === 'freelancer-index'">
-          <button
-            class="border-[2px] border-solid border-main-color rounded-[12px] h-12 flex gap-2 justify-center items-center text-base text-main-color font-medium"
+        <div class="buttons" v-if="$route.name.includes('freelancer-index')">
+          <a
+            :href="userInfo?.contacts?.telegram"
+            target="_blank"
+            class="border-[2px] border-solid border-main-color rounded-[12px] h-12 flex gap-2 justify-center items-center text-base text-main-color font-medium bg-white"
             :class="{
               'pointer-events-none opacity-50': !userInfo?.contacts?.telegram,
             }"
@@ -225,7 +227,7 @@
               <circle cx="16.5" cy="12" r="1" fill="#5C46E6" />
               <circle cx="8.5" cy="12" r="1" fill="#5C46E6" />
             </svg>
-          </button>
+          </a>
           <!-- <button
             class="border border-solid border-grey-8 rounded-[12px] h-12 flex justify-center items-center"
           >
@@ -296,11 +298,11 @@
                 fill="#28303F"
               />
               <circle
-                  cx="18.5"
-                  cy="8"
-                  r="4"
-                  stroke="#28303F"
-                  stroke-width="1.5"
+                cx="18.5"
+                cy="8"
+                r="4"
+                stroke="#28303F"
+                stroke-width="1.5"
               />
             </svg>
           </button>
@@ -480,9 +482,7 @@
           @click="openLogout"
           class="underline text-base text-pantone-2023 flex items-center gap-[10px]"
         >
-          {{
-            $store.state.translations["profile.exit"]
-          }}
+          {{ $store.state.translations["profile.exit"] }}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="21"
@@ -574,7 +574,7 @@
 </template>
 <script>
 import PersonalMessengers from "./PersonalMessengers.vue";
-import {Navigation, Swiper} from "swiper";
+import { Navigation, Swiper } from "swiper";
 import "swiper/swiper-bundle.min.css";
 import EventsSmallCard from "./EventsSmallCard.vue";
 import Logout from "../modals/Logout.vue";
@@ -598,10 +598,10 @@ export default {
       return moment(this.userInfo?.last_login_at).format("DD-MMM. YYYY");
     },
     userChange() {
-      return this.$route.params.user
+      return this.$route.params.user;
     },
     imgUrl() {
-      return this.$config.baseURL + "/storage/"
+      return this.$config.baseURL + "/storage/";
     },
     messengersHandle() {
       return (
@@ -641,8 +641,8 @@ export default {
   },
   watch: {
     userChange(val) {
-      this.$store.commit('setUserType',val)
-    }
+      this.$store.commit("setUserType", val);
+    },
   },
   components: { PersonalMessengers, EventsSmallCard, Logout },
 };
