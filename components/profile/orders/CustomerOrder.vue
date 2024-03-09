@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div
     class="pt-[72px] order xl:px-4 xl:pt-0"
     :class="{ 'pb-10': order?.status > 1 }"
@@ -532,19 +532,41 @@
                 order?.requests?.length
               }})
             </h4>
-            <a-select
-              v-model="is_positive"
-              :placeholder="$store.state.translations[`profile.sorting`]"
-              class="min-w-[280px] xl:w-full"
-            >
-              <a-select-option
-                :value="optin.value"
-                v-for="optin in options"
-                :key="optin.value"
+
+            <div class="right">
+              <button class="favorite">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="25"
+                  viewBox="0 0 24 25"
+                  fill="none"
+                >
+                  <path
+                    d="M4 8.5H20M4 5.5V19.5C4 21.1481 5.88153 22.0889 7.2 21.1L10.8 18.4C11.5111 17.8667 12.4889 17.8667 13.2 18.4L16.8 21.1C18.1185 22.0889 20 21.1481 20 19.5V5.5C20 4.39543 19.1046 3.5 18 3.5H6C4.89543 3.5 4 4.39543 4 5.5Z"
+                    stroke="#353437"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                {{ $store.state.translations["profile.favorite"] }}
+              </button>
+              <a-select
+                v-model="is_positive"
+                :placeholder="$store.state.translations[`profile.sorting`]"
+                class="min-w-[280px] xl:w-full"
+                @change="sortOffers"
               >
-                {{ optin.label }}
-              </a-select-option>
-            </a-select>
+                <a-select-option
+                  :value="optin.value"
+                  v-for="optin in options"
+                  :key="optin.value"
+                >
+                  {{ optin.label }}
+                </a-select-option>
+              </a-select>
+            </div>
           </div>
         </div>
 
@@ -781,11 +803,11 @@ export default {
       chatHandle: false,
       options: [
         {
-          label: this.$store.state.translations["order.with-price"],
+          label: this.$store.state.translations["profile.cheap-expensive"],
           value: 1,
         },
         {
-          label: this.$store.state.translations["order.with-time"],
+          label: this.$store.state.translations["profile.fast-slow"],
           value: 0,
         },
       ],
@@ -826,6 +848,18 @@ export default {
     }
   },
   methods: {
+    sortOffers(val) {
+      val ? this.sortByDate() : this.sortByPrice();
+    },
+
+    sortByPrice() {
+      this.order.requests.sort((a, b) => b.price - a.price);
+    },
+
+    sortByDate() {
+      this.order.requests.sort((a, b) => b.deadline - a.deadline);
+    },
+
     openCustomerChat() {
       this.$refs.customerChat.open();
     },
@@ -973,6 +1007,26 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+.right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.favorite {
+  border-radius: 8px;
+  border: 1px solid var(--Border-darik, #e0e0ed);
+  background: var(--White, #fff);
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--grey-80, #353437);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 27px */
+}
 .customer-chat {
   transition: 0.3s;
   transform: translateX(100%);
