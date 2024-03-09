@@ -1,14 +1,18 @@
 <template lang="html">
-  <div class="footer bg-bg-grey xl:px-4 pt-10 xl:pb-13">
+  <div class="footer bg-bg-grey xl:px-4 pt-10 xl:pb-13 xl:pt-6">
     <div class="max-w-[1678px] mx-auto">
-      <div class="body pb-10 flex justify-between xl:flex-col xl:gap-6  " >
+      <div class="body pb-10 flex justify-between xl:flex-col xl:gap-6">
         <div class="">
           <div class="logo">
-            <IconsFooterLogo />
+            <IconsFooterLogo class="xl:w-[107px]"/>
           </div>
-          <ul class="list flex gap-[56px] mt-[46px] xl:gap-0 justify-between">
+          <ul
+            class="list flex gap-[56px] mt-[46px] xl:gap-0 xl:justify-between"
+          >
             <li>
-              <nuxt-link to="/orders" class="text-[20px] font-medium text-black xl:text-base "
+              <nuxt-link
+                to="/orders"
+                class="text-[20px] font-medium text-black xl:text-base"
                 >Buyurtmalar
               </nuxt-link>
             </li>
@@ -20,35 +24,51 @@
               </nuxt-link>
             </li>
             <li>
-              <nuxt-link to="/" class="text-[20px] font-medium text-black xl:text-base"
+              <nuxt-link
+                to="/"
+                class="text-[20px] font-medium text-black xl:text-base"
                 >Qollanma
               </nuxt-link>
             </li>
             <li>
-              <nuxt-link to="/" class="text-[20px] font-medium text-black xl:text-base"
+              <nuxt-link
+                to="/"
+                class="text-[20px] font-medium text-black xl:text-base"
                 >FAQ
               </nuxt-link>
             </li>
           </ul>
-          <div class="buttons flex gap-10 items-center mt-9">
+          <div class="buttons flex gap-10 items-center mt-9 xl:mt-6">
             <div class="flex gap-4">
               <a
                 href="#"
                 class="w-[80px] h-[80px] xl:w-10 xl:h-10 rounded-full flex justify-center items-center bg-white"
               >
-                <img class="xl:w-[18px] xl:h-[18px]"  src="@/assets/images/footer-telegram.png" alt="" />
+                <img
+                  class="xl:w-[18px] xl:h-[18px]"
+                  src="@/assets/images/footer-telegram.png"
+                  alt=""
+                />
               </a>
               <a
                 href="#"
                 class="w-[80px] h-[80px] xl:w-10 xl:h-10 rounded-full flex justify-center items-center bg-white"
               >
-                <img  class="xl:w-6 xl:h-6" src="../../assets/images/footer-instagram.png" alt="" />
+                <img
+                  class="xl:w-6 xl:h-6"
+                  src="../../assets/images/footer-instagram.png"
+                  alt=""
+                />
               </a>
               <a
                 href="#"
                 class="w-[80px] h-[80px] xl:w-10 xl:h-10 rounded-full flex justify-center items-center bg-white"
               >
-                <img class="xl:w-5 xl:h-[14px]" src="../../assets/images/footer-youtube.png" alt="" />
+                <img
+                  class="xl:w-5 xl:h-[14px]"
+                  src="../../assets/images/footer-youtube.png"
+                  alt=""
+                />
               </a>
             </div>
             <div class="buttons flex gap-4 xl:hidden">
@@ -81,52 +101,110 @@
             </div>
           </div>
         </div>
-        <div class="px-[26px] py-[29px] xl:px-4 xl:py-4 rounded-[24px] bg-white flex flex-col gap-4">
-         <div class="grid grid-cols-2 gap-4 xl:flex xl:flex-col">
-           <div class="footer-card flex gap-3 px-4 py-4 rounded-[16px] bg-bg-grey max-w-[343px] xl:max-w-full">
-           <div class="flex flex-col justify-between">
-             <p class="text-[18px] font-medium text-black">Telegram xabarnomalar uchun bot</p>
-             <a href="" class="text-[14px] font-semibold  text-main-color underline">BOT ni ochish</a>
-           </div>
-           <div class="w-[88px] h-[88px]">
-             <img class="w-full h-full object-contain" src="../../assets/images/footer-bot.png" alt="">
-           </div>
-         </div>
-           <div class="footer-card flex gap-3 px-4 py-4 rounded-[16px] bg-bg-grey max-w-[343px] xl:max-w-full">
-             <div class="flex flex-col justify-between">
-               <p class="text-[18px] font-medium text-black">Telegram xabarnomalar uchun bot</p>
-               <a href="" class="text-[14px] font-semibold  text-main-color underline">BOT ni ochish</a>
-             </div>
-             <div class="w-[88px] h-[88px]">
-               <img class="w-full h-full object-contain" src="../../assets/images/footer-bot.png" alt="">
-             </div>
-           </div>
-         </div>
-          <div class="h-[88px] xl:h-auto xl:px-4 px-6 py-4 rounded-[16px] bg-white flex items-center border border-solid border-bg-grey justify-between xl:flex-col xl:gap-4">
-            <p class="text-black text-[20px] xl:text-[18px] font-medium">Texnik yordam uchun telegram bot</p>
-            <a href="" class="text-black xl:min-h-12 text-[24px] xl:text-base font-medium flex gap-8 items-center h-[56px] bg-bg-grey w-[311px] justify-center rounded-[21px] xl:rounded-[8px]">@udoo_help
-           <span class="w-9 h-9 rounded-full flex justify-center items-center bg-white">   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8.33203 14.1666L11.6654 9.99996L8.33203 5.83329" stroke="url(#paint0_linear_4386_12934)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <defs>
-                <linearGradient id="paint0_linear_4386_12934" x1="11.6654" y1="9.99996" x2="8.10767" y2="9.99996" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#5C46E6"/>
-                  <stop offset="1" stop-color="#9882FF"/>
-                </linearGradient>
-              </defs>
-            </svg></span>
+        <div
+          class="px-[26px] py-[29px] xl:px-4 xl:py-4 rounded-[24px] bg-white flex flex-col gap-4"
+        >
+          <div class="grid grid-cols-2 gap-4 xl:flex xl:flex-col">
+            <div
+              class="footer-card flex gap-3 px-4 py-4 rounded-[16px] bg-bg-grey max-w-[343px] xl:max-w-full"
+            >
+              <div class="flex flex-col justify-between">
+                <p class="text-[18px] font-medium text-black">
+                  Telegram xabarnomalar uchun bot
+                </p>
+                <a
+                  href=""
+                  class="text-[14px] font-semibold text-main-color underline"
+                  >BOT ni ochish</a
+                >
+              </div>
+              <div class="w-[88px] h-[88px]">
+                <img
+                  class="w-full h-full object-contain"
+                  src="../../assets/images/footer-bot.png"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div
+              class="footer-card flex gap-3 px-4 py-4 rounded-[16px] bg-bg-grey max-w-[343px] xl:max-w-full"
+            >
+              <div class="flex flex-col justify-between">
+                <p class="text-[18px] font-medium text-black">
+                  Telegram xabarnomalar uchun bot
+                </p>
+                <a
+                  href=""
+                  class="text-[14px] font-semibold text-main-color underline"
+                  >BOT ni ochish</a
+                >
+              </div>
+              <div class="w-[88px] h-[88px]">
+                <img
+                  class="w-full h-full object-contain"
+                  src="../../assets/images/footer-bot.png"
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="h-[88px] xl:h-auto xl:px-2 px-6 py-4 rounded-[16px] bg-white flex items-center border border-solid border-bg-grey justify-between xl:flex-col xl:gap-4"
+          >
+            <p class="text-black text-[20px] xl:text-[18px] font-medium">
+              Texnik yordam uchun telegram bot
+            </p>
+            <a
+              href=""
+              class="xl:mb-[-8px] text-black xl:min-h-12 text-[24px] xl:text-base font-medium flex gap-8 items-center h-[56px] xl:h-12 bg-bg-grey w-[311px] xl:w-full justify-center rounded-[21px] xl:rounded-[8px]"
+            >
+              @udoo_help
+              <span
+                class="w-9 h-9 xl:h-[28px] xl:w-[28px] rounded-full flex justify-center items-center bg-white"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.33203 14.1666L11.6654 9.99996L8.33203 5.83329"
+                    stroke="url(#paint0_linear_4386_12934)"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <defs>
+                    <linearGradient
+                      id="paint0_linear_4386_12934"
+                      x1="11.6654"
+                      y1="9.99996"
+                      x2="8.10767"
+                      y2="9.99996"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop stop-color="#5C46E6" />
+                      <stop offset="1" stop-color="#9882FF" />
+                    </linearGradient>
+                  </defs></svg
+              ></span>
             </a>
           </div>
         </div>
       </div>
       <div
-        class="pb-10 pt-[26px] flex justify-between xl:items-center xl:flex-col xl:gap-[12px] border-[0] border-solid border-t border-border-darik"
+        class="pb-10 xl:pb-[100px] pt-[26px] xl:pt-4 flex justify-between xl:items-center xl:flex-col xl:gap-[12px] border-[0] border-solid border-t border-border-darik"
       >
-        <p class="text-black text-base">
+        <p class="text-black text-base xl:text-[14px]">
           {{ $store.state.translations["main.rights"] }}
         </p>
-        <div class="flex gap-4">
-          <img src="@/assets/images/ndc.png" alt="" />
-          <p class="text-[14px] text-black whitespace-nowrap xl:whitespace-normal">
+        <div class="flex gap-4 xl:items-center">
+          <img class="xl:h-5" src="@/assets/images/ndc.png" alt="" />
+          <p
+            class="text-[14px] text-black whitespace-nowrap xl:whitespace-normal"
+          >
             Проект является продуктом National Development Community
           </p>
         </div>

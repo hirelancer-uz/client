@@ -6,7 +6,10 @@
       <PlaceSpecialists :specialities="specialities" />
     </div>
     <Orders :orders="orders" :totalOrder="totalOrder" />
-    <TheFreelancers :freelancers="freelancers" :totalFreelancer="totalFreelancer" />
+    <TheFreelancers
+      :freelancers="freelancers"
+      :totalFreelancer="totalFreelancer"
+    />
     <!-- <OrderBanner /> -->
   </div>
 </template>
@@ -60,7 +63,6 @@ export default {
     TheFreelancers,
     OrderBanner,
   },
-
 };
 </script>
 <style lang="css" scoped>

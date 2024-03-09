@@ -36,10 +36,10 @@ export default {
     init(axios) {
       axios.defaults.withCredentials = true;
     },
-    baseURL: process.env.BASE_URL
+    baseURL: process.env.BASE_URL,
   },
   publicRuntimeConfig: {
-    baseURL: process.env.BASE_URL || 'https://api.hirelancer.ndc.uz',
+    baseURL: process.env.BASE_URL || "https://api.hirelancer.ndc.uz",
     // imgBaseUrl: (process.env.BASE_URL || 'https://api.hirelancer.ndc.uz') + "/storage/"
   },
   build: {
@@ -52,7 +52,7 @@ export default {
       config.externals = [
         {
           encoding: "encoding",
-        }
+        },
       ];
     },
   },

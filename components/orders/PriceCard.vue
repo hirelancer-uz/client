@@ -12,7 +12,7 @@
           {{ $store.state.translations["order.price"] }}
         </p>
         <h1
-          class="text-black text-base font-semibold xl:text-base exact__price whitespace-nowrap"
+          class="text-base text-main-color font-semibold xl:text-base exact__price whitespace-nowrap"
         >
           {{
             order?.price
@@ -26,9 +26,11 @@
       <div
         class="flex deal justify-between items-center xl:flex-row xl:justify-between xl:items-center"
       >
-        <p class="text-grey-64 text-[14px] xl:font-medium">Срок:</p>
+        <p class="text-grey-64 text-[14px] xl:font-medium">
+          {{ $store.state.translations["profile.deadline"] }}
+        </p>
         <h4
-          class="text-main-color text-[18px] font-semibold xl:font-medium xl:text-[14px]"
+          class="text-black text-[18px] font-semibold xl:font-medium xl:text-[14px]"
         >
           {{ $store.state.translations["profile.deal"] }}
         </h4>

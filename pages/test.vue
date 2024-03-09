@@ -1,1 +1,9 @@
+<template>
+  <div class="master"></div>
+</template>
 
+<script>
+export default {};
+</script>
+
+<style></style>
