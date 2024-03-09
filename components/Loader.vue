@@ -1,6 +1,6 @@
 <template lang="html">
   <div
-    class="loader-container fixed top-0 left-0 h-full w-full flex items-center justify-center bg-white z-50"
+    class="loader-container fixed top-0 left-0 h-full w-full flex items-center justify-center bg-white z-[9999]"
   >
     <span class="loader"></span>
   </div>

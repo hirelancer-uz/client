@@ -55,7 +55,7 @@
           </button>
           <img
             class="w-full h-full object-contain relative z-[100]"
-            :src="`${baseUrl}/storage/${file?.file}`"
+            :src="`${imgUrl}${file?.file}`"
             alt=""
           />
         </div>

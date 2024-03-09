@@ -6,7 +6,7 @@
         <div class="flex justify-between items-end mt-8 xl:mt-0">
           <div class="flex flex-col gap-4 xl:w-full">
             <h1 class="text-[32px] font-semibold xl:hidden text-black">
-              {{ $store.state.translations["main.orders"] }}
+              {{ $store.state.translations["main.orders"] }} {{activeSpecial}}
             </h1>
           </div>
           <a
@@ -57,7 +57,19 @@ export default {
       pageSize: 10,
     };
   },
-
+computed: {
+    allSpecialities() {
+      return this.specialities.map(item => {
+        return {
+          ...item,
+          ...item?.children
+        }
+      })
+    },
+  activeSpecial() {
+      return this.allSpecialities.find(elem => elem?.id === this.$route.params.id)
+  }
+},
   async asyncData({ store, params, query }) {
     const pageSize = 10;
     const [ordersData, specialitiesData] = await Promise.all([

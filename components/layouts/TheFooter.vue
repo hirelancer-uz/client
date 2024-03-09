@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="footer bg-bg-grey xl:px-4 pt-10 xl:pb-13 xl:pt-6">
-    <div class="max-w-[1678px] mx-auto">
+    <div class="max-w-[1678px] mx-auto footer-container">
       <div class="body pb-10 flex justify-between xl:flex-col xl:gap-6">
         <div class="">
           <div class="logo">
@@ -237,5 +237,11 @@ export default {
 
 .links a {
   font-size: 14px;
+}
+@media (max-width: 1440px) {
+  .footer-container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
 </style>

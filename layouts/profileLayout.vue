@@ -9,7 +9,9 @@
       class="header-bg xl:block hidden w-full h-[104px]"
     ></div>
     <div
-      v-if="$route.name?.includes('profile') && $route.name?.includes('settings')"
+      v-if="
+        $route.name?.includes('profile') && $route.name?.includes('settings')
+      "
       class="header-bg xl:block hidden w-full xl:h-[145px]"
     ></div>
     <div v-else class="header-bg xl:block hidden w-full xl:h-[111px]"></div>
@@ -27,7 +29,8 @@
           class="hidden"
           :class="{
             'xl:flex':
-              $route.path == '/profile/freelancer' || $route.path == '/profile/customer',
+              $route.path == '/profile/freelancer' ||
+              $route.path == '/profile/customer',
           }"
           :user="false"
           :freelancer="$store.state.userInfo"
@@ -36,7 +39,8 @@
           class="min-w-0"
           :class="{
             'xl:hidden':
-              $route.path == '/profile/freelancer' || $route.path == '/profile/customer',
+              $route.path == '/profile/freelancer' ||
+              $route.path == '/profile/customer',
           }"
         >
           <ProfileTab v-if="$route.name?.includes('profile')" />
@@ -151,10 +155,18 @@ export default {
   grid-template-columns: 408px 1fr;
   grid-gap: 37px;
 }
+
 @media (max-width: 1200px) {
   .profile-grid {
     grid-template-columns: 1fr;
     grid-gap: 37px;
+  }
+}
+
+@media (max-width: 1440px) {
+  .profile-layout {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }
 </style>

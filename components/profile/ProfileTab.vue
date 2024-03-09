@@ -221,7 +221,7 @@ export default {};
   color: white;
   box-shadow: 0px 4px 15px 0px rgba(92, 70, 229, 0.29);
 }
-.profile-tab .nuxt-link-active svg path {
+.profile-tab .nuxt-link-active svg path,.profile-tab .nuxt-link-active svg circle {
   stroke: white;
 }
 </style>
