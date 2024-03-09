@@ -6,26 +6,42 @@
         {{ $store.state.translations["profile.settings"] }}
       </h3>
     </div>
-    <div
-      class="buttons xl:justify-center bg-white flex gap-6 mt-4 xl:gap-12 xl:mt-[-3px] xl:relative z-[2000] xl:pt-[3px] xl:hidden"
-    >
-      <button
-        :to="`/profile/${$route.params.user}/settings`"
-        @click="$router.push(`/profile/${$route.params.user}/settings`)"
-        :class="{ active: !$route.name.includes('specialities') }"
-        class="px-6 py-3 relative rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] text-base text-grey-64 font-medium xl:font-semibold xl:py-0 xl:flex xl:items-center xl:h-9 whitespace-nowrap xl:rounded-lg"
+    <div class="flex justify-between max-w-[818px] mt-4 ">
+
+      <div
+        class="buttons  xl:justify-center bg-white flex gap-6 xl:gap-12 xl:mt-[-3px] xl:relative z-[2000] xl:pt-[3px] xl:hidden"
       >
-        {{ $store.state.translations["header.personal-data"] }}
-      </button>
-      <button
-        @click="
+        <button
+          @click="$router.push(`/profile/${$route.params.user}/settings`)"
+          :class="{ active: !$route.name.includes('specialities') }"
+          class="px-6 py-3 relative rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] text-base text-grey-64 font-medium xl:font-semibold xl:py-0 xl:flex xl:items-center xl:h-9 whitespace-nowrap xl:rounded-lg"
+        >
+          {{ $store.state.translations["header.personal-data"] }}
+        </button>
+        <button
+          @click="
           $router.push(`/profile/${$route.params.user}/settings/specialities`)
         "
-        :class="{ active: $route.name.includes('specialities') }"
-        class="px-6 py-0 xl:flex xl:items-center relative rounded-[12px] border-solid border-[2px] xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] border-bg-grey bg-bg-grey text-base text-grey-64 font-medium xl:font-semibold xl:py-2 xl:h-9 whitespace-nowrap xl:rounded-lg"
-      >
-        {{ $store.state.translations["header.specs"] }}
-      </button>
+          :class="{ active: $route.name.includes('specialities') }"
+          class="px-6 py-0 xl:flex xl:items-center relative rounded-[12px] border-solid border-[2px] xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] border-bg-grey bg-bg-grey text-base text-grey-64 font-medium xl:font-semibold xl:py-2 xl:h-9 whitespace-nowrap xl:rounded-lg"
+        >
+          {{ $store.state.translations["header.specs"] }}
+        </button>
+      </div>
+      <div class="flex justify-end gap-6 xl:hidden">
+        <button
+          class="px-6 py-3 relative rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] text-base text-grey-64 font-medium xl:font-semibold xl:py-0 xl:flex xl:items-center xl:h-9 whitespace-nowrap xl:rounded-lg"
+        >
+          {{ $store.state.translations["auth.cancel"] }}
+        </button>
+        <button
+          @click="onSubmit"
+          class="text-base font-medium text-white border-[2px] border-solid border-blue bg-blue rounded-[12px] px-6 py-3 flex justify-center items-center"
+        >
+          {{ $store.state.translations["auth.save"] }}
+        </button>
+      </div>
+
     </div>
     <a-form-model ref="ruleForm" :model="form" :rules="rules">
       <div
