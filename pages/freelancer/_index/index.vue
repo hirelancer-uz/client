@@ -11,7 +11,7 @@
           />
         </div>
         <div class="portfolio-block mt-[40px] xl:mt-6">
-          <Portfolios :portfolios="portfolios" />
+          <Portfolios :portfolios="portfolios"  :freelancer="freelancer"/>
         </div>
         <div class="mt-10">
           <Comments :feedbacks="freelancer?.customers_feedbacks" />

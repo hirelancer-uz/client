@@ -118,9 +118,6 @@ export default {
               page_size: this.pageSize,
               ...this.$route.query,
             },
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("auth-token")}`,
-            },
           }),
         ]);
         this.portfolios = portfolioData.data;

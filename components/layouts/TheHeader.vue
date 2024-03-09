@@ -181,7 +181,6 @@
               <!-- </div> -->
             </button>
             <ul
-              v-if="userType"
               class="menu-container bg-bg-grey rounded-[12px] px-2 py-3 flex flex-col gap-2"
               slot="overlay"
             >

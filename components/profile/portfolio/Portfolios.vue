@@ -32,6 +32,8 @@
       <PortfolioCard
         v-for="portfolio in portfolios.slice(0, 5)"
         :portfolio="portfolio"
+        :portfolios="portfolios"
+        :freelancer="freelancer"
         :key="portfolio?.id"
       />
 
@@ -41,7 +43,7 @@
         :count="portfolios.length - 5"
       />
     </div>
-   <div class="list grid grid-cols-3 gap-4 xl:grid-cols-1 xl:gap-4">
+   <div class="list grid grid-cols-3 gap-4 xl:grid-cols-1 xl:gap-4" v-if="portfolios.length == 0">
      <PortfolioEmptyCard />
      <PortfolioEmptyCard />
      <PortfolioEmptyCard />
@@ -78,7 +80,7 @@ import PortfolioCard from "./PortfolioCard.vue";
 import PortfolioMoreCard from "./PortfolioMoreCard.vue";
 
 export default {
-  props: ["portfolios"],
+  props: ["portfolios","freelancer"],
   components: { PortfolioCard, PortfolioMoreCard, FrelancerEmptyBlock,PortfolioEmptyCard },
 };
 </script>

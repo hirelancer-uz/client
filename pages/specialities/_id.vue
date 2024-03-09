@@ -64,10 +64,13 @@ export default {
       tab: true,
     };
   },
-  async asyncData({ store, params }) {
+  async asyncData({ store, params,query }) {
+    const pageSize = 10;
     const [ordersData, specialitiesData] = await Promise.all([
       store.dispatch("fetchOrders/getOrders", {
         params: {
+          page_size: pageSize,
+          ...query,
           [`specialities[${params.id}]`]: params.id,
         },
       }),
