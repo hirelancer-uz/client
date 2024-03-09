@@ -247,7 +247,7 @@
                   :file-list="fileList"
                   :before-upload="handleBeforeUpload"
                   :custom-request="customRequest"
-                  accept=".jpg, .png, .jpeg, .gif, .svg"
+                  accept=".pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .jpeg, .jpg, .png, .gif, .svg, .mp3, .wav, ., ogg, .mp4, .avi, .mkv, .zip, .rar, .7z, .bmp, .tiff, .flv, .txt, .rtf, .csv, .bmp, ., tiff, .webp, .ico, .wma, .aiff, .mov, .webm, .xml"
                 >
                   <div
                     v-if="fileList.length < 10"
@@ -533,6 +533,18 @@ export default {
     return {
       editorOption: {
         theme: "snow",
+          modules: {
+              toolbar: [
+                  ['bold', 'italic', 'underline', 'strike'],
+                  ['blockquote'],
+                  [{ 'header': 1 }, { 'header': 2 }],
+                  [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                  [{ 'color': [] }],
+                  [{ 'align': [] }],
+                  ['link']
+              ],
+
+          }
       },
       loadingBtn: false,
       activeSpecialities: [],

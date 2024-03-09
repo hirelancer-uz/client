@@ -57,7 +57,10 @@
                 {{ $store.state.translations["header.specs"] }}
               </p>
 
-              <div v-else class="w-auto flex flex-wrap gap-[4px] relative z-[20] max-w-[90%]">
+              <div
+                v-else
+                class="w-auto flex flex-wrap gap-[4px] relative z-[20] max-w-[90%]"
+              >
                 <div
                   v-for="listItem in activeCheckedList"
                   :key="listItem?.id"
@@ -86,7 +89,10 @@
 
               <button
                 class="h-[34px] flex justify-end my-[-10px] items-center absolute z-[10] right-0 px-4 w-full"
-                @click="openSpecial(); (checkedList = [...activeCheckedList])"
+                @click="
+                  openSpecial();
+                  checkedList = [...activeCheckedList];
+                "
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +109,7 @@
                   />
                 </svg>
               </button>
-             </div>
+            </div>
 
             <!-- <a-select
 
@@ -224,7 +230,7 @@
                 </a-upload> -->
                 <a-upload
                   :multiple="true"
-                  accept=".jpg, .png, .jpeg, .gif, .svg"
+                  accept=".pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .jpeg, .jpg, .png, .gif, .svg, .mp3, .wav, ., ogg, .mp4, .avi, .mkv, .zip, .rar, .7z, .bmp, .tiff, .flv, .txt, .rtf, .csv, .bmp, ., tiff, .webp, .ico, .wma, .aiff, .mov, .webm, .xml"
                   list-type="picture-card"
                   :file-list="fileList"
                   :before-upload="handleBeforeUpload"
@@ -495,6 +501,7 @@ import SpicialsticsCheck from "@/components/modals/SpicialsticsCheck.vue";
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
+
 function getBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -503,11 +510,24 @@ function getBase64(file) {
     reader.onerror = (error) => reject(error);
   });
 }
+
 export default {
   data() {
     return {
       editorOption: {
         theme: "snow",
+          modules: {
+              toolbar: [
+                  ['bold', 'italic', 'underline', 'strike'],
+                  ['blockquote'],
+                  [{ 'header': 1 }, { 'header': 2 }],
+                  [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                  [{ 'color': [] }],
+                  [{ 'align': [] }],
+                  ['link']
+              ],
+
+          }
       },
       specialities: [],
       openBottom: false,
@@ -936,9 +956,11 @@ export default {
 :deep(.has-error) textarea {
   border-color: var(--red);
 }
+
 .errorSelect .modal-select {
   border-color: var(--red);
 }
+
 .required :deep(label)::before {
   display: inline-block;
   margin-right: 4px;
@@ -951,6 +973,7 @@ export default {
   right: -5px;
   top: 0;
 }
+
 .required :deep(label)::after {
   display: none !important;
 }
@@ -961,54 +984,66 @@ export default {
   border: none;
   border-bottom: 1px solid var(--grey-8, #ebebeb);
 }
+
 :deep(.ql-container) {
   border-radius: 0 0 10px 10px;
   background: #fff;
   border: none;
   min-height: 250px;
 }
+
 :deep(.ql-editor) {
   min-height: 250px;
 }
+
 .form-item :deep(input) {
   border-radius: 8px;
   border: 1px solid #e0e0ed;
   background: #fff;
   padding-left: 50px;
 }
+
 :deep(.quill-editor) {
   border-radius: 8px;
   border: 1px solid var(--grey-8);
   font-family: "TT Interfaces";
   font-size: 16px;
 }
+
 :deep(.has-error .quill-editor) {
   border-color: red;
 }
+
 .checkbox_el {
   display: flex;
   align-items: center;
 }
+
 @media (max-width: 1200px) {
   :deep(.order-item label),
   :deep(.order-select label) {
     font-size: 14px;
   }
+
   .order-upload {
     display: grid;
     grid-template-columns: repeat(3, 30%);
   }
+
   .fixed-btns {
     border-radius: 16px 16px 0px 0px;
     box-shadow: 0px 4px 36px 0px rgba(0, 25, 53, 0.16);
   }
+
   .order-upload :deep(.ant-upload-select-picture-card) {
     width: 100%;
     height: 104px;
   }
+
   .order-upload :deep(.ant-upload-picture-card-wrapper) {
     width: 100%;
   }
+
   .order-item :deep(input) {
     height: 56px;
   }
