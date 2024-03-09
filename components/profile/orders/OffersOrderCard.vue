@@ -239,7 +239,9 @@
         <button
           @click="sendRequest(request)"
           class="rounded-[8px] bg-main-color px-5 h-12 flex items-center text-base text-white font-semibold leading-6 xl:text-[14px] xl:font-medium xl:w-full xl:justify-center"
-        ></button>
+        >
+          {{ $store.state.translations["profile.choose-this-free"] }}
+        </button>
         <p class="flex gap-4 text-base text-grey-40 items-center xl:hidden">
           {{ moment(request?.created_at).format(hourFormat) }}
           <span class="bg-grey-8 h-[24px] flex w-[1px]"></span>
@@ -272,7 +274,7 @@
           class="w-[190px] xl:w-12 h-12 flex items-center justify-center gap-2 rounded-lg border-[2px] border-solid border-main-color bg-bg-grey text-blue text-base font-medium xl:border"
         >
           <span class="xl:hidden">{{
-            $store.state.translations["profile.send-sms"]
+            $store.state.translations["profile.write"]
           }}</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -297,7 +299,7 @@
     <CancellationOrder
       ref="selectFreelancer"
       @submit="submit"
-      :title="$store.state.transitions['profile.choose-this-free']"
+      :title="$store.state.translations[`profile.choose-this-free`]"
       :save="$store.state.translations[`modal.yes`]"
       :closeBtn="$store.state.translations[`modal.no`]"
       :primary="true"
@@ -324,7 +326,7 @@ export default {
   mounted() {},
   computed: {
     imgUrl() {
-      return this.$config.baseURL + "/storage/"
+      return this.$config.baseURL + "/storage/";
     },
   },
   methods: {

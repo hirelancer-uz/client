@@ -302,7 +302,8 @@
                   fill="#F2994A"
                 />
               </svg>
-              {{ $store.state.translations["profile.order-waiting-mod"] }}
+              {{ $store.state.translations["profile.order-waiting-mod"] }} chery
+              chery lady
             </p>
           </div>
         </div>
@@ -511,7 +512,7 @@
                 fill="#F2994A"
               />
             </svg>
-            {{ $store.state.translations["profile.order-wait-moder"] }}
+            {{ $store.state.translations["profile.order-waiting-mod"] }}
           </p>
         </div>
       </div>
@@ -525,7 +526,7 @@
     >
       <div class="max-w-[1440px] mx-auto">
         <div class="order-left-chat mb-6">
-          <div class="flex justify-between xl:flex-col xl:gap-4">
+          <div class="flex items-center justify-between xl:flex-col xl:gap-4">
             <h4 class="text-[24px] font-semibold text-black xl:text-[18px]">
               {{ $store.state.translations["profile.offers"] }} ({{
                 order?.requests?.length
