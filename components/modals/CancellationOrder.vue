@@ -9,6 +9,8 @@
           paddingLrft: '32px',
           borderRadius: '24px',
         }"
+        centered
+        :closable="false"
         :width="width || 712"
         @ok="closeModal"
       >

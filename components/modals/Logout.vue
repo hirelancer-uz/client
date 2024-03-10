@@ -84,7 +84,7 @@
         </div>
       </a-modal>
     </div>
-    <div class="hidden xl:block">
+    <div class="hidden xl:block" v-show="show">
       <vue-bottom-sheet-vue2
         @closed="closed"
         ref="logoutSheet"
@@ -139,14 +139,18 @@
 </template>
 <script>
 import LoaderBtn from "@/components/loader-btn.vue";
+
 export default {
-  props: ["visibleProp", "loadingBtn"],
+  props: ["loadingBtn"],
   data() {
     return {
       visible: false,
+      show: false,
     };
   },
-
+  mounted() {
+    this.show = true;
+  },
   methods: {
     closed() {
       this.closeModal();

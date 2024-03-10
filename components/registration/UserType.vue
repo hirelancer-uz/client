@@ -161,13 +161,13 @@
       </a-form-model>
       <div class="w-full flex flex-col gap-6">
         <p class="text-grey-40 text-[14px] mt-6 xl:block hidden text-center">
-          +998
-          {{
-            `${form?.phone_number}`
-              .match(/(\d{2})(\d{3})(\d{2})(\d{2})/)
-              .filter((item, index) => index !== 0)
-              .join(" ")
-          }}
+<!--          +998-->
+<!--          {{-->
+<!--            `${form?.phone_number}`-->
+<!--              .match(/(\d{2})(\d{3})(\d{2})(\d{2})/)-->
+<!--              .filter((item, index) => index !== 0)-->
+<!--              .join(" ")-->
+<!--          }}-->
           {{ $store.state.translations["auth.sent-code"] }}
         </p>
         <div

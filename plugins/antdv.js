@@ -25,7 +25,7 @@ import {
   notification,
   message,
   // Affix,
-  // InputNumber,
+  InputNumber,
   Skeleton,
   Empty,
   // Alert,
@@ -58,7 +58,7 @@ Vue.use(Empty);
 Vue.use(DatePicker);
 Vue.use(Skeleton);
 // Vue.use(TimePicker);
-// Vue.use(InputNumber);
+Vue.use(InputNumber);
 Vue.use(FormModel);
 // Vue.use(Layout);
 // Vue.use(Button);

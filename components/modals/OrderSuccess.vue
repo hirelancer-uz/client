@@ -187,8 +187,35 @@ export default {
     };
   },
   methods: {
+    isOffer() {
+      if (this.$store.state.auth && this.$store.state.userInfo["id"]) {
+        const isMyOffer = Boolean(
+          this.order.requests.find(
+            (request) =>
+              request.freelancer_id === this.$store.state.userInfo["id"]
+          )
+        );
+        if (isMyOffer)
+          this.$router.push(
+            this.localePath(`/profile/freelancer/order/view/${this.order.id}`)
+          );
+      }
+    },
+    isClient() {
+      if (this.$store.state.auth && this.$store.state.userInfo["id"]) {
+        const isMyOrder = Boolean(
+          this.order.client.id === this.$store.state.userInfo["id"]
+        );
+        if (isMyOrder)
+          this.$router.push(
+            this.localePath(`/profile/customer/order/view/${this.order.id}`)
+          );
+      }
+    },
     closed() {
       this.closeModal();
+      this.isOffer();
+      this.isClient();
     },
     closeModal() {
       this.visible = false;
@@ -209,7 +236,11 @@ export default {
   },
   watch: {
     visible(val) {
-      if (!val) this.close();
+      if (!val) {
+        this.close();
+        this.isOffer();
+        this.isClient()
+      }
     },
   },
 };

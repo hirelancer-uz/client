@@ -238,7 +238,7 @@ export default {
 .links a {
   font-size: 14px;
 }
-@media (max-width: 1440px) {
+@media (max-width: 1680px) {
   .footer-container {
     padding-left: 16px;
     padding-right: 16px;

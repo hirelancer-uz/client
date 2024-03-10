@@ -142,7 +142,8 @@
                     :key="specialit?.id"
                   >
                     <span
-                      class="rounded-[22px] py-2 px-4 bg-bg-grey text-grey-64 text-[14px] font-medium"
+                        @click="$router.push(`/specialities/${specialit?.id}`)"
+                      class="rounded-[22px] py-2 px-4 bg-bg-grey text-grey-64 text-[14px] font-medium cursor-pointer"
                       >{{ specialit?.name_ru }} </span
                     ><span
                       v-if="index + 1 != order?.specialities.length"
@@ -610,7 +611,7 @@
           <div
             class="xl:hidden customer-chat"
             :class="{ activeChat: chatHandle }"
-            v-if="!order?.selected_request?.id && order?.status === 1"
+            v-if="!order?.selected_request?.id && order?.status === 1 && order?.requests.length > 0"
           >
             <OffersChat @close="chatHandle = false" />
           </div>
@@ -665,8 +666,8 @@
         @submit="submitCancel"
         :loadingBtn="loadingBtn"
         :title="$store.state.translations[`profile.sure-cancel-request`]"
-        save="$store.state.translations[`modal.yes`]"
-        closeBtn="$store.state.translations[`modal.no`]"
+        :save="$store.state.translations[`modal.yes`]"
+        :closeBtn="$store.state.translations[`modal.no`]"
       >
         <p class="text-base text-grey-64 mt-2 xl:text-center xl:px-4">
           {{ $store.state.translations["profile.you-cant-continue"] }}
@@ -685,8 +686,8 @@
         :loadingBtn="loadingBtn"
         :disabled="disabledBtn"
         :title="$store.state.translations[`profile.sure-cancel-order`]"
-        save="$store.state.translations[`modal.yes`]"
-        closeBtn="$store.state.translations[`modal.no`]"
+        :save="$store.state.translations[`modal.yes`]"
+        :closeBtn="$store.state.translations[`modal.no`]"
         :width="584"
       >
         <p class="text-base text-grey-64 mt-2 xl:px-4 xl:text-center">

@@ -119,7 +119,8 @@
                     :key="specialit?.id"
                   >
                     <span
-                      class="rounded-[22px] py-2 px-4 bg-bg-grey text-grey-64 text-[14px] font-medium"
+                        @click="$router.push(`/specialities/${specialit?.id}`)"
+                        class="rounded-[22px] py-2 px-4 bg-bg-grey text-grey-64 text-[14px] font-medium cursor-pointer"
                       >{{ specialit?.name_ru }} </span
                     ><span
                       v-if="index + 1 != order?.specialities.length"

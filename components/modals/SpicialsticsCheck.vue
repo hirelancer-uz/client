@@ -40,40 +40,7 @@
                     (modalList ? modalList : specialities[0]?.id) === item?.id,
                 }"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="56"
-                  height="57"
-                  viewBox="0 0 56 57"
-                  fill="none"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    clip-rule="evenodd"
-                    d="M27.9997 47.1665C19.7523 47.1665 13.0664 40.3609 13.0664 31.9657C13.0664 23.6363 17.8326 13.9167 25.2689 10.4409C26.1357 10.0357 27.0677 9.83317 27.9997 9.83317V47.1665Z"
-                    fill="#009A10"
-                  />
-                  <path
-                    opacity="0.3"
-                    d="M30.7308 10.4412C29.864 10.0361 28.932 9.8335 28 9.8335V22.9003L36.2724 14.6279C34.662 12.8586 32.7997 11.4082 30.7308 10.4412Z"
-                    fill="#009A10"
-                  />
-                  <path
-                    opacity="0.4"
-                    d="M28 22.9003V33.167L40.3466 20.8203C39.2787 18.5427 37.9049 16.4214 36.2724 14.6279L28 22.9003Z"
-                    fill="#009A10"
-                  />
-                  <path
-                    opacity="0.6"
-                    d="M28 42.4998L42.5805 27.9193C42.17 25.5104 41.4098 23.0876 40.3466 20.8198L28 33.1665V42.4998Z"
-                    fill="#009A10"
-                  />
-                  <path
-                    opacity="0.7"
-                    d="M42.5805 27.9194L28 42.5V47.1665C36.2475 47.1665 42.9333 40.3609 42.9333 31.9657C42.9333 30.6419 42.8129 29.2829 42.5805 27.9194Z"
-                    fill="#009A10"
-                  />
-                </svg>
+                <img class="w-[56px] h-[56px] object-contain" v-if="item?.icon" :src="`${imgUrl}${item?.icon}`" alt="">
                 {{ item?.name_ru }}
               </div>
             </div>
@@ -175,40 +142,8 @@
                     :class="{ 'text-blue': dropdownOpens.includes(item?.id) }"
                   >
                     <span class="flex items-center gap-2"
-                      ><svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
                       >
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M11.9996 20C8.46499 20 5.59961 17.0833 5.59961 13.4854C5.59961 9.91563 7.64227 5.75007 10.8293 4.26044C11.2007 4.08681 11.6002 4 11.9996 4V20Z"
-                          fill="#009A10"
-                        />
-                        <path
-                          opacity="0.3"
-                          d="M13.1703 4.26044C12.7989 4.08681 12.3994 4 12 4V9.60005L15.5453 6.05473C14.8551 5.29647 14.057 4.67489 13.1703 4.26044Z"
-                          fill="#009A10"
-                        />
-                        <path
-                          opacity="0.4"
-                          d="M12 9.60001V14L17.2914 8.70857C16.8337 7.73243 16.245 6.82334 15.5453 6.05469L12 9.60001Z"
-                          fill="#009A10"
-                        />
-                        <path
-                          opacity="0.6"
-                          d="M12 17.9999L18.2488 11.7511C18.0728 10.7187 17.7471 9.68039 17.2914 8.7085L12 13.9999V17.9999Z"
-                          fill="#009A10"
-                        />
-                        <path
-                          opacity="0.7"
-                          d="M18.2488 11.751L12 17.9998V19.9997C15.5346 19.9997 18.4 17.083 18.4 13.4851C18.4 12.9177 18.3484 12.3353 18.2488 11.751Z"
-                          fill="#009A10"
-                        />
-                      </svg>
+                      <img class="w-6 h-6 object-contain" v-if="item?.icon" :src="`${imgUrl}${item?.icon}`" alt="">
                       {{ item?.name_ru }}</span
                     >
                     <span class="text-[12px] text-grey-40"
@@ -309,9 +244,13 @@ export default {
       loading: true,
     };
   },
+
   computed: {
     maxSelectCount() {
       return this.maxCount || 3;
+    },
+      imgUrl() {
+      return this.$config.baseURL + "/storage/"
     },
   },
   methods: {

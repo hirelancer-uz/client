@@ -494,9 +494,9 @@
     <CancellationOrder
       ref="deleteOrder"
       @submit="submitCancel"
-      :title="$store.state.translations[`order.not-save`]"
-      :save="$store.state.translations[`modal.yes`]"
-      :close="$store.state.translations[`modal.no`]"
+      :title="$store.state.translations['order.not-save']"
+      :save="$store.state.translations['modal.yes']"
+      :close="$store.state.translations['modal.no']"
     >
       <h5 class="text-[24px] font-semibold text-black text-center">
         {{ $store.state.translations["order.reset-data"] }}

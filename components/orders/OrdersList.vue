@@ -160,10 +160,11 @@
               :key="dropItem?.id"
             >
               <button
+                  @click="toPage(dropItem?.id)"
                 class="drop-head xl:px-0 xl:py-0 bg-white relative z-20 w-full flex justify-between items-center px-4 py-[12px]"
               >
                 <h2
-                  @click="toPage(dropItem?.id)"
+
                   class="text-base text-blue-night flex gap-2 items-center"
                   :class="{
                     'text-main-color': dropItem?.id == $route.params.id,
@@ -187,7 +188,7 @@
                     'pointer-events-none opacity-50':
                       dropItem.children.length == 0,
                   }"
-                  class="drop-icon w-[24px] h-[24px] rounded-[50%] bg-[#F8F9FF] flex items-center justify-center"
+                  class="drop-icon w-[24px] h-[24px] rounded-[50%] bg-[#F8F9FF] flex items-center justify-center relative z-50"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -526,7 +527,7 @@ export default {
     position: fixed;
     bottom: 100px;
     right: 16px;
-    z-index: 99;
+    z-index: 7;
     width: 56px;
     height: 56px;
     border-radius: 50%;

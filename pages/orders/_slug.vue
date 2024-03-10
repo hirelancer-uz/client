@@ -281,7 +281,8 @@
                   :key="specialit?.id"
                 >
                   <span
-                    class="rounded-[22px] py-2 px-4 bg-bg-grey text-grey-64 text-[14px] font-medium"
+                      @click="$router.push(`/specialities/${specialit?.id}`)"
+                      class="rounded-[22px] py-2 px-4 bg-bg-grey text-grey-64 text-[14px] font-medium cursor-pointer"
                     >{{ specialit?.name_ru }} </span
                   ><span
                     v-if="index + 1 != order?.specialities.length"
@@ -671,8 +672,7 @@ export default {
         const data = await this.$store.dispatch("fetchOrders/getOrderById", {
           id: this.$route.params.slug,
         });
-        this.isOffer();
-        this.isClient();
+        this.order = data?.content;
       } finally {
       }
     },
@@ -682,10 +682,11 @@ export default {
           ...data,
           order_id: this.$route.params.slug,
         });
+
+          this.__GET_ORDERS()
         this.openSuccessModal();
         this.closeBeFreelancer();
         this.openSuccess();
-        await this.__GET_ORDERS();
       } catch (e) {
         this.$notification["error"]({
           message: "Error",
@@ -696,10 +697,10 @@ export default {
   },
   watch: {
     handleUser(val) {
-      if (val) {
-        this.isOffer();
-        this.isClient();
-      }
+      // if (val) {
+      //   this.isOffer();
+      //   this.isClient();
+      // }
     },
   },
   components: {

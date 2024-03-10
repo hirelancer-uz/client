@@ -785,7 +785,7 @@
       </div>
       <div class="bottom" v-else>
         <div class="grid grid-cols-2 gap-2 px-4">
-          <NuxtLink to="/" class="login">{{
+          <NuxtLink to="/registration" class="login">{{
             $store.state.translations["header.login"]
           }}</NuxtLink>
           <NuxtLink to="/registration" class="registration">{{

@@ -402,7 +402,7 @@ export default {
     position: fixed;
     bottom: 138px;
     right: 16px;
-    z-index: 99;
+    z-index: 7;
     width: 56px;
     height: 56px;
     border-radius: 50%;
