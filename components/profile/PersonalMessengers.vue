@@ -1,5 +1,5 @@
 <template>
-  <div class="flex gap-3">
+  <div class="flex gap-3 justify-center">
     <a
       v-if="userInfo?.contacts?.twitter"
       :href="userInfo?.contacts?.twitter"

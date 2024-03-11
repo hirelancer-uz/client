@@ -9,10 +9,22 @@
         <p
           class="text-grey-64 text-[14px] xl:text-base xl:font-semibold price__sup"
         >
-          {{ $store.state.translations["order.price"] }}
+          {{ $store.state.translations["profile.deadline"] }}
         </p>
         <h1
-          class="text-base text-main-color font-semibold xl:text-base exact__price whitespace-nowrap"
+          class="text-base text-black font-semibold xl:text-base exact__price whitespace-nowrap"
+        >
+          {{ $store.state.translations["profile.deal"] }}
+        </h1>
+      </div>
+      <div
+        class="flex deal justify-between items-center xl:flex-row xl:justify-between xl:items-center"
+      >
+        <p class="text-grey-64 text-[18px] font-medium xl:font-medium">
+          {{ $store.state.translations["order.price"] }}
+        </p>
+        <h4
+          class="text-black text-[18px] font-semibold xl:font-medium xl:text-[14px]"
         >
           {{
             order?.price
@@ -21,18 +33,6 @@
                 }`
               : `${$store.state.translations["profile.deal"]}`
           }}
-        </h1>
-      </div>
-      <div
-        class="flex deal justify-between items-center xl:flex-row xl:justify-between xl:items-center"
-      >
-        <p class="text-grey-64 text-[14px] xl:font-medium">
-          {{ $store.state.translations["profile.deadline"] }}
-        </p>
-        <h4
-          class="text-black text-[18px] font-semibold xl:font-medium xl:text-[14px]"
-        >
-          {{ $store.state.translations["profile.deal"] }}
         </h4>
       </div>
     </div>
@@ -104,6 +104,7 @@ export default {
 .app-btn {
   overflow: hidden;
 }
+
 .app-btn::after {
   content: "";
   position: absolute;
@@ -120,6 +121,7 @@ export default {
   transition: 0.3s;
   pointer-events: none;
 }
+
 .app-btn:hover::after {
   opacity: 1;
 }

@@ -223,6 +223,13 @@ a:hover {
 .ant-select-dropdown {
   z-index: 999999 !important;
 }
+.ql-editor a {
+  color: #3C4BDC !important;
+}
+.order-desc a {
+  color: #3C4BDC;
+  text-decoration: underline;
+}
 @media (max-width: 1460px) {
   .container {
     padding-left: 16px;

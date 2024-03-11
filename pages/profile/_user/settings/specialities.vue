@@ -238,10 +238,18 @@ export default {
           this.__GET_SPECIAL();
         }
       } catch (e) {
-        this.$notification["error"]({
-          message: "Error",
-          description: e.response.statusText,
-        });
+        if(e.response.status == 500) {
+          this.$notification["error"]({
+            message: "Error",
+            description: 'Siz asosiy yo\'nalishni ochira olmaysiz',
+          });
+        } else {
+
+          this.$notification["error"]({
+            message: "Error",
+            description: e.response.statusText,
+          });
+        }
       }
     },
   },

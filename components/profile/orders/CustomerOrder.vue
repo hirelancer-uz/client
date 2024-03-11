@@ -5,7 +5,7 @@
   >
     <div class="max-w-[1200px] mx-auto">
       <button
-        @click="$router.push('/profile/customer/orders/active/status')"
+        @click="$router.go(-1)"
         class="back-btn flex gap-2 w-[126px] py-3 border border-main-color border-solid rounded-lg justify-center items-center text-base font-medium text-grey-80 hover:text-blue xl:hidden"
       >
         <svg
@@ -111,14 +111,13 @@
                 </h1>
 
                 <span
-                  class="text-base text-grey-80 xl:text-[14px] xl:text-justify"
+                  class="text-base text-grey-80 xl:text-[14px] xl:text-justify order-desc break-words "
                   v-html="order?.description"
                 >
                 </span>
               </div>
               <div
                 class="files flex flex-col gap-4 mt-4"
-                v-if="order?.files?.length > 0"
               >
                 <h6 class="text-black text-[20px] font-semibold xl:text-[18px]">
                   {{ $store.state.translations["profile.order-files"] }}
@@ -336,10 +335,10 @@
                   {{ $store.state.translations["profile.deadline"] }}
                 </p>
                 <h2
-                  class="text-blue text-[24px] font-semibold xl:text-[14px]"
+                  class="text-black text-base font-semibold xl:text-[14px]"
                   v-if="order?.deadline"
                 >
-                  {{ order?.deadline }}
+                  {{ order?.deadline }} {{ $store.state.translations["order.days"] }}
                 </h2>
                 <h4
                   v-else
@@ -585,7 +584,7 @@
               :order="order"
             />
             <button
-              v-if="order?.requests.length > 2"
+              v-if="order?.requests.length == 0"
               class="flex py-4 rounded-lg bg-grey-light w-full items-center justify-center gap-6 text-base font-medium text-blue xl:text-[14px] xl:gap-4 xl:flex-row-reverse"
             >
               <svg

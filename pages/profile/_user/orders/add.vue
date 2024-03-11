@@ -10,9 +10,33 @@
       <div class="buttons flex gap-4 xl:hidden">
         <button
           @click="$router.go(-1)"
-          class="border-[2px] border-solid border-border-darik rounded-[12px] h-[60px] w-[204px] flex justify-center items-center text-[18px] text-grey-64 font-medium"
+          class="border-[2px] border-solid border-border-darik rounded-[12px] h-[54px] min-w-[194px] flex justify-center items-center gap-2 text-base text-grey-64 font-medium"
         >
           {{ $store.state.translations["auth.cancel"] }}
+        </button>
+        <button
+            @click="onSubmit"
+            class="w-full border border-solid border-blue bg-blue rounded-[8px] h-[54px] min-w-[194px] flex justify-center items-center text-base text-white font-medium gap-2 xl:hidden"
+            :class="{ 'pointer-events-none opacity-50': loadingBtn }"
+        >
+          {{ $store.state.translations["order.share"] }}
+          <LoaderBtn v-if="loadingBtn" />
+          <svg
+              v-else
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+          >
+            <path
+                d="M8 12L10.5347 14.2812C10.9662 14.6696 11.6366 14.6101 11.993 14.1519L16 9M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                stroke="white"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            />
+          </svg>
         </button>
       </div>
     </div>
@@ -305,13 +329,20 @@
           </div>
           <div class="grid grid-cols-2 gap-[70px] xl:grid-cols-1 xl:gap-4">
             <a-form-model-item
-              class=" w-full mb-0"
+              class="w-full mb-0"
               :label="$store.state.translations[`order.deadline-days`]"
               prop="deadline"
             >
               <a-input-number
-                  :formatter="value => value.length > 0 ? `${value.replace(/[^0-9.]/g, '')} дней`:`${value.replace(/[^0-9.]/g, '')}`"
-                  :parser="value => value.replace(/[^0-9.]/g, '').replace(' дней', '')"
+                :formatter="
+                  (value) =>
+                    value.length > 0
+                      ? `${value.replace(/[^0-9.]/g, '')} дней`
+                      : `${value.replace(/[^0-9.]/g, '')}`
+                "
+                :parser="
+                  (value) => value.replace(/[^0-9.]/g, '').replace(' дней', '')
+                "
                 :class="{
                   'opacity-50 pointer-events-none': form.deadline_negotiable,
                 }"
@@ -372,9 +403,16 @@
             >
               <a-input-number
                 :formatter="
-                  (value) => `${value.replace(/[^0-9.]/g, '')}`.replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+                  (value) =>
+                    `${value.replace(/[^0-9.]/g, '')}`.replace(
+                      /\B(?=(\d{3})+(?!\d))/g,
+                      ' '
+                    )
                 "
-                :parser="(value) => value.replace(/[^0-9.]/g, '').replace(/\$\s?|( *)/g, '')"
+                :parser="
+                  (value) =>
+                    value.replace(/[^0-9.]/g, '').replace(/\$\s?|( *)/g, '')
+                "
                 :class="{
                   'opacity-50 pointer-events-none': form.price_negotiable,
                 }"
@@ -519,6 +557,7 @@ function getBase64(file) {
 export default {
   data() {
     return {
+
       editorOption: {
         theme: "snow",
         modules: {
@@ -532,6 +571,7 @@ export default {
             ["link"],
           ],
         },
+
       },
       specialities: [],
       openBottom: false,
@@ -617,7 +657,7 @@ export default {
   },
   methods: {
     handleInput(event) {
-      this.form.price = event.target.value.replace(/\D/g, '');
+      this.form.price = event.target.value.replace(/\D/g, "");
     },
     openSpecial() {
       this.$refs.specialities.open();
@@ -648,19 +688,16 @@ export default {
       };
       reader.readAsDataURL(file); // Use readAsDataURL to get Base64 data
     },
-
     saveChecked(checkedList) {
       this.activeCheckedList = [...checkedList];
       this.checkedList = [];
       this.closeSpecial();
     },
-
     deleteChecked(id) {
       this.activeCheckedList = this.activeCheckedList.filter(
         (item) => item.id != id
       );
     },
-
     open() {
       this.openBottom = true;
       setTimeout(() => {
@@ -783,7 +820,11 @@ export default {
       }
     },
   },
-  components: { Loader, LoaderBtn, SpicialsticsCheck },
+  components: {
+    Loader,
+    LoaderBtn,
+    SpicialsticsCheck,
+  },
 };
 </script>
 <style lang="css" scoped>
@@ -800,6 +841,7 @@ export default {
   font-weight: 400;
   line-height: 150%;
 }
+
 :deep(.ant-input-number) {
   border-radius: 8px;
   border: 1px solid var(--grey-8);
@@ -811,13 +853,15 @@ export default {
   font-weight: 400;
   line-height: 150%;
   height: 47px;
-  width: 100% ;
+  width: 100%;
   display: flex;
   align-items: center;
 }
+
 :deep(.ant-input-number-handler-wrap) {
   display: none;
 }
+
 .order-select :deep(.ant-select-selection) {
   border-radius: 8px;
   padding-left: 12px;
@@ -1018,6 +1062,11 @@ export default {
 
 :deep(.ql-editor) {
   min-height: 250px;
+  font-family: 'TT Interfaces',serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
 }
 
 .form-item :deep(input) {

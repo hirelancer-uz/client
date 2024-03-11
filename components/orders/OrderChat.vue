@@ -98,9 +98,7 @@
           class="chat-card px-4 py-4 rounded-[12px] border border-dashed border-grey-light bg-bg-grey flex flex-col gap-3"
         >
           <p class="text-base text-black">
-            Приветствую! Меня заинтересовал ваш проект. Моя цель – создавать
-            интересные и интуитивно понятные пользовательские интерфейсы,
-            которые вдохновляют и привлекают {{ myRequest?.additional_info }}
+          {{ myRequest?.additional_info }}
           </p>
           <span class="flex w-full h-[1px] bg-grey-light"></span>
           <div class="flex flex-col gap-1">

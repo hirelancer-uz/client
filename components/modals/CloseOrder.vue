@@ -52,8 +52,8 @@
           </svg>
           <h4 class="text-[#000] text-[24px] font-semibold mb-6">
             {{
-              closeBtn || $store.state.translations["modal.waiting-customer"]
-            }}
+              $store.state.translations["modal.waiting-customer"]
+              }}
           </h4>
         </div>
         <div class="flex justify-center mb-8">
@@ -61,7 +61,7 @@
             @click="visible = false"
             class="h-[54px] items-center w-[332px] flex justify-center gap-2 border border-solid border-main-color bg-main-color rounded-[8px] text-base font-medium text-white"
           >
-            {{ closeBtn || $store.state.translations["modal.OK"] }}
+            {{  $store.state.translations["modal.OK"] }}
           </button>
         </div>
       </div>

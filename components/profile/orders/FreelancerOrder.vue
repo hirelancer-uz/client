@@ -2,7 +2,7 @@
   <div class="pt-12 order xl:px-4 xl:pt-0">
     <div class="max-w-[1286px] mx-auto pb-[55px]">
       <button
-        @click="$router.push('/profile/freelancer/orders/active/status')"
+          @click="$router.go(-1)"
         class="back-btn flex gap-4 w-[162px] py-3 border border-grey-24 border-solid rounded-lg justify-center items-center text-base font-medium text-blue hover:text-blue xl:hidden"
       >
         <svg
@@ -71,7 +71,7 @@
                     {{ orderDate }}, {{ orderHours }}
                   </p>
                   <p class="text-base text-grey-64 flex gap-[6px]">
-                    {{ $store.state.translations["modal.order"]
+                    {{ $store.state.translations["profile.order"]
                     }}<span class="font-medium text-black"
                       >#{{ order?.id }}</span
                     >
@@ -88,14 +88,13 @@
                 </h1>
 
                 <span
-                  class="text-base text-grey-80 xl:text-base"
+                  class="text-base text-grey-80 xl:text-base order-desc break-words"
                   v-html="order?.description"
                 >
                 </span>
               </div>
               <div
                 class="files flex flex-col gap-4 mt-4"
-                v-if="order?.files?.length > 0"
               >
                 <h6 class="text-black text-[20px] font-semibold xl:text-[18px]">
                   {{ $store.state.translations["modal.order-files"] }}
@@ -119,8 +118,8 @@
                     :key="specialit?.id"
                   >
                     <span
-                        @click="$router.push(`/specialities/${specialit?.id}`)"
-                        class="rounded-[22px] py-2 px-4 bg-bg-grey text-grey-64 text-[14px] font-medium cursor-pointer"
+                      @click="$router.push(`/specialities/${specialit?.id}`)"
+                      class="rounded-[22px] py-2 px-4 bg-bg-grey text-grey-64 text-[14px] font-medium cursor-pointer"
                       >{{ specialit?.name_ru }} </span
                     ><span
                       v-if="index + 1 != order?.specialities.length"
@@ -348,7 +347,7 @@
               </div>
               <button
                 v-if="order?.status == 2 && !myRequest"
-                @click="openOrderComplite"
+                @click="openOrderFinishModal"
                 class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-main-color border-main-color text-base text-white font-medium"
               >
                 {{ $store.state.translations["profile.finish-order"] }}
@@ -372,7 +371,9 @@
               <!-- v-if="status != 3" -->
               <button
                 v-if="order?.status != 4"
-                @click="openOfferCancel"
+                @click="
+                  order?.status == 1 ? openOfferCancel() : openOrderCancel()
+                "
                 class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] bg-[#667B8C] text-base text-white font-medium"
               >
                 {{ $store.state.translations["profile.cancel-order"] }}
@@ -496,9 +497,9 @@
       <FreelancerComplite
         ref="orderComplite"
         @submit="submitFinish"
-        :title="$store.state.translations['profile.sure-cancel-project']"
-        save="$store.state.translations[`modal.yes`]"
-        closeBtn="$store.state.translations[`modal.no`]"
+        :title="$store.state.translations['modal.sure-cancel-project']"
+        :save="$store.state.translations[`modal.yes`]"
+        :closeBtn="$store.state.translations[`modal.no`]"
         :loadingBtn="loadingBtn"
       />
 
@@ -506,8 +507,8 @@
         ref="orderCancel"
         @submit="submitFinish"
         :title="$store.state.translations[`profile.sure-cancel-order`]"
-        save="$store.state.translations[`modal.yes`]"
-        closeBtn="$store.state.translations[`modal.no`]"
+        :save="$store.state.translations[`modal.yes`]"
+        :closeBtn="$store.state.translations[`modal.no`]"
         :width="584"
         :loadingBtn="loadingBtn"
         :disabled="disabledBtn"
@@ -587,7 +588,7 @@ export default {
 
   computed: {
     orderDate() {
-      return moment(this.order?.created_at).format("DD.MM.YYYY");
+      return moment(this.order?.created_at).format("DD MMM YYYY");
     },
     orderHours() {
       return moment(this.order?.created_at).format("HH:mm");
@@ -618,15 +619,14 @@ export default {
     }
   },
   methods: {
-    openOrderComplite() {
-      this.$refs.orderComplite.open();
+    openOrderFinishModal() {
       this.$refs.orderComplite.openModal();
     },
     closeOrderComplite() {
-      this.$refs.orderComplite.close();
       this.$refs.orderComplite.closeModal();
     },
     openOrderCancel() {
+      console.log(this.$refs);
       this.$refs.orderCancel.open();
       this.$refs.orderCancel.openModal();
     },
@@ -635,6 +635,7 @@ export default {
       this.$refs.orderCancel.closeModal();
     },
     openOfferCancel() {
+      console.log(this.$refs);
       this.$refs.offerCancel.open();
       this.$refs.offerCancel.openModal();
     },

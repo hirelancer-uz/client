@@ -4,7 +4,7 @@
       <div class="body pb-10 flex justify-between xl:flex-col xl:gap-6">
         <div class="">
           <div class="logo">
-            <IconsFooterLogo class="xl:w-[107px]"/>
+            <IconsFooterLogo class="xl:w-[107px]" />
           </div>
           <ul
             class="list flex gap-[56px] mt-[46px] xl:gap-0 xl:justify-between"
@@ -13,28 +13,28 @@
               <nuxt-link
                 to="/orders"
                 class="text-[20px] font-medium text-black xl:text-base"
-                >Buyurtmalar
+                >{{ $store.state.translations["main.orders"] }}
               </nuxt-link>
             </li>
             <li>
               <nuxt-link
                 to="/freelancers"
                 class="text-[20px] font-medium text-black xl:text-base"
-                >Frilanserlar
+                >{{ $store.state.translations["header.freelancers"] }}
               </nuxt-link>
             </li>
             <li>
               <nuxt-link
                 to="/"
                 class="text-[20px] font-medium text-black xl:text-base"
-                >Qollanma
+                >{{ $store.state.translations["header.guide"] }}
               </nuxt-link>
             </li>
             <li>
               <nuxt-link
                 to="/"
                 class="text-[20px] font-medium text-black xl:text-base"
-                >FAQ
+                >{{ $store.state.translations["main.faq"] }}
               </nuxt-link>
             </li>
           </ul>
@@ -110,12 +110,12 @@
             >
               <div class="flex flex-col justify-between">
                 <p class="text-[18px] font-medium text-black">
-                  Telegram xabarnomalar uchun bot
+                  {{ $store.state.translations["main.tg-bot"] }}
                 </p>
                 <a
                   href=""
                   class="text-[14px] font-semibold text-main-color underline"
-                  >BOT ni ochish</a
+                  > {{ $store.state.translations["main.open-bot"] }}</a
                 >
               </div>
               <div class="w-[88px] h-[88px]">
@@ -131,18 +131,18 @@
             >
               <div class="flex flex-col justify-between">
                 <p class="text-[18px] font-medium text-black">
-                  Telegram xabarnomalar uchun bot
+                  {{ $store.state.translations["main.tg-channel"] }}
                 </p>
                 <a
                   href=""
                   class="text-[14px] font-semibold text-main-color underline"
-                  >BOT ni ochish</a
+                  > {{ $store.state.translations["main.go-to-channel"] }}</a
                 >
               </div>
               <div class="w-[88px] h-[88px]">
                 <img
                   class="w-full h-full object-contain"
-                  src="../../assets/images/footer-bot.png"
+                  src="../../assets/images/footer-telegram2.png"
                   alt=""
                 />
               </div>
@@ -152,13 +152,13 @@
             class="h-[88px] xl:h-auto xl:px-2 px-6 py-4 rounded-[16px] bg-white flex items-center border border-solid border-bg-grey justify-between xl:flex-col xl:gap-4"
           >
             <p class="text-black text-[20px] xl:text-[18px] font-medium">
-              Texnik yordam uchun telegram bot
+              {{ $store.state.translations["main.support-bot"] }}
             </p>
             <a
               href=""
               class="xl:mb-[-8px] text-black xl:min-h-12 text-[24px] xl:text-base font-medium flex gap-8 items-center h-[56px] xl:h-12 bg-bg-grey w-[311px] xl:w-full justify-center rounded-[21px] xl:rounded-[8px]"
             >
-              @udoo_help
+              {{ $store.state.translations["main.bot-link"] }}
               <span
                 class="w-9 h-9 xl:h-[28px] xl:w-[28px] rounded-full flex justify-center items-center bg-white"
               >
@@ -205,7 +205,7 @@
           <p
             class="text-[14px] text-black whitespace-nowrap xl:whitespace-normal"
           >
-            Проект является продуктом National Development Community
+            {{ $store.state.translations["main.footer-text"] }}
           </p>
         </div>
       </div>
@@ -238,6 +238,7 @@ export default {
 .links a {
   font-size: 14px;
 }
+
 @media (max-width: 1680px) {
   .footer-container {
     padding-left: 16px;

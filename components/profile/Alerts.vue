@@ -23,20 +23,40 @@
             stroke-width="1.5"
             stroke-linecap="round"
             stroke-linejoin="round"
-          /></svg
-      ></nuxt-link>
+          />
+        </svg>
+      </nuxt-link>
     </div>
+<!--    <div class="alert-swiper swiper mt-6 xl:hidden" v-if="Object.values(notifications).length > 0">-->
+<!--      <div class="swiper-wrapper">-->
+<!--        <div-->
+<!--          class="swiper-slide"-->
+<!--          v-for="(notification, index) in notifications"-->
+<!--          :key="notification?.id"-->
+<!--        >-->
+<!--          <AlertsCard-->
+<!--            :class="{-->
+<!--              'xl:ml-4': index == 0 || Object.values(notifications).length - 1 == index,-->
+<!--            }"-->
+<!--            :notification="notification"-->
+<!--          />-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div-->
+<!--    <div  class="alerts-list gap-2 mt-6 hidden xl:flex xl:overflow-x-scroll xl:mt-4 xl:mx-[-16px]"-->
+<!--      v-if="true"-->
+<!--    >-->
+<!--      <AlertsCard-->
+<!--        v-for="(notification, index) in Object.values(notifications)"-->
+<!--        :key="notification?.id"-->
+<!--        :class="{-->
+<!--          'xl:ml-4': index == 0 || notifications.length - 1 == index,-->
+<!--        }"-->
+<!--        :notification="notification"-->
+<!--      />-->
+<!--    </div>-->
     <div
-      class="alerts-list grid grid-cols-4 gap-2 mt-6 xl:flex xl:overflow-x-scroll xl:mt-4 xl:mx-[-16px]"
-      v-if="true"
-    >
-      <AlertsCard class="xl:ml-4" />
-      <AlertsCard />
-      <AlertsCard />
-      <AlertsCard class="xl:mr-4" />
-    </div>
-    <div
-      v-else
       class="h-[208px] xl:h-[111px] flex justify-center items-center mb-[-24px]"
     >
       <VEmpty />
@@ -46,12 +66,27 @@
 <script>
 import AlertsCard from "./AlertsCard.vue";
 import VEmpty from "@/components/profile/VEmpty.vue";
+import EventsCard from "@/components/profile/EventsCard.vue";
+import { Navigation, Swiper } from "swiper";
+import "swiper/swiper-bundle.min.css";
 
 export default {
-  components: { AlertsCard, VEmpty },
+  props: ["notifications", "loading"],
+  mounted() {
+    const swiper = new Swiper(".alert-swiper", {
+      slidesPerView: 4,
+      spaceBetween: 8,
+      modules: [Navigation],
+      pagination: false,
+      autoplay: {
+        delay: 40000,
+      },
+    });
+  },
+  components: { EventsCard, AlertsCard, VEmpty },
 };
 </script>
-<style lang="css" scoped>
+<style lang="css">
 @media (max-width: 1200px) {
   .alerts-list::-webkit-scrollbar {
     display: none;

@@ -65,6 +65,7 @@
                 >+998</span
               >
               <p
+                  v-if="form.phone_number"
                 class="w-full text-base xl:text-[14px] text-grey-80 font-medium py-[6px] rounded-[4px] xl:leading-5"
               >
                 {{
@@ -109,17 +110,24 @@
               class="rounded-[8px] h-[53px] xl:h-11 sms-input pl-4 pr-2 py-2 h-[47px] bg-white border border-solid border-border-darik flex items-center justify-between gap-4"
               :class="{ 'border-red': smsError && form.password.length !== 6 }"
             >
-              <v-otp-input
-                ref="otpInput"
-                input-classes="otp-input"
-                :num-inputs="6"
-                separator=""
-                :should-auto-focus="true"
-                placeholder="o"
-                :is-input-num="true"
-                @on-change="handleOnChange"
-                @on-complete="handleOnComplete"
+              <input
+                type="number"
+                pattern="/^-?\d+\.?\d*$/"
+                v-model="form.password"
+                onKeyPress="if(this.value.length==6) return false;"
+                placeholder="●●●●●"
               />
+              <!--              <v-otp-input-->
+              <!--                ref="otpInput"-->
+              <!--                input-classes="otp-input"-->
+              <!--                :num-inputs="6"-->
+              <!--                separator=""-->
+              <!--                :should-auto-focus="true"-->
+              <!--                placeholder="o"-->
+              <!--                :is-input-num="true"-->
+              <!--                @on-change="handleOnChange"-->
+              <!--                @on-complete="handleOnComplete"-->
+              <!--              />-->
               <div
                 class="mr-1 text-base text-black px-4 py-[6px] xl:pr-[6px] xl:leading-5 rounded-[4px] bg-bg-grey flex gap-2 items-center xl:max-h-8"
               >
@@ -149,18 +157,6 @@
         </button>
 
         <p class="text-grey-40 text-[14px] mt-6 xl:hidden">
-          +998
-          {{
-            `${form?.phone_number}`
-              .match(/(\d{2})(\d{3})(\d{2})(\d{2})/)
-              .filter((item, index) => index !== 0)
-              .join(" ")
-          }}
-          {{ $store.state.translations["auth.sent-code"] }}
-        </p>
-      </a-form-model>
-      <div class="w-full flex flex-col gap-6">
-        <p class="text-grey-40 text-[14px] mt-6 xl:block hidden text-center">
 <!--          +998-->
 <!--          {{-->
 <!--            `${form?.phone_number}`-->
@@ -168,6 +164,18 @@
 <!--              .filter((item, index) => index !== 0)-->
 <!--              .join(" ")-->
 <!--          }}-->
+          {{ $store.state.translations["auth.sent-code"] }}
+        </p>
+      </a-form-model>
+      <div class="w-full flex flex-col gap-6">
+        <p class="text-grey-40 text-[14px] mt-6 xl:block hidden text-center">
+          <!--          +998-->
+          <!--          {{-->
+          <!--            `${form?.phone_number}`-->
+          <!--              .match(/(\d{2})(\d{3})(\d{2})(\d{2})/)-->
+          <!--              .filter((item, index) => index !== 0)-->
+          <!--              .join(" ")-->
+          <!--          }}-->
           {{ $store.state.translations["auth.sent-code"] }}
         </p>
         <div
@@ -210,7 +218,7 @@ export default {
 
       time: 60,
       form: {
-        phone_number: "999999990",
+        phone_number: "",
         password: "",
       },
       rules: {
@@ -226,9 +234,12 @@ export default {
     };
   },
   mounted() {
-    if (localStorage.getItem("phone"))
+    if (localStorage.getItem("phone")) {
       this.form.phone_number = localStorage.getItem("phone");
-    this.setInputPlaceholder();
+    } else {
+      this.$router.go(-1)
+    }
+    // this.setInputPlaceholder();
     setInterval(() => {
       if (this.time > 0) {
         this.time--;
@@ -275,14 +286,13 @@ export default {
       });
     },
   },
-  destroyed() {
-    localStorage.removeItem("phone");
-  },
+
 };
 </script>
 <style lang="css" scoped>
 .code-invalid {
 }
+
 :deep(.otp-input) {
   width: 24px;
   height: 24px;
@@ -293,37 +303,57 @@ export default {
   font-style: normal;
   font-weight: 400;
   text-align: center;
-} /*
-  .otp-input::-webkit-inner-spin-button,
-  .otp-input::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  } */
+}
+
+/*
+ .otp-input::-webkit-inner-spin-button,
+ .otp-input::-webkit-outer-spin-button {
+   -webkit-appearance: none;
+   margin: 0;
+ } */
 .auth-item input {
   color: var(--black);
   font-family: "TT Interfaces";
-  font-size: 16px;
+  font-size: 24px;
   font-style: normal;
-  font-weight: 400;
   line-height: 150%; /* 24px */
   border-color: transparent;
   background-color: transparent;
+  font-weight: 500;
+  letter-spacing: 20px;
+  //padding: 0 16px;
+  width: 100%;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.auth-item input[type=number]::-webkit-inner-spin-button,
+.auth-item input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 .sms-progress {
   display: flex !important;
   transform: rotateY(-180deg);
 }
+
 .sms-progress :deep(.ant-progress-inner) {
   width: 20px !important;
   height: 20px !important;
 }
+
 .sms-progress :deep(.ant-progress-text) {
   display: none !important;
 }
+
 .sms-progress :deep(.ant-progress-circle-path) {
   stroke-width: 20px;
   stroke: var(--blue) !important;
 }
+
 .required :deep(label)::before {
   display: inline-block;
   margin-right: 4px;
@@ -336,9 +366,11 @@ export default {
   right: -5px;
   top: 0;
 }
+
 .required :deep(label) {
   padding-right: 10px;
 }
+
 @media (max-width: 1200px) {
   .auth-item input {
     font-size: 14px;

@@ -10,7 +10,7 @@
       <div class="buttons flex gap-4 xl:hidden">
         <button
           @click="openDeleteOrder"
-          class="border-[2px] border-solid border-grey-24 rounded-[8px] h-[54px] w-[194px] flex justify-center items-center gap-2 text-base text-grey-64 font-medium"
+          class="border-[2px] border-solid border-border-darik rounded-[12px] h-[54px] min-w-[194px] flex justify-center items-center gap-2 text-base text-grey-64 font-medium"
         >
           {{ $store.state.translations["order.cancel"] }}
           <svg
@@ -26,6 +26,30 @@
               stroke-width="1.5"
               stroke-linecap="round"
               stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        <button
+            @click="onSubmit"
+            class="w-full border border-solid border-blue bg-blue rounded-[8px] h-[54px] min-w-[194px] flex justify-center items-center text-base text-white font-medium gap-2 xl:hidden"
+            :class="{ 'pointer-events-none opacity-50': loadingBtn }"
+        >
+          {{ $store.state.translations["order.share"] }}
+          <LoaderBtn v-if="loadingBtn" />
+          <svg
+              v-else
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+          >
+            <path
+                d="M8 12L10.5347 14.2812C10.9662 14.6696 11.6366 14.6101 11.993 14.1519L16 9M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                stroke="white"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
             />
           </svg>
         </button>
@@ -528,23 +552,24 @@ function getBase64(file) {
     reader.onerror = (error) => reject(error);
   });
 }
+
 export default {
   data() {
     return {
       editorOption: {
         theme: "snow",
-          modules: {
-              toolbar: [
-                  ['bold', 'italic', 'underline', 'strike'],
-                  ['blockquote'],
-                  [{ 'header': 1 }, { 'header': 2 }],
-                  [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                  [{ 'color': [] }],
-                  [{ 'align': [] }],
-                  ['link']
-              ],
-
-          }
+        modules: {
+          toolbar: [
+            ["bold", "italic", "underline", "strike"],
+            ["blockquote"],
+            [{ header: 1 }, { header: 2 }],
+            [{ list: "ordered" }, { list: "bullet" }],
+            [{ color: [] }],
+            [{ align: [] }],
+            ["link"],
+            [{ font: [] }],
+          ],
+        },
       },
       loadingBtn: false,
       activeSpecialities: [],
@@ -601,13 +626,14 @@ export default {
   },
   computed: {
     imgUrl() {
-      return this.$config.baseURL + "/storage/"
+      return this.$config.baseURL + "/storage/";
     },
   },
   destroyed() {
     this.$store.commit("setPageData", {});
   },
   mounted() {
+
     this.$store.commit("setPageData", {
       title: this.$store.state.translations["profile.edit"],
       center: false,
@@ -1012,9 +1038,11 @@ export default {
 :deep(.has-error) textarea {
   border-color: var(--red);
 }
+
 .errorSelect .modal-select {
   border-color: var(--red);
 }
+
 .required :deep(label)::before {
   display: inline-block;
   margin-right: 4px;
@@ -1027,6 +1055,7 @@ export default {
   right: -5px;
   top: 0;
 }
+
 .required :deep(label)::after {
   display: none !important;
 }
@@ -1037,47 +1066,63 @@ export default {
   border: none;
   border-bottom: 1px solid var(--grey-8, #ebebeb);
 }
+
 :deep(.ql-container) {
   border-radius: 0 0 10px 10px;
   background: #fff;
   border: none;
   min-height: 250px;
 }
+
 :deep(.ql-editor) {
   min-height: 250px;
+  //color: #353437;
+  font-family: "TT Interfaces", serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
 }
+
 .form-item :deep(input) {
   border-radius: 8px;
   border: 1px solid #e0e0ed;
   background: #fff;
   padding-left: 50px;
 }
+
 :deep(.quill-editor) {
   border-radius: 8px;
   border: 1px solid var(--grey-8);
   font-family: "TT Interfaces";
   font-size: 16px;
 }
+
 :deep(.has-error .quill-editor) {
   border-color: red;
 }
+
 @media (max-width: 1200px) {
   :deep(.order-item label),
   :deep(.order-select label) {
     font-size: 14px;
   }
+
   .order-upload {
     display: grid;
     grid-template-columns: repeat(3, 30%);
   }
+
   .fixed-btns {
     border-radius: 16px 16px 0px 0px;
     box-shadow: 0px 4px 36px 0px rgba(0, 25, 53, 0.16);
   }
+
   .order-upload :deep(.ant-upload-select-picture-card) {
     width: 100%;
     height: 90px;
   }
+
   .order-upload :deep(.ant-upload-picture-card-wrapper) {
     width: 100%;
   }

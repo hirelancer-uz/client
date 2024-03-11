@@ -1,13 +1,7 @@
 <template>
   <div
     class="card relative order-card px-8 py-6 rounded-3xl bg-white cursor-pointer xl:border-[1px] xl:border-solid xl:border-grey-8 xl:rounded-[16px] xl:p-[16px]"
-    @click="
-      $router.push(
-        myRequest
-          ? `/profile/freelancer/order/view/${order?.id}`
-          : `/orders/${order?.id}`
-      )
-    "
+    @click="myRequest"
   >
     <div class="header flex justify-between xl:flex-col-reverse xl:gap-2">
       <div
@@ -189,7 +183,7 @@
         {{ order?.name }}
       </h6>
       <span
-        class="text-base text-grey-80 xl:text-[14px] xl:line-clamp-3 order-desc"
+        class="text-base text-grey-80 xl:text-[14px] xl:line-clamp-3 order-desc max-h-[96px] overflow-hidden"
         v-html="order?.description"
       >
       </span>
@@ -238,8 +232,9 @@
                 r="3"
                 stroke="#9A999B"
                 stroke-width="1.5"
-              /></svg
-            >{{ order?.view_count }}
+              />
+            </svg>
+            {{ order?.view_count }}
           </p>
           <span class="flex w-[1px] h-[27px] bg-grey-8"></span>
           <p
@@ -261,8 +256,9 @@
               />
               <circle cx="12" cy="12.5" r="1" fill="#9A999B" />
               <circle cx="16" cy="12.5" r="1" fill="#9A999B" />
-              <circle cx="8" cy="12.5" r="1" fill="#9A999B" /></svg
-            >{{ order?.request_count }} запросов
+              <circle cx="8" cy="12.5" r="1" fill="#9A999B" />
+            </svg>
+            {{ order?.request_count }} запросов
           </p>
         </div>
         <div class="buttons flex gap-6 xl:flex-col-reverse xl:hidden">
@@ -288,6 +284,7 @@
 </template>
 <script>
 import moment from "moment";
+
 export default {
   props: ["order"],
   data() {
@@ -306,13 +303,7 @@ export default {
     hiddenButtonsCount() {
       return this.order?.specialities.length - this.visibleButtons.length;
     },
-    myRequest() {
-      return Boolean(
-        this.order?.requests.find(
-          (item) => item.freelancer_id == this.$store.state.userInfo?.id
-        )
-      );
-    },
+
     step1() {
       return !this.order?.selected_request && !this.order?.start_of_execution;
     },
@@ -333,6 +324,21 @@ export default {
   },
   methods: {
     moment,
+    myRequest() {
+      if (
+          this.order?.requests.find(
+              (item) => item.freelancer_id == this.$store.state.userInfo?.id
+          )
+      ) {
+        this.$router.push(`/profile/freelancer/order/view/${this.order?.id}`);
+      } else if (
+          this.order?.client.id === this.$store.state.userInfo?.id
+      ) {
+        this.$router.push(`/profile/customer/order/view/${this.order?.id}`);
+      } else {
+        this.$router.push(`/orders/${this.order?.id}`);
+      }
+    },
     widthHandle() {
       if (this.$refs.widthHandle) {
         let containerWidth = this.$refs.widthHandle.offsetWidth;
@@ -363,10 +369,12 @@ export default {
 .card:hover {
   box-shadow: 0px 16px 40px 0px rgba(0, 25, 53, 0.08);
 }
+
 .card:hover .title,
 .card:hover .price {
   color: var(--main-color);
 }
+
 .title,
 .price,
 .card {
@@ -376,18 +384,22 @@ export default {
 .light-yellow {
   background-color: rgba(242, 153, 74, 0.16);
 }
+
 .more-btn {
   transition: 0.3s;
 }
+
 .more-btn:hover {
   box-shadow: 0px 16px 40px 0px rgba(0, 25, 53, 0.08);
   color: var(--main-color);
   border-color: var(--main-color);
 }
+
 :deep(.order-desc p),
 :deep(.order-desc ul) {
   display: none;
 }
+
 :deep(.order-desc p:first-child) {
   word-break: break-word;
   display: block;

@@ -42,7 +42,6 @@ export default {
 
   data() {
     return {
-
       routes: [
         "/freelancers",
         "/profile/freelancer",

@@ -238,7 +238,7 @@
                 {{ order?.name }}
               </h1>
               <span
-                class="text-base text-grey-80 xl:text-grey-64 xl:text-[14px] break-words"
+                class="text-base text-grey-80 xl:text-grey-64 xl:text-[14px] order-desc break-words"
                 v-html="order?.description"
               >
               </span>
@@ -253,7 +253,7 @@
             </div>
             <div
               class="files flex flex-col gap-4 mt-4 pl-2"
-              v-if="order?.files?.length > 0"
+
             >
               <h6 class="text-black text-[20px] font-semibold xl:text-[18px]">
                 {{ $store.state.translations["profile.order-files"] }}

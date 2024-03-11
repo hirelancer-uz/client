@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex w-[90%] xl:w-full items-center relative xl:overflow-y-scroll xl:gap-3 scroll-none xl:mx-[-16px] xl:py-4 xl:bg-bg-grey"
+    class="order-tab flex w-[90%] xl:w-full items-center relative xl:overflow-y-scroll xl:gap-3 scroll-none xl:mx-[-16px] xl:py-4 xl:bg-bg-grey"
     :class="
       order?.selected_request || order?.status < 5
         ? 'justify-between'
@@ -391,7 +391,7 @@ export default {
 };
 </script>
 <style lang="css" scoped>
-.active p {
+.order-tab .active p {
   color: var(--black);
 }
 @media (max-width: 1200px) {

@@ -35,7 +35,11 @@ export default {
         },
       }),
 
-      store.dispatch("fetchSpecialities/getSpecialities"),
+      store.dispatch("fetchSpecialities/getSpecialities",{
+        params: {
+          page_size: 8,
+        },
+      }),
       store.dispatch("fetchOrders/getOrders", {
         params: {
           page_size: 10,

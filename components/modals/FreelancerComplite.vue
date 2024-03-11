@@ -7,7 +7,7 @@
       centered
       :closable="false"
       width="712px"
-      @ok="handleOk"
+      @ok="closeModal"
     >
       <div class="flex flex-col gap-4">
         <div class="flex justify-end">
@@ -89,6 +89,7 @@
 </template>
 <script>
 import LoaderBtn from "@/components/loader-btn.vue";
+
 export default {
   props: ["visibleProp", "title", "save", "cancel", "loadingBtn"],
   data() {
@@ -97,21 +98,14 @@ export default {
     };
   },
   methods: {
-    handleOk() {
+    openModal() {
+      this.visible = true;
+    },
+    closeModal() {
       this.visible = false;
-      this.$emit("handleOkProp");
     },
   },
-  watch: {
-    visible(val) {
-      if (!val) {
-        this.$emit("handleOkProp");
-      }
-    },
-    visibleProp(val) {
-      this.visible = val;
-    },
-  },
+
   components: {
     LoaderBtn,
   },
