@@ -321,7 +321,6 @@ export default {
   background-color: transparent;
   font-weight: 500;
   letter-spacing: 20px;
-  //padding: 0 16px;
   width: 100%;
 }
 input[type=number]::-webkit-inner-spin-button,

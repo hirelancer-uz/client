@@ -187,7 +187,8 @@
         {{ $store.state.translations["profile.settings"] }}</nuxt-link
       >
       <nuxt-link
-        :to="`/profile/${$route.params.user}/comments`"
+        v-if="$route.params.user === 'freelancer'"
+        :to="`/profile/freelancer/comments`"
         class="text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[96px] xl:min-h-[68px] rounded-[12px] hover:text-black"
         ><svg
           width="24"

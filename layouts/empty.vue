@@ -10,7 +10,7 @@ import Loader from "@/components/Loader.vue";
 export default {
   data() {
     return {
-      loading: false
+      loading: true
     }
   },
   async fetch() {
@@ -19,7 +19,6 @@ export default {
         Language: this.$i18n.locale,
       },
     });
-
     await this.$store.commit("getTranslations", translations);
   },
   mounted() {
