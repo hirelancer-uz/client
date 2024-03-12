@@ -1210,6 +1210,7 @@ export default {
 }
 
 .order-left-chat {
+  //display: flex;
   display: grid;
   grid-template-columns: 1fr 470px;
   gap: 16px;

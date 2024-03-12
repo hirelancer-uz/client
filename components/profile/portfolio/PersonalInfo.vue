@@ -77,6 +77,9 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+.body {
+  word-break: break-all;
+}
 @media (max-width: 1200px) {
   .profile-info {
     border-radius: 0;

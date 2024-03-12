@@ -60,10 +60,6 @@ export default {
   i18n: {
     locales: [
       {
-        code: "en",
-        iso: "en", // Will be used as catchall locale by default
-      },
-      {
         code: "uz",
         iso: "uz",
       },
