@@ -307,7 +307,7 @@
               class="py-4 w-full flex justify-center items-center relative xl:py-[18px]"
           >
             <span class="h-[1px] w-full absolute z-0 bg-border-darik"></span>
-            <p>
+            <p class="px-2 relative z-50 text-grey-80 text-base font-medium bg-white  mt-[-4px]">
               {{ $store.state.translations["auth.add-info"] }}
             </p>
           </div>

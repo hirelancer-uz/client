@@ -54,9 +54,10 @@ export default {
   },
 
   async fetch() {
+    console.log(this.$i18n.locale)
     const translations = await translationsApi.getTranslations(this.$axios, {
       headers: {
-        Language: this.$i18n.locale,
+        Lang: this.$i18n.locale,
       },
     });
 

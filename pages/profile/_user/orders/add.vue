@@ -15,26 +15,26 @@
           {{ $store.state.translations["auth.cancel"] }}
         </button>
         <button
-            @click="onSubmit"
-            class="w-full border border-solid border-blue bg-blue rounded-[8px] h-[54px] min-w-[194px] flex justify-center items-center text-base text-white font-medium gap-2 xl:hidden"
-            :class="{ 'pointer-events-none opacity-50': loadingBtn }"
+          @click="onSubmit"
+          class="w-full border border-solid border-blue bg-blue rounded-[8px] h-[54px] min-w-[194px] flex justify-center items-center text-base text-white font-medium gap-2 xl:hidden"
+          :class="{ 'pointer-events-none opacity-50': loadingBtn }"
         >
           {{ $store.state.translations["order.share"] }}
           <LoaderBtn v-if="loadingBtn" />
           <svg
-              v-else
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
+            v-else
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
           >
             <path
-                d="M8 12L10.5347 14.2812C10.9662 14.6696 11.6366 14.6101 11.993 14.1519L16 9M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                stroke="white"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+              d="M8 12L10.5347 14.2812C10.9662 14.6696 11.6366 14.6101 11.993 14.1519L16 9M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+              stroke="white"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
             />
           </svg>
         </button>
@@ -557,7 +557,6 @@ function getBase64(file) {
 export default {
   data() {
     return {
-
       editorOption: {
         theme: "snow",
         modules: {
@@ -571,7 +570,6 @@ export default {
             ["link"],
           ],
         },
-
       },
       specialities: [],
       openBottom: false,
@@ -740,15 +738,16 @@ export default {
         }
       });
     },
-    async __POST_ORDER(data) {
+    async __POST_ORDER(dataForm) {
       try {
         this.loadingBtn = true;
-        await this.$store.dispatch("fetchOrders/postOrder", data);
+        const data = await this.$store.dispatch("fetchOrders/postOrder", dataForm);
         this.$notification["success"]({
           message: "Success",
           description: "Успешно отправлен",
         });
         this.$router.go(-1);
+        // this.$router.push(`/profile/customer/order/view/${}`);
       } catch (e) {
         this.$notification["error"]({
           message: "Error",
@@ -1062,7 +1061,7 @@ export default {
 
 :deep(.ql-editor) {
   min-height: 250px;
-  font-family: 'TT Interfaces',serif;
+  font-family: "TT Interfaces", serif;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;

@@ -24,6 +24,7 @@ export default {
     { src: "~plugins/vue-otp-input.js", ssr: false },
     { src: "~plugins/vue-drawer-layout.js", ssr: false },
     { src: "~plugins/quill-editor.js", ssr: false },
+    { src: "~plugins/date-format.js",ssr: true },
   ],
 
   components: true,

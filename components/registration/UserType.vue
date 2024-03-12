@@ -115,7 +115,7 @@
                 pattern="/^-?\d+\.?\d*$/"
                 v-model="form.password"
                 onKeyPress="if(this.value.length==6) return false;"
-                placeholder="●●●●●"
+                placeholder="●●●●●●"
               />
               <!--              <v-otp-input-->
               <!--                ref="otpInput"-->

@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="pt-12 order xl:pt-6">
     <div class="max-w-[1286px] mx-auto pb-[80px] xl:pb-8">
-      <nuxt-link
-        to="/"
+      <button
+        @click="$router.go(-1)"
         class="back-btn flex xl:hidden gap-4 w-[162px] py-3 border border-grey-24 border-solid rounded-lg justify-center items-center text-base font-medium text-blue hover:text-blue"
       >
         <svg
@@ -20,7 +20,7 @@
           />
         </svg>
         {{ $store.state.translations["modal.back"] }}
-      </nuxt-link>
+      </button>
       <div class="content-box mt-6 xl:mt-0 xl:px-4 xl:mt-[4px]">
         <div class="max-w-[922px]">
           <div
@@ -51,8 +51,9 @@
                         r="2.5"
                         stroke="#5C46E6"
                         stroke-width="1.5"
-                      /></svg
-                    >{{ order?.view_count }}
+                      />
+                    </svg>
+                    {{ order?.view_count }}
                   </p>
                   <span class="bg-grey-8 w-[1px] h-4"></span>
                   <p
@@ -90,8 +91,9 @@
                         rx="0.833333"
                         ry="0.833333"
                         fill="#5C46E6"
-                      /></svg
-                    >{{ order?.request_count }}
+                      />
+                    </svg>
+                    {{ order?.request_count }}
                     {{ $store.state.translations["profile.requests"] }}
                   </p>
                 </div>
@@ -100,6 +102,7 @@
                 >
                   <span> {{ moment(order?.created_at).format("HH:mm") }}</span>
                   <span class="bg-grey-8 w-[1px] h-4"></span>
+
                   <span>
                     {{ moment(order?.created_at).format("DD.MM.YYYY") }}</span
                   >
@@ -251,10 +254,7 @@
                 specific assigned tasks and billing hours to ASU Prep.
               </p> -->
             </div>
-            <div
-              class="files flex flex-col gap-4 mt-4 pl-2"
-
-            >
+            <div class="files flex flex-col gap-4 mt-4 pl-2">
               <h6 class="text-black text-[20px] font-semibold xl:text-[18px]">
                 {{ $store.state.translations["profile.order-files"] }}
               </h6>
@@ -281,8 +281,8 @@
                   :key="specialit?.id"
                 >
                   <span
-                      @click="$router.push(`/specialities/${specialit?.id}`)"
-                      class="rounded-[22px] py-2 px-4 bg-bg-grey text-grey-64 text-[14px] font-medium cursor-pointer"
+                    @click="$router.push(`/specialities/${specialit?.id}`)"
+                    class="rounded-[22px] py-2 px-4 bg-bg-grey text-grey-64 text-[14px] font-medium cursor-pointer"
                     >{{ specialit?.name_ru }} </span
                   ><span
                     v-if="index + 1 != order?.specialities.length"
@@ -318,8 +318,9 @@
                       r="2.5"
                       stroke="#5C46E6"
                       stroke-width="1.5"
-                    /></svg
-                  >{{ order?.view_count }}
+                    />
+                  </svg>
+                  {{ order?.view_count }}
                 </p>
                 <p
                   class="text-base xl:text-[14px] text-grey-64 flex gap-2 items-center"
@@ -356,8 +357,9 @@
                       rx="0.833333"
                       ry="0.833333"
                       fill="#5C46E6"
-                    /></svg
-                  >{{ order?.request_count }}
+                    />
+                  </svg>
+                  {{ order?.request_count }}
                   {{ $store.state.translations["profile.requests"] }}
                 </p>
               </div>
@@ -493,6 +495,7 @@ import Loader from "@/components/Loader.vue";
 import moment from "moment";
 import ToBeFreelancer from "@/components/modals/ToBeFreelancer.vue";
 import SpicialsticsCheck from "@/components/modals/SpicialsticsCheck.vue";
+
 export default {
   data() {
     return {
@@ -683,7 +686,7 @@ export default {
           order_id: this.$route.params.slug,
         });
 
-          this.__GET_ORDERS()
+        this.__GET_ORDERS();
         this.openSuccessModal();
         this.closeBeFreelancer();
         this.openSuccess();
@@ -734,28 +737,35 @@ export default {
   /* min-height: 100px; */
   align-items: center;
 }
+
 .mobile__price :deep(.rower) {
   flex-direction: row;
 }
+
 .mobile__price :deep(.deal) {
   display: none;
 }
+
 .mobile__price :deep(.buttons) {
   display: block;
 }
+
 .mobile__price :deep(.pricer) {
   flex-direction: column;
   justify-content: flex-start;
   gap: 4px;
   align-items: flex-start;
 }
+
 .mobile__price :deep(.app-btn) {
   border-radius: 12px;
   width: 100%;
 }
+
 .mobile__price :deep(.app-btn::after) {
   border-radius: 12px;
 }
+
 .mobile__price :deep(.exact__price) {
   color: var(--Main-color, #5c46e5);
   font-size: 16px;
@@ -763,6 +773,7 @@ export default {
   font-weight: 600;
   line-height: 150%; /* 24px */
 }
+
 .mobile__price :deep(.price__sup) {
   color: var(--grey-64, #5d5d5f);
   font-size: 12px;
@@ -770,32 +781,40 @@ export default {
   font-weight: 400;
   line-height: 130%; /* 15.6px */
 }
+
 .back-btn {
   transition: 0.3s;
 }
+
 .back-btn:hover {
   border: 1px solid var(--main-color);
   background: #f5f3ff;
   box-shadow: 0px 12px 16px 0px rgba(92, 70, 229, 0.08);
 }
+
 .content-box {
   display: grid;
   grid-template-columns: 1fr 348px;
   gap: 16px;
 }
+
 .status-red {
   background: rgba(237, 50, 55, 0.1);
 }
+
 .modal-bg {
   background: rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(6px);
 }
+
 .nested-enter-active {
   animation: to-top 0.3s;
 }
+
 .nested-leave-active {
   animation: to-top 0.3s reverse;
 }
+
 @keyframes to-top {
   0% {
     bottom: -60px;
@@ -807,12 +826,15 @@ export default {
     opacity: 1;
   }
 }
+
 .opacity-enter-active {
   animation: opacityAnim 0.25s;
 }
+
 .opacity-leave-active {
   animation: opacityAnim 0.25s reverse;
 }
+
 @keyframes opacityAnim {
   0% {
     opacity: 0;
@@ -822,6 +844,7 @@ export default {
     opacity: 1;
   }
 }
+
 @media (max-width: 1200px) {
   .content-box {
     display: grid;

@@ -85,7 +85,6 @@ export default {
   },
   async asyncData({ store, query }) {
     const pageSize = 10;
-
     const [ordersData, specialitiesData] = await Promise.all([
       store.dispatch("fetchOrders/getOrders", {
         params: {
