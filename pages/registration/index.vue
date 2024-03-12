@@ -1,9 +1,11 @@
-<template lang="html">
+<template>
   <div
-    class="registration  xl:h-full h-[100vh] w-full overflow-hidden xl:pt-20 xl:px-4 relative flex items-center justify-center"
+    class="registration xl:h-full h-[100vh] w-full overflow-hidden xl:pt-20 xl:px-4 relative flex items-center justify-center"
   >
-  <!-- <img class="absolute z-10" src="../../assets//images/register-img.png" alt=""> -->
-    <div class="2xl:container container mx-auto h-full flex flex-col justify-center gap-4 relative z-20">
+    <!-- <img class="absolute z-10" src="../../assets//images/register-img.png" alt=""> -->
+    <div
+      class="2xl:container container mx-auto h-full flex flex-col justify-center gap-4 relative z-20"
+    >
       <div class="flex justify-center">
         <NumberCheck @checkNumber="__POST_SEND_CODE" :loading="loading" />
       </div>
@@ -15,20 +17,13 @@ import NumberCheck from "@/components/registration/NumberCheck.vue";
 import translationsApi from "@/store/fetchTranslations";
 export default {
   layout: "empty",
+  components: {},
+
   data() {
     return {
       loading: false,
     };
   },
-  // async fetch() {
-  //   const translations = await translationsApi.getTranslations(this.$axios, {
-  //     headers: {
-  //       Language: this.$i18n.locale,
-  //     },
-  //   });
-  //
-  //   await this.$store.commit("getTranslations", translations);
-  // },
   methods: {
     async __POST_SEND_CODE(form) {
       try {

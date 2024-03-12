@@ -2,6 +2,44 @@
   <div
     class="number-check bg-white flex flex-col px-[120px] xl:px-0 gap-8 py-[80px] xl:py-0 border border-solid border-grey-light rounded-3xl number-card xl:border-0"
   >
+    <div class="langer">
+      <a-dropdown :trigger="['click']">
+        <button
+          class="flex text-[18px] text-black gap-2 items-center"
+          @click="(e) => e.preventDefault()"
+        >
+          <component :is="currentLangObj.icon"></component>
+          {{ currentLangObj.name }}
+          <svg
+            width="10"
+            height="6"
+            viewBox="0 0 10 6"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M0.344011 0.943085C0.559642 0.673546 0.95295 0.629845 1.22249 0.845476L4.99872 3.86646L8.77495 0.845476C9.04449 0.629845 9.4378 0.673546 9.65343 0.943085C9.86906 1.21262 9.82536 1.60593 9.55582 1.82156L5.38916 5.1549C5.16089 5.3375 4.83655 5.3375 4.60829 5.1549L0.44162 1.82156C0.172081 1.60593 0.12838 1.21262 0.344011 0.943085Z"
+              fill="#020105"
+            />
+          </svg>
+        </button>
+        <a-menu slot="overlay">
+          <a-menu-item
+            :key="lang.id"
+            v-for="lang in langList"
+            @click="currentLang = lang.id"
+          >
+            <span
+              class="flex gap-1 items-center justify-center"
+              @click="$router.push(switchLocalePath(lang.code))"
+              ><component :is="lang.icon"></component>{{ lang.name }}</span
+            >
+          </a-menu-item>
+        </a-menu>
+      </a-dropdown>
+    </div>
     <div class="flex flex-col items-center">
       <nuxt-link to="/">
         <span
@@ -98,11 +136,30 @@
 </template>
 <script>
 import LoaderBtn from "../loader-btn.vue";
+import uzbFlag from "@/components/icons/uzbFlag.vue";
+import engFlag from "@/components/icons/engFlag.vue";
+import rusFlag from "@/components/icons/rusFlag.vue";
 
 export default {
   props: ["loading"],
   data() {
     return {
+      currentLang: 1,
+      langList: [
+        {
+          name: "Uzb",
+          icon: "uzbFlag",
+          id: 1,
+          code: "uz",
+        },
+        {
+          name: "Rus",
+          icon: "rusFlag",
+          id: 3,
+          code: "ru",
+        },
+      ],
+
       onFocus: false,
       other: "",
       form: {
@@ -141,7 +198,13 @@ export default {
       });
     },
   },
-  components: { LoaderBtn },
+  components: { LoaderBtn, uzbFlag, rusFlag, engFlag },
+
+  computed: {
+    currentLangObj() {
+      return this.langList.find((elem) => elem.code === this.$i18n.locale);
+    },
+  },
 };
 </script>
 <style lang="css" scoped>
@@ -163,6 +226,14 @@ export default {
   line-height: 150%; /* 24px */
   border-color: transparent;
   width: 100%;
+}
+.langer {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}
+.number-card {
+  position: relative;
 }
 @media (max-width: 1200px) {
   .auth-item .input-block {
