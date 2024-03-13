@@ -53,6 +53,31 @@
     <div
       class="board px-6 py-6 flex flex-col gap-4 border-[0] border-b border-solid border-grey-8"
     >
+      <div class="flex justify-end">
+        <div
+          class="chat-card px-4 py-4 rounded-[14px] rounded-br-none bg-main-color flex flex-col gap-3 max-w-[642px]"
+        >
+          <p class="text-base text-white">
+            Приветствую! Меня заинтересовал ваш проект. Моя цель – создавать
+            интересные и интуитивно понятные пользовательские интерфейсы,
+            которые вдохновляют и привлекают
+          </p>
+          <span class="flex w-full h-[1px] bg-[#B795FF]"></span>
+          <div class="flex flex-col gap-1">
+            <h5 class="text-[14px] font-semibold text-white">600 000 so’m</h5>
+            <div class="flex justify-between">
+              <h6
+                class="text-white text-[14px] font-regular flex gap-1 text-white"
+              >
+                Muddat:<span class="text-[14px] font-semibold text-white"
+                  >5 kun</span
+                >
+              </h6>
+              <p class="text-[10px] text-white">14:30</p>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="flex justify-start">
         <div
           class="client-content px-4 max-w-[642px] py-3 bg-bg-grey rounded-[10px] rounded-bl-none flex gap-6 items-end"
@@ -63,7 +88,7 @@
       </div>
       <div class="flex justify-end">
         <div
-          class="content px-4 py-3 max-w-[642px] bg-purple rounded-[10px] rounded-br-none flex gap-6 items-end"
+          class="content px-4 py-3 max-w-[642px] bg-main-color rounded-[10px] rounded-br-none flex gap-6 items-end"
         >
           <p class="text-base text-white">
             Меня заинтересовал ваш проект. Моя цель – создавать интересные и
@@ -82,7 +107,7 @@
       </div>
       <div class="flex justify-end">
         <div
-          class="content px-4 py-3 max-w-[642px] bg-purple rounded-[10px] rounded-br-none flex gap-6 items-end"
+          class="content px-4 py-3 max-w-[642px] bg-main-color rounded-[10px] rounded-br-none flex gap-6 items-end"
         >
           <p class="text-base text-white">
             Меня заинтересовал ваш проект. Моя цель – создавать интересные и
@@ -148,7 +173,7 @@ export default {
   props: ["order", "status"],
   computed: {
     imgUrl() {
-      return this.$config.baseURL + "/storage/"
+      return this.$config.baseURL + "/storage/";
     },
   },
 };

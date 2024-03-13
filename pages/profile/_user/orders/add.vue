@@ -338,11 +338,16 @@
                 :formatter="
                   (value) =>
                     value.length > 0
-                      ? `${value.replace(/[^0-9.]/g, '')} дней`
+                      ? `${value.replace(/[^0-9.]/g, '')} ${
+                          $store.state.translations['order.days']
+                        }`
                       : `${value.replace(/[^0-9.]/g, '')}`
                 "
                 :parser="
-                  (value) => value.replace(/[^0-9.]/g, '').replace(' дней', '')
+                  (value) =>
+                    value
+                      .replace(/[^0-9.]/g, '')
+                      .replace(`${$store.state.translations['order.days']}`, '')
                 "
                 :class="{
                   'opacity-50 pointer-events-none': form.deadline_negotiable,
@@ -742,7 +747,10 @@ export default {
     async __POST_ORDER(dataForm) {
       try {
         this.loadingBtn = true;
-        const data = await this.$store.dispatch("fetchOrders/postOrder", dataForm);
+        const data = await this.$store.dispatch(
+          "fetchOrders/postOrder",
+          dataForm
+        );
         this.$notification["success"]({
           message: "Success",
           description: "Успешно отправлен",

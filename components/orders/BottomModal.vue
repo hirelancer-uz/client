@@ -19,7 +19,7 @@
             class="head w-full flex justify-between items-center pb-6 border-[0] border-b border-solid border-grey-light"
           >
             <h4 class="text-[24px] font-semibold text-black">
-              Отправить заявку
+              {{ $store.state.translations["order.send-request"] }}
             </h4>
             <button @click="closeModal">
               <svg
@@ -62,24 +62,53 @@
                   <div class="grid grid-cols-2 gap-6 justify-between">
                     <a-form-model-item
                       prop="deadline"
-                      class="form-item w-full mb-0"
+                      class="w-full mb-0"
                       :label="$store.state.translations['order.date-days']"
                     >
-                      <a-input
+                      <a-input-number
                         v-model="form.deadline"
                         placeholder="0"
-                        type="number"
+                        :formatter="
+                          (value) =>
+                            value.length > 0
+                              ? `${value.replace(/[^0-9.]/g, '')} ${
+                                  $store.state.translations['order.days']
+                                }`
+                              : `${value.replace(/[^0-9.]/g, '')}`
+                        "
+                        :parser="
+                          (value) =>
+                            value
+                              .replace(/[^0-9.]/g, '')
+                              .replace(
+                                `${$store.state.translations['order.days']}`,
+                                ''
+                              )
+                        "
                       />
                     </a-form-model-item>
                     <a-form-model-item
-                      class="form-item w-full"
+                      class="w-full"
                       :label="$store.state.translations['order.price']"
                       prop="price"
+                      placeholder="0"
                     >
-                      <a-input
-                        v-model="form.price"
+                      <a-input-number
                         placeholder="0"
-                        type="number"
+                        v-model="form.price"
+                        :formatter="
+                          (value) =>
+                            `${value.replace(/[^0-9.]/g, '')}`.replace(
+                              /\B(?=(\d{3})+(?!\d))/g,
+                              ' '
+                            )
+                        "
+                        :parser="
+                          (value) =>
+                            value
+                              .replace(/[^0-9.]/g, '')
+                              .replace(/\$\s?|( *)/g, '')
+                        "
                       />
                     </a-form-model-item>
                   </div>
@@ -147,9 +176,7 @@
         <div
           class="modal h-[516px] xl:h-auto m-full mx-auto rounded-t-[16px] max-w-[1440px] bg-white xl:px-4 xl:pb-6"
         >
-          <div
-            class="mx-auto xl:pt-4 grid-container h-full"
-          >
+          <div class="mx-auto xl:pt-4 grid-container h-full">
             <div class="flex flex-col gap-4">
               <div class="flex justify-end">
                 <button @click="close">
@@ -187,21 +214,49 @@
                       class="form-item w-full mb-0"
                       :label="$store.state.translations['order.date-days']"
                     >
-                      <a-input
+                      <a-input-number
                         v-model="form.deadline"
                         placeholder="0 дней"
-                        type="number"
+                        :formatter="
+                          (value) =>
+                            value.length > 0
+                              ? `${value.replace(/[^0-9.]/g, '')} ${
+                                  $store.state.translations['order.days']
+                                }`
+                              : `${value.replace(/[^0-9.]/g, '')}`
+                        "
+                        :parser="
+                          (value) =>
+                            value
+                              .replace(/[^0-9.]/g, '')
+                              .replace(
+                                `${$store.state.translations['order.days']}`,
+                                ''
+                              )
+                        "
                       />
                     </a-form-model-item>
                     <a-form-model-item
-                      class="form-item w-full"
+                      class="w-full"
                       :label="$store.state.translations['order.price']"
                       prop="price"
                     >
-                      <a-input
+                      <a-input-number
+                        placeholder="0"
                         v-model="form.price"
-                        placeholder="0 сум"
-                        type="number"
+                        :formatter="
+                          (value) =>
+                            `${value.replace(/[^0-9.]/g, '')}`.replace(
+                              /\B(?=(\d{3})+(?!\d))/g,
+                              ' '
+                            )
+                        "
+                        :parser="
+                          (value) =>
+                            value
+                              .replace(/[^0-9.]/g, '')
+                              .replace(/\$\s?|( *)/g, '')
+                        "
                       />
                     </a-form-model-item>
                   </div>
@@ -214,7 +269,9 @@
                         type="textarea"
                         rows="6"
                         v-model="form.additional_info"
-                        placeholder="Дополнительная информация"
+                        :placeholder="
+                          $store.state.translations['auth.add-info']
+                        "
                       />
                     </a-form-model-item>
                   </div>
@@ -342,6 +399,26 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+:deep(.ant-input-number) {
+  border-radius: 8px;
+  border: 1px solid var(--grey-8);
+  background: #fff;
+  color: var(--black);
+  font-family: "TT Interfaces";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  height: 54px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+:deep(.ant-input-number-handler-wrap) {
+  display: none;
+}
+
 :deep(.bottom-sheet__draggable-area) {
   display: none;
 }
