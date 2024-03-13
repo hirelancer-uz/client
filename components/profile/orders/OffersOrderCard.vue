@@ -19,9 +19,7 @@
           alt=""
         />
       </div>
-      <div
-        class="info flex justify-between"
-      >
+      <div class="info flex justify-between">
         <div>
           <h4
             class="text-[18px] font-medium text-black truncate name whitespace-normal flex gap-2 xl:text-[14px] cursor-pointer"
@@ -171,10 +169,10 @@
         </div>
       </div>
     </div>
-    <div class="hidden justify-between gap-2 xl:flex mt-5">
+    <div class="hidden justify-between gap-2 xl:flex xl:items-center mt-5">
       <h3 class="text-grey-80 text-base font-semibold" v-if="request?.price">
         {{ request?.price.toLocaleString() }}
-        {{ $store.state.translations["profile.sun"] }}
+        {{ $store.state.translations["profile.sum"] }}
       </h3>
       <h3 class="text-grey-80 text-base font-semibold" v-else>
         {{ $store.state.translations["profile.deal"] }}
@@ -199,7 +197,7 @@
     </div>
     <div class="text mt-4 pb-6 xl:mt-3 xl:pb-0">
       <p
-        class="text-grey-64 text-base leading-6 max-h-[96px] overflow-hidden xl:text-[14px]"
+        class="text-grey-64 text-base leading-6 max-h-[96px] overflow-hidden xl:text-[14px] desc"
         :class="{ active: openBlock || order?.status < 2 }"
       >
         {{ request?.additional_info }}
@@ -388,6 +386,13 @@ export default {
   .head {
     grid-template-columns: 52px 1fr;
     gap: 10px;
+  }
+  .desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 </style>

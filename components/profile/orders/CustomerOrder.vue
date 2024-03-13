@@ -111,14 +111,12 @@
                 </h1>
 
                 <span
-                  class="text-base text-grey-80 xl:text-[14px] xl:text-justify order-desc break-words "
+                  class="text-base text-grey-80 xl:text-[14px] xl:text-justify order-desc break-words"
                   v-html="order?.description"
                 >
                 </span>
               </div>
-              <div
-                class="files flex flex-col gap-4 mt-4"
-              >
+              <div class="files flex flex-col gap-4 mt-4">
                 <h6 class="text-black text-[20px] font-semibold xl:text-[18px]">
                   {{ $store.state.translations["profile.order-files"] }}
                 </h6>
@@ -141,7 +139,11 @@
                     :key="specialit?.id"
                   >
                     <span
-                        @click="$router.push(localePath(`/specialities/${specialit?.id}`))"
+                      @click="
+                        $router.push(
+                          localePath(`/specialities/${specialit?.id}`)
+                        )
+                      "
                       class="rounded-[22px] py-2 px-4 bg-bg-grey text-grey-64 text-[14px] font-medium cursor-pointer"
                       >{{ specialit?.name_ru }} </span
                     ><span
@@ -338,7 +340,8 @@
                   class="text-black text-base font-semibold xl:text-[14px]"
                   v-if="order?.deadline"
                 >
-                  {{ order?.deadline }} {{ $store.state.translations["order.days"] }}
+                  {{ order?.deadline }}
+                  {{ $store.state.translations["order.days"] }}
                 </h2>
                 <h4
                   v-else
@@ -380,7 +383,9 @@
               <button
                 v-if="!status"
                 @click="
-                  $router.push(localePath(`/profile/customer/order/edit/${order?.id}`))
+                  $router.push(
+                    localePath(`/profile/customer/order/edit/${order?.id}`)
+                  )
                 "
                 class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-main-color border-main-color text-base xl:text-[14px] text-white font-medium"
               >
@@ -524,8 +529,11 @@
       class="mt-[57px] bg-bg-grey pt-20 pb-[120px] xl:mx-[-16px] xl:px-4 xl:pt-4 xl:mt-10 xl:pb-6"
       v-if="status < 2 && !order?.selected_request?.id"
     >
-      <div class="max-w-[1440px] mx-auto">
-        <div class="order-left-chat mb-6">
+      <div class="max-w-[1440px] mx-auto relative">
+        <div
+          class="order-left-chat mb-6"
+          :class="{ block: chatHandle == false }"
+        >
           <div class="flex items-center justify-between xl:flex-col xl:gap-4">
             <h4 class="text-[24px] font-semibold text-black xl:text-[18px]">
               {{ $store.state.translations["profile.offers"] }} ({{
@@ -570,7 +578,7 @@
           </div>
         </div>
 
-        <div class="order-left-chat">
+        <div class="order-left-chat" :class="{ block: chatHandle == false }">
           <div
             class="list flex flex-col gap-4"
             v-if="!order?.selected_request?.id && order?.status === 1"
@@ -610,7 +618,11 @@
           <div
             class="xl:hidden customer-chat"
             :class="{ activeChat: chatHandle }"
-            v-if="!order?.selected_request?.id && order?.status === 1 && order?.requests.length > 0"
+            v-if="
+              !order?.selected_request?.id &&
+              order?.status === 1 &&
+              order?.requests.length > 0
+            "
           >
             <OffersChat @close="chatHandle = false" />
           </div>
@@ -748,7 +760,9 @@
         </h4>
       </div>
       <button
-        @click="$router.push(localePath(`/profile/customer/order/edit/${order?.id}`))"
+        @click="
+          $router.push(localePath(`/profile/customer/order/edit/${order?.id}`))
+        "
         class="border border-solid border-blue bg-blue rounded-[12px] h-11 w-full flex justify-center items-center text-[12px] text-white font-medium gap-2"
       >
         {{ $store.state.translations["profile.change-data"] }}
@@ -1031,9 +1045,13 @@ export default {
   transition: 0.3s;
   transform: translateX(100%);
   opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .activeChat {
+  position: static;
   transform: translateX(0);
   opacity: 1;
 }
@@ -1210,12 +1228,13 @@ export default {
 }
 
 .order-left-chat {
-  //display: flex;
   display: grid;
   grid-template-columns: 1fr 470px;
   gap: 16px;
 }
-
+.order-left-chat.block {
+  display: block !important;
+}
 .show-all {
   /* background: linear-gradient(
     180deg,
@@ -1254,6 +1273,19 @@ export default {
   }
 
   :deep(.ant-select-selection__placeholder) {
+    font-size: 14px;
+  }
+  .right {
+    display: grid;
+    grid-template-columns: 5fr 5fr;
+    gap: 8px;
+    width: 100%;
+  }
+  :deep(.ant-select) {
+    min-width: unset;
+  }
+  :deep(.ant-select-selection-selected-value),
+  .favorite {
     font-size: 14px;
   }
 }
