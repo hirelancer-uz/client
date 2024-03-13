@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrap">
     <vue-bottom-sheet-vue2
       ref="customerChat"
       class="bottom-drawer h-full"
@@ -32,14 +32,13 @@
           <div
             class="image w-[52px] h-[52px] border-[2px] border-solid border-agro-green rounded-full overflow-hidden"
           >
-            <img
+            <!-- <img
               v-if="order?.selected_request?.freelancer?.avatar"
               class="w-full h-full object-cover"
               :src="`${imgUrl}${order?.selected_request?.freelancer?.avatar}`"
               alt=""
-            />
+            /> -->
             <img
-              v-else
               class="w-full h-full object-cover"
               src="@/assets/images/user-avatar.jpg"
               alt=""
@@ -47,9 +46,7 @@
           </div>
           <div class="flex justify-between items-center">
             <div class="flex flex-col gap-1">
-              <h5 class="text-[20px] text-black font-medium">
-                {{ order?.selected_request?.freelancer?.name }}
-              </h5>
+              <h5 class="text-[20px] text-black font-medium">Name</h5>
               <p class="text-grey-40 text-base">14:30</p>
             </div>
           </div>
@@ -175,9 +172,9 @@
     </vue-bottom-sheet-vue2>
   </div>
 </template>
+
 <script>
 export default {
-  props: ["order", "status"],
   computed: {
     imgUrl() {
       return this.$config.baseURL + "/storage/";
@@ -193,7 +190,8 @@ export default {
   },
 };
 </script>
-<style lang="css" scoped>
+
+<style scoped>
 :deep(.bottom-sheet__main) {
   height: 100%;
 }
