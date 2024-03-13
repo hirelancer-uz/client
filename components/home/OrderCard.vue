@@ -330,13 +330,13 @@ export default {
               (item) => item.freelancer_id == this.$store.state.userInfo?.id
           )
       ) {
-        this.$router.push(`/profile/freelancer/order/view/${this.order?.id}`);
+        this.$router.push(this.localePath(`/profile/freelancer/order/view/${this.order?.id}`));
       } else if (
           this.order?.client.id === this.$store.state.userInfo?.id
       ) {
-        this.$router.push(`/profile/customer/order/view/${this.order?.id}`);
+        this.$router.push(this.localePath(`/profile/customer/order/view/${this.order?.id}`));
       } else {
-        this.$router.push(`/orders/${this.order?.id}`);
+        this.$router.push(this.localePath(`/orders/${this.order?.id}`));
       }
     },
     widthHandle() {

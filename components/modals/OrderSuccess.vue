@@ -231,7 +231,7 @@ export default {
     },
     toProfile() {
       this.visible = false;
-      this.$router.push(`/profile/freelancer/order/view/${this.order?.id}`);
+      this.$router.push(this.localePath(`/profile/freelancer/order/view/${this.order?.id}`));
     },
   },
   watch: {

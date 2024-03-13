@@ -93,7 +93,7 @@
                 {{ $store.state.translations["main.order-it"] }}
               </button>
               <button
-                @click="$router.push('/orders')"
+                @click="$router.push(localePath('/orders'))"
                 class="h-[60px] flex justify-center min-w-[220px] px-[20px] border-solid text-base border-main-color bg-transparent border rounded-xl text-main-color font-tt items-center font-semibold mobile-button"
               >
                 {{ $store.state.translations["main.lets-earn"] }}
@@ -225,7 +225,7 @@ export default {
       const authCheck =
         this.$store.state.auth && Boolean(this.$store.state.userInfo["name"]);
       const url = authCheck ? path : "registration";
-      this.$router.push(url);
+      this.$router.push(this.localePath(url));
     },
   },
 };

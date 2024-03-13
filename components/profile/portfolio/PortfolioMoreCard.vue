@@ -1,7 +1,7 @@
 <template lang="html">
   <div
     class="rounded-2xl border border-solid border-grey-8 bg-bg-grey px-[80px] py-[80px] cursor-pointer"
-    @click="$router.push(`/freelancer/${$route.params.index}/portfolio`)"
+    @click="$router.push(localePath(`/freelancer/${$route.params.index}/portfolio`))"
   >
     <div
       class="flex flex-col justify-center items-center gap-2 w-full h-full rounded-2xl bg-white"

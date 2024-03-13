@@ -8,7 +8,7 @@
         </h3>
         <button
           v-if="$route.params.user == 'customer'"
-          @click="$router.push('/profile/orders/add')"
+          @click="$router.push(localePath('/profile/orders/add'))"
           class="bg-blue flex justify-center gap-2 h-[60px] w-[220px] px-6 rounded-[8px] text-white text-base text-medium items-center"
         >
           {{ $store.state.translations["header.add-order"] }}
@@ -128,7 +128,7 @@
       class="fixed-btns fixed bottom-0 w-full z-[7] py-4 px-4 bg-white left-0 hidden xl:flex flex-col gap-2"
     >
       <button
-        @click="$router.push('/profile/orders/add')"
+        @click="$router.push(localePath('/profile/orders/add'))"
         class="border border-solid border-blue bg-blue rounded-[12px] h-[52px] w-full flex justify-center items-center text-[14px] text-white font-medium gap-2"
       >
         {{ $store.state.translations["header.add-order"] }}

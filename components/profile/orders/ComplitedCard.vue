@@ -1,7 +1,7 @@
 <template lang="html">
   <div
     class="freelancer-card px-4 py-4 border border-solid border-grey-8 rounded-2xl cursor-pointer xl:rounded-[16px] xl:p-[16px]"
-    @click="$router.push(`/profile/customer/order/view/${order?.id}`)"
+    @click="$router.push(localePath(`/profile/customer/order/view/${order?.id}`))"
   >
     <div>
       <div class="card">

@@ -40,12 +40,20 @@
                     (modalList ? modalList : specialities[0]?.id) === item?.id,
                 }"
               >
-                <img class="w-[56px] h-[56px] object-contain" v-if="item?.icon" :src="`${imgUrl}${item?.icon}`" alt="">
+                <img
+                  class="w-[56px] h-[56px] object-contain"
+                  v-if="item?.icon"
+                  :src="`${imgUrl}${item?.icon}`"
+                  alt=""
+                />
                 {{ item?.name_ru }}
               </div>
             </div>
             <div class="modal-board flex flex-col justify-between gap-4">
-              <div class="flex gap-3 flex-wrap items-start">
+              <div
+                class="flex gap-3 flex-wrap items-start"
+                v-show="maxCount !== 1"
+              >
                 <button
                   :disabled="
                     !Boolean(
@@ -58,6 +66,7 @@
                       elem.id ===
                       (modalList !== null ? modalList : specialities[0]?.id)
                   )?.children"
+                  :key="child?.id"
                   @click="onchecked(child)"
                 >
                   <a-checkbox
@@ -80,6 +89,30 @@
                     {{ child?.name_ru }}
                   </p>
                 </button>
+              </div>
+              <div
+                class="flex gap-3 flex-wrap items-start"
+                v-show="maxCount === 1"
+              >
+                <a-radio-group
+                  v-model="value"
+                  @change="onChange"
+                  class="flex gap-3 flex-wrap items-start"
+                >
+                  <a-radio
+                    class="bg-bg-grey rounded-[22px] flex items-center gap-2"
+                    :style="radioStyle"
+                    :value="child"
+                    :key="child?.id"
+                    v-for="child in specialities?.find(
+                      (elem) =>
+                        elem.id ===
+                        (modalList !== null ? modalList : specialities[0]?.id)
+                    )?.children"
+                  >
+                    {{ child?.name_ru }}
+                  </a-radio>
+                </a-radio-group>
               </div>
               <div class="flex gap-4 justify-end">
                 <button
@@ -141,9 +174,13 @@
                     class="text-[14px] font-medium text-grey-80 flex gap-2 items-center"
                     :class="{ 'text-blue': dropdownOpens.includes(item?.id) }"
                   >
-                    <span class="flex items-center gap-2"
-                      >
-                      <img class="w-6 h-6 object-contain" v-if="item?.icon" :src="`${imgUrl}${item?.icon}`" alt="">
+                    <span class="flex items-center gap-2">
+                      <img
+                        class="w-6 h-6 object-contain"
+                        v-if="item?.icon"
+                        :src="`${imgUrl}${item?.icon}`"
+                        alt=""
+                      />
                       {{ item?.name_ru }}</span
                     >
                     <span class="text-[12px] text-grey-40"
@@ -172,11 +209,12 @@
 
                 <div class="drop-body relative z-10">
                   <div class="py-4 flex flex-col gap-4 xl:gap-8">
-                    <div class="flex gap-3 flex-wrap">
+                    <div class="flex gap-3 flex-wrap" v-show="maxCount !== 1">
                       <button
                         class="px-4 py-2 bg-bg-grey rounded-[22px] flex items-center gap-2"
                         v-for="child in item?.children"
                         @click="onchecked(child)"
+                        :key="child?.id"
                         :disabled="
                           !Boolean(
                             checkedList.find(
@@ -205,6 +243,32 @@
                           {{ child?.name_ru }}
                         </p>
                       </button>
+                    </div>
+                    <div
+                      class="flex gap-3 flex-wrap items-start"
+                      v-show="maxCount === 1"
+                    >
+                      <a-radio-group
+                        v-model="value"
+                        @change="onChange"
+                        class="flex gap-3 flex-wrap items-start"
+                      >
+                        <a-radio
+                          class="bg-bg-grey rounded-[22px] flex items-center gap-2"
+                          :style="radioStyle"
+                          :value="child"
+                          :key="child?.id"
+                          v-for="child in specialities?.find(
+                            (elem) =>
+                              elem.id ===
+                              (modalList !== null
+                                ? modalList
+                                : specialities[0]?.id)
+                          )?.children"
+                        >
+                          {{ child?.name_ru }}
+                        </a-radio>
+                      </a-radio-group>
                     </div>
                   </div>
                 </div>
@@ -242,6 +306,17 @@ export default {
       modalList: null,
       dropdownOpens: [],
       loading: true,
+      value: 0,
+      radioStyle: {
+        color: "#353437",
+        fontFamily: "TT Interfaces",
+        fontSize: "14px",
+        fontStyle: "normal",
+        fontWeight: "500",
+        lineHeight: "140%",
+        padding: "8px 16px",
+        marginRight: 0,
+      },
     };
   },
 
@@ -249,11 +324,14 @@ export default {
     maxSelectCount() {
       return this.maxCount || 3;
     },
-      imgUrl() {
-      return this.$config.baseURL + "/storage/"
+    imgUrl() {
+      return this.$config.baseURL + "/storage/";
     },
   },
   methods: {
+    onChange() {
+      this.checkedList[0] = this.value;
+    },
     closed() {
       this.closeModal();
     },
@@ -271,6 +349,7 @@ export default {
 
     open() {
       this.checkedList = [...this.activeCheckedList];
+      this.value = this.checkedList[0];
       this.$refs.openSpecials?.open();
     },
     close() {
@@ -313,6 +392,24 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+:deep(.ant-radio-checked .ant-radio-inner),:deep(.ant-radio-checked::after),:deep(.ant-radio-inner::after),:deep(.ant-checkbox-checked .ant-checkbox-inner) {
+  border-color: var(--main-color);
+}
+:deep(.ant-radio-inner::after),:deep(.ant-checkbox-checked .ant-checkbox-inner) {
+  background-color: var(--main-color);
+}
+:deep(.ant-radio-group) {
+  display: flex;
+}
+
+:deep(.ant-radio-wrapper) {
+  display: flex;
+}
+
+:deep(.ant-radio-wrapper span) {
+  padding: 0;
+}
+
 .buttons .active {
   border-color: var(--blue);
   color: var(--blue);

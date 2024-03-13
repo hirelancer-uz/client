@@ -633,7 +633,7 @@ export default {
   mounted() {
     this.loading = true;
     if (!localStorage.getItem("auth-token")) {
-      this.$router.push("/");
+      this.$router.push(this.localePath("/"));
     } else {
       this.loading = false;
     }

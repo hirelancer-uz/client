@@ -116,7 +116,7 @@
       class="buttons grid grid-cols-2 gap-4 xl:gap-2 xl:flex xl:flex-col-reverse xl:fixed xl:bottom-4 xl:w-full xl:left-0 xl:px-4"
     >
       <button
-        @click="$router.push('/')"
+        @click="$router.push(localePath('/'))"
         class="h-[60px] xl:h-[52px] border border-solid border-border-darik rounded-[12px] flex justify-center items-center text-[18px] xl:text-[14px] text-black font-medium"
       >
         {{ $store.state.translations["auth.cancel"] }}

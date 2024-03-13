@@ -101,7 +101,7 @@
               </div>
 
               <button
-                class="h-[34px] flex justify-end items-center flex-auto absolute z-[10] right-0 px-4 w-full"
+                class="h-[34px] flex justify-end items-center flex-auto absolute z-[6] right-0 px-4 w-full"
                 @click="
                   openSpecial();
                   checkedList = [...activeCheckedList];
@@ -371,7 +371,7 @@ export default {
     });
     this.loading = true;
     !localStorage.getItem("auth-token")
-      ? this.$router.push("/")
+      ? this.$router.push(this.localePath("/"))
       : (this.loading = false);
   },
   async asyncData({ store }) {

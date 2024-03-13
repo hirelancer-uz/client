@@ -92,7 +92,7 @@
             v-if="$store.state.auth && Boolean($store.state.userInfo['name'])"
           >
             <button
-              @click="$router.push('/notifications')"
+              @click="$router.push(localePath('/notifications'))"
               class="relative w-[52px] h-[52px] rounded-full border-[2px] border-grey-8 border-solid flex items-center justify-center"
             >
               <svg
@@ -186,7 +186,7 @@
             >
               <li key="0">
                 <button
-                  @click="$router.push('/profile/customer/orders/add')"
+                  @click="$router.push(localePath('/profile/customer/orders/add'))"
                   class="rounded-[12px] bg-main-color py-2 w-[230px] flex justify-center text-white font-medium text-base hover:text-white"
                 >
                   {{ $store.state.translations["header.add-order"] }}
@@ -198,7 +198,7 @@
                     'bg-grey-light pointer-events-none':
                       $route.path === '/profile/freelancer',
                   }"
-                  @click="$router.push('/profile/freelancer')"
+                  @click="$router.push(localePath('/profile/freelancer'))"
                   class="w-full py-2 flex gap-2 rounded-xl bg-bg-grey px-4 font-medium text-base text-black hover:bg-grey-light"
                 >
                   <svg
@@ -235,7 +235,7 @@
                       $route.path.includes('status'),
                   }"
                   @click="
-                    $router.push('/profile/freelancer/orders/active/status')
+                    $router.push(localePath('/profile/freelancer/orders/active/status'))
                   "
                   class="w-full py-2 flex gap-2 rounded-xl bg-bg-grey px-4 font-medium text-base text-black hover:bg-grey-light"
                 >
@@ -264,7 +264,7 @@
                     'bg-grey-light pointer-events-none':
                       $route.path === '/profile/freelancer/portfolio',
                   }"
-                  @click="$router.push('/profile/freelancer/portfolio')"
+                  @click="$router.push(localePath('/profile/freelancer/portfolio'))"
                   class="w-full py-2 flex gap-2 rounded-xl bg-bg-grey px-4 font-medium text-base text-black hover:bg-grey-light"
                 >
                   <svg
@@ -306,7 +306,7 @@
               </li>
               <li key="4">
                 <button
-                  @click="$router.push('/profile/freelancer/settings')"
+                  @click="$router.push(localePath('/profile/freelancer/settings'))"
                   :class="{
                     'bg-grey-light pointer-events-none':
                       $route.path === '/profile/freelancer/settings',
@@ -331,7 +331,7 @@
               </li>
               <li key="5">
                 <button
-                  @click="$router.push('/profile/freelancer/comments')"
+                  @click="$router.push(localePath('/profile/freelancer/comments'))"
                   class="w-full py-2 flex gap-2 rounded-xl bg-bg-grey px-4 font-medium text-base text-black hover:bg-grey-light"
                 >
                   <svg
@@ -503,7 +503,7 @@
           </a-dropdown>
           <div class="login flex gap-6" v-else>
             <button
-              @click="$router.push('/registration')"
+              @click="$router.push(localePath('/registration'))"
               class="text-black text-[18px] font-normal"
             >
               {{
@@ -513,7 +513,7 @@
               }}
             </button>
             <button
-              @click="$router.push('/registration')"
+              @click="$router.push(localePath('/registration'))"
               class="rounded-xl text-4 py-3 px-6 font-medium font-tt bg-blue text-white"
             >
               {{ $store.state.translations["header.lets-register"] }}
@@ -587,8 +587,8 @@ export default {
     },
     userChange() {
       if (this.$route.params?.user !== this.$store.state.userType && this.$route.name.includes('profile')) {
-        this.$route.params?.user === 'freelancer' ? this.$router.push(`/profile/customer/orders/active/status`) :
-          this.$router.push(`/profile/freelancer`)
+        this.$route.params?.user === 'freelancer' ? this.$router.push(this.localePath(`/profile/customer/orders/active/status`)) :
+          this.$router.push(this.localePath(`/profile/freelancer`))
       }
     }
   },

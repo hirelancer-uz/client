@@ -50,7 +50,7 @@
 
    </div>
     <button
-      @click="$router.push(`/freelancer/${$route.params.index}/portfolio`)"
+      @click="$router.push(localePath(`/freelancer/${$route.params.index}/portfolio`))"
       class="hidden gap-2 w-full justify-center h-[52px] items-center rounded-[12px] bg-main-color text-[14px] text-white font-medium"
     >
       {{ $store.state.translations["profile.view-more"] }}

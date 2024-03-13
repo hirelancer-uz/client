@@ -44,8 +44,8 @@ export default {
         if (data.success) {
           const returnLink = localStorage.getItem("return_link2");
           JSON.parse(returnLink) !== null
-            ? await this.$router.push(returnLink)
-            : await this.$router.push("/profile/freelancer");
+            ? await this.$router.push(this.localePath(returnLink))
+            : await this.$router.push(this.localePath("/profile/freelancer"));
         }
       } catch (e) {
         this.$notification["error"]({

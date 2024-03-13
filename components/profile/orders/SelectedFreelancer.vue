@@ -60,7 +60,7 @@
         <div class="flex flex-col gap-1 justify-center">
           <h5
             class="text-base font-medium text-black flex gap-2 items-center cursor-pointer"
-            @click="$router.push(`/freelancer/${freelancer?.id}`)"
+            @click="$router.push(localePath(`/freelancer/${freelancer?.id}`))"
           >
             {{ freelancer?.name }}
           </h5>

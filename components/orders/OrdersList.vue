@@ -422,10 +422,10 @@ export default {
   methods: {
     async toPage(id) {
       await this.close();
-      this.$router.push({
+      this.$router.push(this.localePath({
         path: `/specialities/${id}`,
         query: { page: 1, page_size: this.$route.query.page_size },
-      });
+      }));
     },
     filterStatus() {
       this.status = !this.status;

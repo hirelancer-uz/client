@@ -39,14 +39,14 @@
             </div>
             <button
               v-if="$store.state.auth && Boolean($store.state.userInfo['name'])"
-              @click="$router.push('/profile/orders/add')"
+              @click="$router.push(localePath('/profile/orders/add'))"
               class="h-[60px] w-[204px] flex justify-center items-center bg-white rounded-[12px] text-base font-medium text-blue border-[1px] border-blue border-solid buttoner xl:hidden"
             >
               {{ $store.state.translations["freelancers.order"] }}
             </button>
             <button
               v-else
-              @click="$router.push('/registration')"
+              @click="$router.push(localePath('/registration'))"
               class="h-[60px] w-[204px] flex justify-center items-center bg-white rounded-[12px] text-base font-medium text-blue border-[1px] border-blue border-solid buttoner xl:hidden"
             >
               {{ $store.state.translations["freelancers.order"] }}

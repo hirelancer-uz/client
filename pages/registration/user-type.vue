@@ -56,11 +56,11 @@ export default {
           this.$store.commit("getUserInfo", userInfoData);
           if (this.userInfo?.name) {
             returnLink
-              ? await this.$router.push(returnLink)
-              : await this.$router.push("/profile/freelancer");
+              ? await this.$router.push(this.localePath(returnLink))
+              : await this.$router.push(this.localePath("/profile/freelancer"));
           } else {
             localStorage.setItem("return_link2", returnLink);
-            await this.$router.push("/registration/user-info");
+            await this.$router.push(this.localePath("/registration/user-info"));
           }
         }
       } catch (e) {}

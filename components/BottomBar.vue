@@ -9,14 +9,14 @@
         Boolean($store.state.userInfo['name']) &&
         $route.name === 'freelancers'
       "
-      @click="$router.push('/profile/orders/add')"
+      @click="$router.push(localePath('/profile/orders/add'))"
       class="h-12 flex justify-center items-center bg-main-color rounded-[12px] text-[14px] font-semibold text-white w-full border-[1px] border-blue border-solid buttoner"
     >
       {{ $store.state.translations["header.add-order"] }}
     </button>
     <div class="menu flex justify-between">
       <button
-        @click="$router.push('/')"
+        @click="$router.push(localePath('/'))"
         :class="{ active: $route.path === '/' }"
         class="flex flex-col gap-1 items-center text-grey-64 text-[12px] font-medium px-1 pt-[6px]"
       >
@@ -59,7 +59,7 @@
         >{{ $store.state.translations["header.main-page"] }}
       </button>
       <button
-        @click="$router.push('/orders')"
+        @click="$router.push(localePath('/orders'))"
         :class="{ active: $route.path === '/orders' }"
         class="flex flex-col gap-1 items-center text-grey-64 text-[12px] font-medium px-1 pt-[6px]"
       >
@@ -112,7 +112,7 @@
         >{{ $store.state.translations["header.orders"] }}
       </button>
       <button
-        @click="$router.push('/freelancers')"
+        @click="$router.push(localePath('/freelancers'))"
         :class="{ active: $route.path === '/freelancers' }"
         class="flex flex-col gap-1 items-center text-grey-64 text-[12px] font-medium px-1 pt-[6px]"
       >
@@ -186,8 +186,8 @@
       <button
         @click="
           $store.state.auth
-            ? $router.push('/profile/freelancer')
-            : $router.push('/registration')
+            ? $router.push(localePath('/profile/freelancer'))
+            : $router.push(localePath('/registration'))
         "
         :class="{ active: $route.name.includes('profile') }"
         class="flex flex-col gap-1 items-center text-grey-64 text-[12px] font-medium px-1 pt-[6px]"

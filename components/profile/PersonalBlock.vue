@@ -251,7 +251,7 @@
         </div>
         <div class="grid grid-cols-2 client-types" v-if="profile">
           <button
-            @click="$router.push(`/profile/freelancer`)"
+            @click="$router.push(localePath(`/profile/freelancer`))"
             :class="{ activeF: $route.params.user === 'freelancer' }"
             class="border-[2px] border-solid border-grey-light h-12 flex justify-center items-center gap-2 rounded-l-[12px]"
           >
@@ -274,7 +274,7 @@
             </svg>
           </button>
           <button
-            @click="$router.push(`/profile/customer/orders/pending/status`)"
+            @click="$router.push(localePath(`/profile/customer/orders/pending/status`))"
             :class="{ activeC: $route.params.user === 'customer' }"
             class="border-[2px] border-solid border-grey-light h-12 flex justify-center items-center gap-2 rounded-r-[12px]"
           >
