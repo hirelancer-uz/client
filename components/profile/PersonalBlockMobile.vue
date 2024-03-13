@@ -438,7 +438,7 @@
                   d="M16 5H0V2C0 0.895431 0.895431 0 2 0H14C15.1046 0 16 0.89543 16 2V5Z"
                   fill="#1878F3"
                 /></svg
-              >{{ $store.state.translations["profile.project"] }}
+              >{{ $store.state.translations["profile.projects"] }}
               <span class="absolute right-4"
                 ><svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -813,7 +813,7 @@ export default {
   },
   computed: {
     imgUrl() {
-      return this.$config.baseURL + "/storage/"
+      return this.$config.baseURL + "/storage/";
     },
   },
   methods: {
