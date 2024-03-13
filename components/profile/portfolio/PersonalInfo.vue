@@ -10,7 +10,7 @@
         </h6>
         <button
           v-if="isEdit"
-          @click="$router.push(`/profile/${$route.params.user}/settings`)"
+          @click="$router.push(localePath(`/profile/${$route.params.user}/settings`))"
           class="flex gap-[6px] text-base text-blue font-medium items-center xl:text-[14px]"
         >
           {{ $store.state.translations["profile.edit"] }}

@@ -119,13 +119,13 @@ export default {
         this.loading = false;
       }
     } else {
-      this.$router.push("/");
+      this.$router.push(this.localePath("/"));
     }
   },
   watch: {
     authHandle() {
       if (!localStorage.getItem("auth-token")) {
-        this.$router.push("/");
+        this.$router.push(this.localePath("/"));
       }
     },
     async currentLang() {
@@ -163,7 +163,7 @@ export default {
   }
 }
 
-@media (max-width: 1440px) {
+@media (max-width: 1680px) {
   .profile-layout {
     padding-left: 16px;
     padding-right: 16px;

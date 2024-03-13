@@ -271,10 +271,10 @@ export default {
   methods: {
     async toPage(id) {
       await this.$emit("close");
-      this.$router.push({
+      await this.$router.push(this.localePath({
         path: `/freelancers/${id}`,
-        query: { page: 1, page_size: this.$route.query.page_size },
-      });
+        query: {page: 1, page_size: this.$route.query.page_size},
+      }));
     },
     async clearFilter() {
       await this.$emit("clear");

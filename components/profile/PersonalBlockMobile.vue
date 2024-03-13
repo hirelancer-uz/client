@@ -305,7 +305,7 @@
           </div>
           <div class="grid grid-cols-2 client-types mt-4" v-else>
             <button
-              @click="$router.push(`/profile/freelancer`)"
+              @click="$router.push(localePath(`/profile/freelancer`))"
               :class="{ activeF: $route.params.user == 'freelancer' }"
               class="border-[2px] text-[14px] border-solid border-grey-light h-[44px] flex justify-center items-center gap-2 rounded-l-[12px]"
             >
@@ -329,7 +329,7 @@
               </svg>
             </button>
             <button
-              @click="$router.push(`/profile/customer`)"
+              @click="$router.push(localePath(`/profile/customer`))"
               :class="{ activeC: $route.params.user == 'customer' }"
               class="border-[2px] text-[14px] border-solid border-grey-light h-[44px] flex justify-center items-center gap-2 rounded-r-[12px]"
             >

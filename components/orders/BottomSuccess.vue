@@ -85,7 +85,7 @@ export default {
   methods: {
     toProfile() {
       this.$emit("close");
-      this.$router.push(`/profile/freelancer/order/view/${this.order?.id}`);
+      this.$router.push(this.localePath(`/profile/freelancer/order/view/${this.order?.id}`));
     },
   },
 };

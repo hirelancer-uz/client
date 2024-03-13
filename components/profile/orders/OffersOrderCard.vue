@@ -21,7 +21,6 @@
       </div>
       <div
         class="info flex justify-between"
-        @click="$router.push(`/freelancer/${request?.freelancer?.id}`)"
       >
         <div>
           <h4

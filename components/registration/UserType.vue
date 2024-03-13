@@ -120,7 +120,7 @@
               <!--                v-model="form.phone_number"-->
               <!--                type="text"-->
               <!--              />-->
-              <button @click="$router.push('/registration')">
+              <button @click="$router.push(localePath('/registration'))">
                 <svg
                   width="24"
                   height="25"

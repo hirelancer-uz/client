@@ -141,7 +141,7 @@
                     :key="specialit?.id"
                   >
                     <span
-                        @click="$router.push(`/specialities/${specialit?.id}`)"
+                        @click="$router.push(localePath(`/specialities/${specialit?.id}`))"
                       class="rounded-[22px] py-2 px-4 bg-bg-grey text-grey-64 text-[14px] font-medium cursor-pointer"
                       >{{ specialit?.name_ru }} </span
                     ><span
@@ -380,7 +380,7 @@
               <button
                 v-if="!status"
                 @click="
-                  $router.push(`/profile/customer/order/edit/${order?.id}`)
+                  $router.push(localePath(`/profile/customer/order/edit/${order?.id}`))
                 "
                 class="h-[52px] justify-center flex items-center gap-2 rounded-[8px] border border-solid bg-main-color border-main-color text-base xl:text-[14px] text-white font-medium"
               >
@@ -748,7 +748,7 @@
         </h4>
       </div>
       <button
-        @click="$router.push(`/profile/customer/order/edit/${order?.id}`)"
+        @click="$router.push(localePath(`/profile/customer/order/edit/${order?.id}`))"
         class="border border-solid border-blue bg-blue rounded-[12px] h-11 w-full flex justify-center items-center text-[12px] text-white font-medium gap-2"
       >
         {{ $store.state.translations["profile.change-data"] }}
@@ -844,7 +844,7 @@ export default {
   },
   mounted() {
     if (!localStorage.getItem("auth-token")) {
-      this.$router.push("/");
+      this.$router.push(this.localePath("/"));
     }
   },
   methods: {

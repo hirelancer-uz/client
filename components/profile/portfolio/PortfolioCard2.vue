@@ -33,7 +33,7 @@
       <div class="flex flex-col gap-2">
         <h4
           v-if="$route.name.includes('profile')"
-          @click="$router.push(`/profile/freelancer/portfolio/${portfolio?.id}`)"
+          @click="$router.push(localePath(`/profile/freelancer/portfolio/${portfolio?.id}`))"
           class="text-black text-[18px] font-semibold xl:text-[14px] xl:font-medium cursor-pointer"
         >
           {{ portfolio?.name }}

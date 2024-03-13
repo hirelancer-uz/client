@@ -30,7 +30,7 @@
     >
       <h4
         @click="
-          $router.push(`/profile/freelancer/order/view/${feedback?.order?.id}`)
+          $router.push(localePath(`/profile/freelancer/order/view/${feedback?.order?.id}`))
         "
         class="text-black font-medium w-full text-[16px] mb-[8px] truncate cursor-pointer"
       >

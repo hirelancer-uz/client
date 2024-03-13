@@ -121,7 +121,7 @@
       >
         <button
           :to="`/profile/${$route.params.user}/settings`"
-          @click="$router.push(`/profile/${$route.params.user}/settings`)"
+          @click="$router.push(localePath(`/profile/${$route.params.user}/settings`))"
           :class="{ active: !$route.name.includes('specialities') }"
           class="px-6 py-3 xl:relative rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] xl:font-semibold text-base text-grey-64 font-medium xl:py-0 xl:flex xl:items-center xl:h-9 whitespace-nowrap xl:rounded-lg"
         >
@@ -129,7 +129,7 @@
         </button>
         <button
           @click="
-            $router.push(`/profile/${$route.params.user}/settings/specialities`)
+            $router.push(localePath(`/profile/${$route.params.user}/settings/specialities`))
           "
           :class="{ active: $route.name.includes('specialities') }"
           class="px-6 py-0 xl:flex xl:items-center xl:relative rounded-[12px] border-solid border-[2px] xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] xl:font-semibold border-bg-grey bg-bg-grey text-base text-grey-64 font-medium xl:py-2 xl:h-9 whitespace-nowrap xl:rounded-lg"
@@ -857,7 +857,7 @@ export default {
   methods: {
     toPage(link) {
       this.close();
-      this.$router.push(link);
+      this.$router.push((this.localePath(link)));
     },
     openLogout() {
       this.$refs.logout.openModal();

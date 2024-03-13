@@ -7,7 +7,7 @@
       </h3>
       <div class="flex justify-between items-center xl:hidden">
         <button
-          @click="$router.push('/profile/portfolio/add')"
+          @click="$router.push(localePath('/profile/portfolio/add'))"
           class="bg-main-color flex gap-2 h-12 px-6 rounded-[8px] text-white text-base text-medium items-center"
         >
           {{ $store.state.translations["profile.add-portfolio"] }}
@@ -66,7 +66,7 @@
       class="fixed-btns fixed bottom-0 w-full z-[7] py-4 px-4 bg-white left-0 hidden xl:flex flex-col gap-2"
     >
       <button
-        @click="$router.push('/profile/portfolio/add')"
+        @click="$router.push(localePath('/profile/portfolio/add'))"
         class="border border-solid border-blue bg-blue rounded-[12px] h-[52px] w-full flex justify-center items-center text-[14px] text-white font-medium gap-2"
       >
         {{ $store.state.translations["profile.portfolio"] }}

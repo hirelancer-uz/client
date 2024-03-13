@@ -14,7 +14,7 @@
           </template>
           <h3
             class="text-[20px] text-black font-medium cursor-pointer xl:text-[18px] title max-w-full"
-            @click="$router.push(`/profile/customer/order/view/${order?.id}`)"
+            @click="$router.push(localePath(`/profile/customer/order/view/${order?.id}`))"
           >
             {{ order?.name }}
           </h3>

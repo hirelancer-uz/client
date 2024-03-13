@@ -86,7 +86,7 @@ export default {
   watch: {
     authCheck(val) {
       if (!val && this.$route.name.includes("profile")) {
-        this.$router.push("/");
+        this.$router.push(this.localePath("/"));
       }
     },
     async currentLang() {

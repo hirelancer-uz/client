@@ -318,7 +318,7 @@
                 </div>
               </div>
               <button
-                class="h-full flex justify-end items-center flex-auto absolute z-[10] right-0 px-4 w-full"
+                class="h-full flex justify-end items-center flex-auto absolute z-[6] right-0 px-4 w-full"
                 @click="
                   openSpecial();
                   checkedList = [...activeCheckedList];
@@ -399,7 +399,7 @@
       class="buttons grid grid-cols-2 gap-4 xl:flex xl:flex-col-reverse xl:gap-2 xl:pt-6"
     >
       <button
-        @click="$router.push('/registration')"
+        @click="$router.push(localePath('/registration'))"
         class="h-[60px] xl:h-[52px] border border-solid border-border-darik rounded-[12px] flex justify-center items-center text-[18px] xl:text-[14px] text-black font-medium"
       >
         {{ $store.state.translations["auth.cancel"] }}

@@ -17,8 +17,6 @@ import NumberCheck from "@/components/registration/NumberCheck.vue";
 import translationsApi from "@/store/fetchTranslations";
 export default {
   layout: "empty",
-  components: {},
-
   data() {
     return {
       loading: false,
@@ -30,7 +28,7 @@ export default {
         this.loading = true;
         const data = await this.$store.dispatch("fetchAuth/postSendCode", form);
         if (data.success) {
-          await this.$router.push("/registration/user-type");
+          await this.$router.push(this.localePath("/registration/user-type"));
         }
       } catch (e) {
         this.$notification["error"]({

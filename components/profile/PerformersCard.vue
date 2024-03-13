@@ -1,7 +1,7 @@
 <template>
   <div
     class="freelancer-card px-6 py-6 border border-solid border-grey-8 rounded-2xl cursor-pointer xl:rounded-[16px] xl:p-[16px] flex flex-col gap-4"
-    @click="$router.push('/freelancer')"
+    @click="$router.push(localePath('/freelancer'))"
   >
     <div class="card border-[0] border-b border-solid border-grey-light pb-4">
       <div class="image w-[80px] h-[80px] relative xl:w-[66px] xl:h-[66px]">
