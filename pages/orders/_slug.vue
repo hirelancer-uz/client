@@ -233,7 +233,7 @@
               </div>
             </div>
             <div
-              class="body mt-6 xl:mt-3 pb-4 xl:pb-6 border-[0] border-b border-solid border-grey-8"
+              class="body mt-6 xl:mt-3 pb-4 xl:pb-6 border-[0] border-b border-solid border-grey-8 break-all"
             >
               <h1
                 class="title text-[24px] font-semibold text-black mb-4 xl:mt-2 xl:text-base xl:font-medium"

@@ -11,7 +11,12 @@
         >
           {{ $store.state.translations["profile.deadline"] }}
         </p>
-        <h1
+        <h1 v-if="order?.deadline"
+            class="text-base text-black font-semibold xl:text-base exact__price whitespace-nowrap"
+        >
+          {{ order?.deadline }}  {{ $store.state.translations["order.days"] }}
+        </h1>
+        <h1 v-else
           class="text-base text-black font-semibold xl:text-base exact__price whitespace-nowrap"
         >
           {{ $store.state.translations["profile.deal"] }}

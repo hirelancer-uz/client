@@ -152,22 +152,24 @@
               class="dropdown overflow-hidden"
               :class="{
                 active:
-                  (dropItem.children.find((item) => item.id == dropdownOpen) ||
-                    dropdownOpen == dropItem?.id) &&
-                  dropItem.children.length > 0,
+                  (dropItem.children.find(
+                        (item) => item.id === dropdownOpen * 1
+                      ) ||
+                        dropdownOpen * 1 === dropItem?.id) &&
+                      dropItem.children.length > 0,
               }"
               v-for="dropItem in specialities"
               :key="dropItem?.id"
             >
               <button
-                  @click="toPage(dropItem?.id)"
-                class="drop-head xl:px-0 xl:py-0 bg-white relative z-20 w-full flex justify-between items-center px-4 py-[12px]"
+                @click="handleDropdown(dropItem.id)"
+                class="drop-head xl:px-0 xl:py-0 bg-white  w-full flex justify-between items-center px-4 py-[12px] z-10 relative"
               >
                 <h2
-
-                  class="text-base text-blue-night flex gap-2 items-center"
+                  @click="toPage(dropItem?.id)"
+                  class="text-base text-blue-night flex gap-2 items-center z-20 relative"
                   :class="{
-                    'text-main-color': dropItem?.id == $route.params.id,
+                    'text-main-color': dropItem?.id === $route.params.id * 1,
                   }"
                 >
                   {{ dropItem?.name_ru }}
@@ -241,9 +243,9 @@
             {{ $store.state.translations["order.orders-status"] }}
           </h4>
           <div class="flex flex-col gap-6">
-            <a-checkbox :checked="Boolean(status)" @change="filterStatus">{{
-              $store.state.translations["order.recieve-requests"]
-            }}</a-checkbox>
+            <a-checkbox :checked="Boolean(status)" @change="filterStatus"
+              >{{ $store.state.translations["order.recieve-requests"] }}
+            </a-checkbox>
           </div>
         </div>
       </div>
@@ -291,6 +293,7 @@
                 :key="dropItem?.id"
               >
                 <button
+                    @click="handleDropdown(dropItem.id)"
                   class="drop-head xl:px-0 xl:py-0 bg-white relative z-20 w-full flex justify-between items-center px-4 py-[12px]"
                 >
                   <h2
@@ -307,7 +310,7 @@
                     </div>
                   </h2>
                   <span
-                    @click="handleDropdown(dropItem.id)"
+
                     :class="{
                       'rotate-180':
                         (dropItem.children.find(
@@ -370,9 +373,9 @@
                 {{ $store.state.translations["order.orders-status"] }}
               </h4>
               <div class="flex flex-col gap-6">
-                <a-checkbox :checked="Boolean(status)" @change="filterStatus">{{
-                  $store.state.translations["order.recieve-requests"]
-                }}</a-checkbox>
+                <a-checkbox :checked="Boolean(status)" @change="filterStatus"
+                  >{{ $store.state.translations["order.recieve-requests"] }}
+                </a-checkbox>
               </div>
             </div>
           </div>
@@ -422,10 +425,12 @@ export default {
   methods: {
     async toPage(id) {
       await this.close();
-      this.$router.push(this.localePath({
-        path: `/specialities/${id}`,
-        query: { page: 1, page_size: this.$route.query.page_size },
-      }));
+      this.$router.push(
+        this.localePath({
+          path: `/specialities/${id}`,
+          query: { page: 1, page_size: this.$route.query.page_size },
+        })
+      );
     },
     filterStatus() {
       this.status = !this.status;
@@ -460,39 +465,48 @@ export default {
   overflow: hidden;
   transition: max-height 0.2s linear;
 }
+
 .drop-icon {
   transition: 0.2s linear;
 }
+
 .drop-list .active .drop-body {
   max-height: 200px;
   /* height: auto; */
 }
+
 .drop-head {
   transition: 0.2s linear;
 }
+
 .drop-list .active {
   border-radius: 16px;
   /* border: 1px solid var(--Border-darik, #e0e0ed); */
   background: var(--BG-grey, #f8f9ff);
   margin-bottom: 4px;
 }
+
 .drop-list .dropdown:last-child.active {
   margin-bottom: 0;
 }
+
 .drop-list .active .drop-head {
   padding: 16px;
   padding-top: 8px;
   background-color: var(--bg-grey);
 }
+
 .orders-list {
   display: grid;
   grid-template-columns: 1fr 332px;
   gap: 32px;
 }
+
 :deep(.ant-checkbox-inner) {
   border-radius: 4px;
   border: 2px solid #ebebeb;
 }
+
 .orders-list :deep(.ant-checkbox + span) {
   padding-left: 16px;
   color: var(--blue-night);
@@ -507,6 +521,7 @@ export default {
   border-color: var(--blue);
   background-color: var(--blue);
 }
+
 .orders-list
   :deep(
     .ant-checkbox-wrapper:hover .ant-checkbox-inner,
@@ -515,14 +530,17 @@ export default {
   ) {
   border-color: var(--blue);
 }
+
 .orders-list :deep(.ant-checkbox-checked::after) {
   border-color: var(--blue);
 }
+
 @media (max-width: 1200px) {
   .orders-list {
     grid-template-columns: 1fr;
     gap: 0;
   }
+
   .taeyeon {
     position: fixed;
     bottom: 100px;
@@ -537,19 +555,24 @@ export default {
     align-items: center;
     justify-content: center;
   }
+
   .cole {
     display: none;
   }
 }
+
 .bottom-drawer :deep(.bottom-sheet__content) {
   overflow: hidden;
 }
+
 .bottom-drawer :deep(.bottom-sheet__header) {
   display: none;
 }
+
 .bottom-drawer :deep(.bottom-sheet__main) {
   height: 100%;
 }
+
 .bottom-drawer :deep(.bottom-sheet__content) {
   min-height: 100%;
   border-radius: 0;

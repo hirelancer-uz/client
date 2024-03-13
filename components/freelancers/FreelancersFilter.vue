@@ -47,6 +47,7 @@
             :key="dropItem?.id"
           >
             <button
+              @click="handleDropdown(dropItem?.id)"
               class="drop-head xl:px-0 xl:py-0 bg-white relative z-20 w-full flex justify-between items-center px-[20px] py-[12px]"
             >
               <h2
@@ -63,7 +64,6 @@
                 </div>
               </h2>
               <span
-                @click="handleDropdown(dropItem?.id)"
                 :class="{
                   'rotate-180':
                     (dropItem.children.find(
@@ -206,7 +206,7 @@
             </a-select-option>
           </a-select>
         </div>
-          <div class="flex gap-4 xl:flex-col buttoners">
+        <div class="flex gap-4 xl:flex-col buttoners">
           <button
             @click="clearFilter"
             class="flex w-full justify-center xl:h-[52px] py-[15px] rounded-lg border border-blue border-solid text-[14px] font-tt font-semibold xl:font-medium text-blue bg-white"
@@ -217,13 +217,13 @@
           >
             {{ $store.state.translations["freelancers.cancel"] }}
           </button>
-<!--          <button-->
-<!--            :class="{ 'pointer-events-none opacity-50': !disabledFilter }"-->
-<!--            @click="sendFilter"-->
-<!--            class="flex w-full justify-center xl:h-[52px] py-[15px] rounded-lg border border-blue border-solid text-[14px] font-tt font-semibold xl:font-medium text-white bg-blue"-->
-<!--          >-->
-<!--            {{ $store.state.translations["freelancers.show-it"] }}-->
-<!--          </button>-->
+          <!--          <button-->
+          <!--            :class="{ 'pointer-events-none opacity-50': !disabledFilter }"-->
+          <!--            @click="sendFilter"-->
+          <!--            class="flex w-full justify-center xl:h-[52px] py-[15px] rounded-lg border border-blue border-solid text-[14px] font-tt font-semibold xl:font-medium text-white bg-blue"-->
+          <!--          >-->
+          <!--            {{ $store.state.translations["freelancers.show-it"] }}-->
+          <!--          </button>-->
         </div>
       </div>
     </div>
@@ -271,10 +271,12 @@ export default {
   methods: {
     async toPage(id) {
       await this.$emit("close");
-      await this.$router.push(this.localePath({
-        path: `/freelancers/${id}`,
-        query: {page: 1, page_size: this.$route.query.page_size},
-      }));
+      await this.$router.push(
+        this.localePath({
+          path: `/freelancers/${id}`,
+          query: { page: 1, page_size: this.$route.query.page_size },
+        })
+      );
     },
     async clearFilter() {
       await this.$emit("clear");
@@ -443,8 +445,7 @@ export default {
   }
 
   .buttoners {
-    //display: grid;
-    //grid-template-columns: repeat(2, 1fr);
+    //display: grid; //grid-template-columns: repeat(2, 1fr);
   }
 }
 </style>

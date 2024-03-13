@@ -1,6 +1,7 @@
 <template>
   <div class="card file-card flex flex-col gap-[8px]">
     <div
+      v-if="fileTypes.includes(fyleType)"
       class="image h-[104px] w-[104px] xl:w-full xl:h-[90px] rounded-[4px] xl:rounded-lg overflow-hidden cursor-pointer"
       @click="previewImg = true"
     >
@@ -19,7 +20,18 @@
         alt=""
       />
     </div>
-    <!-- <p class="text-[12px] text-grey-80">photo_202...-12.jpg</p> -->
+    <a :href="`${imgUrl}${file?.file}`" target="_blank" v-else >
+      <div
+
+        class="image h-[104px] w-[104px] xl:w-full xl:h-[90px] rounded-[4px] xl:rounded-lg overflow-hidden cursor-pointer border border-solid border-grey-8 flex items-center justify-center"
+      >
+        <IconsDocxFile />
+      </div>
+    </a>
+    <div class="w-[104px] flex">
+      <p class="text-[12px] text-grey-80 truncate ">{{file?.file}}</p>
+      <p>.{{fyleType}}</p>
+    </div>
     <transition name="fade" appear>
       <div
         v-if="previewImg"
@@ -77,11 +89,15 @@ export default {
   data() {
     return {
       previewImg: false,
+      fileTypes: ['jpeg', 'jpg', 'png', 'gif', 'svg', 'webp', 'ico'],
     };
   },
   computed: {
     imgUrl() {
-      return this.$config.baseURL + "/storage/"
+      return this.$config.baseURL + "/storage/";
+    },
+    fyleType() {
+      return this.file?.file.split('.').at(-1);
     },
   },
   watch: {
@@ -101,6 +117,7 @@ export default {
 .bg-modal {
   background: rgba(2, 1, 5, 0.48);
 }
+
 .pop-enter-active,
 .pop-leave-active {
   transition: transform 0.3s cubic-bezier(0.5, 0, 0.5, 1), opacity 0.3s linear;
@@ -111,6 +128,7 @@ export default {
   opacity: 0;
   transform: scale(0.3) translateY(-50%);
 }
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s linear;

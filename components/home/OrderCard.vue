@@ -175,7 +175,7 @@
       </div>
     </div>
     <div
-      class="body flex gap-4 flex-col mt-6 border-[0] border-b border-grey-8 border-solid pb-4 xl:mt-4 xl:gap-[8px]"
+      class="body flex gap-4 flex-col mt-6 border-[0] border-b border-grey-8 border-solid pb-4 xl:mt-4 xl:gap-[8px] break-all"
     >
       <h6
         class="text-[20px] font-semibold text-black xl:text-base xl:leading-[19px] title"

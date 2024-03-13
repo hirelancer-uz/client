@@ -198,6 +198,7 @@
               class="order-item w-full mb-0"
               prop="description"
             >
+
               <quill-editor
                 style="min-height: 250px"
                 :options="editorOption"
@@ -557,16 +558,17 @@ function getBase64(file) {
 export default {
   data() {
     return {
+
       editorOption: {
         theme: "snow",
         modules: {
           toolbar: [
             ["bold", "italic", "underline", "strike"],
             ["blockquote"],
-            [{ header: 1 }, { header: 2 }],
-            [{ list: "ordered" }, { list: "bullet" }],
-            [{ color: [] }],
-            [{ align: [] }],
+            [{header: 1}, {header: 2}],
+            [{list: "ordered"}, {list: "bullet"}],
+            [{color: []}],
+            [{align: []}],
             ["link"],
           ],
         },
@@ -631,6 +633,7 @@ export default {
     this.$store.commit("setPageData", {});
   },
   mounted() {
+
     this.loading = true;
     if (!localStorage.getItem("auth-token")) {
       this.$router.push(this.localePath("/"));
@@ -644,7 +647,7 @@ export default {
       link: true,
     });
   },
-  async asyncData({ store }) {
+  async asyncData({store}) {
     const [specialitiesData] = await Promise.all([
       store.dispatch("fetchSpecialities/getSpecialities"),
     ]);
@@ -654,9 +657,7 @@ export default {
     };
   },
   methods: {
-    handleInput(event) {
-      this.form.price = event.target.value.replace(/\D/g, "");
-    },
+
     openSpecial() {
       this.$refs.specialities.open();
       this.$refs.specialities.openModal();
@@ -668,7 +669,7 @@ export default {
     handleBeforeUpload(file) {
       return true;
     },
-    customRequest({ onSuccess, onError, file }) {
+    customRequest({onSuccess, onError, file}) {
       const reader = new FileReader();
       reader.onload = () => {
         const uploadedFile = {
@@ -693,7 +694,7 @@ export default {
     },
     deleteChecked(id) {
       this.activeCheckedList = this.activeCheckedList.filter(
-        (item) => item.id != id
+          (item) => item.id !== id
       );
     },
     open() {
@@ -757,10 +758,6 @@ export default {
         this.loadingBtn = false;
       }
     },
-    onChange() {},
-    // handleChangeSelect(value) {
-    //   this.specialities = value;
-    // },
     handleCancel() {
       this.previewVisible = false;
     },
@@ -771,7 +768,7 @@ export default {
       this.previewImage = file.url || file.preview;
       this.previewVisible = true;
     },
-    handleChange({ fileList }) {
+    handleChange({fileList}) {
       console.log(fileList);
       this.fileList = fileList.map((item) => {
         let url = URL.createObjectURL(item.originFileObj);

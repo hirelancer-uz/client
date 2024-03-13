@@ -43,6 +43,7 @@ export const actions = {
     try {
       await this.$axiosInstance.$get("/api/auth/logout");
       commit("logout");
+      commit("getUserInfo");
     } catch (e) {
       commit("logout");
     }

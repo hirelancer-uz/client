@@ -62,8 +62,7 @@
             @click="open"
             class="flex items-center gap-2 text-blue text-[14px] font-medium filterer"
           >
-            {{ $store.state.translations["freelancers.filter"]
-            }}<svg
+           <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
               height="20"
@@ -212,6 +211,9 @@ export default {
       info: `${this.totalPage?.toLocaleString()} результатов`,
       link: true,
     });
+    this.getFirstData();
+    if (this.$route.query?.search) this.search = this.$route.query?.search;
+    this.debouncedSearch = this.debounce(this.changeSearch, 500);
   },
   destroyed() {
     this.$store.commit("setPageData", {});
@@ -251,15 +253,6 @@ export default {
         this.search = "";
       }
     },
-  },
-
-  mounted() {
-    this.getFirstData();
-    if (this.$route.query?.search) this.search = this.$route.query?.search;
-    this.debouncedSearch = this.debounce(this.changeSearch, 500);
-  },
-  destroyed() {
-    this.$store.commit("setPageData", {});
   },
   methods: {
     open() {

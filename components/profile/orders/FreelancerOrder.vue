@@ -273,6 +273,7 @@
                   v-if="order?.deadline"
                 >
                   {{ order?.deadline }}
+                    {{ $store.state.translations["order.days"] }}
                 </h1>
                 <h1
                   class="text-black text-base font-semibold xl:text-base"

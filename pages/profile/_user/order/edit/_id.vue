@@ -342,17 +342,25 @@
           </div>
           <div class="grid grid-cols-2 gap-[70px] xl:grid-cols-1 xl:gap-4">
             <a-form-model-item
-              class="order-item w-full mb-0"
+              class=" w-full mb-0"
               :label="$store.state.translations['order.deadline-days']"
               prop="deadline"
             >
-              <a-input
-                type="number"
-                :class="{
+              <a-input-number
+                  :formatter="
+                  (value) =>
+                    value.length > 0
+                      ? `${value.replace(/[^0-9.]/g, '')} дней`
+                      : `${value.replace(/[^0-9.]/g, '')}`
+                "
+                  :parser="
+                  (value) => value.replace(/[^0-9.]/g, '').replace(' дней', '')
+                "
+                  :class="{
                   'opacity-50 pointer-events-none': form.deadline_negotiable,
                 }"
-                v-model="form.deadline"
-                placeholder="0"
+                  v-model="form.deadline"
+                  placeholder="0"
               />
             </a-form-model-item>
             <div class="flex items-end mb-3">
@@ -369,7 +377,7 @@
                 />
                 <p
                   class="text-[20px] text-black font-medium xl:text-[14px]"
-                ></p>
+                >  {{ $store.state.translations["order.deal-deadline"] }}</p>
                 <a-tooltip placement="top">
                   <template slot="title">
                     {{ $store.state.translations["order.deadline-days"] }}
@@ -400,16 +408,27 @@
           ></div>
           <div class="grid grid-cols-2 gap-[70px] xl:grid-cols-1 xl:gap-4">
             <a-form-model-item
-              class="order-item w-full mb-0"
+              class=" w-full mb-0"
               :label="$store.state.translations['order.price']"
               prop="price"
             >
-              <a-input
-                :class="{
+              <a-input-number
+                  :formatter="
+                  (value) =>
+                    `${value.replace(/[^0-9.]/g, '')}`.replace(
+                      /\B(?=(\d{3})+(?!\d))/g,
+                      ' '
+                    )
+                "
+                  :parser="
+                  (value) =>
+                    value.replace(/[^0-9.]/g, '').replace(/\$\s?|( *)/g, '')
+                "
+                  :class="{
                   'opacity-50 pointer-events-none': form.price_negotiable,
                 }"
-                v-model="form.price"
-                placeholder="0"
+                  v-model="form.price"
+                  placeholder="0"
               />
             </a-form-model-item>
             <div class="flex items-end mb-3">
@@ -862,6 +881,25 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+:deep(.ant-input-number) {
+  border-radius: 8px;
+  border: 1px solid var(--grey-8);
+  background: #fff;
+  color: var(--black);
+  font-family: "TT Interfaces";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  height: 47px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+:deep(.ant-input-number-handler-wrap) {
+  display: none;
+}
 .order-item :deep(input),
 .order-item :deep(textarea) {
   padding-left: 16px;

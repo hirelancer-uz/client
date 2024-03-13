@@ -87,7 +87,12 @@
     <div
       class="xl:h-full xl:flex xl:flex-col xl:justify-between xl:pb-4 xl:pt-2"
     >
-      <a-form-model ref="ruleForm" :model="form" :rules="rules" @submit.prevent="onSubmit">
+      <a-form-model
+        ref="ruleForm"
+        :model="form"
+        :rules="rules"
+        @submit.prevent="onSubmit"
+      >
         <div class="flex flex-col gap-8 xl:gap-6">
           <a-form-model-item
             class="auth-item"
@@ -118,7 +123,10 @@
               <!--                v-model="form.phone_number"-->
               <!--                type="text"-->
               <!--              />-->
-              <nuxt-link class="cursor-pointer" :to="localePath('/registrationas')">
+              <nuxt-link
+                class="cursor-pointer"
+                :to="localePath('/registrationas')"
+              >
                 <svg
                   width="24"
                   height="25"
@@ -148,6 +156,7 @@
               :class="{ 'border-red': smsError && form.password.length !== 6 }"
             >
               <input
+                ref="codeInput"
                 autofocus
                 type="number"
                 pattern="/^-?\d+\.?\d*$/"
@@ -221,6 +230,7 @@
           class="buttons grid grid-cols-2 gap-4 mt-6 xl:mt-0 xl:flex xl:flex-col-reverse xl:gap-2 xl:w-full xl:fixed xl:left-0 xl:px-4 xl:bottom-4"
         >
           <button
+            @click="$router.go(-1)"
             class="h-[60px] xl:h-[52px] border border-solid border-border-darik rounded-[12px] flex justify-center items-center text-[18px] xl:text-[14px] text-black font-medium"
           >
             {{ $store.state.translations["auth.cancel"] }}
@@ -290,10 +300,11 @@ export default {
     };
   },
   mounted() {
+    this.$refs.codeInput.focus()
     if (localStorage.getItem("phone")) {
       this.form.phone_number = localStorage.getItem("phone");
     } else {
-      // this.$router.go(-1);
+      this.$router.go(-1);
     }
     // this.setInputPlaceholder();
     setInterval(() => {
@@ -348,11 +359,14 @@ export default {
       return this.langList.find((elem) => elem.code === this.$i18n.locale);
     },
   },
-watch: {
-    'form.password'() {
-
-    }
-},
+  watch: {
+    form: {
+      handler() {
+        this.$emit("clearError");
+      },
+      deep: true
+    },
+  },
   components: { uzbFlag, rusFlag, engFlag },
 };
 </script>
@@ -390,6 +404,7 @@ watch: {
   letter-spacing: 20px;
   width: 100%;
 }
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -401,6 +416,7 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 .sms-progress {
   display: flex !important;
   transform: rotateY(-180deg);
@@ -436,14 +452,17 @@ input[type="number"]::-webkit-outer-spin-button {
 .required :deep(label) {
   padding-right: 10px;
 }
+
 .langer {
   position: absolute;
   top: 24px;
   right: 24px;
 }
+
 .number-card {
   position: relative;
 }
+
 @media (max-width: 1200px) {
   .auth-item input {
     font-size: 14px;
