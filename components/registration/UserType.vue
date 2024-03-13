@@ -87,13 +87,11 @@
     <div
       class="xl:h-full xl:flex xl:flex-col xl:justify-between xl:pb-4 xl:pt-2"
     >
-      <a-form-model ref="ruleForm" :model="form" :rules="rules">
+      <a-form-model ref="ruleForm" :model="form" :rules="rules" @submit.prevent="onSubmit">
         <div class="flex flex-col gap-8 xl:gap-6">
           <a-form-model-item
-            ref="name"
             class="auth-item"
             :label="$store.state.translations[`auth.number`]"
-            prop="phone_number"
           >
             <!-- <a-input v-model="form.name" /> -->
             <div
@@ -120,7 +118,7 @@
               <!--                v-model="form.phone_number"-->
               <!--                type="text"-->
               <!--              />-->
-              <button @click="$router.push(localePath('/registration'))">
+              <nuxt-link class="cursor-pointer" :to="localePath('/registrationas')">
                 <svg
                   width="24"
                   height="25"
@@ -136,25 +134,27 @@
                     stroke-linejoin="round"
                   />
                 </svg>
-              </button>
+              </nuxt-link>
             </div>
           </a-form-model-item>
           <a-form-model-item
             ref="name"
             class="auth-item required"
             :label="$store.state.translations['auth.enter-code']"
-            prop="phone_number"
+            prop="password"
           >
             <div
               class="rounded-[8px] h-[53px] xl:h-11 sms-input pl-4 pr-2 py-2 h-[47px] bg-white border border-solid border-border-darik flex items-center justify-between gap-4"
               :class="{ 'border-red': smsError && form.password.length !== 6 }"
             >
               <input
+                autofocus
                 type="number"
                 pattern="/^-?\d+\.?\d*$/"
                 v-model="form.password"
                 onKeyPress="if(this.value.length==6) return false;"
                 placeholder="●●●●●●"
+                @keyup.enter="onSubmit"
               />
               <!--              <v-otp-input-->
               <!--                ref="otpInput"-->
@@ -221,14 +221,11 @@
           class="buttons grid grid-cols-2 gap-4 mt-6 xl:mt-0 xl:flex xl:flex-col-reverse xl:gap-2 xl:w-full xl:fixed xl:left-0 xl:px-4 xl:bottom-4"
         >
           <button
-            type="submit"
-            @click="$router.go(-1)"
             class="h-[60px] xl:h-[52px] border border-solid border-border-darik rounded-[12px] flex justify-center items-center text-[18px] xl:text-[14px] text-black font-medium"
           >
             {{ $store.state.translations["auth.cancel"] }}
           </button>
           <button
-            type="submit"
             @click="onSubmit"
             class="h-[60px] xl:h-[52px] border border-solid border-blue bg-blue rounded-[12px] flex justify-center items-center text-[18px] xl:text-[14px] text-white font-medium"
             :class="{
@@ -281,13 +278,13 @@ export default {
         password: "",
       },
       rules: {
-        phone_number: [
+        password: [
           {
             required: true,
-            message: "This field is required",
-            trigger: "blur",
+            message: "Kod 6 xonali bo'lishi kerak",
+            trigger: "change",
           },
-          { min: 9, message: "Raqam 9 xonali bo'lishi kerak", trigger: "blur" },
+          { min: 6, message: "Kod 6 xonali bo'lishi kerak", trigger: "change" },
         ],
       },
     };
@@ -296,7 +293,7 @@ export default {
     if (localStorage.getItem("phone")) {
       this.form.phone_number = localStorage.getItem("phone");
     } else {
-      this.$router.go(-1);
+      // this.$router.go(-1);
     }
     // this.setInputPlaceholder();
     setInterval(() => {
@@ -351,7 +348,11 @@ export default {
       return this.langList.find((elem) => elem.code === this.$i18n.locale);
     },
   },
+watch: {
+    'form.password'() {
 
+    }
+},
   components: { uzbFlag, rusFlag, engFlag },
 };
 </script>
