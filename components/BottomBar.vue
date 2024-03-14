@@ -14,7 +14,7 @@
     >
       {{ $store.state.translations["header.add-order"] }}
     </button>
-    <div class="menu flex justify-between">
+    <div class="menu">
       <button
         @click="$router.push(localePath('/'))"
         :class="{ active: $route.path === '/' }"
@@ -56,7 +56,7 @@
             stroke-width="1.5"
             stroke-linecap="round"
           /></svg
-        >{{ $store.state.translations["header.main-page"] }}
+        >{{ $store.state.translations["header.main"] }}
       </button>
       <button
         @click="$router.push(localePath('/orders'))"
@@ -264,4 +264,8 @@ export default {
 .bottom-bar .active svg ellipse {
   stroke: var(--main-color);
 } */
+.menu {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
 </style>

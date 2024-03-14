@@ -26,7 +26,7 @@
               stroke-linecap="round"
               stroke-linejoin="round"
             /></svg
-          >Срочный заказ</span
+          >{{ $store.state.translations["profile.emergency-order"] }}</span
         >
         <span
           v-if="step1"
@@ -50,7 +50,7 @@
               fill="#F2994A"
             />
           </svg>
-          Идет прием заявок</span
+          {{ $store.state.translations["profile.recieving-requests"] }}</span
         >
         <span
           v-if="step2"
@@ -77,7 +77,7 @@
               stroke-linejoin="round"
             />
           </svg>
-          Испольнитель выбран</span
+          {{ $store.state.translations["order.already-choosen"] }}</span
         >
         <span
           v-if="step3"
@@ -102,7 +102,7 @@
             />
           </svg>
 
-          Выполненно</span
+          {{ $store.state.translations["profile.finished"] }}</span
         >
         <span
           v-if="order?.urgent"
@@ -191,7 +191,7 @@
         <button
           class="underline text-grey-80 text-base font-medium text-center xl:text-main-color xl:text-[14px] more-btn"
         >
-          Подробнее
+          {{ $store.state.translations["header.more"] }}
         </button>
       </div>
     </div>
@@ -202,10 +202,11 @@
         class="text-grey-80 text-[24px] font-semibold xl:text-base price"
         v-if="order?.price"
       >
-        {{ order?.price.toLocaleString() }} sum
+        {{ order?.price.toLocaleString() }}
+        {{ $store.state.translations["profile.sum"] }}
       </h1>
       <h1 class="text-grey-80 text-[24px] font-semibold xl:text-base" v-else>
-        По договоренности
+        {{ $store.state.translations["profile.deal"] }}
       </h1>
 
       <div class="flex gap-6 xl:flex-col xl:gap-[20px]">
@@ -258,14 +259,15 @@
               <circle cx="16" cy="12.5" r="1" fill="#9A999B" />
               <circle cx="8" cy="12.5" r="1" fill="#9A999B" />
             </svg>
-            {{ order?.request_count }} запросов
+            {{ order?.request_count }}
+            {{ $store.state.translations["profile.requests"] }}
           </p>
         </div>
         <div class="buttons flex gap-6 xl:flex-col-reverse xl:hidden">
           <button
             class="h-12 flex items-center text-grey-64 px-6 border border-solid border-grey-24 rounded-lg text-base font-medium text-center xl:pb-[20px] more-btn"
           >
-            Подробнее
+            {{ $store.state.translations["header.more"] }}
           </button>
           <!-- <button
             class="py-[15px] px-[20px] font-semibold font-tt bg-blue text-white rounded-lg text-center"
@@ -278,7 +280,7 @@
     <button
       class="py-[12px] text-[14px] w-full justify-center font-semibold font-tt bg-white text-blue rounded-lg border border-solid border-blue hidden xl:flex text-center mt-[20px] xl:mt-[16px] xl:border-[#E0E0ED] xl:text-[14px] xl:text-[#5D5D5F]"
     >
-      Отправить заявку
+      {{ $store.state.translations["profile.sum"] }}
     </button>
   </div>
 </template>
@@ -326,15 +328,17 @@ export default {
     moment,
     myRequest() {
       if (
-          this.order?.requests.find(
-              (item) => item.freelancer_id == this.$store.state.userInfo?.id
-          )
+        this.order?.requests.find(
+          (item) => item.freelancer_id == this.$store.state.userInfo?.id
+        )
       ) {
-        this.$router.push(this.localePath(`/profile/freelancer/order/view/${this.order?.id}`));
-      } else if (
-          this.order?.client.id === this.$store.state.userInfo?.id
-      ) {
-        this.$router.push(this.localePath(`/profile/customer/order/view/${this.order?.id}`));
+        this.$router.push(
+          this.localePath(`/profile/freelancer/order/view/${this.order?.id}`)
+        );
+      } else if (this.order?.client.id === this.$store.state.userInfo?.id) {
+        this.$router.push(
+          this.localePath(`/profile/customer/order/view/${this.order?.id}`)
+        );
       } else {
         this.$router.push(this.localePath(`/orders/${this.order?.id}`));
       }
