@@ -30,7 +30,7 @@
         >
         <span
           v-if="step1"
-          class="flex gap-[7px] items-center rounded-[8px] text-dark-yellow text-[14px] font-medium"
+          class="flex gap-[7px] items-center rounded-[8px] text-dark-yellow text-[12px] font-medium"
           ><svg
             width="24"
             height="24"
@@ -54,7 +54,7 @@
         >
         <span
           v-if="step2"
-          class="flex gap-[7px] items-center rounded-[8px] text-main-color text-[14px] font-medium"
+          class="flex gap-[7px] items-center rounded-[8px] text-main-color text-[12px] font-medium"
           ><svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -81,7 +81,7 @@
         >
         <span
           v-if="step3"
-          class="flex gap-[7px] items-center rounded-[8px] text-green text-[14px] font-medium"
+          class="flex gap-[7px] items-center rounded-[8px] text-green text-[12px] font-medium"
           ><svg
             width="24"
             height="24"
@@ -110,7 +110,7 @@
         ></span>
         <div
           ref="widthHandle"
-          class="flex-auto flex gap-6 items-center xl:gap-[12px] xl:w-full xl:hidden"
+          class="flex-auto flex gap-6 items-center xl:gap-[8px] xl:w-full xl:hidden"
         >
           <button
             v-for="(special, index) in visibleButtons"
@@ -142,12 +142,12 @@
       <div
         class="flex gap-[28px] items-center xl:justify-between xl:absolute xl:top-[16px] xl:right-[16px]"
       >
-        <div class="flex gap-[16px] items-center xl:gap-[12px]">
-          <p class="text-base text-grey-40 xl:text-[14px]">
+        <div class="flex gap-[16px] items-center xl:gap-[8px]">
+          <p class="text-base text-grey-40 xl:text-[12px]">
             {{ moment(order?.created_at).format(hourFormat) }}
           </p>
           <span class="flex w-[1px] h-[27px] xl:h-[20px] bg-grey-8"></span>
-          <p class="text-base text-grey-40 xl:text-[14px]">
+          <p class="text-base text-grey-40 xl:text-[12px]">
             {{ moment(order?.created_at).format(dateFormat) }}
           </p>
         </div>
@@ -183,7 +183,7 @@
         {{ order?.name }}
       </h6>
       <span
-        class="text-base text-grey-80 xl:text-[14px] xl:line-clamp-3 order-desc max-h-[96px] overflow-hidden"
+        class="text-base text-grey-80 xl:text-[12px] xl:line-clamp-3 xl:leading-[150%] order-desc max-h-[96px] overflow-hidden max-w-[90%]"
         v-html="order?.description"
       >
       </span>
@@ -196,23 +196,23 @@
       </div>
     </div>
     <div
-      class="footer flex items-center justify-between mt-4 xl:flex-row-reverse xl:mt-[16px] xl:gap-[20px]"
+      class="footer flex items-center justify-between mt-4 xl:flex-row-reverse xl:mt-[16px] xl:gap-[16px]"
     >
       <h1
-        class="text-grey-80 text-[24px] font-semibold xl:text-base price"
+        class="text-grey-80 text-[24px] font-semibold xl:text-[14px] price"
         v-if="order?.price"
       >
         {{ order?.price.toLocaleString() }}
         {{ $store.state.translations["profile.sum"] }}
       </h1>
-      <h1 class="text-grey-80 text-[24px] font-semibold xl:text-base" v-else>
+      <h1 class="text-grey-80 text-[24px] font-semibold xl:text-[14px]" v-else>
         {{ $store.state.translations["profile.deal"] }}
       </h1>
 
       <div class="flex gap-6 xl:flex-col xl:gap-[20px]">
-        <div class="flex gap-[24px] items-center xl:gap-[12px]">
+        <div class="flex gap-[24px] items-center xl:gap-[8px]">
           <p
-            class="text-base flex gap-2 text-grey-40 xl:text-[12px] xl:gap-[6px] items-center"
+            class="text-base flex gap-2 text-grey-40 xl:text-[12px] xl:gap-[4px] items-center"
           >
             <svg
               class="xl:w-[16px] xl:h-[16px]"
@@ -239,7 +239,7 @@
           </p>
           <span class="flex w-[1px] h-[27px] bg-grey-8"></span>
           <p
-            class="text-base flex gap-2 text-grey-40 font-tt xl:text-[12px] xl:gap-[6px] items-center"
+            class="text-base flex gap-2 text-grey-40 font-tt xl:text-[12px] xl:gap-[4px] items-center"
           >
             <svg
               class="xl:w-[16px] xl:h-[16px]"
@@ -280,7 +280,7 @@
     <button
       class="py-[12px] text-[14px] w-full justify-center font-semibold font-tt bg-white text-blue rounded-lg border border-solid border-blue hidden xl:flex text-center mt-[20px] xl:mt-[16px] xl:border-[#E0E0ED] xl:text-[14px] xl:text-[#5D5D5F]"
     >
-      {{ $store.state.translations["profile.sum"] }}
+      {{ $store.state.translations["header.more"] }}
     </button>
   </div>
 </template>

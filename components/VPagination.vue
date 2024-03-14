@@ -63,14 +63,24 @@ export default {
   border: none;
   background-color: transparent;
 }
-.order-pagination :deep(.ant-pagination-jump-next) .ant-pagination-item-container,
-.order-pagination :deep(.ant-pagination-jump-prev) .ant-pagination-item-container {
+.order-pagination
+  :deep(.ant-pagination-jump-next)
+  .ant-pagination-item-container,
+.order-pagination
+  :deep(.ant-pagination-jump-prev)
+  .ant-pagination-item-container {
   display: flex;
   /* align-items: center; */
   justify-content: center;
 }
-.order-pagination :deep(.ant-pagination-jump-next) .ant-pagination-item-container span,
-.order-pagination :deep(.ant-pagination-jump-prev) .ant-pagination-item-container span {
+.order-pagination
+  :deep(.ant-pagination-jump-next)
+  .ant-pagination-item-container
+  span,
+.order-pagination
+  :deep(.ant-pagination-jump-prev)
+  .ant-pagination-item-container
+  span {
   left: auto;
   top: auto;
   bottom: auto;
@@ -117,6 +127,10 @@ export default {
   }
   .order-pagination :deep(.ant-pagination-item) a {
     font-size: 14px;
+  }
+  :deep (.ant-pagination) {
+    flex-wrap: wrap;
+    row-gap: 8px;
   }
 }
 </style>
