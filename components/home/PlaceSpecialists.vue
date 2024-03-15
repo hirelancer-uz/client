@@ -14,9 +14,9 @@
     </div>
     <button
       @click="showAll = true"
-      :class="{ hidden: showAll == true }"
+      :class="{ hide: showAll == true }"
       v-if="specialities.length > 8"
-      class="mx-auto mt-6 rounded-lg flex gap-4 w-[352px] h-16 items-center justify-center border border-grey-8 border-solid text-blue font-medium text-[18px] font-tt xl:mx-0 xl:w-[100%] xl:mt-[12px] xl:h-12 xl:text-[14px] xl:border-main-color xl:rounded-[12px] font-semibold"
+      class="showAll mx-auto mt-6 rounded-lg flex gap-4 w-[352px] h-16 items-center justify-center border border-grey-8 border-solid text-blue font-medium text-[18px] font-tt xl:mx-0 xl:w-[100%] xl:mt-[12px] xl:h-12 xl:text-[14px] xl:border-main-color xl:rounded-[12px] font-semibold"
     >
       {{ $store.state.translations["main.see-more"] }}
       <svg
@@ -59,6 +59,9 @@ export default {
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
 }
+.showAll {
+  display: none;
+}
 @media screen and (max-width: 1024px) {
   .list {
     grid-template-columns: repeat(2, 1fr);
@@ -77,6 +80,12 @@ export default {
   }
   .full__list .card {
     display: flex !important;
+  }
+  .showAll {
+    display: flex;
+  }
+  .showAll.hide {
+    display: none;
   }
 }
 </style>

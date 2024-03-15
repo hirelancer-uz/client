@@ -128,9 +128,15 @@ export default {
   .order-pagination :deep(.ant-pagination-item) a {
     font-size: 14px;
   }
-  :deep (.ant-pagination) {
-    flex-wrap: wrap;
-    row-gap: 8px;
+  :deep(.ant-pagination-item),
+  :deep(.ant-pagination-prev),
+  :deep(.ant-pagination-next),
+  :deep(.ant-pagination-jump-next),
+  :deep(.ant-pagination-jump-prev) {
+    margin-right: 4px;
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
   }
 }
 </style>
