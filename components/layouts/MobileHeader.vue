@@ -88,7 +88,7 @@
         :class="pageData?.center ? 'justify-center' : 'justify-between'"
       >
         <button
-          @click="$router.go(-1)"
+          @click="$router.push('/freelancers')"
           :class="{ 'pointer-events-none': !pageData?.link }"
           class="flex text-black font-semibold text-base gap-4 items-center"
         >

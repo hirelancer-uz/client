@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <div class="flex gap-4 justify-end">
+    <div class="flex gap-4 justify-end xl:justify-center">
       <!-- <button
         v-if="load"
         class="h-[52px] rounded-[8px] bg-bg-grey text-grey-40 text-base border border-solid border-grey-8 w-[228px] flex justify-center items-center xl:hidden"

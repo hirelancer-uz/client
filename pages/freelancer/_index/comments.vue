@@ -201,7 +201,7 @@ export default {
 @media screen and (max-width: 1024px) {
   .sort__comments {
     position: static;
-    margin-top: 16px;
+    margin-top: 0;
     width: 100%;
   }
   :deep(.ant-select) {

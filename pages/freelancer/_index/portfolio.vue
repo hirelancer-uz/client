@@ -2,7 +2,7 @@
   <div class="portfolio xl:px-0">
     <ProfileLayout :profile="false" :freelancer="freelancer" :show="false">
       <div class="container">
-        <div class="head flex flex-col gap-4 mt-8 xl:mt-6">
+        <div class="head flex flex-col gap-4 mt-8 xl:mt-0">
           <h3 class="text-[24px] text-black font-semibold xl:hidden">
             {{ $store.state.translations["main.portfolio"] }}
           </h3>
@@ -19,7 +19,7 @@
           />
         </div>
         <div
-          class="list grid grid-cols-3 gap-4 mb-[40px] xl:grid-cols-1 mt-6"
+          class="list grid grid-cols-3 gap-4 mb-[40px] xl:grid-cols-1 mt-6 xl:mt-0"
           v-if="!loading && portfolios.length > 0"
         >
           <PortfolioViewCard
@@ -32,7 +32,7 @@
         </div>
         <div
           v-if="portfolios.length == 0 && !loading"
-          class="list grid grid-cols-3 gap-4 mb-[40px] xl:grid-cols-1 mt-6"
+          class="list grid grid-cols-3 gap-4 mb-[40px] xl:grid-cols-1 mt-6 xl:mt-0"
         >
           <PortfolioEmptyCard />
           <PortfolioEmptyCard />

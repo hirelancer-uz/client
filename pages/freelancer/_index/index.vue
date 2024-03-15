@@ -2,7 +2,7 @@
   <div class="profile xl:px-0 xl:mt-0">
     <ProfileLayout :profile="false" :freelancer="freelancer" :show="true">
       <div class="flex flex-col container">
-        <div class="personal-information mt-8 xl:mt-6">
+        <div class="personal-information mt-8 xl:mt-0">
           <PersonalInfo
             :isEdit="false"
             :freelancer="freelancer"
@@ -11,7 +11,7 @@
           />
         </div>
         <div class="portfolio-block mt-[40px] xl:mt-6">
-          <Portfolios :portfolios="portfolios"  :freelancer="freelancer"/>
+          <Portfolios :portfolios="portfolios" :freelancer="freelancer" />
         </div>
         <div class="mt-10">
           <Comments :feedbacks="freelancer?.customers_feedbacks" />

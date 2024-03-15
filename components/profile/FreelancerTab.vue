@@ -3,12 +3,12 @@
     class="freelancer-tab flex justify-between items-end xl:border-[0] xl:border-b xl:border-solid xl:border-border-darik"
   >
     <div
-      class="rounded-2xl bg-bg-grey px-4 xl:px-0 py-4 flex gap-6 xl:bg-transparent xl:overflow-x-scroll xl:gap-3 scroll-none xl:pb-6 xl:grid xl:grid-cols-3 w-auto"
+      class="rounded-2xl bg-bg-grey px-4 xl:px-0 py-4 flex gap-6 xl:bg-transparent xl:overflow-x-scroll xl:gap-3 scroll-none xl:pb-6 xl:grid xl:grid-cols-3 w-full xl:px-[16px] xl:py-[24px]"
     >
       <nuxt-link
         :to="`/freelancer/${$route.params.index}`"
         exact
-        class="text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[96px] xl:min-h-[68px] rounded-[12px] hover:text-black xl:ml-4"
+        class="text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[unset] xl:min-h-[68px] rounded-[12px] hover:text-black"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -30,7 +30,7 @@
 
       <nuxt-link
         :to="`/freelancer/${$route.params.index}/portfolio`"
-        class="text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[96px] xl:min-h-[68px] rounded-[12px] hover:text-black"
+        class="text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[unset] xl:min-h-[68px] rounded-[12px] hover:text-black"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -51,7 +51,7 @@
       >
       <nuxt-link
         :to="`/freelancer/${$route.params.index}/comments`"
-        class="text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[96px] xl:min-h-[68px] rounded-[12px] hover:text-black"
+        class="text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[unset] xl:min-h-[68px] rounded-[12px] hover:text-black"
         ><svg
           width="24"
           height="25"
@@ -142,6 +142,9 @@ export default {};
   }
   .scroll-none::-webkit-scrollbar {
     display: none;
+  }
+  .freelancer-tab {
+    border-bottom: 0 !important;
   }
 }
 </style>
