@@ -26,11 +26,11 @@
               stroke-linecap="round"
               stroke-linejoin="round"
             /></svg
-          >Срочный заказ</span
+          >{{ $store.state.translations["profile.emergency-order"] }}</span
         >
         <span
           v-if="step1"
-          class="flex gap-[7px] items-center rounded-[8px] text-dark-yellow text-[14px] font-medium"
+          class="flex gap-[7px] items-center rounded-[8px] text-dark-yellow text-[12px] font-medium"
           ><svg
             width="24"
             height="24"
@@ -50,11 +50,11 @@
               fill="#F2994A"
             />
           </svg>
-          Идет прием заявок</span
+          {{ $store.state.translations["profile.recieving-requests"] }}</span
         >
         <span
           v-if="step2"
-          class="flex gap-[7px] items-center rounded-[8px] text-main-color text-[14px] font-medium"
+          class="flex gap-[7px] items-center rounded-[8px] text-main-color text-[12px] font-medium"
           ><svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -77,11 +77,11 @@
               stroke-linejoin="round"
             />
           </svg>
-          Испольнитель выбран</span
+          {{ $store.state.translations["order.already-choosen"] }}</span
         >
         <span
           v-if="step3"
-          class="flex gap-[7px] items-center rounded-[8px] text-green text-[14px] font-medium"
+          class="flex gap-[7px] items-center rounded-[8px] text-green text-[12px] font-medium"
           ><svg
             width="24"
             height="24"
@@ -102,7 +102,7 @@
             />
           </svg>
 
-          Выполненно</span
+          {{ $store.state.translations["profile.finished"] }}</span
         >
         <span
           v-if="order?.urgent"
@@ -110,7 +110,7 @@
         ></span>
         <div
           ref="widthHandle"
-          class="flex-auto flex gap-6 items-center xl:gap-[12px] xl:w-full xl:hidden"
+          class="flex-auto flex gap-6 items-center xl:gap-[8px] xl:w-full xl:hidden"
         >
           <button
             v-for="(special, index) in visibleButtons"
@@ -142,12 +142,12 @@
       <div
         class="flex gap-[28px] items-center xl:justify-between xl:absolute xl:top-[16px] xl:right-[16px]"
       >
-        <div class="flex gap-[16px] items-center xl:gap-[12px]">
-          <p class="text-base text-grey-40 xl:text-[14px]">
+        <div class="flex gap-[16px] items-center xl:gap-[8px]">
+          <p class="text-base text-grey-40 xl:text-[12px]">
             {{ moment(order?.created_at).format(hourFormat) }}
           </p>
           <span class="flex w-[1px] h-[27px] xl:h-[20px] bg-grey-8"></span>
-          <p class="text-base text-grey-40 xl:text-[14px]">
+          <p class="text-base text-grey-40 xl:text-[12px]">
             {{ moment(order?.created_at).format(dateFormat) }}
           </p>
         </div>
@@ -183,7 +183,7 @@
         {{ order?.name }}
       </h6>
       <span
-        class="text-base text-grey-80 xl:text-[14px] xl:line-clamp-3 order-desc max-h-[96px] overflow-hidden"
+        class="text-base text-grey-80 xl:text-[12px] xl:line-clamp-3 xl:leading-[150%] order-desc max-h-[96px] overflow-hidden max-w-[90%]"
         v-html="order?.description"
       >
       </span>
@@ -191,27 +191,28 @@
         <button
           class="underline text-grey-80 text-base font-medium text-center xl:text-main-color xl:text-[14px] more-btn"
         >
-          Подробнее
+          {{ $store.state.translations["header.more"] }}
         </button>
       </div>
     </div>
     <div
-      class="footer flex items-center justify-between mt-4 xl:flex-row-reverse xl:mt-[16px] xl:gap-[20px]"
+      class="footer flex items-center justify-between mt-4 xl:flex-row-reverse xl:mt-[16px] xl:gap-[16px]"
     >
       <h1
-        class="text-grey-80 text-[24px] font-semibold xl:text-base price"
+        class="text-grey-80 text-[24px] font-semibold xl:text-[14px] price"
         v-if="order?.price"
       >
-        {{ order?.price.toLocaleString() }} sum
+        {{ order?.price.toLocaleString() }}
+        {{ $store.state.translations["profile.sum"] }}
       </h1>
-      <h1 class="text-grey-80 text-[24px] font-semibold xl:text-base" v-else>
-        По договоренности
+      <h1 class="text-grey-80 text-[24px] font-semibold xl:text-[14px]" v-else>
+        {{ $store.state.translations["profile.deal"] }}
       </h1>
 
       <div class="flex gap-6 xl:flex-col xl:gap-[20px]">
-        <div class="flex gap-[24px] items-center xl:gap-[12px]">
+        <div class="flex gap-[24px] items-center xl:gap-[8px]">
           <p
-            class="text-base flex gap-2 text-grey-40 xl:text-[12px] xl:gap-[6px] items-center"
+            class="text-base flex gap-2 text-grey-40 xl:text-[12px] xl:gap-[4px] items-center"
           >
             <svg
               class="xl:w-[16px] xl:h-[16px]"
@@ -238,7 +239,7 @@
           </p>
           <span class="flex w-[1px] h-[27px] bg-grey-8"></span>
           <p
-            class="text-base flex gap-2 text-grey-40 font-tt xl:text-[12px] xl:gap-[6px] items-center"
+            class="text-base flex gap-2 text-grey-40 font-tt xl:text-[12px] xl:gap-[4px] items-center"
           >
             <svg
               class="xl:w-[16px] xl:h-[16px]"
@@ -258,14 +259,15 @@
               <circle cx="16" cy="12.5" r="1" fill="#9A999B" />
               <circle cx="8" cy="12.5" r="1" fill="#9A999B" />
             </svg>
-            {{ order?.request_count }} запросов
+            {{ order?.request_count }}
+            {{ $store.state.translations["profile.requests"] }}
           </p>
         </div>
         <div class="buttons flex gap-6 xl:flex-col-reverse xl:hidden">
           <button
             class="h-12 flex items-center text-grey-64 px-6 border border-solid border-grey-24 rounded-lg text-base font-medium text-center xl:pb-[20px] more-btn"
           >
-            Подробнее
+            {{ $store.state.translations["header.more"] }}
           </button>
           <!-- <button
             class="py-[15px] px-[20px] font-semibold font-tt bg-blue text-white rounded-lg text-center"
@@ -278,7 +280,7 @@
     <button
       class="py-[12px] text-[14px] w-full justify-center font-semibold font-tt bg-white text-blue rounded-lg border border-solid border-blue hidden xl:flex text-center mt-[20px] xl:mt-[16px] xl:border-[#E0E0ED] xl:text-[14px] xl:text-[#5D5D5F]"
     >
-      Отправить заявку
+      {{ $store.state.translations["header.more"] }}
     </button>
   </div>
 </template>
@@ -326,15 +328,17 @@ export default {
     moment,
     myRequest() {
       if (
-          this.order?.requests.find(
-              (item) => item.freelancer_id == this.$store.state.userInfo?.id
-          )
+        this.order?.requests.find(
+          (item) => item.freelancer_id == this.$store.state.userInfo?.id
+        )
       ) {
-        this.$router.push(this.localePath(`/profile/freelancer/order/view/${this.order?.id}`));
-      } else if (
-          this.order?.client.id === this.$store.state.userInfo?.id
-      ) {
-        this.$router.push(this.localePath(`/profile/customer/order/view/${this.order?.id}`));
+        this.$router.push(
+          this.localePath(`/profile/freelancer/order/view/${this.order?.id}`)
+        );
+      } else if (this.order?.client.id === this.$store.state.userInfo?.id) {
+        this.$router.push(
+          this.localePath(`/profile/customer/order/view/${this.order?.id}`)
+        );
       } else {
         this.$router.push(this.localePath(`/orders/${this.order?.id}`));
       }

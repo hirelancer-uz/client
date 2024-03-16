@@ -33,6 +33,7 @@
       />
     </div>
     <button
+      @click="$router.push(localePath('/freelancers'))"
       v-if="totalFreelancer > 10"
       class="hidden xl:flex mx-auto mt-4 rounded-lg gap-4 w-[352px] h-16 items-center justify-center border border-grey-8 border-solid text-blue font-medium text-[18px] font-tt xl:mx-0 xl:w-[100%] xl:mt-[12px] xl:h-12 xl:text-[14px] xl:border-main-color xl:font-semibold"
     >
@@ -74,7 +75,7 @@ export default {
 @media screen and (max-width: 1024px) {
   .list {
     grid-template-columns: repeat(1, 1fr);
-    gap: 16px;
+    gap: 12px;
   }
 }
 </style>

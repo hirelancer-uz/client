@@ -1,6 +1,6 @@
 <template>
   <div
-    class="mobile-header px-4 hidden bg-white w-full pb-[14px] pt-[7px] z-50 border-[0] border-b-[2px] border-solid border-apple-grey"
+    class="mobile-header px-4 hidden bg-white w-full py-[14px] z-50 border-[0] border-b-[2px] border-solid border-apple-grey"
   >
     <div class="flex flex-col w-full gap-3">
       <div class="flex justify-between items-center topper">
@@ -121,7 +121,9 @@
       >
         <button
           :to="`/profile/${$route.params.user}/settings`"
-          @click="$router.push(localePath(`/profile/${$route.params.user}/settings`))"
+          @click="
+            $router.push(localePath(`/profile/${$route.params.user}/settings`))
+          "
           :class="{ active: !$route.name.includes('specialities') }"
           class="px-6 py-3 xl:relative rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] xl:font-semibold text-base text-grey-64 font-medium xl:py-0 xl:flex xl:items-center xl:h-9 whitespace-nowrap xl:rounded-lg"
         >
@@ -129,7 +131,9 @@
         </button>
         <button
           @click="
-            $router.push(localePath(`/profile/${$route.params.user}/settings/specialities`))
+            $router.push(
+              localePath(`/profile/${$route.params.user}/settings/specialities`)
+            )
           "
           :class="{ active: $route.name.includes('specialities') }"
           class="px-6 py-0 xl:flex xl:items-center xl:relative rounded-[12px] border-solid border-[2px] xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] xl:font-semibold border-bg-grey bg-bg-grey text-base text-grey-64 font-medium xl:py-2 xl:h-9 whitespace-nowrap xl:rounded-lg"
@@ -249,66 +253,10 @@
           </NuxtLink>
         </div>
         <div class="langs">
-          <button class="active">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="24"
-              viewBox="0 0 32 24"
-              fill="none"
-            >
-              <g clip-path="url(#clip0_3544_64885)">
-                <rect y="0.5" width="32" height="23" rx="3" fill="#1A47B8" />
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M3.40415 0.5H0V4.33333L28.5774 23.5H32V19.6667L3.40415 0.5Z"
-                  fill="white"
-                />
-                <path
-                  d="M1.13539 0.5L32 21.2543V23.5H30.8912L0 2.72419V0.5H1.13539Z"
-                  fill="#F93939"
-                />
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M28.9524 0.5H32.0001V4.33333C32.0001 4.33333 12.2055 17.103 3.04768 23.5H6.10352e-05V19.6667L28.9524 0.5Z"
-                  fill="white"
-                />
-                <path
-                  d="M32 0.5H30.9665L0 21.2722V23.5H1.13539L32 2.74099V0.5Z"
-                  fill="#F93939"
-                />
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M11.6375 0.5H20.3892V7.59445H32V16.4009H20.3892V23.5H11.6375V16.4009H0V7.59445H11.6375V0.5Z"
-                  fill="white"
-                />
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M13.4737 0.5H18.5263V9.34615H32V14.6538H18.5263V23.5H13.4737V14.6538H0V9.34615H13.4737V0.5Z"
-                  fill="#F93939"
-                />
-              </g>
-              <rect
-                x="0.5"
-                y="1"
-                width="31"
-                height="22"
-                rx="2.5"
-                stroke="#E7EDFB"
-              />
-              <defs>
-                <clipPath id="clip0_3544_64885">
-                  <rect y="0.5" width="32" height="23" rx="3" fill="white" />
-                </clipPath>
-              </defs>
-            </svg>
-            English
-          </button>
-          <button>
+          <button
+            :class="{ active: $i18n.locale == 'ru' }"
+            @click="$router.push(switchLocalePath('ru'))"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="32"
@@ -347,7 +295,10 @@
             </svg>
             Русский
           </button>
-          <button>
+          <button
+            :class="{ active: $i18n.locale == 'uz' }"
+            @click="$router.push(switchLocalePath('uz'))"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="32"
@@ -847,7 +798,7 @@ export default {
   },
   computed: {
     imgUrl() {
-      return this.$config.baseURL + "/storage/"
+      return this.$config.baseURL + "/storage/";
     },
     pageData() {
       return this.$store.state.pageData;
@@ -856,7 +807,7 @@ export default {
   methods: {
     toPage(link) {
       this.close();
-      this.$router.push((this.localePath(link)));
+      this.$router.push(this.localePath(link));
     },
     openLogout() {
       this.$refs.logout.openModal();

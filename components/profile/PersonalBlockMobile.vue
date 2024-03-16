@@ -1,7 +1,7 @@
 <template>
   <div class="m-personal-block mx-auto flex flex-col xl:mx-0">
     <div class="flex flex-col gap-4">
-      <div class="user-info px-4 py-4 bg-bg-grey">
+      <div class="user-info px-4 py-4 bg-bg-grey xl:pt-[24px]">
         <div class="user-info-card">
           <div class="grid-block">
             <div
@@ -114,7 +114,11 @@
               </div>
             </div>
             <div>
-              <a-dropdown :trigger="['click']" v-model="dropdown">
+              <a-dropdown
+                :trigger="['click']"
+                v-model="dropdown"
+                v-if="messengersHandle"
+              >
                 <button
                   @click="(e) => e.preventDefault()"
                   class="w-full h-6 flex justify-center items-center"
@@ -138,15 +142,14 @@
                   class="menu-container bg-white border border-solid border-border-darik rounded-[16px] px-4 py-4 flex flex-col gap-3"
                   slot="overlay"
                 >
-                  <li key="0">
+                  <li key="5" v-if="freelancer?.contacts?.telegram">
                     <a
-                      :href="freelancer?.contacts?.twitter"
+                      class="rounded-[12px] border border-solid border-grey-light flex w-[44px] h-[44px] justify-center items-center bg-white"
+                      :href="freelancer?.contacts?.telegram"
                       target="_blank"
                       :class="{
-                        'pointer-events-none opacity-50':
-                          !freelancer?.contacts?.twitter,
+                        'pointer-events-none': !freelancer?.contacts?.telegram,
                       }"
-                      class="rounded-[12px] border border-solid border-grey-light flex w-[44px] h-[44px] justify-center items-center bg-white"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -156,18 +159,17 @@
                         fill="none"
                       >
                         <path
-                          d="M15.1708 1.875H17.9274L11.9049 8.75833L18.9899 18.125H13.4424L9.09742 12.4442L4.12578 18.125H1.36745L7.80912 10.7625L1.01245 1.875H6.70078L10.6283 7.0675L15.1708 1.875ZM14.2033 16.475H15.7308L5.87078 3.43833H4.23162L14.2033 16.475Z"
+                          d="M10.0008 18.3337C5.39844 18.3337 1.66748 14.6027 1.66748 10.0003C1.66748 5.39795 5.39844 1.66699 10.0008 1.66699C14.6032 1.66699 18.3342 5.39795 18.3342 10.0003C18.3342 14.6027 14.6032 18.3337 10.0008 18.3337ZM7.40927 10.976L7.41981 10.9693C7.90292 12.5642 8.14447 13.3617 8.14447 13.3617C8.23803 13.6205 8.36666 13.6667 8.52275 13.6456C8.67875 13.6244 8.76158 13.54 8.86341 13.4417C8.86341 13.4417 9.19366 13.123 9.85416 12.4856L11.9799 14.0585C12.3672 14.2725 12.6469 14.1621 12.7431 13.6984L14.1246 7.18067C14.2771 6.57401 14.0096 6.33069 13.5392 6.52328L5.42831 9.65624C4.87496 9.87866 4.87764 10.1882 5.32756 10.3262L7.40927 10.976Z"
                           fill="#5D5D5F"
                         /></svg
                     ></a>
                   </li>
-                  <li key="1">
+                  <li key="1" v-if="freelancer?.contacts?.facebook">
                     <a
                       :href="freelancer?.contacts?.facebook"
                       target="_blank"
                       :class="{
-                        'pointer-events-none opacity-50':
-                          !freelancer?.contacts?.facebook,
+                        'pointer-events-none': !freelancer?.contacts?.facebook,
                       }"
                       class="rounded-[12px] border border-solid border-grey-light flex w-[44px] h-[44px] justify-center items-center bg-white"
                     >
@@ -184,60 +186,12 @@
                         /></svg
                     ></a>
                   </li>
-                  <li key="2">
-                    <a
-                      v-if="freelancer?.contacts?.dribble"
-                      class="rounded-[12px] border border-solid border-grey-light flex w-[44px] h-[44px] justify-center items-center bg-white"
-                      :href="freelancer?.contacts?.dribble"
-                      target="_blank"
-                      :class="{
-                        'pointer-events-none opacity-50':
-                          !freelancer?.contacts?.dribble,
-                      }"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                      >
-                        <path
-                          d="M10.0001 1.66699C5.39957 1.66699 1.66675 5.39982 1.66675 10.0003C1.66675 14.6008 5.39957 18.3337 10.0001 18.3337C14.5916 18.3337 18.3334 14.6008 18.3334 10.0003C18.3334 5.39982 14.5916 1.66699 10.0001 1.66699ZM15.5044 5.50828C16.4987 6.71942 17.0952 8.26496 17.1132 9.93708C16.8782 9.89191 14.5282 9.41283 12.1602 9.71107C12.106 9.59358 12.0608 9.46707 12.0066 9.34058C11.862 8.99708 11.6993 8.64458 11.5366 8.31017C14.1577 7.24366 15.3507 5.70713 15.5044 5.50828ZM10.0001 2.89621C11.8077 2.89621 13.4617 3.57408 14.7181 4.68579C14.5916 4.86656 13.516 6.30365 10.9852 7.25267C9.81933 5.11059 8.52683 3.35716 8.328 3.08601C8.86125 2.95947 9.42166 2.89621 10.0001 2.89621ZM6.97226 3.56504C7.16206 3.81811 8.42741 5.58058 9.61141 7.67746C6.28533 8.56324 3.34788 8.54516 3.03153 8.54516C3.49249 6.33981 4.98381 4.50503 6.97226 3.56504ZM2.87788 10.0094C2.87788 9.93707 2.87788 9.86474 2.87788 9.79249C3.18518 9.80149 6.63782 9.84666 10.1898 8.78016C10.3978 9.17783 10.5876 9.58458 10.7683 9.99124C10.6779 10.0184 10.5785 10.0455 10.4882 10.0727C6.81859 11.2567 4.86631 14.4923 4.70362 14.7635C3.57383 13.5072 2.87788 11.8351 2.87788 10.0094ZM10.0001 17.1225C8.35508 17.1225 6.83667 16.5622 5.63457 15.6222C5.76111 15.3601 7.20721 12.5762 11.2202 11.1753C11.2383 11.1662 11.2473 11.1662 11.2654 11.1572C12.2687 13.7512 12.6754 15.9294 12.7839 16.5531C11.9252 16.9237 10.9852 17.1225 10.0001 17.1225ZM13.9679 15.9023C13.8956 15.4685 13.516 13.3897 12.585 10.8318C14.8175 10.4793 16.7697 11.0578 17.0138 11.1392C16.7066 13.1186 15.5677 14.8267 13.9679 15.9023Z"
-                          fill="#5D5D5F"
-                        /></svg
-                    ></a>
-                  </li>
-                  <li key="3">
-                    <a
-                      class="rounded-[12px] border border-solid border-grey-light flex w-[44px] h-[44px] justify-center items-center bg-white"
-                      :href="freelancer?.contacts?.github"
-                      target="_blank"
-                      :class="{
-                        'pointer-events-none opacity-50':
-                          !freelancer?.contacts?.github,
-                      }"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                      >
-                        <path
-                          d="M10.0008 1.66699C5.39665 1.66699 1.66748 5.39616 1.66748 10.0003C1.66748 13.6878 4.0529 16.8024 7.3654 17.9066C7.78206 17.9795 7.93831 17.7295 7.93831 17.5107C7.93831 17.3128 7.9279 16.6566 7.9279 15.9587C5.83415 16.3441 5.29248 15.4482 5.12581 14.9795C5.03206 14.7399 4.62581 14.0003 4.27165 13.8024C3.97998 13.6462 3.56331 13.2607 4.26123 13.2503C4.91748 13.2399 5.38623 13.8545 5.54248 14.1045C6.29248 15.3649 7.4904 15.0107 7.96956 14.792C8.04248 14.2503 8.26123 13.8857 8.50083 13.6774C6.64665 13.4691 4.70915 12.7503 4.70915 9.56283C4.70915 8.65658 5.03206 7.90658 5.56331 7.32324C5.47998 7.11491 5.18831 6.26074 5.64665 5.11491C5.64665 5.11491 6.34456 4.89616 7.93831 5.96908C8.605 5.78158 9.31333 5.68783 10.0217 5.68783C10.73 5.68783 11.4383 5.78158 12.105 5.96908C13.6987 4.88574 14.3967 5.11491 14.3967 5.11491C14.855 6.26074 14.5633 7.11491 14.48 7.32324C15.0112 7.90658 15.3342 8.64616 15.3342 9.56283C15.3342 12.7607 13.3862 13.4691 11.5321 13.6774C11.8342 13.9378 12.0946 14.4378 12.0946 15.2191C12.0946 16.3337 12.0842 17.2295 12.0842 17.5107C12.0842 17.7295 12.2404 17.9899 12.6571 17.9066C16.0492 16.7614 18.3332 13.5806 18.3342 10.0003C18.3342 5.39616 14.605 1.66699 10.0008 1.66699Z"
-                          fill="#5D5D5F"
-                        /></svg
-                    ></a>
-                  </li>
-                  <li key="4">
+                  <li key="4" v-if="freelancer?.contacts?.instagram">
                     <a
                       :href="freelancer?.contacts?.instagram"
                       target="_blank"
                       :class="{
-                        'pointer-events-none opacity-50':
-                          !freelancer?.contacts?.instagram,
+                        'pointer-events-none': !freelancer?.contacts?.instagram,
                       }"
                       class="rounded-[12px] border border-solid border-grey-light flex w-[44px] h-[44px] justify-center items-center bg-white"
                     >
@@ -254,14 +208,13 @@
                         /></svg
                     ></a>
                   </li>
-                  <li key="5">
+                  <li key="3" v-if="freelancer?.contacts?.linkedin">
                     <a
                       class="rounded-[12px] border border-solid border-grey-light flex w-[44px] h-[44px] justify-center items-center bg-white"
-                      :href="freelancer?.contacts?.telegram"
+                      :href="freelancer?.contacts?.linkedin"
                       target="_blank"
                       :class="{
-                        'pointer-events-none opacity-50':
-                          !freelancer?.contacts?.telegram,
+                        'pointer-events-none': !freelancer?.contacts?.linkedin,
                       }"
                     >
                       <svg
@@ -272,17 +225,25 @@
                         fill="none"
                       >
                         <path
-                          d="M10.0008 18.3337C5.39844 18.3337 1.66748 14.6027 1.66748 10.0003C1.66748 5.39795 5.39844 1.66699 10.0008 1.66699C14.6032 1.66699 18.3342 5.39795 18.3342 10.0003C18.3342 14.6027 14.6032 18.3337 10.0008 18.3337ZM7.40927 10.976L7.41981 10.9693C7.90292 12.5642 8.14447 13.3617 8.14447 13.3617C8.23803 13.6205 8.36666 13.6667 8.52275 13.6456C8.67875 13.6244 8.76158 13.54 8.86341 13.4417C8.86341 13.4417 9.19366 13.123 9.85416 12.4856L11.9799 14.0585C12.3672 14.2725 12.6469 14.1621 12.7431 13.6984L14.1246 7.18067C14.2771 6.57401 14.0096 6.33069 13.5392 6.52328L5.42831 9.65624C4.87496 9.87866 4.87764 10.1882 5.32756 10.3262L7.40927 10.976Z"
+                          d="M15.2803 15.2825H13.0591V11.8018C13.0591 10.9718 13.0422 9.90375 11.9016 9.90375C10.7435 9.90375 10.5666 10.8069 10.5666 11.7406V15.2825H8.34533V8.125H10.4791V9.10058H10.5078C10.806 8.53808 11.531 7.94437 12.6141 7.94437C14.8647 7.94437 15.281 9.42567 15.281 11.3538L15.2803 15.2825ZM5.8366 7.14562C5.1216 7.14562 4.54723 6.56687 4.54723 5.855C4.54723 5.14375 5.12223 4.56563 5.8366 4.56563C6.5491 4.56563 7.1266 5.14375 7.1266 5.855C7.1266 6.56687 6.54848 7.14562 5.8366 7.14562ZM6.95035 15.2825H4.72285V8.125H6.95035V15.2825ZM16.3916 2.5H3.60785C2.99598 2.5 2.50098 2.98375 2.50098 3.58063V16.4194C2.50098 17.0168 2.99598 17.5 3.60785 17.5H16.3897C17.001 17.5 17.501 17.0168 17.501 16.4194V3.58063C17.501 2.98375 17.001 2.5 16.3897 2.5H16.3916Z"
                           fill="#5D5D5F"
-                        /></svg
-                    ></a>
+                        />
+                      </svg>
+                    </a>
                   </li>
                 </ul>
               </a-dropdown>
             </div>
           </div>
           <div class="smser" v-if="user">
-            <button>
+            <a
+              :class="{
+                'pointer-events-none opacity-50':
+                  !freelancer?.contacts?.telegram,
+              }"
+              :href="freelancer?.contacts?.telegram"
+              target="_blank"
+            >
               {{ $store.state.translations["profile.send-sms"] }}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -301,8 +262,9 @@
                 <circle cx="16.5" cy="12" r="1" fill="#5C46E6" />
                 <circle cx="8.5" cy="12" r="1" fill="#5C46E6" />
               </svg>
-            </button>
+            </a>
           </div>
+
           <div class="grid grid-cols-2 client-types mt-4" v-else>
             <button
               @click="$router.push(localePath(`/profile/freelancer`))"
@@ -815,6 +777,16 @@ export default {
     imgUrl() {
       return this.$config.baseURL + "/storage/";
     },
+    messengersHandle() {
+      return (
+        this.freelancer?.contacts?.twitter ||
+        this.freelancer?.contacts?.facebook ||
+        this.freelancer?.contacts?.dribble ||
+        this.freelancer?.contacts?.github ||
+        this.freelancer?.contacts?.instagram ||
+        this.freelancer?.contacts?.telegram
+      );
+    },
   },
   methods: {
     openLogout() {
@@ -850,7 +822,7 @@ export default {
   stroke: #fff;
   /* fill: #fff; */
 }
-.smser button {
+.smser a {
   border-radius: 12px;
   border: 1px solid var(--Border-darik, #e0e0ed);
   background: var(--White, #fff);
@@ -869,5 +841,10 @@ export default {
 }
 .menu-container {
   box-shadow: 0px 8px 16px 0px rgba(2, 1, 5, 0.12);
+}
+@media screen and (max-width: 1024px) {
+  .container {
+    padding: 0 !important;
+  }
 }
 </style>

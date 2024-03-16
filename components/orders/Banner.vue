@@ -1,6 +1,6 @@
 <template>
   <div
-    class="banner grid h-[200px] xl:h-[138px] bg-bg-grey rounded-3xl xl:rounded-xl px-[60px] xl:px-4 xl:overflow-hidden relative"
+    class="banner grid h-[200px] xl:h-[164px] bg-bg-grey rounded-3xl xl:rounded-xl px-[60px] xl:px-4 xl:overflow-hidden relative"
   >
     <div class="left h-full flex items-center">
       <div

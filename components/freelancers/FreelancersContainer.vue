@@ -16,7 +16,9 @@
         class="h-[40px] px-[24px] rounded-[8px] border border-solid border-grey-light bg-bg-grey flex gap-2 items-center text-black text-[14px]"
       >
         {{ elem?.name_ru }}
-        <button @click="$emit('deleteFilter', `specialities[${elem?.id}]`, elem?.id)">
+        <button
+          @click="$emit('deleteFilter', `specialities[${elem?.id}]`, elem?.id)"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -44,7 +46,10 @@
           :key="elem"
         />
       </div>
-      <div class="list grid grid-cols-2 xl:grid-cols-1 gap-4" v-else>
+      <div
+        class="list grid grid-cols-2 xl:grid-cols-1 gap-4 xl:gap-[12px]"
+        v-else
+      >
         <FreelancerCard
           v-for="freelancer in freelancers"
           :freelancer="freelancer"

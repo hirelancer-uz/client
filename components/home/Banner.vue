@@ -9,50 +9,35 @@
         <h3
           class="font-semibold text-black text-[48px] xl:text-[16px] xl:text-white"
         >
-          <span class="text-blue xl:text-yellow">{{
-            $store.state.translations["main.span"]
-          }}</span>
+          <span class="text-blue xl:text-yellow"
+            >{{ $store.state.translations["main.span"] }}
+          </span>
+
           {{ $store.state.translations["main.title"] }}
         </h3>
         <p
-          class="text-black text-[18px] mt-4 xl:mt-[6px] xl:text-[12px] xl:text-white xl:hidden"
+          class="text-black leading-[170%] text-[18px] mt-4 xl:mt-[6px] xl:text-[12px] xl:text-white xl:hidden"
         >
-          {{ $store.state.translations["main.1000"]
-          }}<span class="text-blue">{{
+          {{ $store.state.translations["main.1000"] }}
+          &nbsp;
+          <span class="text-blue">{{
             $store.state.translations["main.directions"]
-          }}</span
-          >{{ $store.state.translations["main.sub"] }}
+          }}</span>
+          &nbsp;
+          {{ $store.state.translations["main.sub"] }}
         </p>
         <p
           class="hidden xl:block text-[12px] text-white leading-[130%] mt-[6px]"
         >
           {{ $store.state.translations["main.sub"] }}
         </p>
-        <div class="list flex gap-3 mt-8 xl:hidden mb-[84px]">
+        <div class="list flex flex-wrap gap-3 mt-8 xl:hidden mb-[84px]">
           <span
             class="whitespace-nowrap bg-white font-tt text-black py-2 px-4 rounded-[500px] text-[14px]"
+            v-for="item in specialities.slice(0,4)"
+            :key="item.id"
           >
-            UI/UX dizayner
-          </span>
-          <span
-            class="whitespace-nowrap bg-white font-tt text-black py-2 px-4 rounded-[500px] text-[14px]"
-          >
-            IOS developer
-          </span>
-          <span
-            class="whitespace-nowrap bg-white font-tt text-black py-2 px-4 rounded-[500px] text-[14px]"
-          >
-            Grafik dizayner
-          </span>
-          <span
-            class="whitespace-nowrap bg-white font-tt text-black py-2 px-4 rounded-[500px] text-[14px]"
-          >
-            Copy-writer
-          </span>
-          <span
-            class="whitespace-nowrap bg-white font-tt text-black py-2 px-4 rounded-[500px] text-[14px] flex gap-2"
-          >
-            Все фрилансеры
+            {{ item.name_ru }}
           </span>
         </div>
       </div>
@@ -85,9 +70,9 @@
         </button>
       </div>
     </div>
-    <div class="right h-[100%] xl:h-[100%] absolute right-0 overflow-hidden">
+    <div class="right h-[100%] xl:h-[100%] absolute right-0 overflow-hidden pr-[60px] xl:pr-0">
       <img
-        src="@/assets/images/banner.png"
+        src="@/assets/images/banner2.png"
         width="100%"
         height="100%"
         alt=""
@@ -99,10 +84,14 @@
 <script>
 export default {
   props: ["specialities"],
+
+  mounted() {},
+
   methods: {
     redirectLink(path) {
       localStorage.setItem("return_link", path);
-      const authCheck = this.$store.state.auth && Boolean(this.$store.state.userInfo["name"]);
+      const authCheck =
+        this.$store.state.auth && Boolean(this.$store.state.userInfo["name"]);
       const url = authCheck ? path : "registration";
       this.$router.push(url);
     },

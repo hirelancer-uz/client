@@ -224,11 +224,14 @@ a:hover {
   z-index: 999999 !important;
 }
 .ql-editor a {
-  color: #3C4BDC !important;
+  color: #3c4bdc !important;
 }
 .order-desc a {
-  color: #3C4BDC;
+  color: #3c4bdc;
   text-decoration: underline;
+}
+a {
+  transition: color 0s !important;
 }
 @media (max-width: 1460px) {
   .container {
@@ -276,5 +279,15 @@ a:hover {
   }
   .ant-upload-list-item-actions {
     opacity: 1 !important;
+  }
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--blue);
+    border-radius: 6px;
   }
 }

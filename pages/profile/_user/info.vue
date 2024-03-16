@@ -128,5 +128,8 @@ export default {
     flex-direction: column;
     gap: 24px;
   }
+  .container {
+    padding: 0 !important;
+  }
 }
 </style>

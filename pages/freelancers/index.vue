@@ -1,6 +1,6 @@
 <template>
   <transition name="fade-left" mode="out-in">
-    <div class="freelancers pt-16 pb-[120px] xl:pt-4 xl:pb-6">
+    <div class="freelancers pt-16 pb-[120px] xl:pt-6 xl:pb-6">
       <div class="2xl:container container mx-auto">
         <div class="title items-center xl:hidden grider">
           <h2 class="text-black text-[32px] font-semibold titler xl:hidden">
@@ -12,13 +12,13 @@
           </h2>
           <div class="button grid header gap-4 items-center">
             <div
-              class="searcher border-[1px] border-solid border-grey-light h-[60px] rounded-[8px] px-[16px] py-[12px] flex items-center justify-between"
+              class="searcher border-[1px] border-solid border-grey-light h-[60px] rounded-[8px] px-[16px] py-[12px] flex items-center justify-between xl:h-[48px]"
             >
               <input
                 type="text"
                 :placeholder="$store.state.translations[`freelancers.search`]"
                 v-model="search"
-                class="text-[16px] text-[#353437] leading-[150%] h-[100%] w-[90%]"
+                class="text-[16px] text-[#353437] leading-[150%] h-[100%] w-[90%] rounded-[8px]"
                 @input="handleInput"
               />
               <svg
@@ -53,7 +53,7 @@
             </button>
           </div>
         </div>
-        <div class="filter-head hidden xl:flex justify-between xl:mb-6">
+        <div class="filter-head hidden xl:flex justify-between xl:mb-0">
           <h4 class="text-black text-[14px] font-medium xl:hidden">
             {{ totalPage.toLocaleString() }}
             {{ $store.state.translations["freelancers.count"] }}
@@ -194,7 +194,6 @@ export default {
       searchVal: "",
     };
   },
-
 
   async asyncData({ store, query }) {
     const [freeLancersData, specialitiesData, regionsData] = await Promise.all([

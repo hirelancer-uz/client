@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="footer bg-bg-grey pt-10 xl:pb-13 xl:pt-6">
+  <div class="footer bg-bg-grey xl:px-0 pt-10 xl:pb-13 xl:pt-6">
     <div class="max-w-[1678px] mx-auto footer-container">
       <div class="body pb-10 flex justify-between xl:flex-col xl:gap-6">
         <div class="">
@@ -7,7 +7,7 @@
             <IconsFooterLogo class="xl:w-[107px]" />
           </div>
           <ul
-            class="list flex gap-[56px] mt-[46px] xl:gap-0 xl:justify-between"
+            class="list flex gap-[56px] mt-[40px] xl:gap-0 xl:justify-between"
           >
             <li>
               <nuxt-link
@@ -102,7 +102,7 @@
           </div>
         </div>
         <div
-          class="px-[26px] py-[29px] xl:px-4 xl:py-4 rounded-[24px] bg-white flex flex-col gap-4"
+          class="px-[24px] py-[24px] xl:px-4 xl:py-4 rounded-[24px] bg-white flex flex-col gap-4"
         >
           <div class="grid grid-cols-2 gap-4 xl:flex xl:flex-col">
             <div
@@ -115,7 +115,8 @@
                 <a
                   href=""
                   class="text-[14px] font-semibold text-main-color underline"
-                  > {{ $store.state.translations["main.open-bot"] }}</a
+                >
+                  {{ $store.state.translations["main.open-bot"] }}</a
                 >
               </div>
               <div class="w-[88px] h-[88px]">
@@ -136,7 +137,8 @@
                 <a
                   href=""
                   class="text-[14px] font-semibold text-main-color underline"
-                  > {{ $store.state.translations["main.go-to-channel"] }}</a
+                >
+                  {{ $store.state.translations["main.go-to-channel"] }}</a
                 >
               </div>
               <div class="w-[88px] h-[88px]">
@@ -195,12 +197,12 @@
         </div>
       </div>
       <div
-        class="pb-10 xl:pb-[100px] pt-[26px] xl:pt-4 flex justify-between xl:items-center xl:flex-col xl:gap-[12px] border-[0] border-solid border-t border-border-darik"
+        class="pb-10 xl:pb-[100px] pt-[26px] xl:pt-4 flex justify-between items-center xl:items-start xl:flex-col xl:gap-[12px] border-[0] border-solid border-t border-border-darik"
       >
         <p class="text-black text-base xl:text-[14px]">
-          {{ $store.state.translations["main.rights"] }}
+          {{ $store.state.translations["main.rights"] }} {{ currentYear }}
         </p>
-        <div class="flex gap-4 xl:items-center">
+        <div class="flex gap-4 items-center">
           <img class="xl:h-5" src="@/assets/images/ndc.png" alt="" />
           <p
             class="text-[14px] text-black whitespace-nowrap xl:whitespace-normal"
@@ -219,6 +221,17 @@ import FooterInstagram from "@/components/icons/footer-instagram.vue";
 
 export default {
   components: { FooterInstagram, FooterTelegram, Ndc },
+
+  data() {
+    return {
+      currentYear: "",
+    };
+  },
+
+  mounted() {
+    this.currentYear = new Date().getFullYear();
+  },
+
   methods: {
     redirectLink(path) {
       localStorage.setItem("return_link", path);
