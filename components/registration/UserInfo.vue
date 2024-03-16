@@ -830,5 +830,12 @@ export default {
     height: 44px;
     font-size: 14px;
   }
+  .langer {
+    top: 16px;
+    right: 16px;
+  }
+  .number-card {
+    position: static;
+  }
 }
 </style>

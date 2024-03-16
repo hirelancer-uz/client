@@ -4,7 +4,7 @@
   >
     <!-- <img class="absolute z-10" src="../../assets//images/register-img.png" alt=""> -->
     <div
-      class="2xl:container container mx-auto h-full flex flex-col justify-center gap-4 relative z-20"
+      class="2xl:container container mx-auto h-full flex flex-col justify-center gap-4 relative z-20 xl:static"
     >
       <div class="flex justify-center">
         <NumberCheck @checkNumber="__POST_SEND_CODE" :loading="loading" />

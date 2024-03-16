@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <div>
     <div
       class="select-freelancer-card relative px-4 py-4 rounded-2xl bg-white flex flex-col gap-4"
@@ -29,6 +29,13 @@
             class="image relative w-[60px] h-[60px] border-[2px] border-solid border-agro-green rounded-full overflow-hidden"
           >
             <img
+              class="w-full h-full object-cover"
+              v-if="freelancer['avatar']"
+              :src="`${imgUrl}${freelancer['avatar']}`"
+              alt=""
+            />
+            <img
+              v-else
               class="w-full h-full object-cover"
               src="@/assets/images/user-avatar.jpg"
               alt=""
@@ -64,14 +71,25 @@
           >
             {{ freelancer?.name }}
           </h5>
-          <p class="text-[14px] text-grey-64">+998 99 888 5544</p>
+          <p class="text-[14px] text-grey-64">
+            +
+            {{
+              `${freelancer?.phone}`
+                .match(/(\d{3})(\d{2})(\d{3})(\d{2})(\d{2})/)
+                .filter((_, index) => index !== 0)
+                .join(" ")
+            }}
+          </p>
         </div>
       </div>
       <div class="body flex flex-col gap-4">
         <a
-          href=""
+          :href="freelancer?.contact?.telegram"
           class="border border-solid border-[#1878F3] rounded-lg flex gap-2 justify-center h-[43px] items-center text-base font-medium text-[#1878F3]"
-          :class="{ 'pointer-events-none opacity-50': true }"
+          :class="{
+            'pointer-events-none opacity-50': !freelancer?.contact?.telegram,
+          }"
+          target="_blank"
           ><svg
             width="21"
             height="20"
@@ -96,7 +114,7 @@
               </clipPath>
             </defs>
           </svg>
-          Telegram
+          {{ $store.state.translations["profile.send-sms"] }}
         </a>
       </div>
     </div>
@@ -105,6 +123,16 @@
 <script>
 export default {
   props: ["freelancer"],
+
+  mounted() {
+    console.log(this.freelancer);
+  },
+
+  computed: {
+    imgUrl() {
+      return this.$config.baseURL + "/storage/";
+    },
+  },
 };
 </script>
 <style lang=""></style>

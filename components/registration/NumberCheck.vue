@@ -104,6 +104,7 @@
               v-model="form.phone"
               @keyup.enter="onSubmit"
               type="text"
+              class="text-base"
             />
           </div>
         </a-form-model-item>
@@ -239,9 +240,16 @@ export default {
   .auth-item .input-block {
     height: 44px;
   }
-  .auth-item .input-block input {
+  /* .auth-item .input-block input {
     font-size: 14px;
     line-height: 19px;
+  } */
+  .langer {
+    top: 16px;
+    right: 16px;
+  }
+  .number-card {
+    position: static;
   }
 }
 </style>
