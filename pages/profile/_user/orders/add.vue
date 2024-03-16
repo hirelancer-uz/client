@@ -222,7 +222,7 @@
               </p>
             </div>
             <div class="clearfix flex flex-col mt-6">
-              <div class="flex order-upload gap-2">
+              <div class="flex order-upload gap-2 flex-wrap">
                 <!-- <a-upload
                   list-type="picture-card"
                   :file-list="fileList"
@@ -249,6 +249,7 @@
                   </div>
                 </a-upload> -->
                 <a-upload
+                    v-if="fileList.length < 12"
                   :multiple="true"
                   accept=".pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .jpeg, .jpg, .png, .gif, .svg, .mp3, .wav, ., ogg, .mp4, .avi, .mkv, .zip, .rar, .7z, .bmp, .tiff, .flv, .txt, .rtf, .csv, .bmp, ., tiff, .webp, .ico, .wma, .aiff, .mov, .webm, .xml"
                   list-type="picture-card"
@@ -257,7 +258,7 @@
                   :custom-request="customRequest"
                 >
                   <div
-                    v-if="fileList.length < 10"
+
                     class="flex justify-center bg-bg-grey"
                   >
                     <svg
@@ -693,8 +694,9 @@ export default {
           url: reader.result,
         };
 
-        this.fileList.push(uploadedFile);
-        console.log(this.fileList);
+        if(this.fileList.length < 12) {
+          this.fileList.push(uploadedFile);
+        }
         onSuccess();
       };
       reader.onerror = () => {
@@ -767,6 +769,7 @@ export default {
         });
         this.$router.push(`/profile/customer/order/view/${data?.content?.id}`);
       } catch (e) {
+        console.log(e.response)
         this.$notification["error"]({
           message: "Error",
           description: e.response.statusText,

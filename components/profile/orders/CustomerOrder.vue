@@ -120,7 +120,7 @@
                 <h6 class="text-black text-[20px] font-semibold xl:text-[18px]">
                   {{ $store.state.translations["profile.order-files"] }}
                 </h6>
-                <div class="file-list flex gap-4 justify-start xl:flex-wrap">
+                <div class="file-list flex gap-4 justify-start flex-wrap">
                   <FileCard
                     v-for="file in order?.files"
                     :file="file"
@@ -669,8 +669,8 @@
         @submit="submitCancel"
         :loadingBtn="loadingBtn"
         :title="$store.state.translations[`profile.sure-cancel-request`]"
-        save="$store.state.translations[`modal.yes`]"
-        closeBtn="$store.state.translations[`modal.no`]"
+        :save="$store.state.translations[`modal.yes`]"
+        :closeBtn="$store.state.translations[`modal.no`]"
       >
       </CancellationOrder>
       <CancellationOrder

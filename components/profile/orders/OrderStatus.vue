@@ -54,7 +54,7 @@
     </svg>
     <div
       class="flex gap-[10px] xl:gap-2 items-center relative z-10 xl:mr-4"
-      v-if="!order?.selected_request && status == 6"
+      v-if="!order?.selected_request && cancelStatus.includes(status)"
     >
       <span class="flex justify-center items-center relative">
         <span
@@ -287,7 +287,7 @@
     </span>
     <div
       class="flex gap-[10px] xl:gap-2 items-center relative z-10 xl:mr-4"
-      v-if="order?.selected_request && status == 6"
+      v-if="order?.selected_request && cancelStatus.includes(status)"
     >
       <span class="flex justify-center items-center relative">
         <span
@@ -321,7 +321,7 @@
       </p>
     </div>
     <div
-      v-if="status != 6"
+      v-if="!cancelStatus.includes(status)"
       class="flex gap-[10px] xl:gap-2 items-center relative z-10 xl:mr-4"
       :class="{ active: status == 4 }"
     >
@@ -385,7 +385,7 @@ export default {
   props: ["status", "order"],
   data() {
     return {
-      // status: 3,
+      cancelStatus: [5, 6],
     };
   },
 };
@@ -394,6 +394,7 @@ export default {
 .order-tab .active p {
   color: var(--black);
 }
+
 @media (max-width: 1200px) {
   .scroll-none::-webkit-scrollbar {
     display: none;

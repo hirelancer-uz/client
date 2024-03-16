@@ -119,7 +119,7 @@
     </div>
     <div
       class="px-6 py-6 flex justify-center items-center italic text-base text-grey-80"
-      v-if="status == 3"
+      v-if="cancelStatus.includes(order?.status)"
     >
       {{ $store.state.translations["modal.chat-closed"] }}
     </div>
@@ -171,6 +171,11 @@
 <script>
 export default {
   props: ["order", "status"],
+  data() {
+    return {
+      cancelStatus: [4,5,6]
+    }
+  },
   computed: {
     imgUrl() {
       return this.$config.baseURL + "/storage/";

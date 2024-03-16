@@ -22,7 +22,7 @@
                 alt=""
               />
             </div>
-            <span class="absolute bottom-0 right-0">
+            <span class="absolute bottom-0 right-0" v-if="userInfo?.approved">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

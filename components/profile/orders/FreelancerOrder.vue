@@ -99,7 +99,7 @@
                 <h6 class="text-black text-[20px] font-semibold xl:text-[18px]">
                   {{ $store.state.translations["modal.order-files"] }}
                 </h6>
-                <div class="file-list flex gap-4 justify-start xl:flex-wrap">
+                <div class="file-list flex gap-4 justify-start flex-wrap">
                   <FileCard
                     v-for="file in order?.files"
                     :file="file"
@@ -305,7 +305,7 @@
             />
             <span
               class="w-full h-[2px] bg-grey-light flex"
-              v-if="!order?.end_of_execution"
+              v-if="!order?.end_of_execution && order?.status < 5"
             ></span>
             <!-- v-if="!order?.end_of_execution" -->
 
@@ -506,7 +506,7 @@
 
       <CancellationOrder
         ref="orderCancel"
-        @submit="submitFinish"
+        @submit="submitCancelOrder"
         :title="$store.state.translations[`profile.sure-cancel-order`]"
         :save="$store.state.translations[`modal.yes`]"
         :closeBtn="$store.state.translations[`modal.no`]"
@@ -627,7 +627,6 @@ export default {
       this.$refs.orderComplite.closeModal();
     },
     openOrderCancel() {
-      console.log(this.$refs);
       this.$refs.orderCancel.open();
       this.$refs.orderCancel.openModal();
     },
@@ -636,13 +635,42 @@ export default {
       this.$refs.orderCancel.closeModal();
     },
     openOfferCancel() {
-      console.log(this.$refs);
       this.$refs.offerCancel.open();
       this.$refs.offerCancel.openModal();
     },
     closeOfferCancel() {
       this.$refs.offerCancel.close();
       this.$refs.offerCancel.closeModal();
+    },
+
+    submitCancelOrder() {
+      let formData = new FormData();
+      this.selectedReasons.forEach((item) => {
+        formData.append("reasons[]", item);
+      });
+      this.__CANCEL_ORDER(this.selectedReasons.length > 0 ? formData : {});
+    },
+    async __CANCEL_ORDER(formData) {
+      try {
+        this.loadingBtn = true;
+        const data = await this.$store.dispatch(
+            "fetchOrders/postCanceledOrder",
+            {
+              id: this.$route.params.id,
+              data: formData,
+            }
+        );
+        this.closeOrderCancel()
+      } catch (e) {
+        if (e.response) {
+          this.$notification["error"]({
+            message: "Error",
+            description: e.response.statusText,
+          });
+        }
+      } finally {
+        this.loadingBtn = false;
+      }
     },
     onSelectReasons(id) {
       if (!this.selectedReasons.includes(id)) {

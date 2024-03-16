@@ -37,7 +37,7 @@ export default {
 
       store.dispatch("fetchSpecialities/getSpecialities",{
         params: {
-          page_size: 8,
+          limit: 12,
         },
       }),
       store.dispatch("fetchOrders/getOrders", {

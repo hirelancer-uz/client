@@ -22,6 +22,8 @@
             :placeholder="$store.state.translations[`freelancers.search`]"
             type="text"
             class="w-full h-full text-base"
+            v-model="search"
+            @input="handleInput"
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -39,15 +41,20 @@
           </svg>
         </div>
       </div>
-      <div class="flex justify-between items-center gap-6">
+      <div class="flex justify-between items-center gap-6 relative tab-container">
         <OrdersTab />
         <div
-          class="border border-solid border-grey-8 rounded-[12px] h-12 px-5 w-full flex gap-4 items-center xl:hidden"
+          class="border search-block  bg-white border-solid border-grey-8 rounded-[12px] h-12 px-5 w-full flex gap-4 items-center xl:hidden"
+          :class="{active: onFocusSearch}"
         >
           <input
             :placeholder="$store.state.translations[`freelancers.search`]"
             type="text"
             class="w-full h-full text-base"
+            v-model="search"
+            @input="handleInput"
+            @focus="onFocusSearch = true"
+            @blur="onFocusSearch = false"
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -147,7 +154,6 @@
 <script>
 import ProfileLayout from "@/components/profile/ProfileLayout.vue";
 import PortfolioCard from "@/components/profile/portfolio/PortfolioCard.vue";
-import VPagination from "@/components/VPagination.vue";
 import ProfileOrdersCard from "@/components/profile/orders/ProfileOrdersCard.vue";
 import ProfileOrderCardMobile from "@/components/profile/orders/ProfileOrderCardMobile.vue";
 import OrdersTab from "@/components/profile/orders/OrdersTab.vue";
@@ -159,6 +165,9 @@ export default {
   layout: "profileLayout",
   data() {
     return {
+      onFocusSearch: false,
+      searchVal: "",
+      search: "",
       orders: [],
       loading: true,
       pageSize: 5,
@@ -197,8 +206,72 @@ export default {
       info: "",
       link: true,
     });
+    this.debouncedSearch = this.debounce(this.changeSearch, 500);
+    if (this.$route.query?.search) {
+      this.search = this.$route.query.search;
+    }
   },
   methods: {
+    debounce(func, delay) {
+      let timer;
+      return function () {
+        const context = this;
+        const args = arguments;
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          func.apply(context, args);
+        }, delay);
+      };
+    },
+    handleInput(event) {
+      this.searchVal = event.target.value;
+      this.debouncedSearch();
+    },
+    async queryCreater(name, id) {
+      let query = { ...this.$route.query };
+      if (!this.$route.query[name]) {
+        await this.$router.replace({
+          path: this.$route.path,
+          query: {
+            ...query,
+            page: 1,
+            [`${name}`]: id,
+          },
+        });
+      } else {
+        delete query[name];
+        await this.$router.replace({
+          path: this.$route.path,
+          query: { ...query },
+        });
+      }
+      this.__GET_ORDERS();
+    },
+    async changeSearch() {
+      console.log(this.searchVal);
+      if (this.searchVal.length > 2) {
+        if (this.$route.query?.search !== this.searchVal)
+          await this.$router.replace({
+            path: this.$route.path,
+            query: { ...this.$route.query, search: this.searchVal, page: 1 },
+          });
+        if (this.searchVal === this.$route.query.search) this.__GET_ORDERS();
+      } else if (this.searchVal.length === 0) {
+        this.clearFilter(this.$route.path);
+      }
+    },
+    async clearFilter() {
+      if (Object.keys(this.$route.query).length > 2) {
+        await this.$router.replace({
+          path: this.$route.path,
+          query: {
+            page: 1,
+            page_size: this.$route.query.page_size,
+          },
+        });
+        this.__GET_ORDERS();
+      }
+    },
     async __GET_ORDERS() {
       const params = {
         status: this.status[this.$route.params.user][this.$route.params.status],
@@ -248,6 +321,15 @@ export default {
   width: 100%;
   height: 230px;
   border-radius: 16px;
+}
+.search-block {
+  transition: .2s;
+  max-width: 250px;
+}
+.tab-container .active {
+  max-width: 300px;
+  position: absolute;
+  right: 0;
 }
 @media (max-width: 1200px) {
   .fixed-btns {
