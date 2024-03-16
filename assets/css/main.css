@@ -233,6 +233,9 @@ a:hover {
 a {
   transition: color 0s !important;
 }
+.ant-input-number-input-wrap {
+  width: 100%;
+}
 @media (max-width: 1460px) {
   .container {
     padding-left: 16px;

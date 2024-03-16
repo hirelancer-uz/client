@@ -137,7 +137,7 @@
             :trigger="['click']"
             v-model="dropdown"
             placement="bottomRight"
-            v-if="$store.state.auth && Boolean($store.state.userInfo['name'])"
+            v-if="$store.state.auth && Boolean($store.state.userInfo['id'])"
           >
             <button
               @click="(e) => e.preventDefault()"

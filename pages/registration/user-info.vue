@@ -43,11 +43,12 @@ export default {
         const data = await this.$store.dispatch("fetchAuth/postRegister", form);
         if (data.success) {
           const returnLink = localStorage.getItem("return_link2");
-          JSON.parse(returnLink) !== null
+          returnLink
             ? await this.$router.push(this.localePath(returnLink))
             : await this.$router.push(this.localePath("/profile/freelancer"));
         }
       } catch (e) {
+        console.log(e);
         this.$notification["error"]({
           message: "Error",
           description: e.response?.statusText,

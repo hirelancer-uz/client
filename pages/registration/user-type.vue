@@ -4,7 +4,12 @@
   >
     <div class="2xl:container container mx-auto h-full flex flex-col gap-4">
       <div class="flex justify-center xl:h-full">
-        <UserType @sendCode="sendCode" :loading="loading" :codeInvalid="codeInvalid" @clearError="clearError" />
+        <UserType
+          @sendCode="sendCode"
+          :loading="loading"
+          :codeInvalid="codeInvalid"
+          @clearError="clearError"
+        />
       </div>
     </div>
   </div>
@@ -17,7 +22,7 @@ export default {
   data() {
     return {
       loading: false,
-      codeInvalid: false
+      codeInvalid: false,
     };
   },
   methods: {
@@ -25,7 +30,7 @@ export default {
       this.__POST_SEND_CODE(form);
     },
     clearError() {
-      this.codeInvalid = false
+      this.codeInvalid = false;
     },
     async __POST_SEND_CODE(form) {
       try {
@@ -37,7 +42,7 @@ export default {
         }
       } catch (e) {
         if (e.response.status === 401) {
-          this.codeInvalid = true
+          this.codeInvalid = true;
         }
         this.$notification["error"]({
           message: "Error",
@@ -51,7 +56,9 @@ export default {
       try {
         let returnLink = localStorage.getItem("return_link");
         if (localStorage.getItem("auth-token")) {
-          const userInfoData = await this.$store.dispatch("fetchAuth/getUserInfo");
+          const userInfoData = await this.$store.dispatch(
+            "fetchAuth/getUserInfo"
+          );
           this.userInfo = userInfoData;
           this.$store.commit("getUserInfo", userInfoData);
           if (this.userInfo?.name) {
@@ -59,7 +66,7 @@ export default {
               ? await this.$router.push(this.localePath(returnLink))
               : await this.$router.push(this.localePath("/profile/freelancer"));
           } else {
-            localStorage.setItem("return_link2", returnLink);
+            if (returnLink) localStorage.setItem("return_link2", returnLink);
             await this.$router.push(this.localePath("/registration/user-info"));
           }
         }

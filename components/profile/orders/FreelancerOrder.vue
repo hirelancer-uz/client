@@ -305,7 +305,7 @@
             />
             <span
               class="w-full h-[2px] bg-grey-light flex"
-              v-if="!order?.end_of_execution"
+              v-if="!order?.end_of_execution && order?.status < 5"
             ></span>
             <!-- v-if="!order?.end_of_execution" -->
 
