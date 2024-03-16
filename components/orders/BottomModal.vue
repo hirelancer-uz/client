@@ -425,6 +425,13 @@ export default {
 :deep(.ant-modal-content) {
   border-radius: 24px !important;
 }
+:deep(.ant-input-number-input) {
+  border: 0 !important;
+  width: 100% !important;
+}
+:deep(.ant-input-number-input-wrap) {
+  width: 100% !important;
+}
 
 .form-item :deep(label) {
   color: var(--black);

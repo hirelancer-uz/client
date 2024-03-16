@@ -300,7 +300,7 @@ export default {
     };
   },
   mounted() {
-    this.$refs.codeInput.focus()
+    this.$refs.codeInput.focus();
     if (localStorage.getItem("phone")) {
       this.form.phone_number = localStorage.getItem("phone");
     } else {
@@ -364,7 +364,7 @@ export default {
       handler() {
         this.$emit("clearError");
       },
-      deep: true
+      deep: true,
     },
   },
   components: { uzbFlag, rusFlag, engFlag },
@@ -466,6 +466,13 @@ input[type="number"]::-webkit-outer-spin-button {
 @media (max-width: 1200px) {
   .auth-item input {
     font-size: 14px;
+  }
+  .number-card {
+    position: static;
+  }
+  .langer {
+    top: 16px;
+    right: 16px;
   }
 }
 </style>

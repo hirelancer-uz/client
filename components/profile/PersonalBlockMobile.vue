@@ -685,7 +685,7 @@
                   /></svg></span
             ></nuxt-link>
           </li> -->
-          <li class="border-[0] border-b border-solid border-grey-light">
+          <li class="border-[0] border-b-[0] border-solid border-grey-light">
             <button
               @click="openLogout"
               class="flex w-full gap-3 items-center text-[14px] font-medium text-black relative p-4"

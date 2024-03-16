@@ -412,7 +412,9 @@
                 v-if="order?.status == 2 || order?.status == 3"
               >
                 <template slot="title" v-if="!order?.complete_requests">
-                  <span>Frilanser tarafidan ish yakunlanishi kutilyapti</span>
+                  <span>{{
+                    $store.state.translations["order.wait-free-finish"]
+                  }}</span>
                 </template>
                 <!-- !order?.complete_requests -->
                 <span class="flex w-full">
@@ -531,7 +533,7 @@
     >
       <div class="max-w-[1440px] mx-auto relative">
         <div
-          class="order-left-chat mb-6"
+          class="order-left-chat mb-6 xl:mb-[12px]"
           :class="{ block: chatHandle == false }"
         >
           <div class="flex items-center justify-between xl:flex-col xl:gap-4">

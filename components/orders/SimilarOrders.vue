@@ -3,12 +3,13 @@
     class="orders similar-orders bg-bg-grey py-[64px] xl:py-6 xl:px-4 xl:bg-white xl:pt-0"
   >
     <div class="max-w-[1286px] mx-auto list-grid mb-8 xl:mb-4">
-      <div class="flex justify-between">
+      <div class="flex justify-between items-center">
         <h1 class="text-black text-[32px] font-semibold xl:text-[18px]">
           {{ $store.state.translations["order.similar-orders"] }}
         </h1>
         <nuxt-link
-          class="flex gap-[6px] xl:gap-1 text-blue text-[18px] font-medium xl:text-[14px] leading-[19px] xl:items-center"
+          v-if="orders.length > 0"
+          class="flex gap-[6px] xl:gap-1 text-blue text-[18px] font-medium xl:text-[14px] leading-[19px] items-center"
           to="/orders"
           >{{ $store.state.translations["order.view-more"] }}
           <svg
@@ -29,8 +30,15 @@
       </div>
     </div>
     <div class="max-w-[1286px] mx-auto list-grid">
-      <div class="list flex flex-col gap-4">
+      <div v-if="orders.length > 0" class="list flex flex-col gap-4">
         <OrderCard v-for="order in orders" :order="order" :key="order?.id" />
+      </div>
+      <div v-else class="similar__empty">
+        <img src="@/assets/images/similar__empty.png" alt="" />
+        <p class="text">{{ $store.state.translations["order.no-similar"] }}</p>
+        <NuxtLink :to="localePath(`/orders`)">
+          {{ $store.state.translations["order.all-orders"] }}
+        </NuxtLink>
       </div>
       <div class="flex flex-col gap-4 xl:hidden">
         <TelegramCard class="bg-white" />
@@ -72,11 +80,58 @@ export default {
   grid-template-columns: 1fr 332px;
   gap: 16px;
 }
+.similar__empty {
+  border-radius: 24px;
+  background: var(--White, #fff);
+  max-height: 330px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 22px;
+  border: 1px solid var(--grey-8, #ebebeb);
+}
+.similar__empty .text {
+  color: var(--grey-40, #9a999b);
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 27px */
+}
+.similar__empty a {
+  text-align: center;
+  min-width: 300px;
+  border-radius: 12px;
+  border: 1px solid var(--Main-color, #5c46e5);
+  padding: 16px 20px;
+  color: var(--Main-color, #5c46e5);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 24px */
+}
 @media (max-width: 1200px) {
   .list-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 16px;
+  }
+  .similar__empty {
+    gap: 12px;
+    padding: 24px;
+  }
+  .similar__empty img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+  }
+  .similar__empty .text {
+    font-size: 16px;
+  }
+  .similar__empty a {
+    padding: 8px;
+    min-width: 200px;
   }
 }
 </style>

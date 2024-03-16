@@ -290,7 +290,12 @@
                   <div
                     class="w-full img-card overflow-hidden h-[104px] xl:h-[90px] border border-solid border-grey-8 rounded-[4px] flex justify-center items-center relative"
                   >
-                    <img v-if="imgFileTypes.includes(item.name.split('.').at(-1))" class="object-cover" :src="item.url" alt="" />
+                    <img
+                      v-if="imgFileTypes.includes(item.name.split('.').at(-1))"
+                      class="object-cover"
+                      :src="item.url"
+                      alt=""
+                    />
                     <IconsDocxFile v-else />
                     <button
                       @click="handleRemove(item)"
@@ -316,8 +321,12 @@
                   </div>
 
                   <div class="w-full flex items-center">
-                    <p class="text-grey-80 text-[12px] truncate"> {{ item.name }}</p>
-                    <p class="text-grey-80 text-[12px]">.{{item.name.split('.').at(-1)}}</p>
+                    <p class="text-grey-80 text-[12px] truncate">
+                      {{ item.name }}
+                    </p>
+                    <p class="text-grey-80 text-[12px]">
+                      .{{ item.name.split(".").at(-1) }}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -665,7 +674,7 @@ export default {
   },
   methods: {
     toBack() {
-     this.$router.go(-1)
+      this.$router.go(-1);
     },
     openSpecial() {
       this.$refs.specialities.open();
@@ -689,7 +698,7 @@ export default {
         };
 
         this.fileList.push(uploadedFile);
-        console.log(this.fileList)
+        console.log(this.fileList);
         onSuccess();
       };
       reader.onerror = () => {
@@ -1035,7 +1044,6 @@ export default {
 }
 :deep(.has-error .ant-input-number) {
   border-color: var(--red);
-
 }
 .errorSelect .modal-select {
   border-color: var(--red);
@@ -1063,6 +1071,7 @@ export default {
   background: #fff;
   border: none;
   border-bottom: 1px solid var(--grey-8, #ebebeb);
+  border: 1px solid var(--grey-8);
 }
 
 :deep(.ql-container) {
@@ -1070,6 +1079,7 @@ export default {
   background: #fff;
   border: none;
   min-height: 250px;
+  border: 1px solid var(--grey-8);
 }
 
 :deep(.ql-editor) {
@@ -1090,7 +1100,6 @@ export default {
 
 :deep(.quill-editor) {
   border-radius: 8px;
-  border: 1px solid var(--grey-8);
   font-family: "TT Interfaces";
   font-size: 16px;
 }

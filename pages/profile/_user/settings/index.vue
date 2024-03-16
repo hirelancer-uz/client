@@ -6,13 +6,14 @@
         {{ $store.state.translations["profile.settings"] }}
       </h3>
     </div>
-    <div class="flex justify-between max-w-[818px] mt-4 ">
-
+    <div class="flex justify-between max-w-[818px] mt-4">
       <div
-        class="buttons  xl:justify-center bg-white flex gap-6 xl:gap-12 xl:mt-[-3px] xl:relative z-[1000] xl:pt-[3px] xl:hidden"
+        class="buttons xl:justify-center bg-white flex gap-6 xl:gap-12 xl:mt-[-3px] xl:relative z-[1000] xl:pt-[3px] xl:hidden"
       >
         <button
-          @click="$router.push(localePath(`/profile/${$route.params.user}/settings`))"
+          @click="
+            $router.push(localePath(`/profile/${$route.params.user}/settings`))
+          "
           :class="{ active: !$route.name.includes('specialities') }"
           class="px-6 py-3 relative rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] text-base text-grey-64 font-medium xl:font-semibold xl:py-0 xl:flex xl:items-center xl:h-9 whitespace-nowrap xl:rounded-lg"
         >
@@ -20,8 +21,10 @@
         </button>
         <button
           @click="
-          $router.push(localePath(`/profile/${$route.params.user}/settings/specialities`))
-        "
+            $router.push(
+              localePath(`/profile/${$route.params.user}/settings/specialities`)
+            )
+          "
           :class="{ active: $route.name.includes('specialities') }"
           class="px-6 py-0 xl:flex xl:items-center relative rounded-[12px] border-solid border-[2px] xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] border-bg-grey bg-bg-grey text-base text-grey-64 font-medium xl:font-semibold xl:py-2 xl:h-9 whitespace-nowrap xl:rounded-lg"
         >
@@ -41,12 +44,9 @@
           {{ $store.state.translations["auth.save"] }}
         </button>
       </div>
-
     </div>
     <a-form-model ref="ruleForm" :model="form" :rules="rules">
-      <div
-        class="max-w-[818px] pt-6 xl:pt-0 flex flex-col gap-6 relative"
-      >
+      <div class="max-w-[818px] pt-6 xl:pt-0 flex flex-col gap-6 relative">
         <div
           v-if="laoding"
           class="loader h-full w-full flex justify-center absolute top-0 left-0 pointer-events-none z-100 items-center"
@@ -425,7 +425,11 @@
                   :label="$store.state.translations['auth.email']"
                   prop="email"
                 >
-                  <a-input type="email" v-model="form.email" placeholder="username@gmail.com" />
+                  <a-input
+                    type="email"
+                    v-model="form.email"
+                    placeholder="username@gmail.com"
+                  />
                   <span class="absolute right-4"
                     ><svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -642,9 +646,9 @@ export default {
         ],
         email: [
           {
-            type: 'email',
-            message: 'Please insert a valid email address.',
-            trigger: 'change',
+            type: "email",
+            message: "Please insert a valid email address.",
+            trigger: "change",
           },
         ],
       },
@@ -775,9 +779,9 @@ export default {
             window.scrollTo(0, 0);
           }
         }
-      }  finally {
+      } finally {
         this.laoding = false;
-        }
+      }
     },
     async __POST_REGISTER(form) {
       try {
@@ -923,15 +927,18 @@ export default {
 }
 
 :deep(.quill-editor) {
-  border-radius: 8px;
-  border: 1px solid var(--grey-8);
   font-family: "TT Interfaces";
   font-size: 16px;
 }
 
-:deep(.ql-toolbar),
+:deep(.ql-toolbar) {
+  border: 1px solid var(--grey-8);
+  border-radius: 8px 8px 0 0;
+}
+
 :deep(.ql-container) {
-  border: 0 !important;
+  border-radius: 0 0 8px 8px;
+  border: 1px solid var(--grey-8);
 }
 
 :deep(.ql-toolbar .ql-toolbar) {
