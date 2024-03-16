@@ -709,7 +709,7 @@ export default {
         .forEach((elem) => {
           formData.append(`${elem}`, data[elem]);
         });
-      if (!this.fileList.at(-1)?.id) {
+      if (!this.fileList.at(-1)?.id && this.fileList.at(-1)?.originFileObj) {
         formData.append("avatar", this.fileList.at(-1).originFileObj);
       }
       this.$refs.ruleForm.validate((valid) => {

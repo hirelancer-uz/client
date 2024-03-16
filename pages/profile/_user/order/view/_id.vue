@@ -14,12 +14,14 @@
       @selected="selected"
       :reasons="reasons"
     />
+    <Loader v-if="loading"/>
   </div>
 </template>
 <script>
 import CustomerOrder from "@/components/profile/orders/CustomerOrder.vue";
 import FreelancerOrder from "@/components/profile/orders/FreelancerOrder.vue";
 import moment from "moment";
+import Loader from "@/components/Loader.vue";
 export default {
   data() {
     return {
@@ -70,6 +72,7 @@ export default {
   components: {
     CustomerOrder,
     FreelancerOrder,
+    Loader
   },
 };
 </script>
