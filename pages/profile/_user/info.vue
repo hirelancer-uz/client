@@ -1,8 +1,8 @@
 <template>
-  <div class="profile container">
+  <div class="profile">
     <!-- <ProfileLayout :profile="true"> -->
-    <div class="mt-8">
-      <Alerts />
+    <div class="mt-8 xl:mt-6">
+      <Alerts :notifications="notifications"  :loading="loading"/>
     </div>
     <div
       class="personal-information mt-8"
@@ -46,9 +46,11 @@ export default {
     return {
       userInfo: {},
       comments: [],
+      notifications: []
     };
   },
   async mounted() {
+    this.__GET_NOTIFICATIONS()
     this.__GET_COMMENTS();
     this.$store.commit("setPageData", {
       title: "Профиль",
@@ -62,6 +64,21 @@ export default {
     this.$store.commit("setPageData", {});
   },
   methods: {
+    async __GET_NOTIFICATIONS() {
+      try {
+        const data = await this.$store.dispatch(
+            "fetchNotifications/getNotifications"
+        );
+        this.notifications = data?.content;
+        // this.totalPage = ""
+      } catch (e) {
+        this.$notification.error({
+          description: e.response.statusText,
+        });
+      } finally {
+        this.loading = false;
+      }
+    },
     async __GET_COMMENTS() {
       try {
         this.loading = true;

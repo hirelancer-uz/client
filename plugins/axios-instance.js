@@ -17,9 +17,12 @@ export default ({ $axios, redirect, error }, inject) => {
   });
 
   axiosInstance.onError(async (e) => {
-    const errors = [401, 403];
+    const errors = [401];
     if (errors.includes(e.response.status))
-      if (localStorage.getItem(tokenKey)) localStorage.removeItem(tokenKey);
+      if (localStorage.getItem(tokenKey)) {
+        location.reload()
+        localStorage.removeItem(tokenKey);
+      }
 
     return Promise.reject(e);
   });

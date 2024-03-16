@@ -87,6 +87,14 @@
       </button>
     </div>
     <div class="left">
+      <div class="flex flex-col gap-4 mb-[100px] xl:mb-[24px]" v-if="loading">
+        <a-skeleton
+          :paragraph="false"
+          class="loading-card"
+          v-for="elem in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+          :key="elem"
+        />
+      </div>
       <div
         class="flex flex-col gap-4 mb-[100px] xl:mb-[24px]"
         v-if="orders?.length > 0"
@@ -175,11 +183,14 @@
                   {{ dropItem?.name_ru }}
 
                   <div class="count text-[#9A999B]">
-                    ({{ dropItem?.children.length }})
+                    ({{
+                      dropItem?.children.reduce((sum,elem) => {
+                        return sum + elem?.orders_count
+                      }, 0)
+                    }})
                   </div>
                 </h2>
                 <span
-                  @click="handleDropdown(dropItem.id)"
                   :class="{
                     'rotate-180':
                       (dropItem.children.find(
@@ -228,7 +239,7 @@
                       <span> {{ dropIn?.name_ru }}</span>
                     </a-tooltip>
                     <span class="text-[12px] text-grey-40"
-                      >({{ dropIn?.freelancers_count }})</span
+                      >({{ dropIn?.orders_count }})</span
                     >
                   </button>
                 </div>
@@ -306,7 +317,9 @@
                     {{ dropItem?.name_ru }}
 
                     <div class="count text-[#9A999B]">
-                      ({{ dropItem?.children.length }})
+                      ({{ dropItem?.children.reduce((sum,elem) => {
+                      return sum + elem?.orders_count
+                    }, 0) }})
                     </div>
                   </h2>
                   <span
@@ -359,7 +372,7 @@
                         <span> {{ dropIn?.name_ru }}</span>
                       </a-tooltip>
                       <span class="text-[12px] text-grey-40"
-                        >({{ dropIn?.freelancers_count }})</span
+                        >({{ dropIn?.orders_count }})</span
                       >
                     </button>
                   </div>
@@ -404,7 +417,7 @@ import VPagination from "../VPagination.vue";
 import OrderCard from "../home/OrderCard.vue";
 
 export default {
-  props: ["orders", "specialities", "pageSize", "totalPage"],
+  props: ["orders", "specialities", "pageSize", "totalPage","loading"],
   data() {
     return {
       dropdown: false,
@@ -534,7 +547,11 @@ export default {
 .orders-list :deep(.ant-checkbox-checked::after) {
   border-color: var(--blue);
 }
-
+:deep(.loading-card .ant-skeleton-title) {
+  width: 100%;
+  height: 304px;
+  border-radius: 24px;
+}
 @media (max-width: 1200px) {
   .orders-list {
     grid-template-columns: 1fr;

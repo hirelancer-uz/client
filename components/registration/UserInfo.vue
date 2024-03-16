@@ -355,7 +355,7 @@
             v-if="userType"
             ref="name"
             class="form-item"
-            :placeholder="$store.state.translations[`auth.birthday`]"
+            :label="$store.state.translations[`auth.birthday`]"
             prop="date_of_birth"
           >
             <!-- <a-date-picker

@@ -303,7 +303,8 @@
                   <div
                     class="w-full img-card overflow-hidden h-[104px] xl:h-[90px] border border-solid border-grey-8 rounded-[4px] flex justify-center items-center relative"
                   >
-                    <img class="object-cover" :src="item.url" alt="" />
+                    <img v-if="imgFileTypes.includes(item.id ? item.url.split('.').at(-1):item.name.split('.').at(-1))" class="object-cover" :src="item.url" alt="" />
+                    <IconsDocxFile v-else />
                     <button
                       @click="handleRemove(item)"
                       class="bg-white w-[30px] img-delete h-[30px] rounded-[10px] absolute flex items-center justify-center"
@@ -326,9 +327,10 @@
                       </svg>
                     </button>
                   </div>
-                  <p class="text-grey-80 text-[12px] truncate">
-                    {{ item.name }}
-                  </p>
+                  <div class="w-full flex items-center">
+                    <p class="text-grey-80 text-[12px] truncate"> {{ item.id ? item.url:item.name }}</p>
+                    <p class="text-grey-80 text-[12px]">.{{item.id ? item.url.split('.').at(-1):item.name.split('.').at(-1)}}</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -562,7 +564,7 @@ import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
 import CancellationOrder from "@/components/modals/CancellationOrder.vue";
-
+import { imgFileTypes } from "@/helpers/constants";
 function getBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -575,6 +577,7 @@ function getBase64(file) {
 export default {
   data() {
     return {
+      imgFileTypes: imgFileTypes,
       editorOption: {
         theme: "snow",
         modules: {
@@ -792,6 +795,7 @@ export default {
             id: item.id,
           };
         });
+        console.log(this.fileList)
       } catch (e) {
       } finally {
         this.loading = false;
@@ -833,7 +837,6 @@ export default {
       this.previewVisible = true;
     },
     handleChange({ fileList }) {
-      console.log(fileList);
       this.fileList = fileList.map((item) => {
         let url = item.id ? item.url : URL.createObjectURL(item.originFileObj);
         return {
@@ -1076,7 +1079,10 @@ export default {
 :deep(.has-error) textarea {
   border-color: var(--red);
 }
+:deep(.has-error .ant-input-number) {
+  border-color: var(--red);
 
+}
 .errorSelect .modal-select {
   border-color: var(--red);
 }

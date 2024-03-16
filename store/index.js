@@ -5,7 +5,7 @@ export const state = () => ({
   translations: {},
   lang: "",
   orderCounts: {},
-  userType: 'freelancer'
+  userType: 'freelancer',
 });
 
 export const mutations = {
@@ -43,7 +43,7 @@ export const actions = {
     try {
       await this.$axiosInstance.$get("/api/auth/logout");
       commit("logout");
-      commit("getUserInfo");
+      commit("getUserInfo",{});
     } catch (e) {
       commit("logout");
     }

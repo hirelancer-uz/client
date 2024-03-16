@@ -27,36 +27,41 @@
         </svg>
       </nuxt-link>
     </div>
-<!--    <div class="alert-swiper swiper mt-6 xl:hidden" v-if="Object.values(notifications).length > 0">-->
-<!--      <div class="swiper-wrapper">-->
-<!--        <div-->
-<!--          class="swiper-slide"-->
-<!--          v-for="(notification, index) in notifications"-->
-<!--          :key="notification?.id"-->
-<!--        >-->
-<!--          <AlertsCard-->
-<!--            :class="{-->
-<!--              'xl:ml-4': index == 0 || Object.values(notifications).length - 1 == index,-->
-<!--            }"-->
-<!--            :notification="notification"-->
-<!--          />-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div-->
-<!--    <div  class="alerts-list gap-2 mt-6 hidden xl:flex xl:overflow-x-scroll xl:mt-4 xl:mx-[-16px]"-->
-<!--      v-if="true"-->
-<!--    >-->
-<!--      <AlertsCard-->
-<!--        v-for="(notification, index) in Object.values(notifications)"-->
-<!--        :key="notification?.id"-->
-<!--        :class="{-->
-<!--          'xl:ml-4': index == 0 || notifications.length - 1 == index,-->
-<!--        }"-->
-<!--        :notification="notification"-->
-<!--      />-->
-<!--    </div>-->
+    <div class="xl:hidden">
+      <div class="alert-swiper swiper mt-6 xl:hidden" v-show="notifications?.length > 0">
+        <div class="swiper-wrapper">
+          <div
+              class="swiper-slide"
+              v-for="(notification, index) in notifications"
+              :key="notification?.id"
+          >
+            <AlertsCard
+                :class="{
+              'xl:ml-4': index === 0 || notifications?.length - 1 === index,
+            }"
+                :notification="notification"
+            />
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div  class="alerts-list gap-2 mt-6 hidden xl:flex xl:overflow-x-scroll xl:mt-4 xl:mx-[-16px]"
+          v-show="notifications?.length > 0"
+    >
+      <AlertsCard
+        v-for="(notification, index) in notifications"
+        :key="notification?.id"
+        :class="{
+          'xl:ml-4': index === 0,
+          'xl:mr-4': notifications?.length - 1 == index
+        }"
+        :notification="notification"
+      />
+    </div>
     <div
+        v-if="!loading && notifications?.length == 0"
       class="h-[208px] xl:h-[111px] flex justify-center items-center mb-[-24px]"
     >
       <VEmpty />

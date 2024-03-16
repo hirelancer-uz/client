@@ -328,7 +328,7 @@ export default {
         const data = await this.$store.dispatch(
           "fetchFreelancers/getFreelancers",
           {
-            params: { ...this.$route.query },
+            params: { ...this.$route.query,[`specialities[${this.$route.params.id}]`]: this.$route.params.id, },
           }
         );
         this.freelancers = data.data;

@@ -9,7 +9,7 @@
     <div class="flex justify-between max-w-[818px] mt-4 ">
 
       <div
-        class="buttons  xl:justify-center bg-white flex gap-6 xl:gap-12 xl:mt-[-3px] xl:relative z-[2000] xl:pt-[3px] xl:hidden"
+        class="buttons  xl:justify-center bg-white flex gap-6 xl:gap-12 xl:mt-[-3px] xl:relative z-[1000] xl:pt-[3px] xl:hidden"
       >
         <button
           @click="$router.push(localePath(`/profile/${$route.params.user}/settings`))"
@@ -45,7 +45,7 @@
     </div>
     <a-form-model ref="ruleForm" :model="form" :rules="rules">
       <div
-        class="max-w-[818px] pt-6 xl:pt-4 flex flex-col gap-6 relative container"
+        class="max-w-[818px] pt-6 xl:pt-0 flex flex-col gap-6 relative"
       >
         <div
           v-if="laoding"
@@ -313,7 +313,6 @@
                 <a-form-model-item
                   class="form-item"
                   :label="$store.state.translations['auth.bio']"
-                  prop="bio"
                 >
                   <!-- <a-input v-model="form.bio" placeholder="O’zhaqingizda ma’lumot" /> -->
                   <quill-editor
@@ -627,13 +626,13 @@ export default {
             trigger: "blur",
           },
         ],
-        bio: [
-          {
-            required: true,
-            message: this.$store.state.translations["auth.required"],
-            trigger: "blur",
-          },
-        ],
+        // bio: [
+        //   {
+        //     required: true,
+        //     message: this.$store.state.translations["auth.required"],
+        //     trigger: "blur",
+        //   },
+        // ],
         specialities: [
           {
             required: true,
@@ -776,14 +775,9 @@ export default {
             window.scrollTo(0, 0);
           }
         }
-      } catch (e) {
-        if (e.response.status == 401) {
-          localStorage.removeItem("auth-token");
-          this.$router.push(this.localePath("/"));
-        }
-      } finally {
+      }  finally {
         this.laoding = false;
-      }
+        }
     },
     async __POST_REGISTER(form) {
       try {

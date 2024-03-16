@@ -28,7 +28,7 @@
       </button>
     </div>
     <div
-      class="max-w-[818px] pt-6 xl:pt-4 flex flex-col gap-6 relative container"
+      class="max-w-[818px] pt-6 xl:pt-4 flex flex-col gap-6 relative"
     >
       <div
         class="px-8 py-6 border border-solid border-border-darik rounded-[16px] xl:px-4 xl:py-4"

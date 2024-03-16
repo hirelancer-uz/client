@@ -60,7 +60,11 @@
                 {{ dropItem?.name_ru }}
 
                 <div class="count text-[#9A999B]">
-                  ({{ dropItem?.children.length }})
+                  ({{
+                    dropItem?.children.reduce((sum, item) => {
+                      return sum + item?.freelancers_count
+                    }, 0)
+                  }})
                 </div>
               </h2>
               <span

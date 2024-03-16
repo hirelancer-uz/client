@@ -22,7 +22,7 @@ export default {
   async fetch() {
     const translations = await translationsApi.getTranslations(this.$axios, {
       headers: {
-        Language: this.$i18n.locale,
+        Lang: this.$i18n.locale,
       },
     });
     await this.$store.commit("getTranslations", translations);

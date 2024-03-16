@@ -54,7 +54,6 @@ export default {
   },
 
   async fetch() {
-    console.log(this.$i18n.locale)
     const translations = await translationsApi.getTranslations(this.$axios, {
       headers: {
         Lang: this.$i18n.locale,
@@ -67,13 +66,14 @@ export default {
     authCheck() {
       return this.$store.state.auth;
     },
-
+    userCheck() {
+      return this.$store.state.userInfo["id"];
+    },
     currentLang() {
       return this.$i18n.locale;
     },
   },
   async mounted() {
-    console.log(this.$route.path === "/profile/freelancer");
     if (localStorage.getItem("auth-token")) {
       try {
         const [userInfoData] = await Promise.all([
@@ -81,9 +81,14 @@ export default {
         ]);
         this.$store.commit("getUserInfo", userInfoData);
       } catch (e) {}
+    } else {
+      this.$store.commit("getUserInfo", {});
     }
   },
   watch: {
+    // userCheck(val) {
+    //   localStorage.removeItem("auth-token");
+    // },
     authCheck(val) {
       if (!val && this.$route.name.includes("profile")) {
         this.$router.push(this.localePath("/"));

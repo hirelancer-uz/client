@@ -140,19 +140,6 @@
             </svg>
           </button>
         </div>
-        <!-- <div class="tab flex gap-4 xl:grid xl:grid-cols-2">
-          <button
-            class="px-6 h-[40px] flex items-center bg-bg-grey rounded-lg xl:justify-center xl:h-[44px] text-[14px] text-grey-64 border border-solid border-bg-grey"
-            :class="{ active: true }"
-          >
-            Фрилансеры
-          </button>
-          <button
-            class="px-6 h-[40px] flex items-center bg-bg-grey rounded-lg xl:justify-center xl:h-[44px] text-[14px] text-grey-64 border border-solid border-bg-grey"
-          >
-            Команды
-          </button>
-        </div> -->
         <div class="body mt-[30px] xl:mt-4">
           <FreelancersFilter
             :regions="regions"
@@ -295,6 +282,7 @@ export default {
         this.clearFilter(this.$route.path);
       }
     },
+   
     async clearFilter() {
       if (Object.keys(this.$route.query).length > 2) {
         await this.$router.replace({

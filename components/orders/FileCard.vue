@@ -1,7 +1,7 @@
 <template>
   <div class="card file-card flex flex-col gap-[8px]">
     <div
-      v-if="fileTypes.includes(fyleType)"
+      v-if="imgFileTypes.includes(fyleType)"
       class="image h-[104px] w-[104px] xl:w-full xl:h-[90px] rounded-[4px] xl:rounded-lg overflow-hidden cursor-pointer"
       @click="previewImg = true"
     >
@@ -84,12 +84,14 @@
   </div>
 </template>
 <script>
+import { imgFileTypes } from "@/helpers/constants";
+
 export default {
   props: ["file"],
   data() {
     return {
       previewImg: false,
-      fileTypes: ['jpeg', 'jpg', 'png', 'gif', 'svg', 'webp', 'ico'],
+      imgFileTypes: imgFileTypes
     };
   },
   computed: {

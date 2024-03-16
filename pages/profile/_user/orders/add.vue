@@ -9,7 +9,7 @@
 
       <div class="buttons flex gap-4 xl:hidden">
         <button
-          @click="$router.go(-1)"
+          @click="toBack"
           class="border-[2px] border-solid border-border-darik rounded-[12px] h-[54px] min-w-[194px] flex justify-center items-center gap-2 text-base text-grey-64 font-medium"
         >
           {{ $store.state.translations["auth.cancel"] }}
@@ -198,7 +198,6 @@
               class="order-item w-full mb-0"
               prop="description"
             >
-
               <quill-editor
                 style="min-height: 250px"
                 :options="editorOption"
@@ -291,7 +290,8 @@
                   <div
                     class="w-full img-card overflow-hidden h-[104px] xl:h-[90px] border border-solid border-grey-8 rounded-[4px] flex justify-center items-center relative"
                   >
-                    <img class="object-cover" :src="item.url" alt="" />
+                    <img v-if="imgFileTypes.includes(item.name.split('.').at(-1))" class="object-cover" :src="item.url" alt="" />
+                    <IconsDocxFile v-else />
                     <button
                       @click="handleRemove(item)"
                       class="bg-white w-[30px] img-delete h-[30px] rounded-[10px] absolute flex items-center justify-center"
@@ -314,9 +314,11 @@
                       </svg>
                     </button>
                   </div>
-                  <p class="text-grey-80 text-[12px] truncate">
-                    {{ item.name }}
-                  </p>
+
+                  <div class="w-full flex items-center">
+                    <p class="text-grey-80 text-[12px] truncate"> {{ item.name }}</p>
+                    <p class="text-grey-80 text-[12px]">.{{item.name.split('.').at(-1)}}</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -547,6 +549,7 @@
 import Loader from "@/components/Loader.vue";
 import LoaderBtn from "@/components/loader-btn.vue";
 import SpicialsticsCheck from "@/components/modals/SpicialsticsCheck.vue";
+import { imgFileTypes } from "@/helpers/constants";
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
@@ -563,17 +566,17 @@ function getBase64(file) {
 export default {
   data() {
     return {
-
+      imgFileTypes: imgFileTypes,
       editorOption: {
         theme: "snow",
         modules: {
           toolbar: [
             ["bold", "italic", "underline", "strike"],
             ["blockquote"],
-            [{header: 1}, {header: 2}],
-            [{list: "ordered"}, {list: "bullet"}],
-            [{color: []}],
-            [{align: []}],
+            [{ header: 1 }, { header: 2 }],
+            [{ list: "ordered" }, { list: "bullet" }],
+            [{ color: [] }],
+            [{ align: [] }],
             ["link"],
           ],
         },
@@ -638,7 +641,6 @@ export default {
     this.$store.commit("setPageData", {});
   },
   mounted() {
-
     this.loading = true;
     if (!localStorage.getItem("auth-token")) {
       this.$router.push(this.localePath("/"));
@@ -652,7 +654,7 @@ export default {
       link: true,
     });
   },
-  async asyncData({store}) {
+  async asyncData({ store }) {
     const [specialitiesData] = await Promise.all([
       store.dispatch("fetchSpecialities/getSpecialities"),
     ]);
@@ -662,7 +664,9 @@ export default {
     };
   },
   methods: {
-
+    toBack() {
+     this.$router.go(-1)
+    },
     openSpecial() {
       this.$refs.specialities.open();
       this.$refs.specialities.openModal();
@@ -674,7 +678,7 @@ export default {
     handleBeforeUpload(file) {
       return true;
     },
-    customRequest({onSuccess, onError, file}) {
+    customRequest({ onSuccess, onError, file }) {
       const reader = new FileReader();
       reader.onload = () => {
         const uploadedFile = {
@@ -683,7 +687,9 @@ export default {
           originFileObj: file,
           url: reader.result,
         };
+
         this.fileList.push(uploadedFile);
+        console.log(this.fileList)
         onSuccess();
       };
       reader.onerror = () => {
@@ -699,7 +705,7 @@ export default {
     },
     deleteChecked(id) {
       this.activeCheckedList = this.activeCheckedList.filter(
-          (item) => item.id !== id
+        (item) => item.id !== id
       );
     },
     open() {
@@ -755,8 +761,7 @@ export default {
           message: "Success",
           description: "Успешно отправлен",
         });
-        this.$router.go(-1);
-        // this.$router.push(`/profile/customer/order/view/${}`);
+        this.$router.push(`/profile/customer/order/view/${data?.content?.id}`);
       } catch (e) {
         this.$notification["error"]({
           message: "Error",
@@ -776,7 +781,7 @@ export default {
       this.previewImage = file.url || file.preview;
       this.previewVisible = true;
     },
-    handleChange({fileList}) {
+    handleChange({ fileList }) {
       console.log(fileList);
       this.fileList = fileList.map((item) => {
         let url = URL.createObjectURL(item.originFileObj);
@@ -1028,7 +1033,10 @@ export default {
 :deep(.has-error) textarea {
   border-color: var(--red);
 }
+:deep(.has-error .ant-input-number) {
+  border-color: var(--red);
 
+}
 .errorSelect .modal-select {
   border-color: var(--red);
 }

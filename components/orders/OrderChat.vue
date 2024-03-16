@@ -17,7 +17,7 @@
       </svg>
     </button>
 
-    <ChatModal ref="customerChat" />
+    <ChatModal ref="customerChat" :status="status" />
 
     <div
       class="chat rounded-[16px] border border-solid border-grey-light chatter"

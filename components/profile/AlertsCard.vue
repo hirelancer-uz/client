@@ -22,14 +22,14 @@
     <div class="flex flex-col justify-between h-full xl:gap-4">
       <div class="flex flex-col gap-2">
         <h3 class="text-base font-medium text-black xl:text-[14px]">
-          Сообщение от Akmal Ikromov
+          {{ notification?.theme?.ru }}
         </h3>
         <p class="text-[14px] text-gray-64 xl:text-[12px]">
-          У заказчиков должна быть возможность оценить ваши навыки
+          {{notification?.message?.ru}}
         </p>
       </div>
       <nuxt-link
-        to=""
+        :to="`/profile/customer/order/view/${notification?.link}`"
         class="text-[12px] text-blue font-semibold uppercase flex gap-1 items-center"
         >{{ $store.state.translations["profile.read"] }}
         <svg
@@ -53,6 +53,7 @@
 </template>
 <script>
 export default {
+  props: ["notification"],
   name: "AlertsCard",
 };
 </script>

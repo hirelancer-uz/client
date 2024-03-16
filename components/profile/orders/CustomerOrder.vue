@@ -591,8 +591,7 @@
               @openChat="chatHandle = true"
               :order="order"
             />
-            <button
-              v-if="order?.requests.length == 0"
+            <span
               class="flex py-4 rounded-lg bg-grey-light w-full items-center justify-center gap-6 text-base font-medium text-blue xl:text-[14px] xl:gap-4 xl:flex-row-reverse"
             >
               <svg
@@ -613,7 +612,7 @@
                 />
               </svg>
               {{ $store.state.translations["profile.offers"] }}
-            </button>
+            </span>
           </div>
           <div
             class="xl:hidden customer-chat"

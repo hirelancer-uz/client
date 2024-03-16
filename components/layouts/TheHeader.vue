@@ -514,7 +514,7 @@
             </button>
             <button
               @click="$router.push(localePath('/registration'))"
-              class="rounded-xl text-4 py-3 px-6 font-medium font-tt bg-blue text-white"
+              class="rounded-xl h-[56px] flex items-center px-6 font-semibold font-tt bg-blue text-white text-base"
             >
               {{ $store.state.translations["header.lets-register"] }}
             </button>

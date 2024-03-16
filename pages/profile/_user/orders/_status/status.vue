@@ -1,5 +1,5 @@
 <template>
-  <div class="portfolio xl:px-4 xl:pt-6">
+  <div class="portfolio xl:pt-6">
     <!-- <ProfileLayout :profile="true"> -->
     <div class="head flex flex-col gap-4 xl:gap-6 mt-8 xl:mt-0">
       <div class="flex justify-between xl:hidden">

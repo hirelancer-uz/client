@@ -175,6 +175,7 @@
 
 <script>
 export default {
+  props: ['status'],
   computed: {
     imgUrl() {
       return this.$config.baseURL + "/storage/";

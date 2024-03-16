@@ -1,18 +1,29 @@
 <template lang="html">
   <div
     ref="priceBox"
-    class="bottom-bar px-3 hidden xl:block pb-3 bg-white z-50 pt-1 w-full fixed left-0 bottom-0 rounded-t-[16px] border-[0] border-t border-solid border-border-darik flex-col gap-1"
+    class="bottom-bar px-3 hidden xl:flex pb-3 bg-white z-50 pt-1 w-full fixed left-0 bottom-0 rounded-t-[16px] border-[0] border-t border-solid border-border-darik flex-col gap-1"
   >
     <button
-      v-if="
-        $store.state.auth &&
-        Boolean($store.state.userInfo['name']) &&
-        $route.name === 'freelancers'
-      "
+      v-if="showAddOrderButton"
       @click="$router.push(localePath('/profile/orders/add'))"
-      class="h-12 flex justify-center items-center bg-main-color rounded-[12px] text-[14px] font-semibold text-white w-full border-[1px] border-blue border-solid buttoner"
+      class="h-12 flex justify-center gap-2 items-center bg-main-color rounded-[12px] text-[14px] font-semibold text-white w-full border-[1px] border-blue border-solid buttoner"
     >
       {{ $store.state.translations["header.add-order"] }}
+      <svg
+        width="21"
+        height="20"
+        viewBox="0 0 21 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M10.5 6.66663V13.3333M13.8334 9.99996H7.16669M15.5 1.66663H5.50002C3.65907 1.66663 2.16669 3.15901 2.16669 4.99996V15C2.16669 16.8409 3.65907 18.3333 5.50002 18.3333H15.5C17.341 18.3333 18.8334 16.8409 18.8334 15V4.99996C18.8334 3.15901 17.341 1.66663 15.5 1.66663Z"
+          stroke="white"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
     </button>
     <div class="menu flex justify-between">
       <button
@@ -55,8 +66,9 @@
             stroke="#5D5D5F"
             stroke-width="1.5"
             stroke-linecap="round"
-          /></svg
-        >{{ $store.state.translations["header.main-page"] }}
+          />
+        </svg>
+        {{ $store.state.translations["header.main-page"] }}
       </button>
       <button
         @click="$router.push(localePath('/orders'))"
@@ -108,8 +120,9 @@
             stroke="#5D5D5F"
             stroke-width="1.5"
             stroke-linejoin="round"
-          /></svg
-        >{{ $store.state.translations["header.orders"] }}
+          />
+        </svg>
+        {{ $store.state.translations["header.orders"] }}
       </button>
       <button
         @click="$router.push(localePath('/freelancers'))"
@@ -180,8 +193,9 @@
             clip-rule="evenodd"
             d="M7.30845 6.26711C7.20719 6.2558 7.10427 6.25 7 6.25C5.48122 6.25 4.25 7.48122 4.25 9C4.25 10.5188 5.48122 11.75 7 11.75C7.48537 11.75 7.94138 11.6243 8.33721 11.4036C7.99374 11.0341 7.70549 10.6126 7.4856 10.1522C7.33631 10.2152 7.17222 10.25 7 10.25C6.30964 10.25 5.75 9.69036 5.75 9C5.75 8.30964 6.30964 7.75 7 7.75C7.00205 7.75 7.00409 7.75 7.00614 7.75001C7.0317 7.23096 7.13641 6.73272 7.30845 6.26711Z"
             fill="#5D5D5F"
-          /></svg
-        >{{ $store.state.translations["header.freelancers"] }}
+          />
+        </svg>
+        {{ $store.state.translations["header.freelancers"] }}
       </button>
       <button
         @click="
@@ -234,6 +248,20 @@
 </template>
 <script>
 export default {
+  data() {
+    return {
+      accessRoutesAddOrder: ["/", "/freelancers"],
+    };
+  },
+  computed: {
+    showAddOrderButton() {
+      return (
+        this.$store.state.auth &&
+        Boolean(this.$store.state.userInfo["name"]) &&
+        this.accessRoutesAddOrder.find((item) => item === this.$route.path)
+      );
+    },
+  },
   mounted() {
     // var header = this.$refs.priceBox;
     // window.addEventListener("scroll", () => {
@@ -256,9 +284,11 @@ export default {
   box-shadow: 0px 4px 8px 0px rgba(0, 25, 53, 0.16);
   z-index: 8;
 }
+
 .bottom-bar .active {
   color: var(--main-color);
 }
+
 /* .bottom-bar .active svg path,
 .bottom-bar .active svg circle,
 .bottom-bar .active svg ellipse {
