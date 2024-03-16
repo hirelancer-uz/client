@@ -165,9 +165,14 @@
 
                 </a-select> -->
           </a-form-model-item>
-          <div class="order-item">
-            <label class="flex gap-3 mb-3">
-              {{ $store.state.translations["order.order-comment"] }}
+
+          <div>
+            <div
+              class="order-item required top flex items-center gap-[16px] mb-3"
+            >
+              <label class="inline gap-3 relative">
+                {{ $store.state.translations["order.order-comment"] }}
+              </label>
 
               <a-tooltip placement="top">
                 <template slot="title">
@@ -193,11 +198,8 @@
                   />
                 </svg>
               </a-tooltip>
-            </label>
-            <a-form-model-item
-              class="order-item w-full mb-0"
-              prop="description"
-            >
+            </div>
+            <a-form-model-item class="order-item required" prop="description">
               <quill-editor
                 style="min-height: 250px"
                 :options="editorOption"
@@ -205,12 +207,6 @@
                 v-model="form.description"
                 :placeholder="$store.state.translations[`order.order-comment`]"
               />
-              <!-- <a-input
-                type="textarea"
-                rows="5"
-                v-model="form.description"
-                placeholder="Большое спасибо за всю мебель. Очень качественно и по доступным ценам Мы очень рады совместной работе с вами!  "
-              /> -->
             </a-form-model-item>
           </div>
 
@@ -767,8 +763,7 @@ export default {
           dataForm
         );
         this.$notification["success"]({
-          message: "Success",
-          description: "Успешно отправлен",
+          message: this.$store.state.translations["modal.sent-done"],
         });
         this.$router.push(`/profile/customer/order/view/${data?.content?.id}`);
       } catch (e) {
@@ -1104,8 +1099,13 @@ export default {
   font-size: 16px;
 }
 
-:deep(.has-error .quill-editor) {
+:deep(.has-error .ql-toolbar),
+:deep(.has-error .ql-container) {
   border-color: red;
+}
+
+:deep(.has-error .ql-toolbar) {
+  border-bottom-color: #e0e0ed;
 }
 
 .checkbox_el {

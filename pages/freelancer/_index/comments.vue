@@ -2,20 +2,25 @@
   <div class="master">
     <ProfileLayout :profile="false" :freelancer="freelancer" :show="true">
       <div class="container">
-        <div class="sort__comments">
-          <a-select v-model="currentStatus">
-            <a-select-option
-              :value="item.value"
-              :key="index"
-              v-for="(item, index) in status"
-            >
-              {{ item.label }}
-            </a-select-option>
-          </a-select>
+        <div class="header flex items-center justify-between">
+          <h4 class="section__title">
+            {{ $store.state.translations["profile.comments"] }}
+          </h4>
+          <div class="sort__comments">
+            <a-select v-model="currentStatus">
+              <a-select-option
+                :value="item.value"
+                :key="index"
+                v-for="(item, index) in status"
+              >
+                {{ item.label }}
+              </a-select-option>
+            </a-select>
+          </div>
         </div>
         <div>
           <div
-            class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 xl:grid-cols-1 gap-4 mb-[40px]"
+            class="personal-information items xl:mt-6 grid grid-cols-2 xl:grid-cols-1 gap-4 mb-[40px]"
             v-if="loading"
           >
             <a-skeleton
@@ -27,7 +32,7 @@
           </div>
           <div
             v-if="!loading && comments.length > 0"
-            class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 xl:grid-cols-1 gap-4 mb-[40px]"
+            class="personal-information items xl:mt-6 grid grid-cols-2 xl:grid-cols-1 gap-4 mb-[40px]"
           >
             <CommentsCard
               v-for="feedback in comments"
@@ -43,7 +48,7 @@
         </div>
         <div
           v-if="freelancer?.customers_feedbacks?.length == 0 && !loading"
-          class="personal-information items mt-8 xl:mt-6 grid grid-cols-2 xl:grid-cols-1 gap-4 mb-[40px]"
+          class="personal-information items xl:mt-6 grid grid-cols-2 xl:grid-cols-1 gap-4 mb-[40px]"
         >
           <CoomentsEmptyCard />
           <CoomentsEmptyCard />
@@ -173,12 +178,6 @@ export default {
   width: 100%;
   height: 384px;
 }
-.sort__comments {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  margin-top: -50px;
-}
 :deep(.ant-select) {
   width: 216px;
 }
@@ -198,6 +197,16 @@ export default {
   font-weight: 400;
   line-height: 150%; /* 24px */
 }
+.section__title {
+  color: var(--Black, #020105);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+}
+.header {
+  padding: 32px 0;
+}
 @media screen and (max-width: 1024px) {
   .sort__comments {
     position: static;
@@ -206,6 +215,12 @@ export default {
   }
   :deep(.ant-select) {
     width: 100%;
+  }
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px 0 0 0;
+    gap: 12px;
   }
 }
 </style>

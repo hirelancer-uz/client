@@ -24,6 +24,7 @@ export default {
   data() {
     return {
       order: {},
+      orderRequests: [],
       loading: true,
     };
   },
@@ -61,6 +62,9 @@ export default {
           id: this.$route.params.id,
         });
         this.order = data?.content;
+        this.orderRequests = this.order.requests.reverse();
+
+        console.log(this.orderRequests);
       } catch (e) {
       } finally {
         this.loading = false;

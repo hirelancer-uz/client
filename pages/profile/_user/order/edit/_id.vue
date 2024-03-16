@@ -30,26 +30,26 @@
           </svg>
         </button>
         <button
-            @click="onSubmit"
-            class="w-full border border-solid border-blue bg-blue rounded-[8px] h-[54px] min-w-[194px] flex justify-center items-center text-base text-white font-medium gap-2 xl:hidden"
-            :class="{ 'pointer-events-none opacity-50': loadingBtn }"
+          @click="onSubmit"
+          class="w-full border border-solid border-blue bg-blue rounded-[8px] h-[54px] min-w-[194px] flex justify-center items-center text-base text-white font-medium gap-2 xl:hidden"
+          :class="{ 'pointer-events-none opacity-50': loadingBtn }"
         >
           {{ $store.state.translations["order.share"] }}
           <LoaderBtn v-if="loadingBtn" />
           <svg
-              v-else
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
+            v-else
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
           >
             <path
-                d="M8 12L10.5347 14.2812C10.9662 14.6696 11.6366 14.6101 11.993 14.1519L16 9M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                stroke="white"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+              d="M8 12L10.5347 14.2812C10.9662 14.6696 11.6366 14.6101 11.993 14.1519L16 9M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+              stroke="white"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
             />
           </svg>
         </button>
@@ -303,7 +303,18 @@
                   <div
                     class="w-full img-card overflow-hidden h-[104px] xl:h-[90px] border border-solid border-grey-8 rounded-[4px] flex justify-center items-center relative"
                   >
-                    <img v-if="imgFileTypes.includes(item.id ? item.url.split('.').at(-1):item.name.split('.').at(-1))" class="object-cover" :src="item.url" alt="" />
+                    <img
+                      v-if="
+                        imgFileTypes.includes(
+                          item.id
+                            ? item.url.split('.').at(-1)
+                            : item.name.split('.').at(-1)
+                        )
+                      "
+                      class="object-cover"
+                      :src="item.url"
+                      alt=""
+                    />
                     <IconsDocxFile v-else />
                     <button
                       @click="handleRemove(item)"
@@ -328,8 +339,16 @@
                     </button>
                   </div>
                   <div class="w-full flex items-center">
-                    <p class="text-grey-80 text-[12px] truncate"> {{ item.id ? item.url:item.name }}</p>
-                    <p class="text-grey-80 text-[12px]">.{{item.id ? item.url.split('.').at(-1):item.name.split('.').at(-1)}}</p>
+                    <p class="text-grey-80 text-[12px] truncate">
+                      {{ item.id ? item.url : item.name }}
+                    </p>
+                    <p class="text-grey-80 text-[12px]">
+                      .{{
+                        item.id
+                          ? item.url.split(".").at(-1)
+                          : item.name.split(".").at(-1)
+                      }}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -344,25 +363,25 @@
           </div>
           <div class="grid grid-cols-2 gap-[70px] xl:grid-cols-1 xl:gap-4">
             <a-form-model-item
-              class=" w-full mb-0"
+              class="w-full mb-0"
               :label="$store.state.translations['order.deadline-days']"
               prop="deadline"
             >
               <a-input-number
-                  :formatter="
+                :formatter="
                   (value) =>
                     value.length > 0
                       ? `${value.replace(/[^0-9.]/g, '')} дней`
                       : `${value.replace(/[^0-9.]/g, '')}`
                 "
-                  :parser="
+                :parser="
                   (value) => value.replace(/[^0-9.]/g, '').replace(' дней', '')
                 "
-                  :class="{
+                :class="{
                   'opacity-50 pointer-events-none': form.deadline_negotiable,
                 }"
-                  v-model="form.deadline"
-                  placeholder="0"
+                v-model="form.deadline"
+                placeholder="0"
               />
             </a-form-model-item>
             <div class="flex items-end mb-3">
@@ -377,9 +396,9 @@
                     }
                   "
                 />
-                <p
-                  class="text-[20px] text-black font-medium xl:text-[14px]"
-                >  {{ $store.state.translations["order.deal-deadline"] }}</p>
+                <p class="text-[20px] text-black font-medium xl:text-[14px]">
+                  {{ $store.state.translations["order.deal-deadline"] }}
+                </p>
                 <a-tooltip placement="top">
                   <template slot="title">
                     {{ $store.state.translations["order.deadline-days"] }}
@@ -410,27 +429,27 @@
           ></div>
           <div class="grid grid-cols-2 gap-[70px] xl:grid-cols-1 xl:gap-4">
             <a-form-model-item
-              class=" w-full mb-0"
+              class="w-full mb-0"
               :label="$store.state.translations['order.price']"
               prop="price"
             >
               <a-input-number
-                  :formatter="
+                :formatter="
                   (value) =>
                     `${value.replace(/[^0-9.]/g, '')}`.replace(
                       /\B(?=(\d{3})+(?!\d))/g,
                       ' '
                     )
                 "
-                  :parser="
+                :parser="
                   (value) =>
                     value.replace(/[^0-9.]/g, '').replace(/\$\s?|( *)/g, '')
                 "
-                  :class="{
+                :class="{
                   'opacity-50 pointer-events-none': form.price_negotiable,
                 }"
-                  v-model="form.price"
-                  placeholder="0"
+                v-model="form.price"
+                placeholder="0"
               />
             </a-form-model-item>
             <div class="flex items-end mb-3">
@@ -655,7 +674,6 @@ export default {
     this.$store.commit("setPageData", {});
   },
   mounted() {
-
     this.$store.commit("setPageData", {
       title: this.$store.state.translations["profile.edit"],
       center: false,
@@ -763,8 +781,7 @@ export default {
           data,
         });
         this.$notification["success"]({
-          message: "Success",
-          description: "Успешно отправлен",
+          message: this.$store.state.translations["modal.sent-done"],
         });
         this.$router.go(-1);
       } catch (e) {
@@ -795,7 +812,7 @@ export default {
             id: item.id,
           };
         });
-        console.log(this.fileList)
+        console.log(this.fileList);
       } catch (e) {
       } finally {
         this.loading = false;
@@ -1081,7 +1098,6 @@ export default {
 }
 :deep(.has-error .ant-input-number) {
   border-color: var(--red);
-
 }
 .errorSelect .modal-select {
   border-color: var(--red);
@@ -1120,7 +1136,7 @@ export default {
 
 :deep(.ql-editor) {
   min-height: 250px;
-  //color: #353437;
+  /* color: #353437; */
   font-family: "TT Interfaces", serif;
   font-size: 16px;
   font-style: normal;

@@ -11,7 +11,9 @@
     >
       <button
         :to="`/profile/${$route.params.user}/settings`"
-        @click="$router.push(localePath(`/profile/${$route.params.user}/settings`))"
+        @click="
+          $router.push(localePath(`/profile/${$route.params.user}/settings`))
+        "
         :class="{ active: !$route.name.includes('specialities') }"
         class="px-6 py-3 relative rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] xl:font-semibold text-base text-grey-64 font-medium xl:py-0 xl:flex xl:items-center xl:h-9 whitespace-nowrap xl:rounded-lg"
       >
@@ -19,7 +21,9 @@
       </button>
       <button
         @click="
-          $router.push(localePath(`/profile/${$route.params.user}/settings/specialities`))
+          $router.push(
+            localePath(`/profile/${$route.params.user}/settings/specialities`)
+          )
         "
         :class="{ active: $route.name.includes('specialities') }"
         class="px-6 py-0 xl:flex xl:items-center relative rounded-[12px] border-solid border-[2px] xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] xl:font-semibold border-bg-grey bg-bg-grey text-base text-grey-64 font-medium xl:py-2 xl:h-9 whitespace-nowrap xl:rounded-lg"
@@ -27,9 +31,7 @@
         {{ $store.state.translations["header.specs"] }}
       </button>
     </div>
-    <div
-      class="max-w-[818px] pt-6 xl:pt-4 flex flex-col gap-6 relative"
-    >
+    <div class="max-w-[818px] pt-6 xl:pt-4 flex flex-col gap-6 relative">
       <div
         class="px-8 py-6 border border-solid border-border-darik rounded-[16px] xl:px-4 xl:py-4"
       >
@@ -127,9 +129,9 @@
             {{ $store.state.translations["auth.spec"] }}
             {{ $store.state.translations["profile.max-three"] }}
           </p>
-<!--          <button class="text-main-color text-[14px] xl:text-[12px]">-->
-<!--            {{ $store.state.translations["profile.add-more"] }}-->
-<!--          </button>-->
+          <!--          <button class="text-main-color text-[14px] xl:text-[12px]">-->
+          <!--            {{ $store.state.translations["profile.add-more"] }}-->
+          <!--          </button>-->
         </div>
       </div>
     </div>
@@ -232,20 +234,18 @@ export default {
         );
         if (data.success) {
           this.$notification["success"]({
-            message: "Success",
-            description: "Успешно изменен",
+            message: this.$store.state.translations["modal.change-done"],
           });
           this.__GET_SPECIAL();
         }
       } catch (e) {
-
-        if(e.response.status == 500) {
+        if (e.response.status == 500) {
           this.$notification["error"]({
-            message: this.$store.state.translations['profile.spec-err-title'],
-            description: this.$store.state.translations['profile.spec-err-text'],
+            message: this.$store.state.translations["profile.spec-err-title"],
+            description:
+              this.$store.state.translations["profile.spec-err-text"],
           });
         } else {
-
           this.$notification["error"]({
             message: "Error",
             description: e.response.statusText,

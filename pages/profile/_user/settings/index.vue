@@ -788,8 +788,7 @@ export default {
         const data = await this.$store.dispatch("fetchAuth/postUserEdit", form);
         if (data.success) {
           this.$notification["success"]({
-            message: "Success",
-            description: "Успешно изменен",
+            message: this.$store.state.translations["modal.change-done"],
           });
           this.__GET_USER_INFO();
         }

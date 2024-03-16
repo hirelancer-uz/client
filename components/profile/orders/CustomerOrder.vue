@@ -857,7 +857,7 @@ export default {
       );
     },
   },
-  mounted() {
+  async mounted() {
     if (!localStorage.getItem("auth-token")) {
       this.$router.push(this.localePath("/"));
     }

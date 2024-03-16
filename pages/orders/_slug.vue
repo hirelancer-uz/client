@@ -281,7 +281,9 @@
                   :key="specialit?.id"
                 >
                   <span
-                    @click="$router.push(localePath(`/specialities/${specialit?.id}`))"
+                    @click="
+                      $router.push(localePath(`/specialities/${specialit?.id}`))
+                    "
                     class="rounded-[22px] py-2 px-4 bg-bg-grey text-grey-64 text-[14px] font-medium cursor-pointer"
                     >{{ specialit?.name_ru }} </span
                   ><span
@@ -624,8 +626,7 @@ export default {
         );
         if (data.success) {
           this.$notification["success"]({
-            message: "Success",
-            description: "Успешно изменен",
+            message: this.$store.state.translations["modal.change-done"],
           });
           await this.$store.dispatch("reloadUserInfo");
           this.activeCheckedList = this.$store.state.userInfo.specialities;
