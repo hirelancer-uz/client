@@ -205,7 +205,7 @@
                 :options="editorOption"
                 :value="form.description"
                 v-model="form.description"
-                :placeholder="$store.state.translations[`order.order-comment`]"
+                placeholder="Text"
               />
             </a-form-model-item>
           </div>
@@ -249,7 +249,7 @@
                   </div>
                 </a-upload> -->
                 <a-upload
-                    v-if="fileList.length < 12"
+                  v-if="fileList.length < 12"
                   :multiple="true"
                   accept=".pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .jpeg, .jpg, .png, .gif, .svg, .mp3, .wav, ., ogg, .mp4, .avi, .mkv, .zip, .rar, .7z, .bmp, .tiff, .flv, .txt, .rtf, .csv, .bmp, ., tiff, .webp, .ico, .wma, .aiff, .mov, .webm, .xml"
                   list-type="picture-card"
@@ -257,10 +257,7 @@
                   :before-upload="handleBeforeUpload"
                   :custom-request="customRequest"
                 >
-                  <div
-
-                    class="flex justify-center bg-bg-grey"
-                  >
+                  <div class="flex justify-center bg-bg-grey">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="20"
@@ -575,6 +572,7 @@ export default {
       imgFileTypes: imgFileTypes,
       editorOption: {
         theme: "snow",
+        placeholder: this.$store.state.translations["order.tooltip"],
         modules: {
           toolbar: [
             ["bold", "italic", "underline", "strike"],
@@ -694,7 +692,7 @@ export default {
           url: reader.result,
         };
 
-        if(this.fileList.length < 12) {
+        if (this.fileList.length < 12) {
           this.fileList.push(uploadedFile);
         }
         onSuccess();
@@ -769,7 +767,7 @@ export default {
         });
         this.$router.push(`/profile/customer/order/view/${data?.content?.id}`);
       } catch (e) {
-        console.log(e.response)
+        console.log(e.response);
         this.$notification["error"]({
           message: "Error",
           description: e.response.statusText,

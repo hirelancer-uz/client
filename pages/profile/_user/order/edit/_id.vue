@@ -267,18 +267,15 @@
                   </div>
                 </a-upload> -->
                 <a-upload
-                    v-if="fileList.length < 12"
-                    :multiple="true"
+                  v-if="fileList.length < 12"
+                  :multiple="true"
                   list-type="picture-card"
                   :file-list="fileList"
                   :before-upload="handleBeforeUpload"
                   :custom-request="customRequest"
                   accept=".pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .jpeg, .jpg, .png, .gif, .svg, .mp3, .wav, ., ogg, .mp4, .avi, .mkv, .zip, .rar, .7z, .bmp, .tiff, .flv, .txt, .rtf, .csv, .bmp, ., tiff, .webp, .ico, .wma, .aiff, .mov, .webm, .xml"
                 >
-                  <div
-
-                    class="flex justify-center bg-bg-grey"
-                  >
+                  <div class="flex justify-center bg-bg-grey">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="20"
@@ -601,6 +598,7 @@ export default {
       imgFileTypes: imgFileTypes,
       editorOption: {
         theme: "snow",
+        placeholder: this.$store.state.translations["order.tooltip"],
         modules: {
           toolbar: [
             ["bold", "italic", "underline", "strike"],
@@ -839,7 +837,7 @@ export default {
           originFileObj: file,
           url: reader.result,
         };
-        if(this.fileList.length < 12) {
+        if (this.fileList.length < 12) {
           this.fileList.push(uploadedFile);
         }
         onSuccess();
