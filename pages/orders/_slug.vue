@@ -317,7 +317,7 @@
                 {{ $store.state.translations["profile.order-files"] }}
               </h6>
               <div
-                class="file-list flex gap-4 justify-start xl:grid xl:grid-cols-3"
+                class="file-list flex flex-wrap gap-4 justify-start xl:grid xl:grid-cols-3"
               >
                 <FileCard
                   v-for="file in order?.files"

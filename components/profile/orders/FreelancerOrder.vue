@@ -2,7 +2,7 @@
   <div class="pt-12 order xl:px-4 xl:pt-0">
     <div class="max-w-[1286px] mx-auto pb-[55px]">
       <button
-          @click="$router.go(-1)"
+        @click="$router.go(-1)"
         class="back-btn flex gap-4 w-[162px] py-3 border border-grey-24 border-solid rounded-lg justify-center items-center text-base font-medium text-blue hover:text-blue xl:hidden"
       >
         <svg
@@ -35,7 +35,7 @@
         <div class="flex flex-col gap-6 max-w-[918px]">
           <div
             class="info-box rounded-3xl border-solid border-grey-light border-[2px] relative overflow-hidden max-h-[430px] xl:rounded-none xl:px-0 xl:border-[0]"
-            :class="{ active: openBlock || order?.status < 2 }"
+            :class="{ active: openBlock }"
           >
             <div
               class="status flex justify-center pt-[18px] pb-[18px] border-[0] border-b-[2px] border-solid border-grey-light relative xl:hidden"
@@ -94,7 +94,8 @@
                 </span>
               </div>
               <div
-                class="files flex flex-col gap-4 mt-4" v-if="order?.files?.length > 0"
+                class="files flex flex-col gap-4 mt-4"
+                v-if="order?.files?.length > 0"
               >
                 <h6 class="text-black text-[20px] font-semibold xl:text-[18px]">
                   {{ $store.state.translations["profile.order-files"] }}
@@ -118,7 +119,11 @@
                     :key="specialit?.id"
                   >
                     <span
-                      @click="$router.push(localePath(`/specialities/${specialit?.id}`))"
+                      @click="
+                        $router.push(
+                          localePath(`/specialities/${specialit?.id}`)
+                        )
+                      "
                       class="rounded-[22px] py-2 px-4 bg-bg-grey text-grey-64 text-[14px] font-medium cursor-pointer"
                       >{{ specialit?.name_ru }} </span
                     ><span
@@ -229,29 +234,35 @@
               </div>
             </div>
             <div
-              class="flex items-center justify-center xl:pb-2 h-12 w-full bg-bg-grey absolute bottom-0 cursor-pointer xl:h-11 xl:justify-end xl:pr-4"
-              v-if="!openBlock && order?.status > 1"
-              @click="openBlock = true"
+              class="flex items-center justify-center xl:pb-2 h-12 w-full bg-bg-grey absolute bottom-0 show-all cursor-pointer xl:h-11 xl:justify-end xl:pr-4"
+              @click="openBlock = !openBlock"
             >
               <button
                 class="flex gap-2 text-purple text-base font-medium items-center"
               >
-                {{ $store.state.translations["profile.reveal"]
-                }}<svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M7 10L12 14L17 10"
-                    stroke="#7037EA"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+                <p v-if="openBlock == false">
+                  {{ $store.state.translations["profile.reveal"] }}
+                </p>
+                <p v-else>
+                  {{ $store.state.translations["order.close"] }}
+                </p>
+                <div class="icon" :class="{ rotate: openBlock == true }">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path
+                      d="M7 10L12 14L17 10"
+                      stroke="#7037EA"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
               </button>
             </div>
           </div>
@@ -273,7 +284,7 @@
                   v-if="order?.deadline"
                 >
                   {{ order?.deadline }}
-                    {{ $store.state.translations["order.days"] }}
+                  {{ $store.state.translations["order.days"] }}
                 </h1>
                 <h1
                   class="text-black text-base font-semibold xl:text-base"
@@ -654,13 +665,13 @@ export default {
       try {
         this.loadingBtn = true;
         const data = await this.$store.dispatch(
-            "fetchOrders/postCanceledOrder",
-            {
-              id: this.$route.params.id,
-              data: formData,
-            }
+          "fetchOrders/postCanceledOrder",
+          {
+            id: this.$route.params.id,
+            data: formData,
+          }
         );
-        this.closeOrderCancel()
+        this.closeOrderCancel();
       } catch (e) {
         if (e.response) {
           this.$notification["error"]({
@@ -867,14 +878,7 @@ export default {
     opacity: 1;
   }
 }
-.show-all {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.86) 46.88%,
-    #fff 100%
-  );
-}
+
 @media (max-width: 1200px) {
   .content-box {
     grid-template-columns: 1fr;
@@ -893,5 +897,8 @@ export default {
     box-shadow: 0px 4px 36px 0px rgba(0, 25, 53, 0.16);
     grid-template-columns: 1fr 2fr;
   }
+}
+.icon.rotate {
+  transform: rotate(180deg);
 }
 </style>
