@@ -65,7 +65,7 @@
         <div class="flex flex-col gap-6 max-w-[834px]">
           <div
             class="info-box rounded-3xl border-solid border-grey-8 border relative max-h-[430px] overflow-hidden xl:border-[0] xl:rounded-none"
-            :class="{ active: openBlock || order?.status < 2 }"
+            :class="{ active: openBlock }"
           >
             <div class="info px-6 py-6 xl:px-0 xl:py-0">
               <div
@@ -116,7 +116,10 @@
                 >
                 </span>
               </div>
-              <div class="files flex flex-col gap-4 mt-4" v-if="order?.files?.length > 0">
+              <div
+                class="files flex flex-col gap-4 mt-4"
+                v-if="order?.files?.length > 0"
+              >
                 <h6 class="text-black text-[20px] font-semibold xl:text-[18px]">
                   {{ $store.state.translations["profile.order-files"] }}
                 </h6>
@@ -257,28 +260,34 @@
             </div>
             <div
               class="flex items-center justify-center xl:pb-2 h-12 w-full bg-bg-grey absolute bottom-0 show-all cursor-pointer xl:h-11 xl:justify-end xl:pr-4"
-              v-if="!openBlock && order?.status > 1"
-              @click="openBlock = true"
+              @click="openBlock = !openBlock"
             >
               <button
                 class="flex gap-2 text-purple text-base font-medium items-center"
               >
-                {{ $store.state.translations["profile.reveal"] }}
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M7 10L12 14L17 10"
-                    stroke="#7037EA"
-                    stroke-width="1.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+                <p v-if="openBlock == false">
+                  {{ $store.state.translations["profile.reveal"] }}
+                </p>
+                <p v-else>
+                  {{ $store.state.translations["order.close"] }}
+                </p>
+                <div class="icon" :class="{ rotate: openBlock == true }">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <path
+                      d="M7 10L12 14L17 10"
+                      stroke="#7037EA"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
               </button>
             </div>
           </div>
@@ -1289,5 +1298,8 @@ export default {
   .favorite {
     font-size: 14px;
   }
+}
+.icon.rotate {
+  transform: rotate(180deg);
 }
 </style>
