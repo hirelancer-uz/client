@@ -28,7 +28,43 @@
         <h3 class="text-[24px] text-black font-semibold">Онлайн чат</h3>
         <p class="text-[14px] text-grey-64">В сети / Был(а) 3 минут назад</p>
       </div>
-      <div class="chat-body px-6 py-6 flex flex-col gap-[30px]">
+      <div
+        class="chat-body px-6 py-6 flex flex-col gap-[30px] max-h-[500px] overflow-y-scroll flex-col-reverse"
+      >
+        <div class="" v-for="message in messages" :key="message?.id">
+          <div
+            class="flex justify-end"
+            v-if="$store.state?.userInfo?.id == message?.from"
+          >
+            <div
+              class="chat-client-card max-w-[40%] flex gap-2 px-3 py-3 rounded-t-[10px] rounded-l-[10px] bg-main-color items-end"
+            >
+              <p class="text-white text-[14px]">
+                {{ message?.message }}
+              </p>
+              <span class="text-white text-[12px]">{{
+                moment(message?.created_at).format("HH:mm")
+              }}</span>
+            </div>
+          </div>
+          <div class="flex justify-start" v-else>
+            <div
+              class="chat-client-card max-w-[40%] flex gap-2 px-3 py-3 rounded-t-[10px] rounded-l-[10px] bg-bg-grey items-end"
+            >
+              <p class="text-black text-[14px]">{{ message?.message }}</p>
+              <span class="text-black text-[12px]">{{
+                moment(message?.created_at).format("HH:mm")
+              }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-center">
+          <div
+            class="chat-date w-[123px] h-[32px] rounded-[50px] flex justify-center items-center bg-bg-grey text-black text-[14px]"
+          >
+            <span>20.09.2023</span>
+          </div>
+        </div>
         <div class="flex justify-end">
           <div
             class="chat-card px-4 py-4 rounded-[14px] rounded-br-none bg-main-color flex flex-col gap-3 max-w-[642px]"
@@ -54,33 +90,8 @@
             </div>
           </div>
         </div>
-        <div class="flex justify-center">
-          <div
-            class="chat-date w-[123px] h-[32px] rounded-[50px] flex justify-center items-center bg-bg-grey text-black text-[14px]"
-          >
-            <span>20.09.2023</span>
-          </div>
-        </div>
-        <div class="flex justify-end">
-          <div
-            class="chat-client-card max-w-[40%] flex gap-2 px-3 py-3 rounded-t-[10px] rounded-l-[10px] bg-main-color items-end"
-          >
-            <p class="text-white text-[14px]">
-              Меня заинтересовал ваш проект. Моя цель – создавать интересные и
-              интуитивно по
-            </p>
-            <span class="text-white text-[12px]">14:30</span>
-          </div>
-        </div>
-        <div class="flex justify-start">
-          <div
-            class="chat-client-card max-w-[40%] flex gap-2 px-3 py-3 rounded-t-[10px] rounded-l-[10px] bg-bg-grey items-end"
-          >
-            <p class="text-black text-[14px]">Bu men yozganim</p>
-            <span class="text-black text-[12px]">14:30</span>
-          </div>
-        </div>
       </div>
+
       <div
         v-if="status > 3"
         class="chat-footer flex justify-center px-6 py-6 border-[0] border-t border-solid border-grey-light text-grey-80 text-base italic"
@@ -92,7 +103,7 @@
         class="chat-footer flex justify-between items-center px-6 py-4 border-[0] border-t border-solid border-grey-light"
       >
         <a-input
-          v-model="message"
+          v-model="form.message"
           placeholder="Напишите сообщение ..."
           class="text-input"
         />
@@ -157,7 +168,6 @@
         </div>
       </div>
     </div> -->
-    {{messages}}
   </div>
 </template>
 <script>
@@ -169,12 +179,11 @@ export default {
   props: ["status", "order"],
   data() {
     return {
-      message: "",
       messages: [],
       form: {
-        message: "Test message",
-        order_id: 39,
-        to: 1002,
+        message: "",
+        order_id: null,
+        to: null,
       },
     };
   },
@@ -186,30 +195,13 @@ export default {
     },
   },
   mounted() {
-    // this.__GET_CHAT_MESSAGES();
-    this.channel = this.$pusher.subscribe('my-channel');
-    this.channel.bind("my-event", (data) => {
-      this.__GET_CHAT_MESSAGES();
+    this.__GET_CHAT_MESSAGES();
+    var channel = this.$pusher.subscribe("my-channel");
+    channel.bind("my-event", function (data) {
+      alert(JSON.stringify(data));
     });
-
-
   },
   methods: {
-    sendMessage() {
-      console.log(this.$pusher);
-      if (this.message.trim() !== "") {
-        // var channel = this.$pusher.subscribe('my-channel');
-        // channel.bind('my-event', function(data) {
-        //   alert(JSON.stringify(data));
-        // });
-        // pusher.trigger("my-channel", "my-event", { message: "hello world" });
-        // var channel = pusher.subscribe("my-channel");
-        // channel.bind("my-event", (data) => {
-        // });
-
-        this.message = "";
-      }
-    },
     openCustomerChat() {
       this.$refs.customerChat.open();
     },
@@ -225,10 +217,13 @@ export default {
       try {
         const data = await this.$store.dispatch("fetchChat/getChatMesssage", {
           params: {
-            order_id: this.$route.params.id
+            order_id: this.$route.params.id,
           },
         });
-        console.log(data);
+
+        this.messages = data?.data?.content.filter(
+          (item) => item.from === this.$store.state.userInfo?.id
+        );
       } catch (e) {}
     },
     async __POST_CHAT_MESSAGE(formData) {
@@ -237,10 +232,22 @@ export default {
           "fetchChat/postChatMesssage",
           formData
         );
+        this.__GET_CHAT_MESSAGES();
+        this.form = {
+          message: "",
+          order_id: null,
+          to: null,
+        };
       } catch (e) {}
     },
 
     moment,
+  },
+  watch: {
+    "$store.state.userInfo.id"(val) {
+      console.log(val);
+      this.__GET_CHAT_MESSAGES();
+    },
   },
 };
 </script>
