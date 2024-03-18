@@ -137,6 +137,28 @@
                   class="h-[19px] w-[1px] bg-grey-8"
                 ></span>
                 <span
+                  v-if="order?.status === 0"
+                  class="flex gap-[7px] items-center rounded-[8px] text-dark-yellow text-[14px] font-medium"
+                  ><svg
+                    width="18"
+                    height="20"
+                    viewBox="0 0 18 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M6.92154 0.571247C8.2077 -0.190416 9.7923 -0.190416 11.0785 0.571247L15.9215 3.43932C17.2077 4.20099 18 5.6086 18 7.13192V12.8681C18 14.3914 17.2077 15.799 15.9215 16.5607L15.301 16.9281L11.0785 19.4288C9.7923 20.1904 8.20769 20.1904 6.92154 19.4288L2.69896 16.9281L2.07846 16.5607C0.792305 15.799 0 14.3914 0 12.8681V7.13192C0 5.6086 0.792305 4.20099 2.07846 3.43932L6.92154 0.571247ZM13.0952 13.2041C12.023 12.4572 10.5831 12 9 12C7.41692 12 5.97703 12.4572 4.90484 13.2041C4.39026 13.5626 4.49802 14.2988 5.03578 14.6215L8.4855 16.6913C8.80219 16.8813 9.19781 16.8813 9.5145 16.6913L12.9642 14.6215C13.502 14.2988 13.6097 13.5626 13.0952 13.2041ZM9 4C10.6569 4 12 5.34315 12 7C12 8.65685 10.6569 10 9 10C7.34315 10 6 8.65685 6 7C6 5.34315 7.34315 4 9 4Z"
+                      fill="#F2994A"
+                    />
+                  </svg>
+
+                  {{
+                    $store.state.translations["order.pending-modiration"]
+                  }}</span
+                >
+                <span
                   v-if="step1"
                   class="flex gap-[7px] items-center rounded-[8px] text-dark-yellow text-[14px] font-medium"
                   ><svg
@@ -214,6 +236,39 @@
 
                   {{ $store.state.translations["profile.done"] }}</span
                 >
+                <div
+                  class="flex gap-[10px] xl:gap-2 items-center relative z-10 xl:mr-4"
+                  v-if="cancelStatus.includes(order?.status)"
+                >
+                  <span class="flex justify-center items-center relative">
+                    <span
+                      class="icon w-full h-full z-10 flex relative justify-center items-center rounded-full"
+                    >
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          opacity="0.4"
+                          d="M22 19V16C22 14.3431 20.6569 13 19 13H18C17.3705 13 16.7777 13.2964 16.4 13.8L15.2 15.4C14.4446 16.4072 13.259 17 12 17C10.741 17 9.55542 16.4072 8.8 15.4L7.6 13.8C7.22229 13.2964 6.62951 13 6 13H5C3.34315 13 2 14.3431 2 16V19C2 20.6569 3.34315 22 5 22H19C20.6569 22 22 20.6569 22 19Z"
+                          fill="#F2154A"
+                        />
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M5 13H6C6.62951 13 7.22229 13.2964 7.6 13.8L8.8 15.4C9.55542 16.4072 10.741 17 12 17C13.259 17 14.4446 16.4072 15.2 15.4L16.4 13.8C16.7777 13.2964 17.3705 13 18 13H19C19.3506 13 19.6872 13.0602 20 13.1707V6C20 3.79086 18.2091 2 16 2H8C5.79086 2 4 3.79086 4 6V13.1707C4.31278 13.0602 4.64936 13 5 13ZM14.6516 7.40899C14.9445 7.1161 14.9445 6.64123 14.6516 6.34833C14.3587 6.05544 13.8839 6.05544 13.591 6.34833L12 7.93932L10.409 6.34834C10.1161 6.05544 9.64123 6.05544 9.34833 6.34834C9.05544 6.64123 9.05544 7.1161 9.34833 7.409L10.9393 8.99998L9.34833 10.591C9.05544 10.8839 9.05544 11.3587 9.34833 11.6516C9.64123 11.9445 10.1161 11.9445 10.409 11.6516L12 10.0606L13.591 11.6516C13.8839 11.9445 14.3587 11.9445 14.6516 11.6516C14.9445 11.3587 14.9445 10.8839 14.6516 10.591L13.0606 8.99998L14.6516 7.40899Z"
+                          fill="#F2154A"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                  <p class="text-[14px] font-medium text-light-red">
+                    {{ $store.state.translations["profile.cancelled"] }}
+                  </p>
+                </div>
                 <p
                   class="hidden xl:flex text-base text-grey-64 xl:text-[14px] gap-[6px]"
                 >
@@ -254,7 +309,10 @@
                 specific assigned tasks and billing hours to ASU Prep.
               </p> -->
             </div>
-            <div class="files flex flex-col gap-4 mt-4 pl-2">
+            <div
+              class="files flex flex-col gap-4 mt-4 pl-2"
+              v-if="order?.files.length > 0"
+            >
               <h6 class="text-black text-[20px] font-semibold xl:text-[18px]">
                 {{ $store.state.translations["profile.order-files"] }}
               </h6>
@@ -281,7 +339,9 @@
                   :key="specialit?.id"
                 >
                   <span
-                    @click="$router.push(localePath(`/specialities/${specialit?.id}`))"
+                    @click="
+                      $router.push(localePath(`/specialities/${specialit?.id}`))
+                    "
                     class="rounded-[22px] py-2 px-4 bg-bg-grey text-grey-64 text-[14px] font-medium cursor-pointer"
                     >{{ specialit?.name_ru }} </span
                   ><span
@@ -499,6 +559,8 @@ import SpicialsticsCheck from "@/components/modals/SpicialsticsCheck.vue";
 export default {
   data() {
     return {
+      cancelStatus: [5, 6],
+      selectedStatus: [2, 3],
       dateFormat: "DD MMM YYYY, HH:mm",
       activeCheckedList: [],
     };
@@ -508,20 +570,26 @@ export default {
       return this.$store.state.userInfo["id"];
     },
     step1() {
-      return !this.order?.selected_request && !this.order?.start_of_execution;
+      return (
+        !this.order?.selected_request &&
+        !this.order?.start_of_execution &&
+        this.order?.status === 1
+      );
     },
     step2() {
       return (
         this.order?.selected_request &&
         this.order?.start_of_execution &&
-        !this.order?.end_of_execution
+        !this.order?.end_of_execution &&
+        this.selectedStatus.includes(this.order.status)
       );
     },
     step3() {
       return (
         this.order?.selected_request &&
         this.order?.start_of_execution &&
-        this.order?.end_of_execution
+        this.order?.end_of_execution &&
+        this.order?.status == 4
       );
     },
   },
@@ -624,8 +692,7 @@ export default {
         );
         if (data.success) {
           this.$notification["success"]({
-            message: "Success",
-            description: "Успешно изменен",
+            message: this.$store.state.translations["modal.change-done"],
           });
           await this.$store.dispatch("reloadUserInfo");
           this.activeCheckedList = this.$store.state.userInfo.specialities;

@@ -104,6 +104,39 @@
 
           {{ $store.state.translations["profile.finished"] }}</span
         >
+        <div
+          class="flex gap-[10px] xl:gap-2 items-center relative z-10 xl:mr-4"
+          v-if="cancelStatus.includes(order?.status)"
+        >
+          <span class="flex justify-center items-center relative">
+            <span
+              class="icon w-full h-full z-10 flex relative justify-center items-center rounded-full"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  opacity="0.4"
+                  d="M22 19V16C22 14.3431 20.6569 13 19 13H18C17.3705 13 16.7777 13.2964 16.4 13.8L15.2 15.4C14.4446 16.4072 13.259 17 12 17C10.741 17 9.55542 16.4072 8.8 15.4L7.6 13.8C7.22229 13.2964 6.62951 13 6 13H5C3.34315 13 2 14.3431 2 16V19C2 20.6569 3.34315 22 5 22H19C20.6569 22 22 20.6569 22 19Z"
+                  fill="#F2154A"
+                />
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M5 13H6C6.62951 13 7.22229 13.2964 7.6 13.8L8.8 15.4C9.55542 16.4072 10.741 17 12 17C13.259 17 14.4446 16.4072 15.2 15.4L16.4 13.8C16.7777 13.2964 17.3705 13 18 13H19C19.3506 13 19.6872 13.0602 20 13.1707V6C20 3.79086 18.2091 2 16 2H8C5.79086 2 4 3.79086 4 6V13.1707C4.31278 13.0602 4.64936 13 5 13ZM14.6516 7.40899C14.9445 7.1161 14.9445 6.64123 14.6516 6.34833C14.3587 6.05544 13.8839 6.05544 13.591 6.34833L12 7.93932L10.409 6.34834C10.1161 6.05544 9.64123 6.05544 9.34833 6.34834C9.05544 6.64123 9.05544 7.1161 9.34833 7.409L10.9393 8.99998L9.34833 10.591C9.05544 10.8839 9.05544 11.3587 9.34833 11.6516C9.64123 11.9445 10.1161 11.9445 10.409 11.6516L12 10.0606L13.591 11.6516C13.8839 11.9445 14.3587 11.9445 14.6516 11.6516C14.9445 11.3587 14.9445 10.8839 14.6516 10.591L13.0606 8.99998L14.6516 7.40899Z"
+                  fill="#F2154A"
+                />
+              </svg>
+            </span>
+          </span>
+          <p class="text-[12px] font-medium text-light-red">
+            {{ $store.state.translations["profile.cancelled"] }}
+          </p>
+        </div>
         <span
           v-if="order?.urgent"
           class="flex w-[1px] h-[27px] bg-grey-8 xl:hidden"
@@ -295,6 +328,8 @@ export default {
       hourFormat: "HH:mm",
       visibleButtons: [],
       currentWidth: 0,
+      cancelStatus: [5,6],
+      selectedStatus: [2,3]
     };
   },
   async mounted() {
@@ -307,20 +342,20 @@ export default {
     },
 
     step1() {
-      return !this.order?.selected_request && !this.order?.start_of_execution;
+      return !this.order?.selected_request && !this.order?.start_of_execution && this.order.status === 1
     },
     step2() {
       return (
         this.order?.selected_request &&
         this.order?.start_of_execution &&
-        !this.order?.end_of_execution
+        !this.order?.end_of_execution && this.selectedStatus.includes(this.order.status)
       );
     },
     step3() {
       return (
         this.order?.selected_request &&
         this.order?.start_of_execution &&
-        this.order?.end_of_execution
+        this.order?.end_of_execution && this.order?.status === 4
       );
     },
   },
@@ -403,10 +438,13 @@ export default {
 :deep(.order-desc ul) {
   display: none;
 }
-:deep(.order-desc strong),:deep(.order-desc span) {
+
+:deep(.order-desc strong),
+:deep(.order-desc span) {
   font-weight: 400;
   color: var(--grey-80) !important;
 }
+
 :deep(.order-desc p:first-child) {
   word-break: break-word;
   display: block;

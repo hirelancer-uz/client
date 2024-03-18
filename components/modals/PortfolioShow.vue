@@ -54,7 +54,9 @@
             v-if="$route.path == '/profile/freelancer/portfolio'"
             class="border border-solid border-main-color bg-bg-grey px-[10px] rounded-[6px] text-main-color text-base flex h-[37px] items-center gap-[6px] xl:hidden"
             @click="
-              $router.push(localePath(`/profile/freelancer/portfolio/${portfolio?.id}`))
+              $router.push(
+                localePath(`/profile/freelancer/portfolio/${portfolio?.id}`)
+              )
             "
           >
             <svg
@@ -265,7 +267,9 @@
       >
         <button
           @click="
-            $router.push(localePath(`/profile/freelancer/portfolio/${portfolio?.id}`))
+            $router.push(
+              localePath(`/profile/freelancer/portfolio/${portfolio?.id}`)
+            )
           "
           class="w-full h-12 flex justify-center items-center bg-main-color text-white rounded-xl"
         >
@@ -327,7 +331,7 @@ export default {
     },
 
     imgUrl() {
-      return this.$config.baseURL + "/storage/"
+      return this.$config.baseURL + "/storage/";
     },
   },
   methods: {
@@ -353,8 +357,7 @@ export default {
           this.portfolio?.id
         );
         this.$notification["success"]({
-          message: "Success",
-          description: "Muvaffaqiyatli o'chirildi",
+          message: this.$store.state.translations["modal.delete-done"],
         });
         this.$emit("getData");
         this.closeModal();

@@ -429,8 +429,7 @@ export default {
         this.loadingBtn = true;
         await this.$store.dispatch("fetchPortfolio/postWork", data);
         this.$notification["success"]({
-          message: "Success",
-          description: "Успешно отправлен",
+          message: this.$store.state.translations["modal.sent-done"],
         });
         this.$router.go(-1);
       } catch (e) {

@@ -3,7 +3,7 @@
     class="freelancer-tab flex justify-between items-end xl:border-[0] xl:border-b xl:border-solid xl:border-border-darik"
   >
     <div
-      class="rounded-2xl bg-bg-grey px-4 xl:px-0 py-4 flex gap-6 xl:bg-transparent xl:overflow-x-scroll xl:gap-3 scroll-none xl:pb-6 xl:grid xl:grid-cols-3 w-full xl:px-[16px] xl:py-[24px]"
+      class="rounded-2xl bg-bg-grey px-4 xl:px-0 py-4 flex gap-6 xl:bg-transparent xl:overflow-x-scroll xl:gap-3 scroll-none xl:pb-6 xl:grid xl:grid-cols-3 xl:px-[16px] xl:py-[24px]"
     >
       <nuxt-link
         :to="`/freelancer/${$route.params.index}`"

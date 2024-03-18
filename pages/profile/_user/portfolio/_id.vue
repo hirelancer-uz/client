@@ -360,7 +360,7 @@ export default {
   },
   computed: {
     imgUrl() {
-      return this.$config.baseURL + "/storage/"
+      return this.$config.baseURL + "/storage/";
     },
     imageRequired() {
       return Object.values(this.fileList).some((elem) => elem.length);
@@ -469,8 +469,7 @@ export default {
           id: this.$route.params.id,
         });
         this.$notification["success"]({
-          message: "Success",
-          description: "Успешно отправлен",
+          message: this.$store.state.translations["modal.sent-done"],
         });
         this.$router.go(-1);
       } catch (e) {

@@ -597,6 +597,7 @@ export default {
       imgFileTypes: imgFileTypes,
       editorOption: {
         theme: "snow",
+        placeholder: this.$store.state.translations["order.tooltip"],
         modules: {
           toolbar: [
             ["bold", "italic", "underline", "strike"],
@@ -789,8 +790,7 @@ export default {
           data,
         });
         this.$notification["success"]({
-          message: "Success",
-          description: "Успешно отправлен",
+          message: this.$store.state.translations["modal.sent-done"],
         });
         this.$router.go(-1);
       } catch (e) {
@@ -1150,7 +1150,8 @@ export default {
 
 :deep(.ql-editor) {
   min-height: 250px;
-  //color: #353437; font-family: "TT Interfaces", serif; font-size: 16px;
+  font-family: "TT Interfaces", serif;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 150%;

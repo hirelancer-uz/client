@@ -226,13 +226,14 @@ export default {
   },
   watch: {
     routerName(newVal, lastVal) {
-      if (newVal < lastVal && this.search.length > 0) {
-        this.search = "";
-      }
+      // if (newVal < lastVal && this.search.length > 0) {
+      //   this.search = "";
+      // }
     },
   },
 
   mounted() {
+    this.search = this.$route.query?.search
     this.getFirstData();
     this.$store.commit("setPageData", {
       title: "Frilanserlar",
@@ -281,7 +282,7 @@ export default {
         this.clearFilter(this.$route.path);
       }
     },
-   
+
     async clearFilter() {
       if (Object.keys(this.$route.query).length > 2) {
         await this.$router.replace({

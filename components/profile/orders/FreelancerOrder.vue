@@ -94,10 +94,10 @@
                 </span>
               </div>
               <div
-                class="files flex flex-col gap-4 mt-4"
+                class="files flex flex-col gap-4 mt-4" v-if="order?.files?.length > 0"
               >
                 <h6 class="text-black text-[20px] font-semibold xl:text-[18px]">
-                  {{ $store.state.translations["modal.order-files"] }}
+                  {{ $store.state.translations["profile.order-files"] }}
                 </h6>
                 <div class="file-list flex gap-4 justify-start flex-wrap">
                   <FileCard

@@ -25,6 +25,7 @@ export default {
     { src: "~plugins/vue-drawer-layout.js", ssr: false },
     { src: "~plugins/quill-editor.js", ssr: false },
     { src: "~plugins/date-format.js", ssr: true },
+    { src: '~/plugins/pusher.js', ssr: false}
   ],
 
   components: true,

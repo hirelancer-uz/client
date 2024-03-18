@@ -92,7 +92,7 @@
         class="chat-footer flex justify-between items-center px-6 py-4 border-[0] border-t border-solid border-grey-light"
       >
         <a-input
-          v-model="form.message"
+          v-model="message"
           placeholder="Напишите сообщение ..."
           class="text-input"
         />
@@ -157,6 +157,7 @@
         </div>
       </div>
     </div> -->
+    {{messages}}
   </div>
 </template>
 <script>
@@ -168,6 +169,8 @@ export default {
   props: ["status", "order"],
   data() {
     return {
+      message: "",
+      messages: [],
       form: {
         message: "Test message",
         order_id: 39,
@@ -183,9 +186,30 @@ export default {
     },
   },
   mounted() {
-    this.__GET_CHAT_MESSAGES()
+    // this.__GET_CHAT_MESSAGES();
+    this.channel = this.$pusher.subscribe('my-channel');
+    this.channel.bind("my-event", (data) => {
+      this.__GET_CHAT_MESSAGES();
+    });
+
+
   },
   methods: {
+    sendMessage() {
+      console.log(this.$pusher);
+      if (this.message.trim() !== "") {
+        // var channel = this.$pusher.subscribe('my-channel');
+        // channel.bind('my-event', function(data) {
+        //   alert(JSON.stringify(data));
+        // });
+        // pusher.trigger("my-channel", "my-event", { message: "hello world" });
+        // var channel = pusher.subscribe("my-channel");
+        // channel.bind("my-event", (data) => {
+        // });
+
+        this.message = "";
+      }
+    },
     openCustomerChat() {
       this.$refs.customerChat.open();
     },
@@ -199,10 +223,12 @@ export default {
     },
     async __GET_CHAT_MESSAGES() {
       try {
-        const data = await this.$store.dispatch('fetchChat/getChatMesssage',{body: {
-            order_id: this.order?.id
-          }});
-        console.log(data)
+        const data = await this.$store.dispatch("fetchChat/getChatMesssage", {
+          params: {
+            order_id: this.$route.params.id
+          },
+        });
+        console.log(data);
       } catch (e) {}
     },
     async __POST_CHAT_MESSAGE(formData) {
@@ -211,7 +237,6 @@ export default {
           "fetchChat/postChatMesssage",
           formData
         );
-        console.log(data);
       } catch (e) {}
     },
 

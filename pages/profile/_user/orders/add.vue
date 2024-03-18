@@ -165,9 +165,14 @@
 
                 </a-select> -->
           </a-form-model-item>
-          <div class="order-item">
-            <label class="flex gap-3 mb-3">
-              {{ $store.state.translations["order.order-comment"] }}
+
+          <div>
+            <div
+              class="order-item required top flex items-center gap-[16px] mb-3"
+            >
+              <label class="inline gap-3 relative">
+                {{ $store.state.translations["order.order-comment"] }}
+              </label>
 
               <a-tooltip placement="top">
                 <template slot="title">
@@ -193,11 +198,8 @@
                   />
                 </svg>
               </a-tooltip>
-            </label>
-            <a-form-model-item
-              class="order-item w-full mb-0"
-              prop="description"
-            >
+            </div>
+            <a-form-model-item class="order-item required" prop="description">
               <quill-editor
                 style="min-height: 250px"
                 ref="quillEditor"
@@ -214,6 +216,7 @@
                 placeholder="Большое спасибо за всю мебель. Очень качественно и по доступным ценам Мы очень рады совместной работе с вами!  "
               /> -->
               <span class="absolute right-0 bottom-[-40px]">{{maxLength - form.description.length }} / {{maxLength}} </span>
+
             </a-form-model-item>
           </div>
 
@@ -256,7 +259,7 @@
                   </div>
                 </a-upload> -->
                 <a-upload
-                    v-if="fileList.length < 12"
+                  v-if="fileList.length < 12"
                   :multiple="true"
                   accept=".pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .jpeg, .jpg, .png, .gif, .svg, .mp3, .wav, ., ogg, .mp4, .avi, .mkv, .zip, .rar, .7z, .bmp, .tiff, .flv, .txt, .rtf, .csv, .bmp, ., tiff, .webp, .ico, .wma, .aiff, .mov, .webm, .xml"
                   list-type="picture-card"
@@ -264,10 +267,7 @@
                   :before-upload="handleBeforeUpload"
                   :custom-request="customRequest"
                 >
-                  <div
-
-                    class="flex justify-center bg-bg-grey"
-                  >
+                  <div class="flex justify-center bg-bg-grey">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="20"
@@ -583,6 +583,7 @@ export default {
       imgFileTypes: imgFileTypes,
       editorOption: {
         theme: "snow",
+        placeholder: this.$store.state.translations["order.tooltip"],
         modules: {
           toolbar: [
             ["bold", "italic", "underline", "strike"],
@@ -712,7 +713,7 @@ export default {
           url: reader.result,
         };
 
-        if(this.fileList.length < 12) {
+        if (this.fileList.length < 12) {
           this.fileList.push(uploadedFile);
         }
         onSuccess();
@@ -783,12 +784,11 @@ export default {
           dataForm
         );
         this.$notification["success"]({
-          message: "Success",
-          description: "Успешно отправлен",
+          message: this.$store.state.translations["modal.sent-done"],
         });
         this.$router.push(`/profile/customer/order/view/${data?.content?.id}`);
       } catch (e) {
-        console.log(e.response)
+        console.log(e.response);
         this.$notification["error"]({
           message: "Error",
           description: e.response.statusText,
@@ -1122,8 +1122,13 @@ export default {
   font-size: 16px;
 }
 
-:deep(.has-error .quill-editor) {
+:deep(.has-error .ql-toolbar),
+:deep(.has-error .ql-container) {
   border-color: red;
+}
+
+:deep(.has-error .ql-toolbar) {
+  border-bottom-color: #e0e0ed;
 }
 
 .checkbox_el {

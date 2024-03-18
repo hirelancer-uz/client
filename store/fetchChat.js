@@ -5,10 +5,6 @@ export const actions = {
     });
   },
   async getChatMesssage({}, payload) {
-    return this.$axiosInstance.get(
-      `/api/chat/get`,
-      { params: { order_id: 1 } },
-        { order_id: 1 }
-    );
+    return this.$axiosInstance.get(`/api/chat/get`, { ...payload});
   },
 };

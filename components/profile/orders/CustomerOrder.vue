@@ -116,7 +116,7 @@
                 >
                 </span>
               </div>
-              <div class="files flex flex-col gap-4 mt-4">
+              <div class="files flex flex-col gap-4 mt-4" v-if="order?.files?.length > 0">
                 <h6 class="text-black text-[20px] font-semibold xl:text-[18px]">
                   {{ $store.state.translations["profile.order-files"] }}
                 </h6>
@@ -857,7 +857,7 @@ export default {
       );
     },
   },
-  mounted() {
+  async mounted() {
     if (!localStorage.getItem("auth-token")) {
       this.$router.push(this.localePath("/"));
     }

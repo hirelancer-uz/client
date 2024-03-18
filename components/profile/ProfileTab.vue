@@ -1,6 +1,6 @@
 <template>
   <div class="profile-tab flex justify-start">
-    <div class="rounded-2xl bg-bg-grey px-4 py-4 flex gap-6 xl:hidden">
+    <div class="rounded-2xl px-4 py-4 flex gap-6 xl:hidden bg-bg-grey">
       <nuxt-link
         v-if="$route.params.user == 'freelancer'"
         :to="`/profile/${$route.params.user}`"

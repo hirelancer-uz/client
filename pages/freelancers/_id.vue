@@ -249,9 +249,9 @@ export default {
   },
   watch: {
     routerName(newVal, lastVal) {
-      if (newVal < lastVal && this.search.length > 0) {
-        this.search = "";
-      }
+      // if (newVal < lastVal && this.search.length > 0) {
+      //   this.search = "";
+      // }
     },
   },
   methods: {

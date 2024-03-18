@@ -92,6 +92,11 @@
 <script>
 export default {
   props: ["order"],
+  data() {
+    return {
+      cancelStatus: [0,5,6]
+    }
+  },
   computed: {
     accessApp() {
       return (
@@ -99,7 +104,7 @@ export default {
           (item) => item.freelancer_id == this.$store.state.userInfo?.id
         ) &&
         !this.order?.start_of_execution &&
-        this.order?.client?.id != this.$store.state.userInfo?.id
+        this.order?.client?.id != this.$store.state.userInfo?.id && !this.cancelStatus.includes(this.order?.status)
       );
     },
   },
