@@ -403,7 +403,10 @@ export default {
 :deep(.order-desc ul) {
   display: none;
 }
-
+:deep(.order-desc strong),:deep(.order-desc span) {
+  font-weight: 400;
+  color: var(--grey-80) !important;
+}
 :deep(.order-desc p:first-child) {
   word-break: break-word;
   display: block;

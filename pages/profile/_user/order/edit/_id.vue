@@ -30,26 +30,26 @@
           </svg>
         </button>
         <button
-            @click="onSubmit"
-            class="w-full border border-solid border-blue bg-blue rounded-[8px] h-[54px] min-w-[194px] flex justify-center items-center text-base text-white font-medium gap-2 xl:hidden"
-            :class="{ 'pointer-events-none opacity-50': loadingBtn }"
+          @click="onSubmit"
+          class="w-full border border-solid border-blue bg-blue rounded-[8px] h-[54px] min-w-[194px] flex justify-center items-center text-base text-white font-medium gap-2 xl:hidden"
+          :class="{ 'pointer-events-none opacity-50': loadingBtn }"
         >
           {{ $store.state.translations["order.share"] }}
           <LoaderBtn v-if="loadingBtn" />
           <svg
-              v-else
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
+            v-else
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
           >
             <path
-                d="M8 12L10.5347 14.2812C10.9662 14.6696 11.6366 14.6101 11.993 14.1519L16 9M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                stroke="white"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+              d="M8 12L10.5347 14.2812C10.9662 14.6696 11.6366 14.6101 11.993 14.1519L16 9M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+              stroke="white"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
             />
           </svg>
         </button>
@@ -214,18 +214,15 @@
               prop="description"
             >
               <quill-editor
+                ref="quillEditor"
                 style="min-height: 250px"
                 :options="editorOption"
                 :value="form.description"
                 v-model="form.description"
                 :placeholder="$store.state.translations[`order.comment`]"
+                @change="handleTextChange"
               />
-              <!-- <a-input
-                type="textarea"
-                rows="5"
-                v-model="form.description"
-                placeholder="Большое спасибо за всю мебель. Очень качественно и по доступным ценам Мы очень рады совместной работе с вами!  "
-              /> -->
+              <span class="absolute right-0 bottom-[-40px]">{{maxLength - form.description.length }} / {{maxLength}} </span>
             </a-form-model-item>
           </div>
           <div
@@ -267,18 +264,15 @@
                   </div>
                 </a-upload> -->
                 <a-upload
-                    v-if="fileList.length < 12"
-                    :multiple="true"
+                  v-if="fileList.length < 12"
+                  :multiple="true"
                   list-type="picture-card"
                   :file-list="fileList"
                   :before-upload="handleBeforeUpload"
                   :custom-request="customRequest"
                   accept=".pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .jpeg, .jpg, .png, .gif, .svg, .mp3, .wav, ., ogg, .mp4, .avi, .mkv, .zip, .rar, .7z, .bmp, .tiff, .flv, .txt, .rtf, .csv, .bmp, ., tiff, .webp, .ico, .wma, .aiff, .mov, .webm, .xml"
                 >
-                  <div
-
-                    class="flex justify-center bg-bg-grey"
-                  >
+                  <div class="flex justify-center bg-bg-grey">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="20"
@@ -305,7 +299,18 @@
                   <div
                     class="w-full img-card overflow-hidden h-[104px] xl:h-[90px] border border-solid border-grey-8 rounded-[4px] flex justify-center items-center relative"
                   >
-                    <img v-if="imgFileTypes.includes(item.id ? item.url.split('.').at(-1):item.name.split('.').at(-1))" class="object-cover" :src="item.url" alt="" />
+                    <img
+                      v-if="
+                        imgFileTypes.includes(
+                          item.id
+                            ? item.url.split('.').at(-1)
+                            : item.name.split('.').at(-1)
+                        )
+                      "
+                      class="object-cover"
+                      :src="item.url"
+                      alt=""
+                    />
                     <IconsDocxFile v-else />
                     <button
                       @click="handleRemove(item)"
@@ -330,8 +335,16 @@
                     </button>
                   </div>
                   <div class="w-full flex items-center">
-                    <p class="text-grey-80 text-[12px] truncate"> {{ item.id ? item.url:item.name }}</p>
-                    <p class="text-grey-80 text-[12px]">.{{item.id ? item.url.split('.').at(-1):item.name.split('.').at(-1)}}</p>
+                    <p class="text-grey-80 text-[12px] truncate">
+                      {{ item.id ? item.url : item.name }}
+                    </p>
+                    <p class="text-grey-80 text-[12px]">
+                      .{{
+                        item.id
+                          ? item.url.split(".").at(-1)
+                          : item.name.split(".").at(-1)
+                      }}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -346,25 +359,25 @@
           </div>
           <div class="grid grid-cols-2 gap-[70px] xl:grid-cols-1 xl:gap-4">
             <a-form-model-item
-              class=" w-full mb-0"
+              class="w-full mb-0"
               :label="$store.state.translations['order.deadline-days']"
               prop="deadline"
             >
               <a-input-number
-                  :formatter="
+                :formatter="
                   (value) =>
                     value.length > 0
                       ? `${value.replace(/[^0-9.]/g, '')} дней`
                       : `${value.replace(/[^0-9.]/g, '')}`
                 "
-                  :parser="
+                :parser="
                   (value) => value.replace(/[^0-9.]/g, '').replace(' дней', '')
                 "
-                  :class="{
+                :class="{
                   'opacity-50 pointer-events-none': form.deadline_negotiable,
                 }"
-                  v-model="form.deadline"
-                  placeholder="0"
+                v-model="form.deadline"
+                placeholder="0"
               />
             </a-form-model-item>
             <div class="flex items-end mb-3">
@@ -379,9 +392,9 @@
                     }
                   "
                 />
-                <p
-                  class="text-[20px] text-black font-medium xl:text-[14px]"
-                >  {{ $store.state.translations["order.deal-deadline"] }}</p>
+                <p class="text-[20px] text-black font-medium xl:text-[14px]">
+                  {{ $store.state.translations["order.deal-deadline"] }}
+                </p>
                 <a-tooltip placement="top">
                   <template slot="title">
                     {{ $store.state.translations["order.deadline-days"] }}
@@ -412,27 +425,27 @@
           ></div>
           <div class="grid grid-cols-2 gap-[70px] xl:grid-cols-1 xl:gap-4">
             <a-form-model-item
-              class=" w-full mb-0"
+              class="w-full mb-0"
               :label="$store.state.translations['order.price']"
               prop="price"
             >
               <a-input-number
-                  :formatter="
+                :formatter="
                   (value) =>
                     `${value.replace(/[^0-9.]/g, '')}`.replace(
                       /\B(?=(\d{3})+(?!\d))/g,
                       ' '
                     )
                 "
-                  :parser="
+                :parser="
                   (value) =>
                     value.replace(/[^0-9.]/g, '').replace(/\$\s?|( *)/g, '')
                 "
-                  :class="{
+                :class="{
                   'opacity-50 pointer-events-none': form.price_negotiable,
                 }"
-                  v-model="form.price"
-                  placeholder="0"
+                v-model="form.price"
+                placeholder="0"
               />
             </a-form-model-item>
             <div class="flex items-end mb-3">
@@ -567,6 +580,7 @@ import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
 import CancellationOrder from "@/components/modals/CancellationOrder.vue";
 import { imgFileTypes } from "@/helpers/constants";
+
 function getBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -579,6 +593,7 @@ function getBase64(file) {
 export default {
   data() {
     return {
+      maxLength: 5000,
       imgFileTypes: imgFileTypes,
       editorOption: {
         theme: "snow",
@@ -657,7 +672,6 @@ export default {
     this.$store.commit("setPageData", {});
   },
   mounted() {
-
     this.$store.commit("setPageData", {
       title: this.$store.state.translations["profile.edit"],
       center: false,
@@ -682,6 +696,16 @@ export default {
     };
   },
   methods: {
+    handleTextChange(event) {
+      const editor = this.$refs.quillEditor.quill;
+      const length = editor.getLength();
+      if (length > this.maxLength) {
+        const delta = length - this.maxLength;
+        editor.deleteText(this.maxLength, delta);
+      } else {
+        this.form.description = editor.root.innerHTML;
+      }
+    },
     openDeleteOrder() {
       this.$refs.deleteOrder.open();
       this.$refs.deleteOrder.openModal();
@@ -797,7 +821,7 @@ export default {
             id: item.id,
           };
         });
-        console.log(this.fileList)
+        console.log(this.fileList);
       } catch (e) {
       } finally {
         this.loading = false;
@@ -822,7 +846,7 @@ export default {
           originFileObj: file,
           url: reader.result,
         };
-        if(this.fileList.length < 12) {
+        if (this.fileList.length < 12) {
           this.fileList.push(uploadedFile);
         }
         onSuccess();
@@ -907,6 +931,7 @@ export default {
 :deep(.ant-input-number-handler-wrap) {
   display: none;
 }
+
 .order-item :deep(input),
 .order-item :deep(textarea) {
   padding-left: 16px;
@@ -1083,10 +1108,11 @@ export default {
 :deep(.has-error) textarea {
   border-color: var(--red);
 }
+
 :deep(.has-error .ant-input-number) {
   border-color: var(--red);
-
 }
+
 .errorSelect .modal-select {
   border-color: var(--red);
 }
@@ -1124,12 +1150,11 @@ export default {
 
 :deep(.ql-editor) {
   min-height: 250px;
-  //color: #353437;
-  font-family: "TT Interfaces", serif;
-  font-size: 16px;
+  //color: #353437; font-family: "TT Interfaces", serif; font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
+  max-height: 450px;
 }
 
 .form-item :deep(input) {
@@ -1144,6 +1169,7 @@ export default {
   border: 1px solid var(--grey-8);
   font-family: "TT Interfaces";
   font-size: 16px;
+  max-height: 600px;
 }
 
 :deep(.has-error .quill-editor) {

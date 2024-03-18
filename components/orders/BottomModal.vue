@@ -114,17 +114,20 @@
                   </div>
                   <div>
                     <a-form-model-item
-                      class="form-item w-full"
+                      class="form-item w-full relative"
                       :label="$store.state.translations['order.comment']"
                     >
                       <a-input
                         type="textarea"
                         rows="6"
-                        v-model="form.additional_info"
+                        show-count
+                        :max-length="maxLength"
+                        v-model:value="form.additional_info"
                         :placeholder="
                           $store.state.translations['order.add-info']
                         "
                       />
+                      <span class="absolute right-0 bottom-[-40px]">{{maxLength - form.additional_info.length }} / {{maxLength}} </span>
                     </a-form-model-item>
                   </div>
                 </div>
@@ -262,17 +265,20 @@
                   </div>
                   <div>
                     <a-form-model-item
-                      class="form-item w-full"
+                      class="form-item w-full relative"
                       :label="$store.state.translations['order.comment']"
                     >
                       <a-input
                         type="textarea"
                         rows="6"
+                        show-count
+                        :max-length="maxLength"
                         v-model="form.additional_info"
                         :placeholder="
                           $store.state.translations['auth.add-info']
                         "
                       />
+                      <span class="absolute right-0 bottom-[-40px]">{{maxLength - form.additional_info.length }} / {{maxLength}} </span>
                     </a-form-model-item>
                   </div>
                 </div>
@@ -338,6 +344,7 @@ export default {
   props: ["visibleProp"],
   data() {
     return {
+      maxLength: 1000,
       visible: false,
       visibleSheet: false,
       form: {

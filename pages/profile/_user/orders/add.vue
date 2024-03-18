@@ -200,10 +200,12 @@
             >
               <quill-editor
                 style="min-height: 250px"
+                ref="quillEditor"
                 :options="editorOption"
                 :value="form.description"
                 v-model="form.description"
                 :placeholder="$store.state.translations[`order.order-comment`]"
+                @change="handleTextChange"
               />
               <!-- <a-input
                 type="textarea"
@@ -211,6 +213,7 @@
                 v-model="form.description"
                 placeholder="Большое спасибо за всю мебель. Очень качественно и по доступным ценам Мы очень рады совместной работе с вами!  "
               /> -->
+              <span class="absolute right-0 bottom-[-40px]">{{maxLength - form.description.length }} / {{maxLength}} </span>
             </a-form-model-item>
           </div>
 
@@ -576,6 +579,7 @@ function getBase64(file) {
 export default {
   data() {
     return {
+      maxLength: 5000,
       imgFileTypes: imgFileTypes,
       editorOption: {
         theme: "snow",
@@ -674,6 +678,16 @@ export default {
     };
   },
   methods: {
+    handleTextChange(event) {
+      const editor = this.$refs.quillEditor.quill;
+      const length = editor.getLength();
+      if (length > this.maxLength) {
+        const delta = length - this.maxLength;
+        editor.deleteText(this.maxLength, delta);
+      } else {
+        this.form.description = editor.root.innerHTML;
+      }
+    },
     toBack() {
       this.$router.go(-1);
     },
@@ -1092,6 +1106,7 @@ export default {
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
+  max-height: 450px;
 }
 
 .form-item :deep(input) {

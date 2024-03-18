@@ -91,8 +91,13 @@
         v-else
         class="chat-footer flex justify-between items-center px-6 py-4 border-[0] border-t border-solid border-grey-light"
       >
-        <a-input placeholder="Напишите сообщение ..." class="text-input" />
+        <a-input
+          v-model="form.message"
+          placeholder="Напишите сообщение ..."
+          class="text-input"
+        />
         <button
+          @click="onSubmit"
           class="w-[48px] min-w-[48px] h-[48px] rounded-full flex justify-center items-center bg-main-color"
         >
           <svg
@@ -160,8 +165,16 @@ import ChatModal from "@/components/modals/ChatModal.vue";
 
 export default {
   components: { ChatModal },
-
   props: ["status", "order"],
+  data() {
+    return {
+      form: {
+        message: "Test message",
+        order_id: 39,
+        to: 1002,
+      },
+    };
+  },
   computed: {
     myRequest() {
       return this.order?.requests?.find(
@@ -169,12 +182,37 @@ export default {
       );
     },
   },
+  mounted() {
+    this.__GET_CHAT_MESSAGES()
+  },
   methods: {
     openCustomerChat() {
       this.$refs.customerChat.open();
     },
     closeCustomerChat() {
       this.$refs.customerChat.close();
+    },
+    onSubmit() {
+      this.form.order_id = this.order.id;
+      this.form.to = this.order.selected_request?.freelancer_id;
+      this.__POST_CHAT_MESSAGE(this.form);
+    },
+    async __GET_CHAT_MESSAGES() {
+      try {
+        const data = await this.$store.dispatch('fetchChat/getChatMesssage',{body: {
+            order_id: this.order?.id
+          }});
+        console.log(data)
+      } catch (e) {}
+    },
+    async __POST_CHAT_MESSAGE(formData) {
+      try {
+        const data = await this.$store.dispatch(
+          "fetchChat/postChatMesssage",
+          formData
+        );
+        console.log(data);
+      } catch (e) {}
     },
 
     moment,
@@ -188,10 +226,12 @@ export default {
   font-family: "TT Interfaces";
   font-size: 16px;
 }
+
 .text-input:focus {
   outline: none;
   box-shadow: none;
 }
+
 .text-input::placeholder {
   color: var(--grey-40);
   font-family: "TT Interfaces";
@@ -200,13 +240,16 @@ export default {
   font-weight: 400;
   line-height: 150%;
 }
+
 .chat__button {
   display: none;
 }
+
 @media screen and (max-width: 1024px) {
   .chatter {
     display: none;
   }
+
   .chat__button {
     position: fixed;
     bottom: 50px;
