@@ -51,8 +51,31 @@
       </div>
     </div>
     <div
-      class="board px-6 py-6 flex flex-col gap-4 border-[0] border-b border-solid border-grey-8"
+      class="board px-6 py-6 flex flex-col gap-4 border-[0] border-b border-solid border-grey-8 overflow-y-scroll max-h-[500px] flex-col-reverse"
     >
+      <div v-for="message in messages" :key="message?.id">
+
+        <div class="flex justify-end" v-if="$store.state?.userInfo?.id == message?.from">
+          <div
+            class="content px-4 py-3 max-w-[642px] bg-main-color rounded-[10px] rounded-br-none flex gap-6 items-end"
+          >
+            <p class="text-base text-white">
+              {{ message?.message }}
+            </p>
+            <span class="text-[14px] text-white">{{  moment(message?.created_at).format("HH:mm") }}</span>
+          </div>
+        </div>
+        <div class="flex justify-start"  v-else  >
+          <div
+            class="client-content px-4 max-w-[642px] py-3 bg-bg-grey rounded-[10px] rounded-bl-none flex gap-6 items-end"
+          >
+            <p class="text-base text-black">{{ message?.message }}</p>
+            <span class="text-[14px] text-grey-40">{{
+                moment(message?.created_at).format("HH:mm")
+              }}</span>
+          </div>
+        </div>
+      </div>
       <div class="flex justify-end">
         <div
           class="chat-card px-4 py-4 rounded-[14px] rounded-br-none bg-main-color flex flex-col gap-3 max-w-[642px]"
@@ -70,52 +93,15 @@
                 class="text-white text-[14px] font-regular flex gap-1 text-white"
               >
                 Muddat:<span class="text-[14px] font-semibold text-white"
-                  >5 kun</span
-                >
+              >5 kun</span
+              >
               </h6>
               <p class="text-[10px] text-white">14:30</p>
             </div>
           </div>
         </div>
       </div>
-      <div class="flex justify-start">
-        <div
-          class="client-content px-4 max-w-[642px] py-3 bg-bg-grey rounded-[10px] rounded-bl-none flex gap-6 items-end"
-        >
-          <p class="text-base text-black">5 дней</p>
-          <span class="text-[14px] text-grey-40">14:30</span>
-        </div>
-      </div>
-      <div class="flex justify-end">
-        <div
-          class="content px-4 py-3 max-w-[642px] bg-main-color rounded-[10px] rounded-br-none flex gap-6 items-end"
-        >
-          <p class="text-base text-white">
-            Меня заинтересовал ваш проект. Моя цель – создавать интересные и
-            интуитивно по
-          </p>
-          <span class="text-[14px] text-white">14:30</span>
-        </div>
-      </div>
-      <div class="flex justify-start">
-        <div
-          class="client-content px-4 max-w-[642px] py-3 bg-bg-grey rounded-[10px] rounded-bl-none flex gap-6 items-end"
-        >
-          <p class="text-base text-black">5 дней</p>
-          <span class="text-[14px] text-grey-40">14:30</span>
-        </div>
-      </div>
-      <div class="flex justify-end">
-        <div
-          class="content px-4 py-3 max-w-[642px] bg-main-color rounded-[10px] rounded-br-none flex gap-6 items-end"
-        >
-          <p class="text-base text-white">
-            Меня заинтересовал ваш проект. Моя цель – создавать интересные и
-            интуитивно по
-          </p>
-          <span class="text-[14px] text-white">14:30</span>
-        </div>
-      </div>
+
     </div>
     <div
       class="px-6 py-6 flex justify-center items-center italic text-base text-grey-80"
@@ -124,9 +110,13 @@
       {{ $store.state.translations["modal.chat-closed"] }}
     </div>
     <div class="footer px-6 py-6" v-else>
-      <input type="text" placeholder="Напишите сообщение ..." />
+      <input
+        v-model="form.message"
+        type="text"
+        placeholder="Напишите сообщение ..."
+      />
       <div class="flex items-center gap-6">
-        <button>
+        <button >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -144,7 +134,7 @@
             />
           </svg>
         </button>
-        <button
+        <button @click="onSubmit"
           class="h-12 w-12 flex justify-center items-center rounded-full bg-blue"
         >
           <svg
@@ -169,16 +159,72 @@
   </div>
 </template>
 <script>
+import moment from "moment";
 export default {
   props: ["order", "status"],
   data() {
     return {
-      cancelStatus: [4,5,6]
-    }
+      cancelStatus: [4, 5, 6],
+      messages: [],
+      form: {
+        message: "",
+        order_id: null,
+        to: null,
+      },
+    };
+  },
+  mounted() {
+    this.__GET_CHAT_MESSAGES();
+    var channel = this.$pusher.subscribe("my-channel");
+    channel.bind("my-event", function (data) {
+      alert(JSON.stringify(data));
+    });
   },
   computed: {
     imgUrl() {
       return this.$config.baseURL + "/storage/";
+    },
+  },
+  methods: {
+    moment,
+    onSubmit() {
+      this.form.order_id = this.order.id;
+      this.form.to = this.order.selected_request?.freelancer_id;
+      this.__POST_CHAT_MESSAGE(this.form);
+    },
+    async __GET_CHAT_MESSAGES() {
+      try {
+        const data = await this.$store.dispatch("fetchChat/getChatMesssage", {
+          params: {
+            order_id: this.$route.params.id,
+          },
+        });
+
+        this.messages = data?.data?.content.filter(
+          (item) => item.from === this.$store.state.userInfo?.id
+        );
+        console.log(this.messages)
+      } catch (e) {}
+    },
+    async __POST_CHAT_MESSAGE(formData) {
+      try {
+        const data = await this.$store.dispatch(
+          "fetchChat/postChatMesssage",
+          formData
+        );
+        this.__GET_CHAT_MESSAGES();
+        this.form = {
+          message: "",
+          order_id: null,
+          to: null,
+        };
+      } catch (e) {}
+    },
+  },
+  watch: {
+    "$store.state.userInfo.id"(val) {
+      console.log(val);
+      this.__GET_CHAT_MESSAGES();
     },
   },
 };
