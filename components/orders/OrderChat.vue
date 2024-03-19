@@ -51,7 +51,9 @@
             <div
               class="chat-client-card max-w-[40%] flex gap-2 px-3 py-3 rounded-t-[10px] rounded-l-[10px] bg-bg-grey items-end"
             >
-              <p class="text-black text-[14px] break-all">{{ message?.message }}</p>
+              <p class="text-black text-[14px] break-all">
+                {{ message?.message }}
+              </p>
               <span class="text-black text-[12px]">{{
                 moment(message?.created_at).format("HH:mm")
               }}</span>
@@ -70,22 +72,22 @@
             class="chat-card px-4 py-4 rounded-[14px] rounded-br-none bg-main-color flex flex-col gap-3 max-w-[642px]"
           >
             <p class="text-base text-white">
-              Приветствую! Меня заинтересовал ваш проект. Моя цель – создавать
-              интересные и интуитивно понятные пользовательские интерфейсы,
-              которые вдохновляют и привлекают
+              {{ order?.selected_request?.additional_info }}
             </p>
             <span class="flex w-full h-[1px] bg-[#B795FF]"></span>
             <div class="flex flex-col gap-1">
-              <h5 class="text-[14px] font-semibold text-white">600 000 so’m</h5>
+              <h5 class="text-[14px] font-semibold text-white">
+                {{ order?.selected_request?.price.toLocaleString() }} so’m
+              </h5>
               <div class="flex justify-between">
                 <h6
                   class="text-white text-[14px] font-regular flex gap-1 text-white"
                 >
                   Muddat:<span class="text-[14px] font-semibold text-white"
-                    >5 kun</span
+                    >{{ order?.selected_request?.deadline }} kun</span
                   >
                 </h6>
-                <p class="text-[10px] text-white">14:30</p>
+                <p class="text-[10px] text-white">{{requestTime}}</p>
               </div>
             </div>
           </div>
@@ -193,11 +195,14 @@ export default {
         (item) => item?.freelancer_id == this.$store.state.userInfo["id"]
       );
     },
+    requestTime() {
+      return moment(this.order?.selected_request?.created_at).format("HH:mm");
+    },
   },
   mounted() {
     this.__GET_CHAT_MESSAGES();
-    var channel = this.$pusher.subscribe("private-orders ");
-    channel.bind("my-event", function (data) {
+    let channel = this.$pusher.subscribe("orders.3");
+    channel.bind("App\\Events\\SentMessage", function (data) {
       alert(JSON.stringify(data));
     });
   },
@@ -211,7 +216,7 @@ export default {
     onSubmit() {
       this.form.order_id = this.order.id;
       this.form.to = this.order.selected_request?.freelancer_id;
-      this.__POST_CHAT_MESSAGE(this.form);
+      if (this.form.message.length > 0) this.__POST_CHAT_MESSAGE(this.form);
     },
     async __GET_CHAT_MESSAGES() {
       try {
@@ -222,7 +227,9 @@ export default {
         });
 
         this.messages = data?.data?.content.filter(
-          (item) => item.from === this.$store.state.userInfo?.id || item.to === this.$store.state.userInfo?.id
+          (item) =>
+            item.from === this.$store.state.userInfo?.id ||
+            item.to === this.$store.state.userInfo?.id
         );
       } catch (e) {}
     },
@@ -239,14 +246,14 @@ export default {
         // channel.trigger('client-my-event', {
         //   message: 'Hello world!'
         // });
-        // this.__GET_CHAT_MESSAGES();
+        this.__GET_CHAT_MESSAGES();
         this.form = {
           message: "",
           order_id: null,
           to: null,
         };
       } catch (e) {
-        console.log(e)
+        console.log(e);
       }
     },
 

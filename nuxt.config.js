@@ -18,6 +18,7 @@ export default {
   plugins: [
     "~/plugins/axios",
     "~/plugins/axios-instance",
+    // '~/plugins/ckeditor.js',
     { src: "~/plugins/windowSize.js", ssr: false },
     { src: "~plugins/antdv.js" },
     { src: "~plugins/v-mask.js", ssr: false },
@@ -25,7 +26,7 @@ export default {
     { src: "~plugins/vue-drawer-layout.js", ssr: false },
     { src: "~plugins/quill-editor.js", ssr: false },
     { src: "~plugins/date-format.js", ssr: true },
-    { src: '~/plugins/pusher.js', ssr: false}
+    { src: '~/plugins/pusher.js', ssr: false},
   ],
 
   components: true,

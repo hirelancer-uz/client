@@ -779,10 +779,18 @@ export default {
         });
         this.$router.go(-1);
       } catch (e) {
-        this.$notification["error"]({
-          message: "Error",
-          description: e.response.statusText,
-        });
+        if(e.response.status == 413) {
+          this.$notification["error"]({
+            message: "Error",
+            description: 'Maximum upload file size exceeded. Please upload a file smaller than 4MB.',
+          });
+        } else {
+          this.$notification["error"]({
+            message: "Error",
+            description: e.response.statusText,
+          });
+        }
+
       }
     },
     async __POST_ORDER(dataForm) {
@@ -797,10 +805,18 @@ export default {
         });
         this.$router.push(`/profile/customer/order/view/${data?.content?.id}`);
       } catch (e) {
-        this.$notification["error"]({
-          message: "Error",
-          description: e.response.statusText,
-        });
+        console.log(e)
+        if(e.response.status == 413) {
+          this.$notification["error"]({
+            message: "Error",
+            description: 'Maximum upload file size exceeded. Please upload a file smaller than 4MB.',
+          });
+        } else {
+          this.$notification["error"]({
+            message: "Error",
+            description: e.response.statusText,
+          });
+        }
       } finally {
         this.loadingBtn = false;
       }

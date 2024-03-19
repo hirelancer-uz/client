@@ -553,9 +553,11 @@ import moment from "moment";
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
+import deleteFile from "@/mixins/deleteFile";
 
 export default {
   layout: "profileLayout",
+  mixins: [deleteFile],
   data() {
     return {
       linkTemplates: {
@@ -695,6 +697,7 @@ export default {
     },
     onChange(date, dateString) {},
     removeAvatar(e) {
+      this.__DELETE_FILE({id: this.userInfo?.id,type:'user'})
       this.fileList = [];
     },
     onSubmit() {
@@ -762,15 +765,17 @@ export default {
               }
             });
             this.form.phone = "+" + userInfoData.contacts.phone;
-            this.fileList = [
-              {
-                uid: "-1",
-                name: "image.png",
-                status: "done",
-                url: this.imgUrl + userInfoData.avatar,
-                id: 1,
-              },
-            ];
+            if(userInfoData.avatar  ) {
+              this.fileList = [
+                {
+                  uid: "-1",
+                  name: "image.png",
+                  status: "done",
+                  url: this.imgUrl + userInfoData.avatar,
+                  id: 1,
+                },
+              ];
+            }
             this.form["country_id"] = userInfoData?.country?.id;
             this.form["region_id"] = userInfoData?.region?.id;
             this.form["bio"] = (await userInfoData?.bio)

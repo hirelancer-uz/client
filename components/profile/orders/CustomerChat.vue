@@ -24,7 +24,7 @@
           <h5 class="text-[20px] text-black font-medium">
             {{ order?.selected_request?.freelancer?.name }}
           </h5>
-          <p class="text-grey-40 text-base">14:30</p>
+          <p class="text-grey-40 text-base">{{ requestTime }}</p>
         </div>
 
         <div>
@@ -54,25 +54,29 @@
       class="board px-6 py-6 flex flex-col gap-4 border-[0] border-b border-solid border-grey-8 overflow-y-scroll max-h-[500px] flex-col-reverse"
     >
       <div v-for="message in messages" :key="message?.id">
-
-        <div class="flex justify-end" v-if="$store.state?.userInfo?.id == message?.from">
+        <div
+          class="flex justify-end"
+          v-if="$store.state?.userInfo?.id == message?.from"
+        >
           <div
             class="content px-4 py-3 max-w-[642px] bg-main-color rounded-[10px] rounded-br-none flex gap-6 items-end"
           >
             <p class="text-base text-white break-all">
               {{ message?.message }}
             </p>
-            <span class="text-[14px] text-white ">{{  moment(message?.created_at).format("HH:mm") }}</span>
+            <span class="text-[14px] text-white">{{
+              moment(message?.created_at).format("HH:mm")
+            }}</span>
           </div>
         </div>
-        <div class="flex justify-start"  v-else  >
+        <div class="flex justify-start" v-else>
           <div
             class="client-content px-4 max-w-[642px] py-3 bg-bg-grey rounded-[10px] rounded-bl-none flex gap-6 items-end"
           >
             <p class="text-base text-black break-all">{{ message?.message }}</p>
             <span class="text-[14px] text-grey-40">{{
-                moment(message?.created_at).format("HH:mm")
-              }}</span>
+              moment(message?.created_at).format("HH:mm")
+            }}</span>
           </div>
         </div>
       </div>
@@ -81,27 +85,26 @@
           class="chat-card px-4 py-4 rounded-[14px] rounded-br-none bg-main-color flex flex-col gap-3 max-w-[642px]"
         >
           <p class="text-base text-white">
-            Приветствую! Меня заинтересовал ваш проект. Моя цель – создавать
-            интересные и интуитивно понятные пользовательские интерфейсы,
-            которые вдохновляют и привлекают
+            {{ order?.selected_request?.additional_info }}
           </p>
           <span class="flex w-full h-[1px] bg-[#B795FF]"></span>
           <div class="flex flex-col gap-1">
-            <h5 class="text-[14px] font-semibold text-white">600 000 so’m</h5>
-            <div class="flex justify-between">
+            <h5 class="text-[14px] font-semibold text-white">
+              {{ order?.selected_request?.price.toLocaleString() }} so’m
+            </h5>
+            <div class="flex justify-between gap-10">
               <h6
                 class="text-white text-[14px] font-regular flex gap-1 text-white"
               >
                 Muddat:<span class="text-[14px] font-semibold text-white"
-              >5 kun</span
-              >
+                  >{{ order?.selected_request?.deadline }} kun</span
+                >
               </h6>
               <p class="text-[10px] text-white">14:30</p>
             </div>
           </div>
         </div>
       </div>
-
     </div>
     <div
       class="px-6 py-6 flex justify-center items-center italic text-base text-grey-80"
@@ -114,9 +117,10 @@
         v-model="form.message"
         type="text"
         placeholder="Напишите сообщение ..."
+        @keyup.enter="onSubmit"
       />
       <div class="flex items-center gap-6">
-        <button >
+        <button>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -134,7 +138,8 @@
             />
           </svg>
         </button>
-        <button @click="onSubmit"
+        <button
+          @click="onSubmit"
           class="h-12 w-12 flex justify-center items-center rounded-full bg-blue"
         >
           <svg
@@ -160,6 +165,7 @@
 </template>
 <script>
 import moment from "moment";
+
 export default {
   props: ["order", "status"],
   data() {
@@ -184,13 +190,16 @@ export default {
     imgUrl() {
       return this.$config.baseURL + "/storage/";
     },
+    requestTime() {
+      return moment(this.order?.selected_request?.created_at).format("HH:mm");
+    },
   },
   methods: {
     moment,
     onSubmit() {
       this.form.order_id = this.order.id;
       this.form.to = this.order.selected_request?.freelancer_id;
-      this.__POST_CHAT_MESSAGE(this.form);
+      if (this.form.message.length > 0) this.__POST_CHAT_MESSAGE(this.form);
     },
     async __GET_CHAT_MESSAGES() {
       try {
@@ -201,9 +210,11 @@ export default {
         });
 
         this.messages = data?.data?.content.filter(
-          (item) => item.from === this.$store.state.userInfo?.id || item.to === this.$store.state.userInfo?.id
+          (item) =>
+            item.from === this.$store.state.userInfo?.id ||
+            item.to === this.$store.state.userInfo?.id
         );
-        console.log(this.messages)
+        console.log(this.messages);
       } catch (e) {}
     },
     async __POST_CHAT_MESSAGE(formData) {
@@ -212,10 +223,10 @@ export default {
           "fetchChat/postChatMesssage",
           formData
         );
-        this.$pusher.trigger('my-channel', 'my-event', {
-          message: 'Hello world!'
-        });
-        // this.__GET_CHAT_MESSAGES();
+        // this.$pusher.trigger('my-channel', 'my-event', {
+        //   message: 'Hello world!'
+        // });
+        this.__GET_CHAT_MESSAGES();
         this.form = {
           message: "",
           order_id: null,
@@ -238,11 +249,13 @@ export default {
   grid-template-columns: 60px 1fr;
   gap: 16px;
 }
+
 .footer {
   display: grid;
   grid-template-columns: 1fr 100px;
   gap: 16px;
 }
+
 .footer input::placeholder {
   color: var(--grey-40);
   font-family: "TT Interfaces";
@@ -251,6 +264,7 @@ export default {
   font-weight: 400;
   line-height: 150%;
 }
+
 .footer input {
   color: var(--black);
   font-family: "TT Interfaces";

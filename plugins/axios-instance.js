@@ -7,7 +7,7 @@ export default ({ $axios, redirect, error }, inject) => {
   axiosInstance.onRequest((config) => {
     const token = localStorage.getItem(tokenKey);
     if (token) config.headers.common["Authorization"] = `Bearer ${token}`;
-  
+
     return config;
   });
   axiosInstance.onResponse((response) => {
@@ -21,7 +21,10 @@ export default ({ $axios, redirect, error }, inject) => {
         location.reload()
         localStorage.removeItem(tokenKey);
       }
-
+    if(e.response.status === 404) {
+      console.log("error",e.response.status)
+       throw new Error('NOT FOUNT')
+    }
     return Promise.reject(e);
   });
   inject("axiosInstance", axiosInstance);

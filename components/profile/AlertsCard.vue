@@ -22,10 +22,10 @@
     <div class="flex flex-col justify-between h-full xl:gap-4">
       <div class="flex flex-col gap-2">
         <h3 class="text-base font-medium text-black xl:text-[14px] truncate break-all">
-          {{ notification?.theme?.ru }}
+          {{ notification?.theme }}
         </h3>
         <p class="text-[14px] text-gray-64 xl:text-[12px] desc break-all">
-          {{notification?.message?.ru}}
+          {{notification?.message}}
         </p>
       </div>
       <nuxt-link

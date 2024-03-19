@@ -21,6 +21,11 @@ export default function ({ $axios, redirect, error }, inject) {
     //     layout: "error",
     //   });
     // }
+
+    // if(e.response.status === 404) {
+    //   console.log("error",e.response.status)
+    //   throw new Error('NOT FOUNT')
+    // }
     return Promise.reject(err);
   });
   inject("axios", axios);

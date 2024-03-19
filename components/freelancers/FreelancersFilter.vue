@@ -325,7 +325,8 @@ export default {
 }
 
 .drop-list .active .drop-body {
-  max-height: 200px;
+  max-height: 400px;
+  overflow-y: scroll;
   /* height: auto; */
 }
 
