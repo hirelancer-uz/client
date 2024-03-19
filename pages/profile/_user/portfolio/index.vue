@@ -106,6 +106,7 @@ import PortfolioEmptyCard from "@/components/profile/portfolio/PortfolioEmptyCar
 
 export default {
   layout: "profileLayout",
+  name: 'portfolio',
   data() {
     return {
       loading: true,

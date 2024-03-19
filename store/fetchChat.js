@@ -8,3 +8,4 @@ export const actions = {
     return this.$axiosInstance.get(`/api/chat/get`, { ...payload});
   },
 };
+

@@ -36,6 +36,7 @@ import NotificationCard from "../components/NotificationCard.vue";
 import VPagination from "../components/VPagination.vue";
 
 export default {
+  name: 'notifications',
   transition: {
     name: "fade-left",
     mode: "out-in",

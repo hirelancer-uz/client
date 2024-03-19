@@ -694,7 +694,7 @@ export default {
       if (link.length >= this.form[key].length) this.form[key] = "";
     },
     onChange(date, dateString) {},
-    removeAvatar() {
+    removeAvatar(e) {
       this.fileList = [];
     },
     onSubmit() {
