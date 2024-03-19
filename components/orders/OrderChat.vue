@@ -39,7 +39,7 @@
             <div
               class="chat-client-card max-w-[40%] flex gap-2 px-3 py-3 rounded-t-[10px] rounded-l-[10px] bg-main-color items-end"
             >
-              <p class="text-white text-[14px]">
+              <p class="text-white text-[14px] break-all">
                 {{ message?.message }}
               </p>
               <span class="text-white text-[12px]">{{
@@ -51,7 +51,7 @@
             <div
               class="chat-client-card max-w-[40%] flex gap-2 px-3 py-3 rounded-t-[10px] rounded-l-[10px] bg-bg-grey items-end"
             >
-              <p class="text-black text-[14px]">{{ message?.message }}</p>
+              <p class="text-black text-[14px] break-all">{{ message?.message }}</p>
               <span class="text-black text-[12px]">{{
                 moment(message?.created_at).format("HH:mm")
               }}</span>
@@ -196,7 +196,7 @@ export default {
   },
   mounted() {
     this.__GET_CHAT_MESSAGES();
-    var channel = this.$pusher.subscribe("my-channel");
+    var channel = this.$pusher.subscribe("private-orders ");
     channel.bind("my-event", function (data) {
       alert(JSON.stringify(data));
     });
@@ -222,7 +222,7 @@ export default {
         });
 
         this.messages = data?.data?.content.filter(
-          (item) => item.from === this.$store.state.userInfo?.id
+          (item) => item.from === this.$store.state.userInfo?.id || item.to === this.$store.state.userInfo?.id
         );
       } catch (e) {}
     },
@@ -232,13 +232,22 @@ export default {
           "fetchChat/postChatMesssage",
           formData
         );
-        this.__GET_CHAT_MESSAGES();
+        // const channel = this.$pusher.subscribe('my-channel');
+        // channel.bind('my-event', function(data) {
+        //   alert('Received message: ');
+        // });
+        // channel.trigger('client-my-event', {
+        //   message: 'Hello world!'
+        // });
+        // this.__GET_CHAT_MESSAGES();
         this.form = {
           message: "",
           order_id: null,
           to: null,
         };
-      } catch (e) {}
+      } catch (e) {
+        console.log(e)
+      }
     },
 
     moment,

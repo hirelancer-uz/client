@@ -21,10 +21,10 @@
     </button>
     <div class="flex flex-col justify-between h-full xl:gap-4">
       <div class="flex flex-col gap-2">
-        <h3 class="text-base font-medium text-black xl:text-[14px]">
+        <h3 class="text-base font-medium text-black xl:text-[14px] truncate break-all">
           {{ notification?.theme?.ru }}
         </h3>
-        <p class="text-[14px] text-gray-64 xl:text-[12px]">
+        <p class="text-[14px] text-gray-64 xl:text-[12px] desc break-all">
           {{notification?.message?.ru}}
         </p>
       </div>
@@ -57,4 +57,14 @@ export default {
   name: "AlertsCard",
 };
 </script>
-<style lang=""></style>
+<style lang="css">
+.desc {
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  /* text-align: left; */
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+}
+
+</style>

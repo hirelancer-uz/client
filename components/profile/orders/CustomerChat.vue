@@ -59,17 +59,17 @@
           <div
             class="content px-4 py-3 max-w-[642px] bg-main-color rounded-[10px] rounded-br-none flex gap-6 items-end"
           >
-            <p class="text-base text-white">
+            <p class="text-base text-white break-all">
               {{ message?.message }}
             </p>
-            <span class="text-[14px] text-white">{{  moment(message?.created_at).format("HH:mm") }}</span>
+            <span class="text-[14px] text-white ">{{  moment(message?.created_at).format("HH:mm") }}</span>
           </div>
         </div>
         <div class="flex justify-start"  v-else  >
           <div
             class="client-content px-4 max-w-[642px] py-3 bg-bg-grey rounded-[10px] rounded-bl-none flex gap-6 items-end"
           >
-            <p class="text-base text-black">{{ message?.message }}</p>
+            <p class="text-base text-black break-all">{{ message?.message }}</p>
             <span class="text-[14px] text-grey-40">{{
                 moment(message?.created_at).format("HH:mm")
               }}</span>
@@ -201,7 +201,7 @@ export default {
         });
 
         this.messages = data?.data?.content.filter(
-          (item) => item.from === this.$store.state.userInfo?.id
+          (item) => item.from === this.$store.state.userInfo?.id || item.to === this.$store.state.userInfo?.id
         );
         console.log(this.messages)
       } catch (e) {}
@@ -212,7 +212,10 @@ export default {
           "fetchChat/postChatMesssage",
           formData
         );
-        this.__GET_CHAT_MESSAGES();
+        this.$pusher.trigger('my-channel', 'my-event', {
+          message: 'Hello world!'
+        });
+        // this.__GET_CHAT_MESSAGES();
         this.form = {
           message: "",
           order_id: null,
