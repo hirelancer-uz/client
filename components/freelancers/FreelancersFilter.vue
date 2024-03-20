@@ -143,8 +143,8 @@
             </span>
             <span class="text-base text-blue-night flex items-center">
               <a-checkbox
-                :checked="filterForm['orders']"
-                @change="($event) => filterHandle($event, 'orders')"
+                :checked="filterForm['approved']"
+                @change="($event) => filterHandle($event, 'approved')"
                 >{{
                   $store.state.translations["freelancers.checked"]
                 }} </a-checkbox
@@ -168,10 +168,10 @@
               </svg>
             </span>
             <span class="text-base text-blue-night flex items-center">
-              <a-checkbox>{{
-                $store.state.translations["freelancers.with-comment"]
-              }}</a-checkbox
-              ><svg
+              <a-checkbox  :checked="filterForm['orders']" @change="($event) => filterHandle($event, 'orders')" >
+                {{ $store.state.translations["freelancers.with-comment"] }}
+              </a-checkbox>
+              <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
                 height="16"
@@ -248,6 +248,7 @@ export default {
         region: undefined,
         works: false,
         orders: false,
+        approved: 0
       },
     };
   },

@@ -632,13 +632,6 @@ export default {
             trigger: "blur",
           },
         ],
-        // bio: [
-        //   {
-        //     required: true,
-        //     message: this.$store.state.translations["auth.required"],
-        //     trigger: "blur",
-        //   },
-        // ],
         specialities: [
           {
             required: true,
