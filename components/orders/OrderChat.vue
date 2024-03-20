@@ -215,7 +215,7 @@ export default {
     },
     onSubmit() {
       this.form.order_id = this.order.id;
-      this.form.to = this.order.selected_request?.freelancer_id;
+      this.form.to = this.order?.user?.id;
       if (this.form.message.length > 0) this.__POST_CHAT_MESSAGE(this.form);
     },
     async __GET_CHAT_MESSAGES() {
