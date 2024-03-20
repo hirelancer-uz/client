@@ -120,24 +120,49 @@
         @keyup.enter="onSubmit"
       />
       <div class="flex items-center gap-6">
-        <button>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-          >
-            <path
-              d="M15.87 6.22606L7.741 14.3551C6.96 15.1361 6.96 16.4021 7.741 17.1831C8.522 17.9641 9.788 17.9641 10.569 17.1831L18.697 9.05506C20.259 7.49306 20.259 4.96006 18.697 3.39806C17.135 1.83606 14.602 1.83606 13.04 3.39806L4.915 11.5231C2.57 13.8681 2.57 17.6701 4.915 20.0151C7.26 22.3601 11.062 22.3601 13.407 20.0151L20.589 12.8331"
-              stroke="#5C46E6"
-              stroke-width="1.5"
-              stroke-miterlimit="10"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
+<!--        <emoji-picker @emoji="insert" :search="search">-->
+<!--          <div slot="emoji-invoker" slot-scope="{ events: { click: clickEvent } }" @click.stop="clickEvent">-->
+<!--            <button type="button">-->
+<!--              <svg-->
+<!--                xmlns="http://www.w3.org/2000/svg"-->
+<!--                width="24"-->
+<!--                height="24"-->
+<!--                viewBox="0 0 24 24"-->
+<!--                fill="none"-->
+<!--              >-->
+<!--                <path-->
+<!--                  d="M15.87 6.22606L7.741 14.3551C6.96 15.1361 6.96 16.4021 7.741 17.1831C8.522 17.9641 9.788 17.9641 10.569 17.1831L18.697 9.05506C20.259 7.49306 20.259 4.96006 18.697 3.39806C17.135 1.83606 14.602 1.83606 13.04 3.39806L4.915 11.5231C2.57 13.8681 2.57 17.6701 4.915 20.0151C7.26 22.3601 11.062 22.3601 13.407 20.0151L20.589 12.8331"-->
+<!--                  stroke="#5C46E6"-->
+<!--                  stroke-width="1.5"-->
+<!--                  stroke-miterlimit="10"-->
+<!--                  stroke-linecap="round"-->
+<!--                  stroke-linejoin="round"-->
+<!--                />-->
+<!--              </svg>-->
+<!--            </button>-->
+<!--          </div>-->
+<!--          <div slot="emoji-picker" slot-scope="{ emojis, insert, display }">-->
+<!--            <div>-->
+<!--              <div>-->
+<!--                <input type="text" v-model="search">-->
+<!--              </div>-->
+<!--              <div>-->
+<!--                <div v-for="(emojiGroup, category) in emojis" :key="category">-->
+<!--                  <h5>{{ category }}</h5>-->
+<!--                  <div>-->
+<!--            <span-->
+<!--              v-for="(emoji, emojiName) in emojiGroup"-->
+<!--              :key="emojiName"-->
+<!--              @click="insert(emoji)"-->
+<!--              :title="emojiName"-->
+<!--            >{{ emoji }}</span>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </emoji-picker>-->
+
         <button
           @click="onSubmit"
           class="h-12 w-12 flex justify-center items-center rounded-full bg-blue"
@@ -172,6 +197,8 @@ export default {
     return {
       cancelStatus: [4, 5, 6],
       messages: [],
+      search: "",
+      input: '',
       form: {
         message: "",
         order_id: null,
@@ -183,7 +210,7 @@ export default {
     this.__GET_CHAT_MESSAGES();
     let channel = this.$pusher.subscribe(`orders.${this.$route.params.id}`);
     channel.bind("App\\Events\\SentMessage", (data) => {
-      this.messages.push(data.message)
+      this.messages.unshift(data.message)
     });
   },
   computed: {
@@ -195,6 +222,13 @@ export default {
     },
   },
   methods: {
+    insert(emoji) {
+      this.input += emoji
+    },
+    addEmoji(emoji) {
+      console.log(emoji)
+      this.form.message = this.form.message + emoji
+    },
     moment,
     onSubmit() {
       this.form.order_id = this.order.id;
@@ -226,7 +260,6 @@ export default {
         // this.$pusher.trigger('my-channel', 'my-event', {
         //   message: 'Hello world!'
         // });
-        this.__GET_CHAT_MESSAGES();
         this.form = {
           message: "",
           order_id: null,
@@ -272,4 +305,6 @@ export default {
   font-weight: 400;
   line-height: 150%;
 }
+
+
 </style>

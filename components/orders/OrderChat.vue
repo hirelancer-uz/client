@@ -108,6 +108,7 @@
           v-model="form.message"
           placeholder="Напишите сообщение ..."
           class="text-input"
+          @keyup.enter="onSubmit"
         />
         <button
           @click="onSubmit"
@@ -203,7 +204,8 @@ export default {
     this.__GET_CHAT_MESSAGES();
     let channel = this.$pusher.subscribe(`orders.${this.$route.params.id}`);
     channel.bind("App\\Events\\SentMessage", (data) => {
-      this.messages.push(data.message)
+      // this.messages.unshift(data.message);
+      this.messages = [data.message,...this.messages]
     });
   },
   methods: {

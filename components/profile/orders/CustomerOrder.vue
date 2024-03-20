@@ -599,7 +599,7 @@
               :key="request?.id"
               :request="request"
               @selected="$emit('selected')"
-              @openChat="chatHandle = true"
+              @openChat="currentRequest(request)"
               :order="order"
             />
             <span
@@ -634,7 +634,7 @@
               order?.requests.length > 0
             "
           >
-            <OffersChat @close="chatHandle = false" />
+            <OffersChat @close="chatHandle = false" :order="order" :request="isRequest" />
           </div>
           <div
             v-if="order?.status === 0"
@@ -839,6 +839,7 @@ export default {
       openBlock: false,
       disabledBtn: true,
       loadingBtn: false,
+      isRequest: {}
     };
   },
   computed: {
@@ -872,6 +873,11 @@ export default {
     }
   },
   methods: {
+   async currentRequest(request) {
+      this.isRequest = await request;
+      this.chatHandle = true;
+      console.log(request)
+    },
     sortOffers(val) {
       val ? this.sortByDate() : this.sortByPrice();
     },
@@ -935,6 +941,7 @@ export default {
         ? (this.disabledBtn = false)
         : (this.disabledBtn = true);
     },
+
     cancelOrder() {
       console.log(this.order?.status);
       switch (this.order?.status) {

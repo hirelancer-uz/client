@@ -22,11 +22,11 @@
             :notification="notification"
           />
         </div>
-        <VPagination
-          :totalPage="totalPage"
-          @getData="__GET_NOTIFICATIONS"
-          :pageSize="pageSize"
-        />
+<!--        <VPagination-->
+<!--          :totalPage="totalPage"-->
+<!--          @getData="__GET_NOTIFICATIONS"-->
+<!--          :pageSize="pageSize"-->
+<!--        />-->
       </div>
     </div>
   </div>

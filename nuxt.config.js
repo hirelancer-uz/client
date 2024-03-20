@@ -27,6 +27,7 @@ export default {
     { src: "~plugins/quill-editor.js", ssr: false },
     { src: "~plugins/date-format.js", ssr: true },
     { src: '~/plugins/pusher.js', ssr: false},
+    { src: '~/plugins/emojis-picker.js', ssr: false},
   ],
 
   components: true,
