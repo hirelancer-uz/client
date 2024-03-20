@@ -201,7 +201,7 @@ export default {
   },
   mounted() {
     this.__GET_CHAT_MESSAGES();
-    let channel = this.$pusher.subscribe(`order.${this.$route.params.id}`);
+    let channel = this.$pusher.subscribe(`orders.${this.$route.params.id}`);
     channel.bind("App\\Events\\SentMessage", () => {
       this.__GET_CHAT_MESSAGES();
     });
