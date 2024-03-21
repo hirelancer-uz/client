@@ -631,10 +631,16 @@
             v-if="
               !order?.selected_request?.id &&
               order?.status === 1 &&
-              order?.requests.length > 0
+              order?.requests.length > 0 && windowWidth > 1200
             "
           >
-            <OffersChat @close="chatHandle = false" :order="order" :request="isRequest" />
+            <OffersChat
+              @close="chatHandle = false"
+              :order="order"
+              :request="isRequest"
+              :messages="messages"
+              :chatLoader="chatLoader"
+            />
           </div>
           <div
             v-if="order?.status === 0"
@@ -800,6 +806,16 @@
         />
       </svg>
     </button>
+    <div class="hidden xl:block" v-if="windowWidth < 1200">
+      <OffersChat
+        ref="offerChat"
+        @close="chatHandle = false"
+        :order="order"
+        :request="isRequest"
+        :messages="messages"
+        :chatLoader="chatLoader"
+      />
+    </div>
   </div>
 </template>
 <script>
@@ -839,7 +855,10 @@ export default {
       openBlock: false,
       disabledBtn: true,
       loadingBtn: false,
-      isRequest: {}
+      isRequest: {},
+      messages: [],
+      chatLoader: false,
+      windowWidth: null
     };
   },
   computed: {
@@ -871,13 +890,46 @@ export default {
     if (!localStorage.getItem("auth-token")) {
       this.$router.push(this.localePath("/"));
     }
+    this.updateWindowWidth();
+    // Add event listener to update window width on resize
+    window.addEventListener('resize', this.updateWindowWidth);
+  },
+  beforeDestroy() {
+    // Remove event listener when component is destroyed
+    window.removeEventListener('resize', this.updateWindowWidth);
   },
   methods: {
-   async currentRequest(request) {
+    updateWindowWidth() {
+      this.windowWidth = window.innerWidth;
+    },
+    async currentRequest(request) {
       this.isRequest = await request;
       this.chatHandle = true;
-      console.log(request)
+      if(this.windowWidth < 1200) {
+        this.$refs.offerChat.open()
+      }
+      this.__GET_CHAT_MESSAGES(request);
     },
+    async __GET_CHAT_MESSAGES(request) {
+      try {
+        this.chatLoader = true;
+        const data = await this.$store.dispatch("fetchChat/getChatMesssage", {
+          params: {
+            order_id: this.$route.params.id,
+          },
+        });
+        this.messages = data?.data?.content.filter(
+          (item) =>
+            item.from === request?.freelancer_id ||
+            item.to === request?.freelancer_id
+        );
+
+      } catch (e) {
+      } finally {
+        this.chatLoader = false;
+      }
+    },
+
     sortOffers(val) {
       val ? this.sortByDate() : this.sortByPrice();
     },
@@ -1043,6 +1095,7 @@ export default {
   align-items: center;
   gap: 16px;
 }
+
 .favorite {
   border-radius: 8px;
   border: 1px solid var(--Border-darik, #e0e0ed);
@@ -1058,6 +1111,7 @@ export default {
   font-weight: 500;
   line-height: 150%; /* 27px */
 }
+
 .customer-chat {
   transition: 0.3s;
   transform: translateX(100%);
@@ -1249,9 +1303,11 @@ export default {
   grid-template-columns: 1fr 470px;
   gap: 16px;
 }
+
 .order-left-chat.block {
   display: block !important;
 }
+
 .show-all {
   /* background: linear-gradient(
     180deg,
@@ -1292,21 +1348,33 @@ export default {
   :deep(.ant-select-selection__placeholder) {
     font-size: 14px;
   }
+
   .right {
     display: grid;
     grid-template-columns: 5fr 5fr;
     gap: 8px;
     width: 100%;
   }
+
   :deep(.ant-select) {
     min-width: unset;
   }
+
   :deep(.ant-select-selection-selected-value),
   .favorite {
     font-size: 14px;
   }
 }
+
 .icon.rotate {
   transform: rotate(180deg);
+}
+@media (max-width: 1200px) {
+  .customer-chat {
+    transition: 0s;
+    transform: translateX(0);
+    opacity: 1;
+    position: static;
+  }
 }
 </style>

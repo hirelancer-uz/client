@@ -51,9 +51,25 @@
       </div>
     </div>
     <div
-      class="board px-6 py-6 flex flex-col gap-4 border-[0] border-b border-solid border-grey-8 overflow-y-scroll max-h-[500px] flex-col-reverse"
+     ref="chatBoard" class="board px-6 py-6 flex flex-col gap-4 border-[0] border-b border-solid border-grey-8 overflow-y-scroll max-h-[500px] flex-col-reverse"
     >
-      <div v-for="message in messages" :key="message?.id">
+      <div class="flex justify-end message-loading" v-if="messageLoader">
+        <a-skeleton active :paragraph="false" />
+      </div>
+      <div v-if="chatLoader" class="flex flex-col gap-4">
+        <span
+          v-for="elem in [1, 2, 3, 4, 5]"
+          :key="elem"
+          :class="
+            elem % 2 == 0
+              ? `flex justify-start skeleton-${elem + 1}`
+              : `flex justify-end skeleton-${elem + 1}`
+          "
+        >
+          <a-skeleton active :paragraph="false" class="loading-card" />
+        </span>
+      </div>
+      <div v-for="(message,index) in messages" :key="message?.id">
         <div
           class="flex justify-end"
           v-if="$store.state?.userInfo?.id == message?.from"
@@ -77,6 +93,13 @@
             <span class="text-[14px] text-grey-40">{{
               moment(message?.created_at).format("HH:mm")
             }}</span>
+          </div>
+        </div>
+        <div class="flex justify-center" v-if="(index - 1) > 0 &&  Number(moment(messages[index]?.created_at).format('DD')) < Number(moment(messages[index - 1]?.created_at).format('DD'))">
+          <div
+            class="chat-date w-[123px] h-[32px] rounded-[50px] flex justify-center items-center bg-bg-grey text-black text-[14px]"
+          >
+            <span v-if="!chatLoader">{{   moment(messages[index - 1]?.created_at).format('DD.MM.YYYY') }}</span>
           </div>
         </div>
       </div>
@@ -199,6 +222,8 @@ export default {
       messages: [],
       search: "",
       input: '',
+      messageLoader: false,
+      chatLoader: false,
       form: {
         message: "",
         order_id: null,
@@ -210,7 +235,9 @@ export default {
     this.__GET_CHAT_MESSAGES();
     let channel = this.$pusher.subscribe(`orders.${this.$route.params.id}`);
     channel.bind("App\\Events\\SentMessage", (data) => {
-      this.messages.unshift(data.message)
+      this.messages.unshift(data.message);
+      this.messageLoader = false;
+      this.$refs.chatBoard.scrollTo(0, 0);
     });
   },
   computed: {
@@ -237,6 +264,7 @@ export default {
     },
     async __GET_CHAT_MESSAGES() {
       try {
+        this.chatLoader = true
         const data = await this.$store.dispatch("fetchChat/getChatMesssage", {
           params: {
             order_id: this.$route.params.id,
@@ -249,10 +277,13 @@ export default {
             item.to === this.$store.state.userInfo?.id
         );
         console.log(this.messages);
-      } catch (e) {}
+      } catch (e) {} finally {
+        this.chatLoader = false
+      }
     },
     async __POST_CHAT_MESSAGE(formData) {
       try {
+        this.messageLoader = true;
         const data = await this.$store.dispatch(
           "fetchChat/postChatMesssage",
           formData
@@ -282,7 +313,55 @@ export default {
   grid-template-columns: 60px 1fr;
   gap: 16px;
 }
+:deep(.skeleton-2 .ant-skeleton) {
+  max-width: 60%;
+  border-radius: 10px;
+  border-bottom-right-radius: 0;
+  overflow: hidden;
+}
 
+:deep(.skeleton-3 .ant-skeleton) {
+  max-width: 70%;
+  border-radius: 10px;
+  border-bottom-left-radius: 0;
+  overflow: hidden;
+}
+
+:deep(.skeleton-4 .ant-skeleton) {
+  max-width: 40%;
+  border-radius: 10px;
+  border-bottom-right-radius: 0;
+  overflow: hidden;
+}
+
+:deep(.skeleton-5 .ant-skeleton) {
+  max-width: 50%;
+  border-radius: 10px;
+  border-bottom-left-radius: 0;
+  overflow: hidden;
+}
+
+:deep(.skeleton-6 .ant-skeleton) {
+  max-width: 65%;
+  border-radius: 10px;
+  border-bottom-right-radius: 0;
+  overflow: hidden;
+}
+
+:deep(.ant-skeleton-content .ant-skeleton-title) {
+  margin-top: 0;
+  height: 70px;
+}
+
+:deep(.message-loading .ant-skeleton) {
+  max-width: 50%;
+}
+
+:deep(.message-loading .ant-skeleton-title) {
+  border-radius: 10px;
+  border-bottom-right-radius: 0;
+  height: 44px;
+}
 .footer {
   display: grid;
   grid-template-columns: 1fr 100px;

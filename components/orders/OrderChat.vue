@@ -29,9 +29,25 @@
         <p class="text-[14px] text-grey-64">В сети / Был(а) 3 минут назад</p>
       </div>
       <div
-        class="chat-body px-6 py-6 flex flex-col gap-[30px] max-h-[500px] overflow-y-scroll flex-col-reverse"
+      ref="chatBoard"  class="chat-body px-6 py-6 flex flex-col gap-[30px] max-h-[500px] overflow-y-scroll flex-col-reverse"
       >
-        <div class="" v-for="message in messages" :key="message?.id">
+        <div class="flex justify-end message-loading" v-if="messageLoader">
+          <a-skeleton active :paragraph="false" />
+        </div>
+        <div v-if="chatLoader" class="flex flex-col gap-4">
+        <span
+          v-for="elem in [1, 2, 3, 4, 5]"
+          :key="elem"
+          :class="
+            elem % 2 == 0
+              ? `flex justify-start skeleton-${elem + 1}`
+              : `flex justify-end skeleton-${elem + 1}`
+          "
+        >
+          <a-skeleton active :paragraph="false" class="loading-card" />
+        </span>
+        </div>
+        <div class="" v-for="(message,index) in messages" :key="message?.id">
           <div
             class="flex justify-end"
             v-if="$store.state?.userInfo?.id == message?.from"
@@ -59,15 +75,16 @@
               }}</span>
             </div>
           </div>
-        </div>
-        <div class="flex justify-center">
-          <div
-            class="chat-date w-[123px] h-[32px] rounded-[50px] flex justify-center items-center bg-bg-grey text-black text-[14px]"
-          >
-            <span>20.09.2023</span>
+          <div class="flex justify-center" v-if="(index - 1) > 0 && Number(moment(messages[index]?.created_at).format('DD')) < Number(moment(messages[index - 1]?.created_at).format('DD'))">
+            <div
+              class="chat-date w-[123px] h-[32px] rounded-[50px] flex justify-center items-center bg-bg-grey text-black text-[14px]"
+            >
+              <span v-if="!chatLoader">{{   moment(messages[index - 1]?.created_at).format('DD.MM.YYYY') }}</span>
+            </div>
           </div>
         </div>
-        <div class="flex justify-end">
+
+        <div class="flex justify-end" v-if="!chatLoader">
           <div
             class="chat-card px-4 py-4 rounded-[14px] rounded-br-none bg-main-color flex flex-col gap-3 max-w-[642px]"
           >
@@ -79,7 +96,7 @@
               <h5 class="text-[14px] font-semibold text-white">
                 {{ order?.selected_request?.price.toLocaleString() }} so’m
               </h5>
-              <div class="flex justify-between">
+              <div class="flex justify-between gap-10">
                 <h6
                   class="text-white text-[14px] font-regular flex gap-1 text-white"
                 >
@@ -183,6 +200,8 @@ export default {
   data() {
     return {
       messages: [],
+      messageLoader: false,
+      chatLoader: false,
       form: {
         message: "",
         order_id: null,
@@ -204,8 +223,9 @@ export default {
     this.__GET_CHAT_MESSAGES();
     let channel = this.$pusher.subscribe(`orders.${this.$route.params.id}`);
     channel.bind("App\\Events\\SentMessage", (data) => {
-      // this.messages.unshift(data.message);
-      this.messages = [data.message,...this.messages]
+      this.messages.unshift(data.message);
+      this.messageLoader = false;
+      this.$refs.chatBoard.scrollTo(0, 0);
     });
   },
   methods: {
@@ -222,6 +242,7 @@ export default {
     },
     async __GET_CHAT_MESSAGES() {
       try {
+        this.chatLoader = true
         const data = await this.$store.dispatch("fetchChat/getChatMesssage", {
           params: {
             order_id: this.$route.params.id,
@@ -233,10 +254,13 @@ export default {
             item.from === this.$store.state.userInfo?.id ||
             item.to === this.$store.state.userInfo?.id
         );
-      } catch (e) {}
+      } catch (e) {} finally {
+        this.chatLoader = false;
+      }
     },
     async __POST_CHAT_MESSAGE(formData) {
       try {
+        this.messageLoader = true;
         const data = await this.$store.dispatch(
           "fetchChat/postChatMesssage",
           formData
@@ -248,7 +272,7 @@ export default {
         // channel.trigger('client-my-event', {
         //   message: 'Hello world!'
         // });
-        this.__GET_CHAT_MESSAGES();
+        // this.__GET_CHAT_MESSAGES();
         this.form = {
           message: "",
           order_id: null,
@@ -270,6 +294,56 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+
+:deep(.skeleton-2 .ant-skeleton) {
+  max-width: 60%;
+  border-radius: 10px;
+  border-bottom-right-radius: 0;
+  overflow: hidden;
+}
+
+:deep(.skeleton-3 .ant-skeleton) {
+  max-width: 70%;
+  border-radius: 10px;
+  border-bottom-left-radius: 0;
+  overflow: hidden;
+}
+
+:deep(.skeleton-4 .ant-skeleton) {
+  max-width: 40%;
+  border-radius: 10px;
+  border-bottom-right-radius: 0;
+  overflow: hidden;
+}
+
+:deep(.skeleton-5 .ant-skeleton) {
+  max-width: 50%;
+  border-radius: 10px;
+  border-bottom-left-radius: 0;
+  overflow: hidden;
+}
+
+:deep(.skeleton-6 .ant-skeleton) {
+  max-width: 65%;
+  border-radius: 10px;
+  border-bottom-right-radius: 0;
+  overflow: hidden;
+}
+
+:deep(.ant-skeleton-content .ant-skeleton-title) {
+  margin-top: 0;
+  height: 70px;
+}
+
+:deep(.message-loading .ant-skeleton) {
+  max-width: 50%;
+}
+
+:deep(.message-loading .ant-skeleton-title) {
+  border-radius: 10px;
+  border-bottom-right-radius: 0;
+  height: 44px;
+}
 .text-input {
   border: none;
   color: var(--black);
