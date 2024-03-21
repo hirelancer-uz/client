@@ -68,6 +68,7 @@ export default {
 
         console.log(this.orderRequests);
       } catch (e) {
+        
       } finally {
         this.loading = false;
       }

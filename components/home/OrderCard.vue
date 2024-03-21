@@ -328,8 +328,8 @@ export default {
       hourFormat: "HH:mm",
       visibleButtons: [],
       currentWidth: 0,
-      cancelStatus: [5,6],
-      selectedStatus: [2,3]
+      cancelStatus: [5, 6],
+      selectedStatus: [2, 3],
     };
   },
   async mounted() {
@@ -342,21 +342,22 @@ export default {
     },
 
     step1() {
-      return !this.order?.selected_request && !this.order?.start_of_execution && this.order.status === 1
+      return (
+        // !this.order?.selected_request &&
+        // !this.order?.start_of_execution &&
+        this.order.status === 1
+      );
     },
     step2() {
       return (
-        this.order?.selected_request &&
-        this.order?.start_of_execution &&
-        !this.order?.end_of_execution && this.selectedStatus.includes(this.order.status)
+        // this.order?.selected_request &&
+        // this.order?.start_of_execution &&
+        // !this.order?.end_of_execution &&
+        this.selectedStatus.includes(this.order.status)
       );
     },
     step3() {
-      return (
-        this.order?.selected_request &&
-        this.order?.start_of_execution &&
-        this.order?.end_of_execution && this.order?.status === 4
-      );
+      return this.order?.status === 4;
     },
   },
   methods: {

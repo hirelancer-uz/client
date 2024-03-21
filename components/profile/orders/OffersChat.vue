@@ -51,9 +51,7 @@
         ref="chatBoard"
         class="board h-[100vh] flex-col-reverse max-h-[476px] overflow-y-scroll px-6 py-6 flex flex-col gap-4 border-[0] border-b border-solid border-grey-8"
       >
-        <div class="flex justify-end message-loading" v-if="messageLoader">
-          <a-skeleton active :paragraph="false" />
-        </div>
+
         <div v-if="chatLoader" class="flex flex-col gap-4">
           <span
             v-for="elem in [1, 2, 3, 4, 5]"
@@ -136,10 +134,13 @@
                     >{{ request?.deadline }} kun</span
                   >
                 </h6>
-                <p class="text-[10px] text-grey-40">14:30</p>
+                <p class="text-[10px] text-grey-40">14:301</p>
               </div>
             </div>
           </div>
+        </div>
+        <div class="flex justify-end message-loading" >
+          <a-skeleton active :paragraph="false" />
         </div>
       </div>
       <div class="footer px-4 py-4">
@@ -367,7 +368,7 @@ export default {
   data() {
     return {
       // messages: [],
-      messageLoader: false,
+      messageLoader: true,
       form: {
         message: "",
         order_id: null,

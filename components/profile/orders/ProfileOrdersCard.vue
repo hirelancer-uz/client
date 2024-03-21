@@ -148,9 +148,6 @@
     </div>
     <div
       class="offers pt-[21px] border-[0] border-t border-solid border-grey-8 xl:border-[0] xl:pt-0"
-      v-if="
-        $route.params.status == 'offers' || $route.params.status == 'completed'
-      "
     >
       <div
         class="rounded-[8px] border border-solid px-6 py-4 xl:px-4 cursor-pointer overflow-hidden border-[#C5EBC5] bg-[#FAFFFA]"

@@ -17,7 +17,16 @@
       </svg>
     </button>
 
-    <ChatModal ref="customerChat" :status="status" />
+    <ChatModal
+      ref="customerChat"
+      :status="status"
+      :order="order"
+      :messages="messages"
+      :myRequest="myRequest"
+      @onSubmit="onSubmit"
+      :messageLoader="messageLoader"
+      :chatLoader="chatLoader"
+    />
 
     <div
       class="chat rounded-[16px] border border-solid border-grey-light chatter"
@@ -29,25 +38,26 @@
         <p class="text-[14px] text-grey-64">В сети / Был(а) 3 минут назад</p>
       </div>
       <div
-      ref="chatBoard"  class="chat-body px-6 py-6 flex flex-col gap-[30px] max-h-[500px] overflow-y-scroll flex-col-reverse"
+        ref="chatBoard"
+        class="chat-body px-6 py-6 flex flex-col gap-[30px] max-h-[500px] overflow-y-scroll flex-col-reverse"
       >
         <div class="flex justify-end message-loading" v-if="messageLoader">
           <a-skeleton active :paragraph="false" />
         </div>
         <div v-if="chatLoader" class="flex flex-col gap-4">
-        <span
-          v-for="elem in [1, 2, 3, 4, 5]"
-          :key="elem"
-          :class="
-            elem % 2 == 0
-              ? `flex justify-start skeleton-${elem + 1}`
-              : `flex justify-end skeleton-${elem + 1}`
-          "
-        >
-          <a-skeleton active :paragraph="false" class="loading-card" />
-        </span>
+          <span
+            v-for="elem in [1, 2, 3, 4, 5]"
+            :key="elem"
+            :class="
+              elem % 2 == 0
+                ? `flex justify-start skeleton-${elem + 1}`
+                : `flex justify-end skeleton-${elem + 1}`
+            "
+          >
+            <a-skeleton active :paragraph="false" class="loading-card" />
+          </span>
         </div>
-        <div class="" v-for="(message,index) in messages" :key="message?.id">
+        <div class="" v-for="(message, index) in messages" :key="message?.id">
           <div
             class="flex justify-end"
             v-if="$store.state?.userInfo?.id == message?.from"
@@ -75,11 +85,20 @@
               }}</span>
             </div>
           </div>
-          <div class="flex justify-center" v-if="(index - 1) > 0 && Number(moment(messages[index]?.created_at).format('DD')) < Number(moment(messages[index - 1]?.created_at).format('DD'))">
+          <div
+            class="flex justify-center"
+            v-if="
+              index - 1 > 0 &&
+              Number(moment(messages[index]?.created_at).format('DD')) <
+                Number(moment(messages[index - 1]?.created_at).format('DD'))
+            "
+          >
             <div
               class="chat-date w-[123px] h-[32px] rounded-[50px] flex justify-center items-center bg-bg-grey text-black text-[14px]"
             >
-              <span v-if="!chatLoader">{{   moment(messages[index - 1]?.created_at).format('DD.MM.YYYY') }}</span>
+              <span v-if="!chatLoader">{{
+                moment(messages[index - 1]?.created_at).format("DD.MM.YYYY")
+              }}</span>
             </div>
           </div>
         </div>
@@ -89,22 +108,22 @@
             class="chat-card px-4 py-4 rounded-[14px] rounded-br-none bg-main-color flex flex-col gap-3 max-w-[642px]"
           >
             <p class="text-base text-white">
-              {{ order?.selected_request?.additional_info }}
+              {{ myRequest?.additional_info }}
             </p>
             <span class="flex w-full h-[1px] bg-[#B795FF]"></span>
             <div class="flex flex-col gap-1">
               <h5 class="text-[14px] font-semibold text-white">
-                {{ order?.selected_request?.price.toLocaleString() }} so’m
+                {{ myRequest?.price.toLocaleString() }} so’m
               </h5>
               <div class="flex justify-between gap-10">
                 <h6
                   class="text-white text-[14px] font-regular flex gap-1 text-white"
                 >
                   Muddat:<span class="text-[14px] font-semibold text-white"
-                    >{{ order?.selected_request?.deadline }} kun</span
+                    >{{ myRequest?.deadline }} kun</span
                   >
                 </h6>
-                <p class="text-[10px] text-white">{{requestTime}}</p>
+                <p class="text-[10px] text-white">{{ requestTime }}</p>
               </div>
             </div>
           </div>
@@ -125,10 +144,10 @@
           v-model="form.message"
           placeholder="Напишите сообщение ..."
           class="text-input"
-          @keyup.enter="onSubmit"
+          @keyup.enter="onSubmit(form)"
         />
         <button
-          @click="onSubmit"
+          @click="onSubmit(form)"
           class="w-[48px] min-w-[48px] h-[48px] rounded-full flex justify-center items-center bg-main-color"
         >
           <svg
@@ -235,14 +254,15 @@ export default {
     closeCustomerChat() {
       this.$refs.customerChat.close();
     },
-    onSubmit() {
+    onSubmit(form) {
+      this.form = { ...form };
       this.form.order_id = this.order.id;
       this.form.to = this.order?.client?.id;
       if (this.form.message.length > 0) this.__POST_CHAT_MESSAGE(this.form);
     },
     async __GET_CHAT_MESSAGES() {
       try {
-        this.chatLoader = true
+        this.chatLoader = true;
         const data = await this.$store.dispatch("fetchChat/getChatMesssage", {
           params: {
             order_id: this.$route.params.id,
@@ -254,7 +274,8 @@ export default {
             item.from === this.$store.state.userInfo?.id ||
             item.to === this.$store.state.userInfo?.id
         );
-      } catch (e) {} finally {
+      } catch (e) {
+      } finally {
         this.chatLoader = false;
       }
     },
@@ -282,7 +303,6 @@ export default {
         console.log(e);
       }
     },
-
     moment,
   },
   watch: {
@@ -294,7 +314,6 @@ export default {
 };
 </script>
 <style lang="css" scoped>
-
 :deep(.skeleton-2 .ant-skeleton) {
   max-width: 60%;
   border-radius: 10px;
@@ -344,6 +363,7 @@ export default {
   border-bottom-right-radius: 0;
   height: 44px;
 }
+
 .text-input {
   border: none;
   color: var(--black);
