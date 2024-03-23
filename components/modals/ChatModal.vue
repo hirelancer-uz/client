@@ -52,12 +52,13 @@
               <h5 class="text-[20px] text-black font-medium">
                 {{ order?.client?.name }} {{ order?.client?.surname }}
               </h5>
-              <p class="text-grey-40 text-base">14:30</p>
+              <p class="text-grey-40 text-base">{{ onlineTime }}</p>
             </div>
           </div>
         </div>
         <div
-          class="board px-6 py-6 flex flex-col gap-4 border-[0] border-b border-solid border-grey-8 flex-auto overflow-y-scroll flex-col-reverse flex-auto"
+          ref="chatBoard"
+          class="board px-6 py-6 flex gap-4 border-[0] border-b border-solid border-grey-8 overflow-y-scroll flex-col-reverse flex-auto"
         >
           <div class="flex justify-end message-loading" v-if="messageLoader">
             <a-skeleton active :paragraph="false" />
@@ -75,7 +76,7 @@
               <a-skeleton active :paragraph="false" class="loading-card" />
             </span>
           </div>
-          <div v-for="(message,index) in messages" :key="message?.id">
+          <div v-for="(message, index) in messages" :key="message?.id">
             <div
               class="flex justify-end"
               v-if="$store.state?.userInfo?.id == message?.from"
@@ -103,17 +104,33 @@
               </div>
             </div>
             <div
+              class="flex justify-center mt-4"
+              v-if="
+                index - 1 > 0 &&
+                Number(moment(messages[index]?.created_at).format('DD')) <
+                  Number(moment(messages[index - 1]?.created_at).format('DD'))
+              "
+            >
+              <div
+                class="chat-date w-[123px] py-2 rounded-[50px] flex justify-center items-center bg-bg-grey text-black text-[12px]"
+              >
+                <span v-if="!chatLoader">{{
+                  moment(messages[index - 1]?.created_at).format("DD.MM.YYYY")
+                }}</span>
+              </div>
+            </div>
+            <div
               class="flex justify-center"
               v-if="
-              index - 1 > 0 &&
-              Number(moment(messages[index]?.created_at).format('DD')) <
-                Number(moment(messages[index - 1]?.created_at).format('DD'))
-            "
+                index - 1 > 0 &&
+                Number(moment(messages[index]?.created_at).format('DD')) <
+                  Number(moment(messages[index - 1]?.created_at).format('DD'))
+              "
             >
               <div
                 class="chat-date w-[123px] h-[32px] flex justify-center bg-bg-grey rounded-[50px] text-[12px] text-black"
               >
-              <span v-if="!chatLoader">{{
+                <span v-if="!chatLoader">{{
                   moment(messages[index - 1]?.created_at).format("DD.MM.YYYY")
                 }}</span>
               </div>
@@ -232,6 +249,9 @@ export default {
     imgUrl() {
       return this.$config.baseURL + "/storage/";
     },
+    onlineTime: function () {
+      return this.order?.client?.last_online_at ? moment(this.order?.client?.last_online_at).format("HH:mm"):'---';
+    },
   },
 
   methods: {
@@ -246,8 +266,8 @@ export default {
       document.body.style.overflow = "auto";
     },
     onSubmit() {
-
       this.$emit("onSubmit", this.form);
+      this.$refs.chatBoard.scrollTop = 0;
       this.form = {
         message: "",
         order_id: null,

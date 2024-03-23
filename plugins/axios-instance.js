@@ -22,8 +22,13 @@ export default ({ $axios, redirect, error }, inject) => {
         localStorage.removeItem(tokenKey);
       }
     if(e.response.status === 404) {
-      console.log("error",e.response.status)
-       throw new Error('NOT FOUNT')
+      error({
+        statusCode: e.response.status,
+        message: "This page could not be found",
+        layout: "error",
+      });
+      // console.log("error",e.response.status)
+      //  throw new Error('NOT FOUNT')
     }
     return Promise.reject(e);
   });

@@ -60,7 +60,7 @@ export default {
     },
     async __GET_ORDERS() {
       try {
-        const data = await this.$store.dispatch("fetchOrders/getOrderById", {
+        const data = await this.$store.dispatch("fetchOrders/getMyOrderById", {
           id: this.$route.params.id,
         });
         this.order = data?.content;
@@ -68,7 +68,7 @@ export default {
 
         console.log(this.orderRequests);
       } catch (e) {
-        
+
       } finally {
         this.loading = false;
       }

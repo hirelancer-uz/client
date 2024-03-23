@@ -212,15 +212,15 @@
 <script>
 import moment from "moment";
 import ChatModal from "@/components/modals/ChatModal.vue";
+import chatService from "@/mixins/chatService";
+
 
 export default {
   components: { ChatModal },
   props: ["status", "order"],
+  mixins: [chatService],
   data() {
     return {
-      messages: [],
-      messageLoader: false,
-      chatLoader: false,
       form: {
         message: "",
         order_id: null,
@@ -238,15 +238,6 @@ export default {
       return moment(this.order?.selected_request?.created_at).format("HH:mm");
     },
   },
-  mounted() {
-    this.__GET_CHAT_MESSAGES();
-    let channel = this.$pusher.subscribe(`orders.${this.$route.params.id}`);
-    channel.bind("App\\Events\\SentMessage", (data) => {
-      this.messages.unshift(data.message);
-      this.messageLoader = false;
-      this.$refs.chatBoard.scrollTo(0, 0);
-    });
-  },
   methods: {
     openCustomerChat() {
       this.$refs.customerChat.open();
@@ -258,58 +249,16 @@ export default {
       this.form = { ...form };
       this.form.order_id = this.order.id;
       this.form.to = this.order?.client?.id;
-      if (this.form.message.length > 0) this.__POST_CHAT_MESSAGE(this.form);
+      if (this.form.message.length > 0) this.__POST_CHAT_MESSAGE(this.form,this.formClear);
     },
-    async __GET_CHAT_MESSAGES() {
-      try {
-        this.chatLoader = true;
-        const data = await this.$store.dispatch("fetchChat/getChatMesssage", {
-          params: {
-            order_id: this.$route.params.id,
-          },
-        });
-
-        this.messages = data?.data?.content.filter(
-          (item) =>
-            item.from === this.$store.state.userInfo?.id ||
-            item.to === this.$store.state.userInfo?.id
-        );
-      } catch (e) {
-      } finally {
-        this.chatLoader = false;
-      }
-    },
-    async __POST_CHAT_MESSAGE(formData) {
-      try {
-        this.messageLoader = true;
-        const data = await this.$store.dispatch(
-          "fetchChat/postChatMesssage",
-          formData
-        );
-        // const channel = this.$pusher.subscribe('my-channel');
-        // channel.bind('my-event', function(data) {
-        //   alert('Received message: ');
-        // });
-        // channel.trigger('client-my-event', {
-        //   message: 'Hello world!'
-        // });
-        // this.__GET_CHAT_MESSAGES();
-        this.form = {
-          message: "",
-          order_id: null,
-          to: null,
-        };
-      } catch (e) {
-        console.log(e);
-      }
+    formClear() {
+      this.form = {
+        message: "",
+        order_id: null,
+        to: null,
+      };
     },
     moment,
-  },
-  watch: {
-    "$store.state.userInfo.id"(val) {
-      console.log(val);
-      this.__GET_CHAT_MESSAGES();
-    },
   },
 };
 </script>

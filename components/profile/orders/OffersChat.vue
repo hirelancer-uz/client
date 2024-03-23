@@ -44,14 +44,16 @@
           <h5 class="text-base text-black font-medium">
             {{ request?.freelancer?.name }} {{ request?.freelancer?.surname }}
           </h5>
-          <p class="text-grey-40 text-[14px]">14:30</p>
+          <p class="text-grey-40 text-[14px]">{{ requestTime }}</p>
         </div>
       </div>
       <div
         ref="chatBoard"
-        class="board h-[100vh] flex-col-reverse max-h-[476px] overflow-y-scroll px-6 py-6 flex flex-col gap-4 border-[0] border-b border-solid border-grey-8"
+        class="board h-[100vh] flex-col-reverse max-h-[476px] overflow-y-scroll px-6 py-6 flex gap-4 border-[0] border-b border-solid border-grey-8"
       >
-
+        <div class="flex justify-end message-loading" v-if="messageLoader">
+          <a-skeleton active :paragraph="false" />
+        </div>
         <div v-if="chatLoader" class="flex flex-col gap-4">
           <span
             v-for="elem in [1, 2, 3, 4, 5]"
@@ -139,9 +141,6 @@
             </div>
           </div>
         </div>
-        <div class="flex justify-end message-loading" >
-          <a-skeleton active :paragraph="false" />
-        </div>
       </div>
       <div class="footer px-4 py-4">
         <input
@@ -152,10 +151,9 @@
         />
         <button
           @click="onSubmit"
-          class="h-12 w-12 flex justify-center items-center rounded-full bg-blue "
+          class="h-12 w-12 flex justify-center items-center rounded-full bg-blue"
         >
           <svg
-
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -174,70 +172,70 @@
         </button>
       </div>
     </div>
-    <div class="hidden xl:block">
-
-      <vue-bottom-sheet-vue2
-        ref="offerChat"
-        class="bottom-drawer h-full "
-        :init-sheet-height="783"
-        :can-swipe="false"
-        :overlay-click-close="false"
-      >
-        <div class="h-full flex flex-col pt-4">
-          <div class="flex justify-end mb-2">
-            <button @click="close">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M6.66699 6.64648L17.333 17.3105M6.66699 17.3105L17.333 6.64648"
-                  stroke="#020105"
-                  stroke-width="1.5"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </button>
-          </div>
-          <div
-            class="head px-4 pb-4 border-[0] border-b border-solid border-grey-8"
-          >
-            <div
-              class="image w-[52px] h-[52px] border-[2px] border-solid border-agro-green rounded-full overflow-hidden"
-            >
-              <img
-                v-if="request?.freelancer?.avatar"
-                class="w-full h-full object-cover"
-                :src="`${imgUrl}${request?.freelancer?.avatar}`"
-                alt=""
-              />
-              <img
-                v-else
-                class="w-full h-full object-cover"
-                src="@/assets/images/user-avatar.jpg"
-                alt=""
-              />
-            </div>
-            <div class="flex flex-col justify-between">
-              <h5 class="text-base text-black font-medium">
-                {{ request?.freelancer?.name }} {{ request?.freelancer?.surname }}
-              </h5>
-              <p class="text-grey-40 text-[14px]">14:30</p>
-            </div>
-          </div>
-          <div
-            ref="chatBoard"
-            class="board flex-col-reverse overflow-y-scroll px-4 py-4 flex flex-col gap-2 border-[0] border-b border-solid border-grey-8 flex-auto"
-          >
-            <div class="flex justify-end message-loading" v-if="messageLoader">
-              <a-skeleton active :paragraph="false" />
-            </div>
-            <div v-if="chatLoader" class="flex flex-col gap-4">
+   <div class="hidden xl:block">
+     <vue-bottom-sheet-vue2
+       ref="customerChat"
+       class="bottom-drawer h-full"
+       :init-sheet-height="750"
+       :can-swipe="false"
+       :overlay-click-close="false"
+     >
+       <div class="h-full flex flex-col pt-4">
+         <div class="flex justify-end mb-2">
+           <button @click="close">
+             <svg
+               xmlns="http://www.w3.org/2000/svg"
+               width="24"
+               height="24"
+               viewBox="0 0 24 24"
+               fill="none"
+             >
+               <path
+                 d="M6.66699 6.64648L17.333 17.3105M6.66699 17.3105L17.333 6.64648"
+                 stroke="#020105"
+                 stroke-width="1.5"
+                 stroke-miterlimit="10"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+               />
+             </svg>
+           </button>
+         </div>
+         <div
+           class="head px-4 pb-4 border-[0] border-b border-solid border-grey-8"
+         >
+           <div
+             class="image w-[52px] h-[52px] border-[2px] border-solid border-agro-green rounded-full overflow-hidden"
+           >
+             <img
+               v-if="request?.freelancer?.avatar"
+               class="w-full h-full object-cover"
+               :src="`${imgUrl}${request?.freelancer?.avatar}`"
+               alt=""
+             />
+             <img
+               v-else
+               class="w-full h-full object-cover"
+               src="@/assets/images/user-avatar.jpg"
+               alt=""
+             />
+           </div>
+           <div class="flex flex-col justify-between">
+             <h5 class="text-base text-black font-medium">
+               {{ request?.freelancer?.name }}
+               {{ request?.freelancer?.surname }}
+             </h5>
+             <p class="text-grey-40 text-[14px]">{{ requestTime }}</p>
+           </div>
+         </div>
+         <div
+           ref="chatBoard"
+           class="board flex-col-reverse overflow-y-scroll px-4 py-4 flex gap-2 border-[0] border-b border-solid border-grey-8 flex-auto"
+         >
+           <div class="flex justify-end message-loading" v-if="messageLoader">
+             <a-skeleton active :paragraph="false" />
+           </div>
+           <div v-if="chatLoader" class="flex flex-col gap-4">
             <span
               v-for="elem in [1, 2, 3, 4, 5]"
               :key="elem"
@@ -249,115 +247,117 @@
             >
               <a-skeleton active :paragraph="false" class="loading-card" />
             </span>
-            </div>
+           </div>
 
-            <div v-else v-for="(message, index) in messages" :key="message?.id">
-              <div
-                class="flex justify-end"
-                v-if="$store.state?.userInfo?.id == message?.from"
-              >
-                <div
-                  class="content px-2 py-2 max-w-[295px] bg-blue rounded-[10px] rounded-br-none flex gap-2 items-end"
-                >
-                  <p class="text-[12px] text-white break-all">
-                    {{ message?.message }}
-                  </p>
-                  <span class="text-[12px] text-grey-40">{{
-                      moment(message?.created_at).format("HH:mm")
-                    }}</span>
-                </div>
-              </div>
+           <div v-else v-for="(message, index) in messages" :key="message?.id">
+             <div
+               class="flex justify-end"
+               v-if="$store.state?.userInfo?.id == message?.from"
+             >
+               <div
+                 class="content px-2 py-2 max-w-[295px] bg-blue rounded-[10px] rounded-br-none flex gap-2 items-end"
+               >
+                 <p class="text-[12px] text-white break-all">
+                   {{ message?.message }}
+                 </p>
+                 <span class="text-[12px] text-grey-40">{{
+                     moment(message?.created_at).format("HH:mm")
+                   }}</span>
+               </div>
+             </div>
 
-              <div class="flex justify-start" v-else>
-                <div
-                  class="client-content px-2 max-w-[295px] py-2 bg-bg-grey rounded-[10px] rounded-bl-none flex gap-2 items-end"
-                >
-                  <p class="text-[12px] text-black break-all">
-                    {{ message?.message }}
-                  </p>
-                  <span class="text-[12px] text-grey-40">{{
-                      moment(message?.created_at).format("HH:mm")
-                    }}</span>
-                </div>
-              </div>
-              <div
-                class="flex justify-center"
-                v-if="
+             <div class="flex justify-start" v-else>
+               <div
+                 class="client-content px-2 max-w-[295px] py-2 bg-bg-grey rounded-[10px] rounded-bl-none flex gap-2 items-end"
+               >
+                 <p class="text-[12px] text-black break-all">
+                   {{ message?.message }}
+                 </p>
+                 <span class="text-[12px] text-grey-40">{{
+                     moment(message?.created_at).format("HH:mm")
+                   }}</span>
+               </div>
+             </div>
+             <div
+               class="flex justify-center"
+               v-if="
                 index - 1 > 0 &&
                 Number(moment(messages[index]?.created_at).format('DD')) <
                   Number(moment(messages[index - 1]?.created_at).format('DD'))
               "
-              >
-                <div
-                  class="chat-date w-[123px] h-[32px] rounded-[50px] flex justify-center items-center bg-bg-grey text-black text-[14px]"
-                >
+             >
+               <div
+                 class="chat-date w-[123px] h-[32px] rounded-[50px] flex justify-center items-center bg-bg-grey text-black text-[14px]"
+               >
                 <span v-if="!chatLoader">{{
                     moment(messages[index - 1]?.created_at).format("DD.MM.YYYY")
                   }}</span>
-                </div>
-              </div>
-            </div>
+               </div>
+             </div>
+           </div>
 
-            <div v-if="!chatLoader" class="flex justify-start">
-              <div
-                class="chat-card px-2 py-2 rounded-[14px] rounded-bl-none bg-bg-grey flex flex-col gap-3 max-w-[642px]"
-              >
-                <p class="text-[12px] text-black">
-                  {{ request?.additional_info }}
-                </p>
-                <span class="flex w-full h-[1px] bg-grey-40"></span>
-                <div class="flex flex-col gap-1">
-                  <h5
-                    class="text-[12px] font-regular text-black"
-                    v-if="request?.price"
-                  >
-                    {{ request?.price?.toLocaleString() }} so’m
-                  </h5>
-                  <div class="flex justify-between gap-10">
-                    <h6 class="text-[12px] font-regular flex gap-1 text-black">
-                      Muddat:<span class="text-[12px] font-regular text-black"
-                    >{{ request?.deadline }} kun</span
-                    >
-                    </h6>
-                    <p class="text-[10px] text-black"> {{moment(request?.created_at).format("HH:mm")}}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="footer px-4 py-4 justify-between flex">
-            <input
-              type="text"
-              v-model="form.message"
-              @keyup.enter="onSubmit"
-              placeholder="Напишите сообщение ..."
-            />
-            <button
-              @click="onSubmit"
-              class="h-12 w-12 flex justify-center items-center rounded-full bg-blue xl:w-8 xl:h-8"
-            >
-              <svg
-                class="xl:w-4 xl:h-4"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M5.35254 15.9993V18.3803C5.35254 19.1233 6.13454 19.6073 6.79954 19.2743L21.3525 11.9993L6.79954 4.72428C6.13454 4.39128 5.35254 4.87528 5.35254 5.61828V11.9993H12.0195"
-                  stroke="white"
-                  stroke-width="1.5"
-                  stroke-miterlimit="10"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </vue-bottom-sheet-vue2>
-    </div>
+           <div v-if="!chatLoader" class="flex justify-start">
+             <div
+               class="chat-card px-2 py-2 rounded-[14px] rounded-bl-none bg-bg-grey flex flex-col gap-3 max-w-[642px]"
+             >
+               <p class="text-[12px] text-black">
+                 {{ request?.additional_info }}
+               </p>
+               <span class="flex w-full h-[1px] bg-grey-40"></span>
+               <div class="flex flex-col gap-1">
+                 <h5
+                   class="text-[12px] font-regular text-black"
+                   v-if="request?.price"
+                 >
+                   {{ request?.price?.toLocaleString() }} so’m
+                 </h5>
+                 <div class="flex justify-between gap-10">
+                   <h6 class="text-[12px] font-regular flex gap-1 text-black">
+                     Muddat:<span class="text-[12px] font-regular text-black"
+                   >{{ request?.deadline }} kun</span
+                   >
+                   </h6>
+                   <p class="text-[10px] text-black">
+                     {{ moment(request?.created_at).format("HH:mm") }}
+                   </p>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+         <div class="footer px-4 py-4 justify-between flex">
+           <input
+             type="text"
+             v-model="form.message"
+             @keyup.enter="onSubmit"
+             placeholder="Напишите сообщение ..."
+           />
+           <button
+             @click="onSubmit"
+             class="h-12 w-12 flex justify-center items-center rounded-full bg-blue xl:w-8 xl:h-8"
+           >
+             <svg
+               class="xl:w-4 xl:h-4"
+               xmlns="http://www.w3.org/2000/svg"
+               width="24"
+               height="24"
+               viewBox="0 0 24 24"
+               fill="none"
+             >
+               <path
+                 d="M5.35254 15.9993V18.3803C5.35254 19.1233 6.13454 19.6073 6.79954 19.2743L21.3525 11.9993L6.79954 4.72428C6.13454 4.39128 5.35254 4.87528 5.35254 5.61828V11.9993H12.0195"
+                 stroke="white"
+                 stroke-width="1.5"
+                 stroke-miterlimit="10"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+               />
+             </svg>
+           </button>
+         </div>
+       </div>
+     </vue-bottom-sheet-vue2>
+   </div>
   </div>
 </template>
 <script>
@@ -368,7 +368,7 @@ export default {
   data() {
     return {
       // messages: [],
-      messageLoader: true,
+      messageLoader: false,
       form: {
         message: "",
         order_id: null,
@@ -379,6 +379,11 @@ export default {
   computed: {
     imgUrl() {
       return this.$config.baseURL + "/storage/";
+    },
+    requestTime() {
+      return this.request?.freelancer?.last_online_at
+        ? moment(this.request?.freelancer?.last_online_at).format("HH:mm")
+        : "---";
     },
   },
   mounted() {
@@ -391,19 +396,26 @@ export default {
   methods: {
     moment,
     open() {
-      this.$refs.offerChat.open();
+      this.$refs.customerChat.open();
       document.body.style.height = "100vh";
       document.body.style.overflow = "hidden";
     },
     close() {
-      this.$refs.offerChat.close();
+      this.$refs.customerChat.close();
       document.body.style.height = "auto";
       document.body.style.overflow = "auto";
     },
     onSubmit() {
       this.form.order_id = this.order.id;
       this.form.to = this.request?.freelancer_id;
-      if (this.form.message.length > 0) this.__POST_CHAT_MESSAGE(this.form);
+      if (this.form.message.length > 0) this.__POST_CHAT_MESSAGE(this.form,this.formClear);
+    },
+    formClear() {
+      this.form = {
+        message: "",
+        order_id: null,
+        to: null,
+      };
     },
     async __POST_CHAT_MESSAGE(formData) {
       try {
@@ -522,7 +534,7 @@ export default {
     gap: 10px;
   }
   .bottom-drawer {
-    display: flex ;
+    display: flex;
   }
   .footer input::placeholder {
     font-size: 14px;

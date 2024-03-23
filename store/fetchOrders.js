@@ -17,6 +17,10 @@ export const actions = {
     const res = await this.$axios.$get(`/api/client/orders/${payload.id}`);
     return res;
   },
+  async getMyOrderById({}, payload) {
+    const res = await this.$axiosInstance.$get(`/api/client/orders/${payload.id}`);
+    return res;
+  },
   async getOrderCounts({}) {
     const res = await this.$axiosInstance.$get(`/api/order_counts`);
     return res;

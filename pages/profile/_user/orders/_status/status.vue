@@ -280,7 +280,17 @@ export default {
         const data = await this.$store.dispatch(apiUrl, {
           params: { ...params },
         });
-        this.orders = data?.data;
+        this.orders = this.$route.params.status === "offers" ? data?.data.map(item => {
+          let req = {...item};
+          let order = {...item.order};
+          return {
+            selected_request: {
+              ...req,
+            },
+            ...order,
+
+          }
+        }):data?.data;
         this.totalPage = data?.meta?.total;
         if (this.$route.params.status === "completed") {
           this.orders = this.orders.filter((elem) => elem?.end_of_execution);

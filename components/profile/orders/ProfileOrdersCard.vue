@@ -192,8 +192,8 @@
                 <span
                   class="hidden xl:block flex-auto border-[0] border-dashed border-b border-grey-24 mb-[5px]"
                 ></span>
-                <span v-if="order?.deadline" class="text-black xl:font-medium"
-                  >{{ order?.deadline }}
+                <span v-if="order?.selected_request?.deadline" class="text-black xl:font-medium"
+                  >{{ order?.selected_request?.deadline }}
                   {{ $store.state.translations["profile.days"] }}</span
                 >
                 <span v-else class="text-black xl:font-medium">{{
@@ -207,8 +207,8 @@
                 <span
                   class="hidden xl:block flex-auto border-[0] border-dashed border-b border-grey-24 mb-[5px]"
                 ></span>
-                <span v-if="order?.price" class="text-black xl:font-medium"
-                  >{{ order?.price }}
+                <span v-if="order?.selected_request?.price" class="text-black xl:font-medium"
+                  >{{ order?.selected_request?.price }}
                   {{ $store.state.translations["profile.sum"] }}</span
                 >
                 <span v-else class="text-black xl:font-medium">{{
