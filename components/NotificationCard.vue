@@ -3,7 +3,7 @@
     class="notification-card border border-solid border-border-darik rounded-[16px] px-6 py-4"
   >
     <h5 class="text-dark-grey-100 text-[20px] font-medium mb-4">
-      {{ notification.theme }}
+      {{ notification.theme }}{{ notification?.type }}
     </h5>
     <div
       class="body pb-12 border-[0] border-b border-border-darik border-solid"
@@ -30,7 +30,26 @@
           /></svg
         >{{ dateFormat }}</span
       >
+      <nuxt-link
+        class="text-main-color text-base font-medium flex items-center gap-2"
+        v-if="notification?.type === 1"
+        :to="`/profile/${notification?.user_id === $store.state.userInfo?.id ? 'customer':'freelancer'}/order/view/${notification?.link}`"
+        >Buyurtmaga o‘tish</nuxt-link
+      >
+      <nuxt-link
+        class="text-main-color text-base font-medium flex items-center gap-2"
+        v-if="notification?.type === 2"
+        to="/directory"
+        >Reyting formulasi</nuxt-link
+      >
+      <nuxt-link
+        class="text-main-color text-base font-medium flex items-center gap-2"
+        v-if="notification?.type === 3"
+        :to="`/profile/${notification?.user_id === $store.state.userInfo?.id ? 'customer':'freelancer'}/order/view/${notification?.link}`"
+        >Taklifni ko’rish</nuxt-link
+      >
       <button
+        v-if="notification?.type === 4"
         @click="openModal"
         class="text-main-color text-base font-medium flex items-center gap-2"
       >
@@ -52,7 +71,11 @@
         </svg>
       </button>
     </div>
-    <NotificationShow ref="notificationShow" :notification="notification" :date="dateFormat"/>
+    <NotificationShow
+      ref="notificationShow"
+      :notification="notification"
+      :date="dateFormat"
+    />
   </div>
 </template>
 <script>

@@ -48,7 +48,7 @@ export default {
   },
   build: {
     babel: {
-      compact: true,
+      compact: true
     },
     vendor: ["aos"],
     standalone: true,
@@ -56,7 +56,7 @@ export default {
       config.externals = [
         {
           encoding: "encoding",
-        },
+        }
       ];
     },
   },

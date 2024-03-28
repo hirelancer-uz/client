@@ -644,7 +644,7 @@ export default {
   methods: {
     async __GET_ORDERS() {
       try {
-        const data = await this.$store.dispatch("fetchOrders/getOrderById", {
+        const data = await this.$store.dispatch("fetchOrders/getMyOrderById", {
           id: this.$route.params.id,
         });
         this.order = data?.content;

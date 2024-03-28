@@ -236,7 +236,7 @@
       <button
         @click="openCustomerChat"
         v-if="order?.selected_request?.id && order?.status"
-        class="w-[56px] h-[56px] rounded-full xl:flex justify-center items-center bg-main-color fixed bottom-[88px] right-4"
+        class="w-[56px] h-[56px] rounded-full hidden xl:flex justify-center items-center bg-main-color fixed bottom-[88px] right-4"
       >
         <svg
           width="24"
