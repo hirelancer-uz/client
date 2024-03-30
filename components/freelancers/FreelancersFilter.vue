@@ -248,7 +248,7 @@ export default {
         region: undefined,
         works: false,
         orders: false,
-        approved: 0
+        approved: false
       },
     };
   },
@@ -263,7 +263,6 @@ export default {
         }
       }
     });
-    console.log(this.filterForm);
   },
   computed: {
     disabledFilter() {
@@ -448,10 +447,6 @@ export default {
 
   .drop-list {
     margin: 0;
-  }
-
-  .buttoners {
-    //display: grid; //grid-template-columns: repeat(2, 1fr);
   }
 }
 </style>

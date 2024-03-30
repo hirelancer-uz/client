@@ -169,8 +169,14 @@
                 </svg>
               </a-tooltip>
             </div>
-            <a-form-model-item class="order-item required" prop="description">
-              <quill-editor
+            <!-- <a-form-model-item class="order-item required" prop="description"> -->
+            <div class="relative">
+            <ckeditor :editor="editor" v-model="form.description"/>
+              <span class="absolute right-0 bottom-[-40px]"
+                >{{ maxLength - form.description.length }} / {{ maxLength }}
+              </span>
+            </div>
+              <!-- <quill-editor
                 style="min-height: 250px"
                 ref="quillEditor"
                 :options="editorOption"
@@ -178,11 +184,9 @@
                 v-model="form.description"
                 :placeholder="$store.state.translations[`order.order-comment`]"
                 @change="handleTextChange"
-              />
-              <span class="absolute right-0 bottom-[-40px]"
-                >{{ maxLength - form.description.length }} / {{ maxLength }}
-              </span>
-            </a-form-model-item>
+              /> -->
+          
+            <!-- </a-form-model-item> -->
           </div>
 
           <div
@@ -530,6 +534,7 @@ import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
 import deleteFile from "@/mixins/deleteFile";
+import Ckeditor from "../../ckeditor.vue";
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -539,13 +544,22 @@ function getBase64(file) {
     reader.onerror = (error) => reject(error);
   });
 }
+let ClassicEditor;
+let CKEditor;
 
+if (process.client) {
+  ClassicEditor = require("@ckeditor/ckeditor5-build-classic");
+  CKEditor = require("@ckeditor/ckeditor5-vue2");
+} else {
+  CKEditor = { component: { template: "<div></div>" } };
+}
 export default {
   name: "order-template",
   props: ["specialities", "title"],
   mixins: [deleteFile],
   data() {
-    return {
+    return {  
+      editor: ClassicEditor,
       maxLength: 5000,
       imgFileTypes: imgFileTypes,
       editorOption: {
@@ -669,16 +683,16 @@ export default {
       }
     },
 
-    handleTextChange(event) {
-      const editor = this.$refs.quillEditor.quill;
-      const length = editor.getLength();
-      if (length > this.maxLength) {
-        const delta = length - this.maxLength;
-        editor.deleteText(this.maxLength, delta);
-      } else {
-        this.form.description = editor.root.innerHTML;
-      }
-    },
+    // handleTextChange(event) {
+    //   const editor = this.$refs.quillEditor.quill;
+    //   const length = editor.getLength();
+    //   if (length > this.maxLength) {
+    //     const delta = length - this.maxLength;
+    //     editor.deleteText(this.maxLength, delta);
+    //   } else {
+    //     this.form.description = editor.root.innerHTML;
+    //   }
+    // },
     toBack() {
       this.$router.go(-1);
     },
@@ -892,10 +906,20 @@ export default {
     Loader,
     LoaderBtn,
     SpicialsticsCheck,
+    ckeditor: CKEditor.component,
   },
 };
 </script>
 <style lang="css" scoped>
+:deep(.ck-content) {
+  height: 250px;
+  border: 1px solid var(--grey-8) !important;
+  border-radius: 0 0 10px 10px !important;
+}
+:deep(.ck-toolbar) {
+  border: 1px solid var(--grey-8) !important;
+  border-radius: 10px 10px 0 0 !important;
+}
 .order-item :deep(input),
 .order-item :deep(textarea) {
   padding-left: 16px;
