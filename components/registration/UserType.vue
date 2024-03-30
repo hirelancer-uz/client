@@ -87,12 +87,7 @@
     <div
       class="xl:h-full xl:flex xl:flex-col xl:justify-between xl:pb-4 xl:pt-2"
     >
-      <a-form-model
-        ref="ruleForm"
-        :model="form"
-        :rules="rules"
-        @submit.prevent="onSubmit"
-      >
+      <a-form-model ref="ruleForm" :model="form" :rules="rules">
         <div class="flex flex-col gap-8 xl:gap-6">
           <a-form-model-item
             class="auth-item"
@@ -125,7 +120,7 @@
               <!--              />-->
               <nuxt-link
                 class="cursor-pointer"
-                :to="localePath('/registrationas')"
+                :to="localePath('/registration')"
               >
                 <svg
                   width="24"
@@ -191,39 +186,26 @@
               </div>
             </div>
             <span
-              class="code-invalid opacity-0 absolute text-light-red text-[15px] xl:text-[14px]"
+              class="code-invalid opacity-0 absolute text-light-red text-[15px] xl:text-[14px] hidden"
               :class="{ 'relative opacity-100': codeInvalid }"
               >Tasdiqlash kodini to'g'ri kiriting</span
             >
           </a-form-model-item>
         </div>
-        <button
+        <span
+          @click="onSubmitNumber"
           :class="{ 'opacity-50 pointer-events-none': time > 0 }"
-          class="text-blue text-[15px] mt-3 xl:mt-2 xl:text-[14px]"
+          class="text-blue text-[15px] mt-3 xl:mt-2 xl:text-[14px] cursor-pointer"
         >
           {{ $store.state.translations["auth.resend-code"] }}
-        </button>
+        </span>
 
         <p class="text-grey-40 text-[14px] mt-6 xl:hidden">
-          <!--          +998-->
-          <!--          {{-->
-          <!--            `${form?.phone_number}`-->
-          <!--              .match(/(\d{2})(\d{3})(\d{2})(\d{2})/)-->
-          <!--              .filter((item, index) => index !== 0)-->
-          <!--              .join(" ")-->
-          <!--          }}-->
           {{ $store.state.translations["auth.sent-code"] }}
         </p>
       </a-form-model>
       <div class="w-full flex flex-col gap-6">
         <p class="text-grey-40 text-[14px] mt-6 xl:block hidden text-center">
-          <!--          +998-->
-          <!--          {{-->
-          <!--            `${form?.phone_number}`-->
-          <!--              .match(/(\d{2})(\d{3})(\d{2})(\d{2})/)-->
-          <!--              .filter((item, index) => index !== 0)-->
-          <!--              .join(" ")-->
-          <!--          }}-->
           {{ $store.state.translations["auth.sent-code"] }}
         </p>
         <div
@@ -240,10 +222,10 @@
             class="h-[60px] xl:h-[52px] border border-solid border-blue bg-blue rounded-[12px] flex justify-center items-center text-[18px] xl:text-[14px] text-white font-medium"
             :class="{
               'pointer-events-none opacity-50':
-                loading || form.password.length < 6,
+                loading && loadingBtn || form.password.length < 6,
             }"
           >
-            <LoaderBtn v-if="loading" />
+            <LoaderBtn v-if="loading && loadingBtn" />
             <span v-else>{{
               $store.state.translations["auth.confirm-code"]
             }}</span>
@@ -281,8 +263,8 @@ export default {
       other: "",
       timeProgress: 100,
       smsError: false,
-
-      time: 60,
+      loadingBtn: false,
+      time: 0,
       form: {
         phone_number: "",
         password: "",
@@ -306,17 +288,32 @@ export default {
     } else {
       this.$router.go(-1);
     }
-    // this.setInputPlaceholder();
-    setInterval(() => {
-      if (this.time > 0) {
-        this.time--;
-      }
-      if (this.timeProgress > 0) {
-        this.timeProgress -= 100 / 60;
-      }
-    }, 1000);
+    if (localStorage.getItem("in_seconds")) {
+      const seconds = JSON.parse(localStorage.getItem("in_seconds"));
+      this.startTimer(seconds);
+    } else {
+      this.timeProgress = 0;
+    }
   },
   methods: {
+    startTimer(time) {
+      this.time = time;
+      this.timerControl = setInterval(() => {
+        if (this.time > 0) {
+          this.time--;
+          localStorage.setItem("in_seconds", this.time);
+        } else {
+          this.clearTimer();
+          localStorage.removeItem("in_seconds");
+        }
+        if (this.timeProgress > 0) {
+          this.timeProgress -= 100 / time;
+        }
+      }, 1000);
+    },
+    clearTimer() {
+      clearInterval(this.timerControl);
+    },
     setInputPlaceholder() {
       this.$refs.otpInput.$el
         .querySelectorAll("input")
@@ -331,6 +328,39 @@ export default {
     },
     handleClearInput() {
       this.$refs.otpInput.clearInput();
+    },
+    async onSubmitNumber() {
+      const data = {
+        phone: "",
+        role: "Freelancer",
+      };
+      data.phone = `+998${localStorage.getItem("phone")}`;
+      this.__POST_SEND_NUMBER(data);
+    },
+    async __POST_SEND_NUMBER(form) {
+      try {
+        this.loadingBtn = true
+        const data = await this.$store.dispatch("fetchAuth/postSendCode", form);
+        if (data.success) {
+          await this.setToLocaleTimer(data?.content?.in_seconds);
+          if (localStorage.getItem("in_seconds")) {
+            this.timeProgress = 100;
+            const seconds = JSON.parse(localStorage.getItem("in_seconds"));
+            this.startTimer(seconds);
+          }
+          await this.$router.push(this.localePath("/registration/user-type"));
+        }
+      } catch (e) {
+        this.$notification["error"]({
+          message: "Error",
+          description: e.response?.statusText,
+        });
+      } finally {
+        this.loadingBtn = false
+      }
+    },
+    setToLocaleTimer(value) {
+      localStorage.setItem("in_seconds", value);
     },
     onSubmit() {
       const data = {
@@ -467,9 +497,11 @@ input[type="number"]::-webkit-outer-spin-button {
   .auth-item input {
     font-size: 14px;
   }
+
   .number-card {
     position: static;
   }
+
   .langer {
     top: 16px;
     right: 16px;

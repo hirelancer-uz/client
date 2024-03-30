@@ -54,7 +54,7 @@
                 @click="toPage(dropItem?.id)"
                 class="text-base text-blue-night flex gap-2 items-center"
                 :class="{
-                  'text-main-color': dropItem?.id == $route.params.id,
+                  'text-main-color': dropItem?.id === $route.params.id,
                 }"
               >
                 {{ dropItem?.name_ru }}
@@ -71,12 +71,12 @@
                 :class="{
                   'rotate-180':
                     (dropItem.children.find(
-                      (item) => item.id == dropdownOpen
+                      (item) => item.id === dropdownOpen
                     ) ||
                       dropdownOpen == dropItem?.id) &&
                     dropItem.children.length > 0,
                   'pointer-events-none opacity-50':
-                    dropItem.children.length == 0,
+                    dropItem.children.length === 0,
                 }"
                 class="drop-icon w-[24px] h-[24px] rounded-[50%] bg-[#F8F9FF] flex items-center justify-center"
               >
@@ -143,8 +143,8 @@
             </span>
             <span class="text-base text-blue-night flex items-center">
               <a-checkbox
-                :checked="filterForm['orders']"
-                @change="($event) => filterHandle($event, 'orders')"
+                :checked="filterForm['approved']"
+                @change="($event) => filterHandle($event, 'approved')"
                 >{{
                   $store.state.translations["freelancers.checked"]
                 }} </a-checkbox
@@ -168,10 +168,10 @@
               </svg>
             </span>
             <span class="text-base text-blue-night flex items-center">
-              <a-checkbox>{{
-                $store.state.translations["freelancers.with-comment"]
-              }}</a-checkbox
-              ><svg
+              <a-checkbox  :checked="filterForm['orders']" @change="($event) => filterHandle($event, 'orders')" >
+                {{ $store.state.translations["freelancers.with-comment"] }}
+              </a-checkbox>
+              <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
                 height="16"
@@ -248,6 +248,7 @@ export default {
         region: undefined,
         works: false,
         orders: false,
+        approved: false
       },
     };
   },
@@ -262,7 +263,6 @@ export default {
         }
       }
     });
-    console.log(this.filterForm);
   },
   computed: {
     disabledFilter() {
@@ -325,7 +325,8 @@ export default {
 }
 
 .drop-list .active .drop-body {
-  max-height: 200px;
+  max-height: 400px;
+  overflow-y: scroll;
   /* height: auto; */
 }
 
@@ -446,10 +447,6 @@ export default {
 
   .drop-list {
     margin: 0;
-  }
-
-  .buttoners {
-    //display: grid; //grid-template-columns: repeat(2, 1fr);
   }
 }
 </style>

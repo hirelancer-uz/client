@@ -278,11 +278,36 @@
         </button>
         <button
           @click="$emit('openChat')"
-          class="w-[190px] xl:w-12 h-12 flex items-center justify-center gap-2 rounded-lg border-[2px] border-solid border-main-color bg-bg-grey text-blue text-base font-medium xl:border"
+          class="w-[190px] xl:w-12 h-12 xl:hidden flex items-center justify-center gap-2 rounded-lg border-[2px] border-solid border-main-color bg-bg-grey text-blue text-base font-medium xl:border"
         >
           <span class="xl:hidden">{{
             $store.state.translations["profile.write"]
           }}</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M13 3H11C6.02944 3 2 7.02944 2 12V17C2 19.2091 3.79086 21 6 21H13C17.9706 21 22 16.9706 22 12C22 7.02944 17.9706 3 13 3Z"
+              stroke="#5C46E6"
+              stroke-width="1.5"
+              stroke-linejoin="round"
+            />
+            <circle cx="12" cy="12" r="1" fill="#5C46E6" />
+            <circle cx="16" cy="12" r="1" fill="#5C46E6" />
+            <circle cx="8" cy="12" r="1" fill="#5C46E6" />
+          </svg>
+        </button>
+        <button
+          @click="$emit('openChatMobile')"
+          class="w-[190px] xl:w-12 h-12 hidden xl:flex items-center justify-center gap-2 rounded-lg border-[2px] border-solid border-main-color bg-bg-grey text-blue text-base font-medium xl:border"
+        >
+          <span class="xl:hidden">{{
+              $store.state.translations["profile.write"]
+            }}</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

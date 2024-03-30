@@ -148,9 +148,6 @@
     </div>
     <div
       class="offers pt-[21px] border-[0] border-t border-solid border-grey-8 xl:border-[0] xl:pt-0"
-      v-if="
-        $route.params.status == 'offers' || $route.params.status == 'completed'
-      "
     >
       <div
         class="rounded-[8px] border border-solid px-6 py-4 xl:px-4 cursor-pointer overflow-hidden border-[#C5EBC5] bg-[#FAFFFA]"
@@ -195,8 +192,8 @@
                 <span
                   class="hidden xl:block flex-auto border-[0] border-dashed border-b border-grey-24 mb-[5px]"
                 ></span>
-                <span v-if="order?.deadline" class="text-black xl:font-medium"
-                  >{{ order?.deadline }}
+                <span v-if="order?.selected_request?.deadline" class="text-black xl:font-medium"
+                  >{{ order?.selected_request?.deadline }}
                   {{ $store.state.translations["profile.days"] }}</span
                 >
                 <span v-else class="text-black xl:font-medium">{{
@@ -210,8 +207,8 @@
                 <span
                   class="hidden xl:block flex-auto border-[0] border-dashed border-b border-grey-24 mb-[5px]"
                 ></span>
-                <span v-if="order?.price" class="text-black xl:font-medium"
-                  >{{ order?.price }}
+                <span v-if="order?.selected_request?.price" class="text-black xl:font-medium"
+                  >{{ order?.selected_request?.price }}
                   {{ $store.state.translations["profile.sum"] }}</span
                 >
                 <span v-else class="text-black xl:font-medium">{{

@@ -9,6 +9,8 @@
           :loading="loading"
           :codeInvalid="codeInvalid"
           @clearError="clearError"
+
+
         />
       </div>
     </div>
@@ -52,6 +54,7 @@ export default {
         this.loading = false;
       }
     },
+
     async __GET_USER() {
       try {
         let returnLink = localStorage.getItem("return_link");

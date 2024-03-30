@@ -314,15 +314,21 @@
                   class="form-item"
                   :label="$store.state.translations['auth.bio']"
                 >
+                </a-form-model-item>
+
+                <!-- <label class="inline gap-3 relative">
+                {{ $store.state.translations["auth.bio"] }}
+              </label> -->
+              {{form.bio}}
+                <ckeditor :editor="editor" v-model="form.bio" placeholder="siuu"/>
                   <!-- <a-input v-model="form.bio" placeholder="O’zhaqingizda ma’lumot" /> -->
-                  <quill-editor
+                  <!-- <quill-editor
                     style="min-height: 250px"
                     :options="editorOption"
                     :value="form.bio"
                     v-model="form.bio"
                     :placeholder="$store.state.translations['auth.about-you']"
-                  />
-                </a-form-model-item>
+                  /> -->
               </div>
             </div>
           </div>
@@ -553,11 +559,22 @@ import moment from "moment";
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import "quill/dist/quill.bubble.css";
+import deleteFile from "@/mixins/deleteFile";
+let ClassicEditor;
+let CKEditor;
 
+if (process.client) {
+  ClassicEditor = require("@ckeditor/ckeditor5-build-classic");
+  CKEditor = require("@ckeditor/ckeditor5-vue2");
+} else {
+  CKEditor = { component: { template: "<div></div>" } };
+}
 export default {
   layout: "profileLayout",
+  mixins: [deleteFile],
   data() {
     return {
+      editor: ClassicEditor,
       linkTemplates: {
         instagram: "https://www.instagram.com/",
         telegram: "https://t.me/",
@@ -630,13 +647,6 @@ export default {
             trigger: "blur",
           },
         ],
-        // bio: [
-        //   {
-        //     required: true,
-        //     message: this.$store.state.translations["auth.required"],
-        //     trigger: "blur",
-        //   },
-        // ],
         specialities: [
           {
             required: true,
@@ -694,7 +704,8 @@ export default {
       if (link.length >= this.form[key].length) this.form[key] = "";
     },
     onChange(date, dateString) {},
-    removeAvatar() {
+    removeAvatar(e) {
+      this.__DELETE_FILE({id: this.userInfo?.id,type:'user'})
       this.fileList = [];
     },
     onSubmit() {
@@ -762,15 +773,17 @@ export default {
               }
             });
             this.form.phone = "+" + userInfoData.contacts.phone;
-            this.fileList = [
-              {
-                uid: "-1",
-                name: "image.png",
-                status: "done",
-                url: this.imgUrl + userInfoData.avatar,
-                id: 1,
-              },
-            ];
+            if(userInfoData.avatar  ) {
+              this.fileList = [
+                {
+                  uid: "-1",
+                  name: "image.png",
+                  status: "done",
+                  url: this.imgUrl + userInfoData.avatar,
+                  id: 1,
+                },
+              ];
+            }
             this.form["country_id"] = userInfoData?.country?.id;
             this.form["region_id"] = userInfoData?.region?.id;
             this.form["bio"] = (await userInfoData?.bio)
@@ -810,10 +823,20 @@ export default {
     Statistics,
     Alerts,
     Comments,
+    ckeditor: CKEditor.component,
   },
 };
 </script>
 <style lang="css" scoped>
+:deep(.ck-content) {
+  height: 250px;
+  border: 1px solid var(--grey-8) !important;
+  border-radius: 0 0 10px 10px !important;
+}
+:deep(.ck-toolbar) {
+  border: 1px solid var(--grey-8) !important;
+  border-radius: 10px 10px 0 0 !important;
+}
 .personal-information {
   display: grid;
   grid-template-columns: 2fr 1fr;

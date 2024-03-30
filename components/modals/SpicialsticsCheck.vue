@@ -102,7 +102,7 @@
                   <a-radio
                     class="bg-bg-grey rounded-[22px] flex items-center gap-2"
                     :style="radioStyle"
-                    :value="child"
+                    :value="child?.id"
                     :key="child?.id"
                     v-for="child in specialities?.find(
                       (elem) =>
@@ -330,7 +330,11 @@ export default {
   },
   methods: {
     onChange() {
-      this.checkedList[0] = this.value;
+      let currentObj = [...this.specialities];
+      this.specialities.forEach((elem) => {
+        currentObj.push(...elem.children);
+      });
+      this.checkedList[0] = currentObj.find((item) => item.id === this.value);
     },
     closed() {
       this.closeModal();
@@ -349,7 +353,7 @@ export default {
 
     open() {
       this.checkedList = [...this.activeCheckedList];
-      this.value = this.checkedList[0];
+      this.value = this.activeCheckedList[0]?.id;
       this.$refs.openSpecials?.open();
     },
     close() {
@@ -392,12 +396,18 @@ export default {
 };
 </script>
 <style lang="css" scoped>
-:deep(.ant-radio-checked .ant-radio-inner),:deep(.ant-radio-checked::after),:deep(.ant-radio-inner::after),:deep(.ant-checkbox-checked .ant-checkbox-inner) {
+:deep(.ant-radio-checked .ant-radio-inner),
+:deep(.ant-radio-checked::after),
+:deep(.ant-radio-inner::after),
+:deep(.ant-checkbox-checked .ant-checkbox-inner) {
   border-color: var(--main-color);
 }
-:deep(.ant-radio-inner::after),:deep(.ant-checkbox-checked .ant-checkbox-inner) {
+
+:deep(.ant-radio-inner::after),
+:deep(.ant-checkbox-checked .ant-checkbox-inner) {
   background-color: var(--main-color);
 }
+
 :deep(.ant-radio-group) {
   display: flex;
 }

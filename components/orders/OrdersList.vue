@@ -475,7 +475,7 @@ export default {
 .drop-body {
   max-height: 0;
   /* height: 0; */
-  overflow: hidden;
+  overflow-y: scroll;
   transition: max-height 0.2s linear;
 }
 

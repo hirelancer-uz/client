@@ -1,6 +1,6 @@
 <template>
   <div
-    class="pt-[72px] order xl:px-4 xl:pt-0"
+    class="pt-[72px] order xl:px-4 xl:pt-0 xl:pb-[80px]"
     :class="{ 'pb-10': order?.status > 1 }"
   >
     <div class="max-w-[1200px] mx-auto">
@@ -532,7 +532,7 @@
           </p>
         </div>
       </div>
-      <div class="mt-6 pb-[120px] xl:hidden" v-if="order?.selected_request?.id">
+      <div class="mt-6 pb-[120px] xl:pb-0 xl:mt-0" v-if="order?.selected_request?.id">
         <CustomerChat :order="order" :status="status" />
       </div>
     </div>
@@ -599,7 +599,8 @@
               :key="request?.id"
               :request="request"
               @selected="$emit('selected')"
-              @openChat="chatHandle = true"
+              @openChat="currentRequest(request)"
+              @openChatMobile="currentRequestMobile(request)"
               :order="order"
             />
             <span
@@ -634,7 +635,13 @@
               order?.requests.length > 0
             "
           >
-            <OffersChat @close="chatHandle = false" />
+            <OffersChat
+              @close="chatHandle = false"
+              :order="order"
+              :request="isRequest"
+              :messages="messages"
+              :chatLoader="chatLoader"
+            />
           </div>
           <div
             v-if="order?.status === 0"
@@ -779,27 +786,18 @@
       </button>
       <Loader v-if="loading" />
     </div>
-    <CustomerChatMobile ref="customerChat" />
-    <button
-      @click="openCustomerChat"
-      v-if="order?.selected_request?.id && order?.status"
-      class="w-[56px] h-[56px] rounded-full xl:flex justify-center items-center bg-main-color fixed bottom-[88px] right-4 hidden"
-    >
-      <svg
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
-          d="M11 3H13C17.9706 3 22 7.02944 22 12C22 16.9706 17.9706 21 13 21H6C3.79086 21 2 19.2091 2 17V12C2 7.02944 6.02944 3 11 3ZM12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13ZM17 12C17 12.5523 16.5523 13 16 13C15.4477 13 15 12.5523 15 12C15 11.4477 15.4477 11 16 11C16.5523 11 17 11.4477 17 12ZM8 13C8.55228 13 9 12.5523 9 12C9 11.4477 8.55228 11 8 11C7.44772 11 7 11.4477 7 12C7 12.5523 7.44772 13 8 13Z"
-          fill="white"
-        />
-      </svg>
-    </button>
+
+
+    <div class="hidden xl:block" >
+      <OffersChat
+        ref="offerChat"
+        @close="chatHandle = false"
+        :order="order"
+        :request="isRequest"
+        :messages="messages"
+        :chatLoader="chatLoader"
+      />
+    </div>
   </div>
 </template>
 <script>
@@ -839,6 +837,10 @@ export default {
       openBlock: false,
       disabledBtn: true,
       loadingBtn: false,
+      isRequest: {},
+      messages: [],
+      chatLoader: false,
+      windowWidth: null
     };
   },
   computed: {
@@ -870,8 +872,42 @@ export default {
     if (!localStorage.getItem("auth-token")) {
       this.$router.push(this.localePath("/"));
     }
+    this.updateWindowWidth();
   },
   methods: {
+    updateWindowWidth() {
+      this.windowWidth = window.innerWidth;
+    },
+    async currentRequestMobile(request) {
+      this.isRequest = await request;
+      this.$refs.offerChat.open()
+      this.__GET_CHAT_MESSAGES(request);
+    },
+    async currentRequest(request) {
+      this.isRequest = await request;
+      this.chatHandle = true;
+      this.__GET_CHAT_MESSAGES(request);
+    },
+    async __GET_CHAT_MESSAGES(request) {
+      try {
+        this.chatLoader = true;
+        const data = await this.$store.dispatch("fetchChat/getChatMesssage", {
+          params: {
+            order_id: this.$route.params.id,
+          },
+        });
+        this.messages = data?.data?.content.filter(
+          (item) =>
+            item.from === request?.freelancer_id ||
+            item.to === request?.freelancer_id
+        );
+
+      } catch (e) {
+      } finally {
+        this.chatLoader = false;
+      }
+    },
+
     sortOffers(val) {
       val ? this.sortByDate() : this.sortByPrice();
     },
@@ -884,12 +920,7 @@ export default {
       this.order.requests.sort((a, b) => b.deadline - a.deadline);
     },
 
-    openCustomerChat() {
-      this.$refs.customerChat.open();
-    },
-    closeCustomerChat() {
-      this.$refs.customerChat.close();
-    },
+
     openCompliteOrder() {
       this.$refs.compliteOrder.open();
       this.$refs.compliteOrder.openModal();
@@ -935,6 +966,7 @@ export default {
         ? (this.disabledBtn = false)
         : (this.disabledBtn = true);
     },
+
     cancelOrder() {
       console.log(this.order?.status);
       switch (this.order?.status) {
@@ -1036,6 +1068,7 @@ export default {
   align-items: center;
   gap: 16px;
 }
+
 .favorite {
   border-radius: 8px;
   border: 1px solid var(--Border-darik, #e0e0ed);
@@ -1051,6 +1084,7 @@ export default {
   font-weight: 500;
   line-height: 150%; /* 27px */
 }
+
 .customer-chat {
   transition: 0.3s;
   transform: translateX(100%);
@@ -1242,9 +1276,11 @@ export default {
   grid-template-columns: 1fr 470px;
   gap: 16px;
 }
+
 .order-left-chat.block {
   display: block !important;
 }
+
 .show-all {
   /* background: linear-gradient(
     180deg,
@@ -1285,21 +1321,33 @@ export default {
   :deep(.ant-select-selection__placeholder) {
     font-size: 14px;
   }
+
   .right {
     display: grid;
     grid-template-columns: 5fr 5fr;
     gap: 8px;
     width: 100%;
   }
+
   :deep(.ant-select) {
     min-width: unset;
   }
+
   :deep(.ant-select-selection-selected-value),
   .favorite {
     font-size: 14px;
   }
 }
+
 .icon.rotate {
   transform: rotate(180deg);
+}
+@media (max-width: 1200px) {
+  .customer-chat {
+    transition: 0s;
+    transform: translateX(0);
+    opacity: 1;
+    position: static;
+  }
 }
 </style>

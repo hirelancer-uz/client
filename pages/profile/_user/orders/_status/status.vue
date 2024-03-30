@@ -41,11 +41,13 @@
           </svg>
         </div>
       </div>
-      <div class="flex justify-between items-center gap-6 relative tab-container">
+      <div
+        class="flex justify-between items-center gap-6 relative tab-container"
+      >
         <OrdersTab />
         <div
-          class="border search-block  bg-white border-solid border-grey-8 rounded-[12px] h-12 px-5 w-full flex gap-4 items-center xl:hidden"
-          :class="{active: onFocusSearch}"
+          class="border search-block bg-white border-solid border-grey-8 rounded-[12px] h-12 px-5 w-full flex gap-4 items-center xl:hidden"
+          :class="{ active: onFocusSearch }"
         >
           <input
             :placeholder="$store.state.translations[`freelancers.search`]"
@@ -92,7 +94,7 @@
         :key="order?.id"
       />
     </div>
-    <!-- <div
+   <div
       class="list grid grid-cols-2 gap-4 mt-6 mb-[40px] xl:grid-cols-1"
       v-if="
         $route.params.user == 'customer' &&
@@ -101,32 +103,20 @@
       "
     >
       <ComplitedCard v-for="order in orders" :order="order" :key="order?.id" />
-    </div> -->
-    <div
-      class="list flex flex-col gap-4 mt-6 mb-[40px] xl:hidden"
-      v-if="$route.params.user == 'freelancer' && !loading"
-    >
-      <ProfileOrdersCard
-        v-for="order in orders"
-        :order="order"
-        :key="order?.id"
-      />
     </div>
     <div
-      class="list flex-col gap-4 mt-6 mb-[40px] xl:flex hidden"
-      v-if="$route.params.user == 'freelancer' && !loading"
+      class="list flex flex-col gap-4 mt-6 mb-[40px]"
+      v-if="$route.params.user === 'freelancer' && !loading"
     >
       <ProfileOrdersCard
         v-for="order in orders"
         :order="order"
         :key="order?.id"
       />
-
-      <!-- <ProfileOrderCardMobile v-for="order in orders" :order="order" :key="order?.id" /> -->
     </div>
     <div
       class="w-full h-[300px] flex justify-center items-center"
-      v-if="!loading && orders.length == 0"
+      v-if="!loading && orders.length === 0"
     >
       <a-empty />
     </div>
@@ -174,17 +164,17 @@ export default {
       totalPage: 0,
       status: {
         customer: {
-          active: 1,
-          completed: 4,
-          pending: 0,
-          cancel: 6,
-          in_progress: 2,
+          active: [1],
+          completed: [4],
+          pending: [0],
+          cancel: [6],
+          in_progress: [2],
         },
         freelancer: {
-          active: 2,
-          offers: 1,
-          completed: 4,
-          cancel: 5,
+          active: [2,3],
+          offers: [1],
+          completed: [4],
+          cancel: [5],
         },
       },
     };
@@ -278,19 +268,34 @@ export default {
         page_size: this.pageSize,
         ...this.$route.query,
       };
-      this.$route.params.user == "customer"
-        ? (params.client = this.$store.state.userInfo["id"])
-        : (params.freelancer = this.$store.state.userInfo["id"]);
+      let apiUrl = "fetchOrders/getMyOrders";
+      if (this.$route.params.user === "customer") {
+        params.client = this.$store.state.userInfo["id"];
+      } else {
+        params.freelancer = this.$store.state.userInfo["id"];
+        if (this.$route.params.status === "offers")
+          apiUrl = "fetchOrders/getOrdersRequests";
+      }
       try {
-        const data = await this.$store.dispatch("fetchOrders/getMyOrders", {
+        const data = await this.$store.dispatch(apiUrl, {
           params: { ...params },
         });
-        this.orders = data?.data;
+        this.orders = this.$route.params.status === "offers" ? data?.data.map(item => {
+          let req = {...item};
+          let order = {...item.order};
+          return {
+            selected_request: {
+              ...req,
+            },
+            ...order,
+
+          }
+        }):data?.data;
         this.totalPage = data?.meta?.total;
-        if (this.$route.params.status == "completed") {
+        if (this.$route.params.status === "completed") {
           this.orders = this.orders.filter((elem) => elem?.end_of_execution);
         }
-        if (this.$route.params.status == "pending") {
+        if (this.$route.params.status === "pending") {
           this.orders = this.orders.filter((elem) => !elem?.end_of_execution);
         }
       } catch (e) {
@@ -322,15 +327,18 @@ export default {
   height: 230px;
   border-radius: 16px;
 }
+
 .search-block {
-  transition: .2s;
+  transition: 0.2s;
   max-width: 250px;
 }
+
 .tab-container .active {
   max-width: 300px;
   position: absolute;
   right: 0;
 }
+
 @media (max-width: 1200px) {
   .fixed-btns {
     border-radius: 16px 16px 0px 0px;

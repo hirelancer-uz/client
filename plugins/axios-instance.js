@@ -3,13 +3,11 @@ export default ({ $axios, redirect, error }, inject) => {
   const axiosInstance = $axios.create({
     baseURL: process.env.BASE_URL || "https://test-api.hirelancer.ndc.uz/",
   });
-  // axiosInstance.setHeader("Content-Type", "application/json");
 
   axiosInstance.onRequest((config) => {
     const token = localStorage.getItem(tokenKey);
-    if (token) {
-      config.headers.common["Authorization"] = `Bearer ${token}`;
-    }
+    if (token) config.headers.common["Authorization"] = `Bearer ${token}`;
+
     return config;
   });
   axiosInstance.onResponse((response) => {
@@ -23,7 +21,15 @@ export default ({ $axios, redirect, error }, inject) => {
         location.reload()
         localStorage.removeItem(tokenKey);
       }
-
+    if(e.response.status === 404) {
+      error({
+        statusCode: e.response.status,
+        message: "This page could not be found",
+        layout: "error",
+      });
+      // console.log("error",e.response.status)
+      //  throw new Error('NOT FOUNT')
+    }
     return Promise.reject(e);
   });
   inject("axiosInstance", axiosInstance);

@@ -17,7 +17,16 @@
       </svg>
     </button>
 
-    <ChatModal ref="customerChat" :status="status" />
+    <ChatModal
+      ref="customerChat"
+      :status="status"
+      :order="order"
+      :messages="messages"
+      :myRequest="myRequest"
+      @onSubmit="onSubmit"
+      :messageLoader="messageLoader"
+      :chatLoader="chatLoader"
+    />
 
     <div
       class="chat rounded-[16px] border border-solid border-grey-light chatter"
@@ -29,9 +38,26 @@
         <p class="text-[14px] text-grey-64">В сети / Был(а) 3 минут назад</p>
       </div>
       <div
+        ref="chatBoard"
         class="chat-body px-6 py-6 flex flex-col gap-[30px] max-h-[500px] overflow-y-scroll flex-col-reverse"
       >
-        <div class="" v-for="message in messages" :key="message?.id">
+        <div class="flex justify-end message-loading" v-if="messageLoader">
+          <a-skeleton active :paragraph="false" />
+        </div>
+        <div v-if="chatLoader" class="flex flex-col gap-4">
+          <span
+            v-for="elem in [1, 2, 3, 4, 5]"
+            :key="elem"
+            :class="
+              elem % 2 == 0
+                ? `flex justify-start skeleton-${elem + 1}`
+                : `flex justify-end skeleton-${elem + 1}`
+            "
+          >
+            <a-skeleton active :paragraph="false" class="loading-card" />
+          </span>
+        </div>
+        <div class="" v-for="(message, index) in messages" :key="message?.id">
           <div
             class="flex justify-end"
             v-if="$store.state?.userInfo?.id == message?.from"
@@ -39,7 +65,7 @@
             <div
               class="chat-client-card max-w-[40%] flex gap-2 px-3 py-3 rounded-t-[10px] rounded-l-[10px] bg-main-color items-end"
             >
-              <p class="text-white text-[14px]">
+              <p class="text-white text-[14px] break-all">
                 {{ message?.message }}
               </p>
               <span class="text-white text-[12px]">{{
@@ -51,41 +77,53 @@
             <div
               class="chat-client-card max-w-[40%] flex gap-2 px-3 py-3 rounded-t-[10px] rounded-l-[10px] bg-bg-grey items-end"
             >
-              <p class="text-black text-[14px]">{{ message?.message }}</p>
+              <p class="text-black text-[14px] break-all">
+                {{ message?.message }}
+              </p>
               <span class="text-black text-[12px]">{{
                 moment(message?.created_at).format("HH:mm")
               }}</span>
             </div>
           </div>
-        </div>
-        <div class="flex justify-center">
           <div
-            class="chat-date w-[123px] h-[32px] rounded-[50px] flex justify-center items-center bg-bg-grey text-black text-[14px]"
+            class="flex justify-center"
+            v-if="
+              index - 1 > 0 &&
+              Number(moment(messages[index]?.created_at).format('DD')) <
+                Number(moment(messages[index - 1]?.created_at).format('DD'))
+            "
           >
-            <span>20.09.2023</span>
+            <div
+              class="chat-date w-[123px] h-[32px] rounded-[50px] flex justify-center items-center bg-bg-grey text-black text-[14px]"
+            >
+              <span v-if="!chatLoader">{{
+                moment(messages[index - 1]?.created_at).format("DD.MM.YYYY")
+              }}</span>
+            </div>
           </div>
         </div>
-        <div class="flex justify-end">
+
+        <div class="flex justify-end" v-if="!chatLoader">
           <div
             class="chat-card px-4 py-4 rounded-[14px] rounded-br-none bg-main-color flex flex-col gap-3 max-w-[642px]"
           >
             <p class="text-base text-white">
-              Приветствую! Меня заинтересовал ваш проект. Моя цель – создавать
-              интересные и интуитивно понятные пользовательские интерфейсы,
-              которые вдохновляют и привлекают
+              {{ myRequest?.additional_info }}
             </p>
             <span class="flex w-full h-[1px] bg-[#B795FF]"></span>
             <div class="flex flex-col gap-1">
-              <h5 class="text-[14px] font-semibold text-white">600 000 so’m</h5>
-              <div class="flex justify-between">
+              <h5 class="text-[14px] font-semibold text-white">
+                {{ myRequest?.price.toLocaleString() }} so’m
+              </h5>
+              <div class="flex justify-between gap-10">
                 <h6
                   class="text-white text-[14px] font-regular flex gap-1 text-white"
                 >
                   Muddat:<span class="text-[14px] font-semibold text-white"
-                    >5 kun</span
+                    >{{ myRequest?.deadline }} kun</span
                   >
                 </h6>
-                <p class="text-[10px] text-white">14:30</p>
+                <p class="text-[10px] text-white">{{ requestTime }}</p>
               </div>
             </div>
           </div>
@@ -106,9 +144,10 @@
           v-model="form.message"
           placeholder="Напишите сообщение ..."
           class="text-input"
+          @keyup.enter="onSubmit(form)"
         />
         <button
-          @click="onSubmit"
+          @click="onSubmit(form)"
           class="w-[48px] min-w-[48px] h-[48px] rounded-full flex justify-center items-center bg-main-color"
         >
           <svg
@@ -173,13 +212,15 @@
 <script>
 import moment from "moment";
 import ChatModal from "@/components/modals/ChatModal.vue";
+import chatService from "@/mixins/chatService";
+
 
 export default {
   components: { ChatModal },
   props: ["status", "order"],
+  mixins: [chatService],
   data() {
     return {
-      messages: [],
       form: {
         message: "",
         order_id: null,
@@ -193,13 +234,9 @@ export default {
         (item) => item?.freelancer_id == this.$store.state.userInfo["id"]
       );
     },
-  },
-  mounted() {
-    this.__GET_CHAT_MESSAGES();
-    var channel = this.$pusher.subscribe("my-channel");
-    channel.bind("my-event", function (data) {
-      alert(JSON.stringify(data));
-    });
+    requestTime() {
+      return moment(this.order?.selected_request?.created_at).format("HH:mm");
+    },
   },
   methods: {
     openCustomerChat() {
@@ -208,50 +245,74 @@ export default {
     closeCustomerChat() {
       this.$refs.customerChat.close();
     },
-    onSubmit() {
+    onSubmit(form) {
+      this.form = { ...form };
       this.form.order_id = this.order.id;
-      this.form.to = this.order.selected_request?.freelancer_id;
-      this.__POST_CHAT_MESSAGE(this.form);
+      this.form.to = this.order?.client?.id;
+      if (this.form.message.length > 0) this.__POST_CHAT_MESSAGE(this.form,this.formClear);
     },
-    async __GET_CHAT_MESSAGES() {
-      try {
-        const data = await this.$store.dispatch("fetchChat/getChatMesssage", {
-          params: {
-            order_id: this.$route.params.id,
-          },
-        });
-
-        this.messages = data?.data?.content.filter(
-          (item) => item.from === this.$store.state.userInfo?.id
-        );
-      } catch (e) {}
+    formClear() {
+      this.form = {
+        message: "",
+        order_id: null,
+        to: null,
+      };
     },
-    async __POST_CHAT_MESSAGE(formData) {
-      try {
-        const data = await this.$store.dispatch(
-          "fetchChat/postChatMesssage",
-          formData
-        );
-        this.__GET_CHAT_MESSAGES();
-        this.form = {
-          message: "",
-          order_id: null,
-          to: null,
-        };
-      } catch (e) {}
-    },
-
     moment,
-  },
-  watch: {
-    "$store.state.userInfo.id"(val) {
-      console.log(val);
-      this.__GET_CHAT_MESSAGES();
-    },
   },
 };
 </script>
 <style lang="css" scoped>
+:deep(.skeleton-2 .ant-skeleton) {
+  max-width: 60%;
+  border-radius: 10px;
+  border-bottom-right-radius: 0;
+  overflow: hidden;
+}
+
+:deep(.skeleton-3 .ant-skeleton) {
+  max-width: 70%;
+  border-radius: 10px;
+  border-bottom-left-radius: 0;
+  overflow: hidden;
+}
+
+:deep(.skeleton-4 .ant-skeleton) {
+  max-width: 40%;
+  border-radius: 10px;
+  border-bottom-right-radius: 0;
+  overflow: hidden;
+}
+
+:deep(.skeleton-5 .ant-skeleton) {
+  max-width: 50%;
+  border-radius: 10px;
+  border-bottom-left-radius: 0;
+  overflow: hidden;
+}
+
+:deep(.skeleton-6 .ant-skeleton) {
+  max-width: 65%;
+  border-radius: 10px;
+  border-bottom-right-radius: 0;
+  overflow: hidden;
+}
+
+:deep(.ant-skeleton-content .ant-skeleton-title) {
+  margin-top: 0;
+  height: 70px;
+}
+
+:deep(.message-loading .ant-skeleton) {
+  max-width: 50%;
+}
+
+:deep(.message-loading .ant-skeleton-title) {
+  border-radius: 10px;
+  border-bottom-right-radius: 0;
+  height: 44px;
+}
+
 .text-input {
   border: none;
   color: var(--black);

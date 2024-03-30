@@ -3,6 +3,10 @@ export const actions = {
     const res = await this.$axios.$get(`/api/client/orders`, { ...payload });
     return res;
   },
+  async getOrdersRequests({}, payload) {
+    const res = await this.$axiosInstance.$get(`/api/order_requests`, { ...payload });
+    return res;
+  },
   async getMyOrders({}, payload) {
     const res = await this.$axiosInstance.$get(`/api/client/orders`, {
       ...payload,
@@ -11,6 +15,10 @@ export const actions = {
   },
   async getOrderById({}, payload) {
     const res = await this.$axios.$get(`/api/client/orders/${payload.id}`);
+    return res;
+  },
+  async getMyOrderById({}, payload) {
+    const res = await this.$axiosInstance.$get(`/api/client/orders/${payload.id}`);
     return res;
   },
   async getOrderCounts({}) {

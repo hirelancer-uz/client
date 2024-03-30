@@ -4,6 +4,8 @@
       ref="customerChat"
       class="bottom-drawer h-full"
       :init-sheet-height="750"
+      :can-swipe="false"
+      :overlay-click-close="false"
     >
       <div
         class="offers-chat rounded-[16px] bg-white relative flex flex-col h-full"
@@ -50,76 +52,91 @@
               <h5 class="text-[20px] text-black font-medium">
                 {{ order?.selected_request?.freelancer?.name }}
               </h5>
-              <p class="text-grey-40 text-base">14:30</p>
+              <p class="text-grey-40 text-base">{{moment(order?.selected_request?.freelancer?.last_online_at).format("HH:mm")}}</p>
             </div>
           </div>
         </div>
         <div
-          class="board px-6 py-6 flex flex-col gap-4 border-[0] border-b border-solid border-grey-8 flex-auto"
+          ref="chatBoard"
+          class="board px-6 py-6 flex  gap-4 border-[0] border-b border-solid overflow-y-scroll  border-grey-8  flex-col-reverse flex-auto"
         >
-          <div class="flex justify-end">
-            <div
-              class="chat-card px-4 py-4 rounded-[12px] rounded-br-none bg-main-color flex flex-col gap-3"
+          <div class="flex justify-end message-loading" v-if="messageLoader">
+            <a-skeleton active :paragraph="false" />
+          </div>
+          <div v-if="chatLoader" class="flex flex-col gap-4">
+            <span
+              v-for="elem in [1, 2, 3, 4, 5]"
+              :key="elem"
+              :class="
+                elem % 2 == 0
+                  ? `flex justify-start skeleton-${elem + 1}`
+                  : `flex justify-end skeleton-${elem + 1}`
+              "
             >
-              <p class="text-[12px] text-white">
-                Приветствую! Меня заинтересовал ваш проект. Моя цель – создавать
-                интересные и интуитивно понятные пользовательские интерфейсы,
-                которые вдохновляют и привлекают
-              </p>
-              <span class="flex w-full h-[1px] bg-[#B795FF]"></span>
-              <div class="flex flex-col gap-1">
-                <h5 class="text-[12px] font-semibold text-white">
-                  600 000 so’m
-                </h5>
-                <div class="flex justify-between">
-                  <h6
-                    class="text-white text-[12px] font-regular flex gap-1 text-white"
-                  >
-                    Muddat:<span class="text-[12px] font-semibold text-white"
-                      >5 kun</span
-                    >
-                  </h6>
-                  <p class="text-[10px] text-white">14:30</p>
-                </div>
+              <a-skeleton active :paragraph="false" class="loading-card" />
+            </span>
+          </div>
+
+          <div v-for="(message, index) in messages" :key="message?.id">
+
+            <div class="flex justify-end" v-if="$store.state?.userInfo?.id == message?.from">
+              <div
+                class="content px-2 py-2 max-w-[642px] bg-main-color rounded-[10px] rounded-br-none flex gap-6 items-end"
+              >
+                <p class="text-[12px] text-white">
+                  {{ message?.message }}
+                </p>
+                <span class="text-[10px] text-white">{{ moment(message?.created_at).format("HH:mm")}}</span>
+              </div>
+            </div>
+            <div class="flex justify-start" v-else>
+              <div
+                class="client-content px-2 max-w-[642px] py-2 bg-bg-grey rounded-[10px] rounded-bl-none flex gap-6 items-end"
+              >
+                <p class="text-[12px] text-black">   {{ message?.message }}</p>
+                <span class="text-[10px] text-grey-40">{{ moment(message?.created_at).format("HH:mm")}}</span>
+              </div>
+            </div>
+            <div
+              class="flex justify-center mt-4"
+              v-if="
+              index - 1 > 0 &&
+              Number(moment(messages[index]?.created_at).format('DD')) <
+                Number(moment(messages[index - 1]?.created_at).format('DD'))
+            "
+            >
+              <div
+                class="chat-date w-[123px] py-2 rounded-[50px] flex justify-center items-center bg-bg-grey text-black text-[12px]"
+              >
+              <span v-if="!chatLoader">{{
+                  moment(messages[index - 1]?.created_at).format("DD.MM.YYYY")
+                }}</span>
               </div>
             </div>
           </div>
           <div class="flex justify-start">
             <div
-              class="client-content px-2 max-w-[642px] py-2 bg-bg-grey rounded-[10px] rounded-bl-none flex gap-6 items-end"
+              class="chat-card px-4 py-4 rounded-[12px] rounded-bl-none bg-bg-grey flex flex-col gap-3"
             >
-              <p class="text-[12px] text-black">5 дней</p>
-              <span class="text-[10px] text-grey-40">14:30</span>
-            </div>
-          </div>
-          <div class="flex justify-end">
-            <div
-              class="content px-2 py-2 max-w-[642px] bg-main-color rounded-[10px] rounded-br-none flex gap-6 items-end"
-            >
-              <p class="text-[12px] text-white">
-                Меня заинтересовал ваш проект. Моя цель – создавать интересные и
-                интуитивно по
+              <p class="text-[12px] text-black">
+                {{ order?.selected_request?.additional_info }}
               </p>
-              <span class="text-[10px] text-white">14:30</span>
-            </div>
-          </div>
-          <div class="flex justify-start">
-            <div
-              class="client-content px-2 max-w-[642px] py-2 bg-bg-grey rounded-[10px] rounded-bl-none flex gap-6 items-end"
-            >
-              <p class="text-[12px] text-black">5 дней</p>
-              <span class="text-[10px] text-grey-40">14:30</span>
-            </div>
-          </div>
-          <div class="flex justify-end">
-            <div
-              class="content px-2 py-2 max-w-[642px] bg-main-color rounded-[10px] rounded-br-none flex gap-6 items-end"
-            >
-              <p class="text-[12px] text-white">
-                Меня заинтересовал ваш проект. Моя цель – создавать интересные и
-                интуитивно по
-              </p>
-              <span class="text-[10px] text-white">14:30</span>
+              <span class="flex w-full h-[1px] bg-grey-8"></span>
+              <div class="flex flex-col gap-1">
+                <h5 class="text-[12px] font-semibold text-black">
+                  {{ order?.selected_request?.price.toLocaleString() }} so’m
+                </h5>
+                <div class="flex justify-between gap-10">
+                  <h6
+                    class="text-black text-[12px] font-regular flex gap-1"
+                  >
+                    Muddat:<span class="text-[12px] font-semibold text-black"
+                      >{{ order?.selected_request?.deadline }} kun</span
+                    >
+                  </h6>
+                  <p class="text-[10px] text-white">{{moment(order?.selected_request?.created_at).format('HH:mm')}}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -130,7 +147,7 @@
           {{ $store.state.translations["modal.chat-closed"] }}
         </div>
         <div class="footer px-4 py-4" v-else>
-          <input type="text" placeholder="Напишите сообщение ..." />
+          <input type="text" placeholder="Напишите сообщение ..." v-model="form.message"  @keyup.enter="onSubmit"/>
           <div class="flex items-center justify-end gap-4">
             <button>
               <svg
@@ -151,6 +168,7 @@
               </svg>
             </button>
             <button
+              @click="onSubmit"
               class="h-8 w-8 flex justify-center items-center rounded-full bg-blue"
             >
               <svg
@@ -176,19 +194,43 @@
   </div>
 </template>
 <script>
+import moment from 'moment'
 export default {
-  props: ["order", "status"],
+  props: ["order", "status", "messageLoader", "chatLoader","messages"],
+  data() {
+    return {
+      form: {
+        message: "",
+        order_id: null,
+        to: null,
+      },
+    }
+  },
   computed: {
     imgUrl() {
       return this.$config.baseURL + "/storage/";
     },
   },
   methods: {
+    onSubmit() {
+      this.$emit("onSubmit", this.form);
+      this.$refs.chatBoard.scrollTop = 0
+      this.form = {
+        message: "",
+        order_id: null,
+        to: null,
+      };
+    },
+    moment,
     open() {
-      this.$refs.customerChat.open();
+      this.$refs?.customerChat?.open();
+      document.body.style.height = "100vh";
+      document.body.style.overflow = "hidden";
     },
     close() {
-      this.$refs.customerChat.close();
+      this.$refs?.customerChat?.close();
+      document.body.style.height = "auto";
+      document.body.style.overflow = "auto";
     },
   },
 };

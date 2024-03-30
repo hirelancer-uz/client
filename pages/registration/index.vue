@@ -28,6 +28,7 @@ export default {
         this.loading = true;
         const data = await this.$store.dispatch("fetchAuth/postSendCode", form);
         if (data.success) {
+          await this.setToLocaleTimer(data?.content?.in_seconds)
           await this.$router.push(this.localePath("/registration/user-type"));
         }
       } catch (e) {
@@ -39,6 +40,9 @@ export default {
         this.loading = false;
       }
     },
+    setToLocaleTimer(value) {
+      localStorage.setItem('in_seconds',value)
+    }
   },
   components: { NumberCheck },
 };

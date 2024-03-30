@@ -13,6 +13,7 @@ export default function ({ $axios, redirect, error }, inject) {
     return response;
   });
   axios.onError((err) => {
+    console.log(err);
     // const errors = [404, 500];
     // if (errors.includes(err.response.status)) {
     //   error({
@@ -21,6 +22,15 @@ export default function ({ $axios, redirect, error }, inject) {
     //     layout: "error",
     //   });
     // }
+
+    if (err.response.status === 404) {
+      error({
+        statusCode: err.response.status,
+        message: "This page could not be found",
+        layout: "error",
+      });
+      // throw Promise.reject(err);
+    }
     return Promise.reject(err);
   });
   inject("axios", axios);

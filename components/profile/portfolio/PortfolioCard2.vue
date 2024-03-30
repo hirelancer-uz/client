@@ -16,7 +16,7 @@
         <img
           v-else
           class="h-full w-full object-cover"
-          src="@/assets/images/portfolio.png"
+          src="@/assets/images/empty.png"
           alt=""
         />
         <div
