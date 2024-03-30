@@ -5,8 +5,14 @@
     <div class="flex gap-4 items-center">
       <div
         class="image w-[72px] h-[72px] rounded-full overflow-hidden xl:w-10 xl:h-10"
-      >
+      >  <img
+          v-if="feedback?.order?.user?.avatar"
+          class="h-full w-full object-cover"
+          :src="`${imgUrl}${feedback?.order?.user?.avatar}`"
+          alt=""
+      />
         <img
+            v-else
           class="w-full h-full object-cover"
           src="../../assets/images/user-avatar.jpg"
           alt=""
@@ -16,7 +22,7 @@
         <h6
           class="text-[18px] text-black font-medium xl:text-[12px] xl:leading-4"
         >
-          {{ feedback?.user?.name }} {{ feedback?.user?.surname }}
+          {{ feedback?.order?.user?.name }} {{ feedback?.order?.user?.surname }}
         </h6>
         <div class="flex text-[14px] text-[#9A999B] items-center gap-[12px]">
           <p class="clock">{{ hour }}</p>
@@ -69,6 +75,9 @@ import moment from "moment";
 export default {
   props: ["feedback"],
   computed: {
+    imgUrl() {
+      return this.$config.baseURL + "/storage/"
+    },
     date() {
       return moment(this.feedback?.created_at).format("DD.MM.YYYY");
     },

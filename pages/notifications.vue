@@ -63,10 +63,10 @@ export default {
     async __GET_NOTIFICATIONS() {
       try {
         const data = await this.$store.dispatch(
-          "fetchNotifications/getNotifications"
+          "fetchNotifications/getNotifications",{params: {...this.$route.query}}
         );
-        this.notifications = data?.content;
-        // this.totalPage = ""
+        this.notifications = data?.content?.data;
+        this.totalPage = data?.content?.total
       } catch (e) {
         this.$notification.error({
           description: e.response.statusText,
