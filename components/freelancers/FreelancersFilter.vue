@@ -54,7 +54,7 @@
                 @click="toPage(dropItem?.id)"
                 class="text-base text-blue-night flex gap-2 items-center"
                 :class="{
-                  'text-main-color': dropItem?.id == $route.params.id,
+                  'text-main-color': dropItem?.id === $route.params.id,
                 }"
               >
                 {{ dropItem?.name_ru }}
@@ -71,12 +71,12 @@
                 :class="{
                   'rotate-180':
                     (dropItem.children.find(
-                      (item) => item.id == dropdownOpen
+                      (item) => item.id === dropdownOpen
                     ) ||
                       dropdownOpen == dropItem?.id) &&
                     dropItem.children.length > 0,
                   'pointer-events-none opacity-50':
-                    dropItem.children.length == 0,
+                    dropItem.children.length === 0,
                 }"
                 class="drop-icon w-[24px] h-[24px] rounded-[50%] bg-[#F8F9FF] flex items-center justify-center"
               >
