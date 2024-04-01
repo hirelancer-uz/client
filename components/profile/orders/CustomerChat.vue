@@ -105,8 +105,8 @@
             class="flex justify-center"
             v-if="
               index - 1 > 0 &&
-              Number(moment(messages[index]?.created_at).format('DD')) <
-                Number(moment(messages[index - 1]?.created_at).format('DD'))
+              moment(messages[index]?.created_at).format('YYYY-MM-DD') <
+        moment(messages[index - 1]?.created_at).format('YYYY-MM-DD')
             "
           >
             <div

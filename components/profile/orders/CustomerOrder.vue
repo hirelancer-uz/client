@@ -532,7 +532,10 @@
           </p>
         </div>
       </div>
-      <div class="mt-6 pb-[120px] xl:pb-0 xl:mt-0" v-if="order?.selected_request?.id">
+      <div
+        class="mt-6 pb-[120px] xl:pb-0 xl:mt-0"
+        v-if="order?.selected_request?.id"
+      >
         <CustomerChat :order="order" :status="status" />
       </div>
     </div>
@@ -629,11 +632,7 @@
           <div
             class="xl:hidden customer-chat"
             :class="{ activeChat: chatHandle }"
-            v-if="
-              !order?.selected_request?.id &&
-              order?.status === 1 &&
-              order?.requests.length > 0
-            "
+            v-if="order?.status === 1 && windowWidth >= 1200"
           >
             <OffersChat
               @close="chatHandle = false"
@@ -787,8 +786,7 @@
       <Loader v-if="loading" />
     </div>
 
-
-    <div class="hidden xl:block" >
+    <div class="hidden xl:block" v-if="windowWidth < 1200">
       <OffersChat
         ref="offerChat"
         @close="chatHandle = false"
@@ -844,6 +842,7 @@ export default {
     };
   },
   computed: {
+
     orderDate() {
       return moment(this.order?.created_at).format("DD MMM YYYY");
     },
@@ -880,7 +879,7 @@ export default {
     },
     async currentRequestMobile(request) {
       this.isRequest = await request;
-      this.$refs.offerChat.open()
+      this.$refs.offerChat.open();
       this.__GET_CHAT_MESSAGES(request);
     },
     async currentRequest(request) {
@@ -901,7 +900,6 @@ export default {
             item.from === request?.freelancer_id ||
             item.to === request?.freelancer_id
         );
-
       } catch (e) {
       } finally {
         this.chatLoader = false;
@@ -919,7 +917,6 @@ export default {
     sortByDate() {
       this.order.requests.sort((a, b) => b.deadline - a.deadline);
     },
-
 
     openCompliteOrder() {
       this.$refs.compliteOrder.open();
@@ -1342,6 +1339,7 @@ export default {
 .icon.rotate {
   transform: rotate(180deg);
 }
+
 @media (max-width: 1200px) {
   .customer-chat {
     transition: 0s;

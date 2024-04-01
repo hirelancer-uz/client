@@ -88,9 +88,9 @@
           <div
             class="flex justify-center"
             v-if="
-              index - 1 > 0 &&
-              Number(moment(messages[index]?.created_at).format('DD')) <
-                Number(moment(messages[index - 1]?.created_at).format('DD'))
+              index &&
+              moment(messages[index]?.created_at).format('YYYY-MM-DD') <
+                moment(messages[index - 1]?.created_at).format('YYYY-MM-DD')
             "
           >
             <div
@@ -214,7 +214,6 @@ import moment from "moment";
 import ChatModal from "@/components/modals/ChatModal.vue";
 import chatService from "@/mixins/chatService";
 
-
 export default {
   components: { ChatModal },
   props: ["status", "order"],
@@ -249,7 +248,8 @@ export default {
       this.form = { ...form };
       this.form.order_id = this.order.id;
       this.form.to = this.order?.client?.id;
-      if (this.form.message.length > 0) this.__POST_CHAT_MESSAGE(this.form,this.formClear);
+      if (this.form.message.length > 0)
+        this.__POST_CHAT_MESSAGE(this.form, this.formClear);
     },
     formClear() {
       this.form = {
