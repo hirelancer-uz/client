@@ -42,7 +42,7 @@
     </div>
 
     <div class="flex flex-col items-center">
-      <nuxt-link to="/">
+      <nuxt-link:to="localePath('/')">
         <span
           ><svg
             xmlns="http://www.w3.org/2000/svg"

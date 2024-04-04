@@ -126,7 +126,7 @@
       </div>
       <div class="flex items-end xl:hidden">
         <nuxt-link
-          :to="`/profile/freelancer/order/view/${order?.id}`"
+          :to="localePath(`/profile/freelancer/order/view/${order?.id}`)"
           class="text-blue text-base font-medium flex gap-2 items-center"
           >{{ $store.state.translations["profile.more"]
           }}<svg
@@ -237,7 +237,7 @@
       </div>
     </div>
     <nuxt-link
-      :to="`/profile/freelancer/order/view/${order?.id}`"
+      :to="localePath(`/profile/freelancer/order/view/${order?.id}`)"
       class="text-main-color text-base hidden xl:flex font-medium gap-2 items-center xl:w-full xl:border xl:border-solid xl:border-main-color xl:rounded-[12px] xl:h-12 xl:justify-center xl:text-[14px] xl:font-semibold xl:gap-2 xl:items-center"
       >{{ $store.state.translations["profile.more"]
       }}<svg

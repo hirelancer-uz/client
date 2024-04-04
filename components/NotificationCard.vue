@@ -33,19 +33,19 @@
       <nuxt-link
         class="text-main-color text-base font-medium flex items-center gap-2"
         v-if="notification?.type === 1"
-        :to="`/profile/${notification?.user_id === $store.state.userInfo?.id ? 'customer':'freelancer'}/order/view/${notification?.link}`"
+        :to="localePath(`/profile/${notification?.user_id === $store.state.userInfo?.id ? 'customer':'freelancer'}/order/view/${notification?.link}`)"
         >Buyurtmaga o‘tish</nuxt-link
       >
       <nuxt-link
         class="text-main-color text-base font-medium flex items-center gap-2"
         v-if="notification?.type === 2"
-        to="/directory"
+       :to="localePath('/directory')"
         >Reyting formulasi</nuxt-link
       >
       <nuxt-link
         class="text-main-color text-base font-medium flex items-center gap-2"
         v-if="notification?.type === 3"
-        :to="`/profile/${notification?.user_id === $store.state.userInfo?.id ? 'customer':'freelancer'}/order/view/${notification?.link}`"
+        :to="localePath(`/profile/${notification?.user_id === $store.state.userInfo?.id ? 'customer':'freelancer'}/order/view/${notification?.link}`)"
         >Taklifni ko’rish</nuxt-link
       >
       <button

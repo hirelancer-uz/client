@@ -4,7 +4,7 @@
   >
     <div class="flex flex-col w-full gap-3">
       <div class="flex justify-between items-center topper">
-        <nuxt-link to="/">
+        <nuxt-link :to="localePath('/')">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="94"
@@ -120,7 +120,7 @@
         v-if="$route.params.user && $route.name.includes('settings')"
       >
         <button
-          :to="`/profile/${$route.params.user}/settings`"
+          ::to="localePath(`/profile/${$route.params.user}/settings`)"
           @click="
             $router.push(localePath(`/profile/${$route.params.user}/settings`))
           "
@@ -145,7 +145,7 @@
     <div class="menu" :class="{ show: menuHandle == true }">
       <div class="top border-[0] border-apple-grey border-t-[2px] border-solid">
         <div class="links">
-          <NuxtLink to="/orders"
+          <NuxtLink :to="localePath('/orders')"
             >{{ $store.state.translations["header.orders"] }}
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -163,7 +163,7 @@
               />
             </svg>
           </NuxtLink>
-          <NuxtLink to="/freelancers"
+          <NuxtLink :to="localePath('/freelancers')"
             >{{ $store.state.translations["header.freelancers"] }}
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -183,7 +183,7 @@
           </NuxtLink>
         </div>
         <div class="messenger">
-          <NuxtLink to="/notifications">
+          <NuxtLink :to="localePath('/notifications')">
             <span class="logo"
               ><svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -215,7 +215,7 @@
               />
             </svg>
           </NuxtLink>
-          <NuxtLink to="/">
+          <NuxtLink :to="localePath('/')">
             <span class="logo"
               ><svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -735,10 +735,10 @@
       </div>
       <div class="bottom" v-else>
         <div class="grid grid-cols-2 gap-2 px-4">
-          <NuxtLink to="/registration" class="login">{{
+          <NuxtLink :to="localePath('/registration')" class="login">{{
             $store.state.translations["header.login"]
           }}</NuxtLink>
-          <NuxtLink to="/registration" class="registration">{{
+          <NuxtLink :to="localePath('/registration')" class="registration">{{
             $store.state.translations["header.register"]
           }}</NuxtLink>
         </div>

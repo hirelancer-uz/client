@@ -35,21 +35,21 @@ export default {
             @click="handleDropdown(item)"
             class="text-grey-80 font-medium py-3 px-6 flex justify-between  text-base w-full"
 
-            ><h4 @click="$router.push(`/directory/${item}`)">Вы новичок на сайте</h4>
+            ><h4 @click="$router.push(localePah(`/directory/${item}`))">Вы новичок на сайте</h4>
             <DropArrow />
           </button>
           <div class="body px-2" >
-            <nuxt-link class="text-grey-80 font-medium py-3 px-6 flex justify-between rounded-[16px] text-base" to="/1">Защита аккаунта</nuxt-link>
-            <nuxt-link class="text-grey-80 font-medium py-3 px-6 flex justify-between rounded-[16px] text-base" to="/2">Защита аккаунта</nuxt-link>
-            <nuxt-link class="text-grey-80 font-medium py-3 px-6 flex justify-between rounded-[16px] text-base" to="/3">Защита аккаунта</nuxt-link>
-            <nuxt-link class="text-grey-80 font-medium py-3 px-6 flex justify-between rounded-[16px] text-base" to="/4">Защита аккаунта</nuxt-link>
+            <nuxt-link class="text-grey-80 font-medium py-3 px-6 flex justify-between rounded-[16px] text-base":to="localePath('/1')">Защита аккаунта</nuxt-link>
+            <nuxt-link class="text-grey-80 font-medium py-3 px-6 flex justify-between rounded-[16px] text-base":to="localePath('/2')">Защита аккаунта</nuxt-link>
+            <nuxt-link class="text-grey-80 font-medium py-3 px-6 flex justify-between rounded-[16px] text-base":to="localePath('/3')">Защита аккаунта</nuxt-link>
+            <nuxt-link class="text-grey-80 font-medium py-3 px-6 flex justify-between rounded-[16px] text-base":to="localePath('/4')">Защита аккаунта</nuxt-link>
           </div>
         </div>
       </li>
       <li>
         <nuxt-link
           class="text-grey-80 font-medium py-3 px-6 flex justify-between rounded-[16px] text-base"
-          to="/directory/2"
+         :to="localePath('/directory/2')"
           >Аудио и Видео
           <DropArrow />
         </nuxt-link>
@@ -60,8 +60,8 @@ export default {
 
 <style scoped lang="css">
 .nuxt-link-active {
-  //background: #fff;
-  //box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.08);
+  /* //background: #fff;
+  //box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.08); */
 }
 
 .active button h4 {

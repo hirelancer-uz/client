@@ -7,7 +7,7 @@
       <nuxt-link
         v-if="totalFreelancer > 10"
         class="flex gap-[6px] items-center text-blue text-[18px] font-medium xl:text-[14px]"
-        to="/freelancers"
+       :to="localePath('/freelancers')"
         >{{ $store.state.translations["main.see-more"] }}
         <svg
           xmlns="http://www.w3.org/2000/svg"

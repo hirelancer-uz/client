@@ -10,7 +10,7 @@
       class="buttons xl:justify-center bg-white flex gap-6 mt-4 xl:gap-12 xl:mt-[-3px] xl:relative z-[2000] xl:pt-[3px] xl:hidden"
     >
       <button
-        :to="`/profile/${$route.params.user}/settings`"
+        :to="localePath(`/profile/${$route.params.user}/settings`)"
         @click="
           $router.push(localePath(`/profile/${$route.params.user}/settings`))
         "

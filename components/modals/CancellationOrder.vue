@@ -16,6 +16,7 @@
       >
         <div class="flex flex-col gap-8 items-center">
           <div
+          :class="{hidden: icon}"
             class="w-[106px] h-[106px] rounded-full flex items-center justify-center bg-main-color mt-[50px]"
           >
             <svg
@@ -121,6 +122,7 @@
           <div
             v-if="primary"
             class="w-[72px] h-[72px] rounded-full flex items-center justify-center bg-main-color mt-9"
+            :class="{hidden: icon}"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -155,6 +157,7 @@
           <span
             v-else
             class="py-1 flex w-[72px] h-[72px] bg-[#f2154a1a] rounded-full justify-center items-center mt-9 border border-solid border-light-red"
+            :class="{hidden: icon}"
           >
             <svg
               width="32"
@@ -229,6 +232,7 @@ export default {
     "primary",
     "loadingBtn",
     "disabled",
+    "icon"
   ],
   data() {
     return {

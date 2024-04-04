@@ -29,7 +29,7 @@
         </p>
       </div>
       <nuxt-link
-        :to="`/profile/customer/order/view/${notification?.link}`"
+        :to="localePath(`/profile/customer/order/view/${notification?.link}`)"
         class="text-[12px] text-blue font-semibold uppercase flex gap-1 items-center"
         >{{ $store.state.translations["profile.read"] }}
         <svg

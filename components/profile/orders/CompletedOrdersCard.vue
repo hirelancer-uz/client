@@ -86,7 +86,7 @@
         </div>
       </div>
       <nuxt-link
-        :to="`/profile/customer/order/view/${order?.id}`"
+        :to="localePath(`/profile/customer/order/view/${order?.id}`)"
         class="text-main-color text-base xl:hidden font-medium flex gap-2 items-center xl:w-full xl:border xl:border-solid xl:border-main-color xl:rounded-[8px] xl:h-11 xl:justify-center xl:text-[14px] xl:font-medium xl:gap-2 xl:items-center"
         >{{ $store.state.translations["profile.more"]
         }}<svg
@@ -209,7 +209,7 @@
       </div>
     </div>
     <nuxt-link
-      :to="`/profile/customer/order/view/${order?.id}`"
+      :to="localePath(`/profile/customer/order/view/${order?.id}`)"
       class="text-main-color text-base hidden xl:flex font-medium gap-2 items-center xl:w-full xl:border xl:border-solid xl:border-main-color xl:rounded-[12px] xl:h-12 xl:justify-center xl:text-[14px] xl:font-semibold xl:gap-2 xl:items-center"
       :class="accessStatus.includes(order?.status) ? 'mt-4' : 'mt-6'"
       >{{ $store.state.translations["profile.more"]

@@ -817,7 +817,7 @@ export default {
         this.$notification["success"]({
           message: this.$store.state.translations["modal.sent-done"],
         });
-        this.$router.push(`/profile/customer/order/view/${data?.content?.id}`);
+        this.$router.push(this.localePah(`/profile/customer/order/view/${data?.content?.id}`));
       } catch (e) {
         console.log(e)
         if(e.response.status == 413) {

@@ -11,28 +11,28 @@
           >
             <li>
               <nuxt-link
-                to="/orders"
+               :to="localePath('/orders')"
                 class="text-[20px] font-medium text-black xl:text-base"
                 >{{ $store.state.translations["main.orders"] }}
               </nuxt-link>
             </li>
             <li>
               <nuxt-link
-                to="/freelancers"
+               :to="localePath('/freelancers')"
                 class="text-[20px] font-medium text-black xl:text-base"
                 >{{ $store.state.translations["header.freelancers"] }}
               </nuxt-link>
             </li>
             <li>
               <nuxt-link
-                to="/"
+               :to="localePath('/')"
                 class="text-[20px] font-medium text-black xl:text-base"
                 >{{ $store.state.translations["header.guide"] }}
               </nuxt-link>
             </li>
             <li>
               <nuxt-link
-                to="/"
+               :to="localePath('/')"
                 class="text-[20px] font-medium text-black xl:text-base"
                 >{{ $store.state.translations["main.faq"] }}
               </nuxt-link>

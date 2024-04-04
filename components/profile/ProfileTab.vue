@@ -3,7 +3,7 @@
     <div class="rounded-2xl px-4 py-4 flex gap-6 xl:hidden bg-bg-grey">
       <nuxt-link
         v-if="$route.params.user == 'freelancer'"
-        :to="`/profile/${$route.params.user}`"
+        :to="localePath(`/profile/${$route.params.user}`)"
         exact
         class="text-black text-base font-medium flex flex-col gap-2 items-center bg-white px-4 justify-center min-w-[120px] min-h-[79px] rounded-[12px] hover:text-black"
         ><svg
@@ -25,7 +25,7 @@
         {{ $store.state.translations["profile.profile"] }}
       </nuxt-link>
       <nuxt-link
-        :to="`/profile/${$route.params.user}/orders/active/status`"
+        :to="localePath(`/profile/${$route.params.user}/orders/active/status`)"
         :class="{
           'nuxt-link-active': $route.path.includes(
             `profile/${$route.params.user}/orders`
@@ -53,7 +53,7 @@
 
       <nuxt-link
         v-if="$route.params.user == 'freelancer'"
-        :to="`/profile/${$route.params.user}/portfolio`"
+        :to="localePath(`/profile/${$route.params.user}/portfolio`)"
         class="text-black text-base font-medium flex flex-col gap-2 items-center bg-white px-4 justify-center min-w-[120px] min-h-[79px] rounded-[12px] hover:text-black"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
@@ -75,7 +75,7 @@
       >
       <!-- <nuxt-link
         v-if="$route.params.user == 'freelancer'"
-        to="/"
+       :to="localePath('/')"
         class="opacity-50 pointer-events-none text-black  text-base font-medium flex flex-col gap-2 items-center bg-white px-4 justify-center min-w-[120px] min-h-[79px] rounded-[12px] hover:text-black"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +97,7 @@
       >
       <nuxt-link
         v-if="$route.params.user == 'freelancer'"
-        to="/"
+       :to="localePath('/')"
         class="opacity-50 pointer-events-none text-black text-base font-medium flex flex-col gap-2 items-center bg-white px-4 justify-center min-w-[120px] min-h-[79px] rounded-[12px] hover:text-black"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
@@ -122,7 +122,7 @@
       >
       <nuxt-link
         v-if="$route.params.user == 'freelancer'"
-        to="/"
+       :to="localePath('/')"
         class="opacity-50 pointer-events-none text-black text-base font-medium flex flex-col gap-2 items-center bg-white px-4 justify-center min-w-[120px] min-h-[79px] rounded-[12px] hover:text-black"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +144,7 @@
       >
       <nuxt-link
       v-if="$route.params.user == 'customer'"
-        :to="`/profile/${$route.params.user}/performers`"
+        :to="localePath(`/profile/${$route.params.user}/performers`)"
         :class="{ active: $route.name.includes('performers') }"
         class="text-black text-base font-medium flex flex-col gap-2 items-center bg-white px-4 justify-center min-w-[120px] min-h-[79px] rounded-[12px] hover:text-black"
         ><svg
@@ -166,7 +166,7 @@
         Исполнители</nuxt-link
       > -->
       <nuxt-link
-        :to="`/profile/${$route.params.user}/settings`"
+        :to="localePath(`/profile/${$route.params.user}/settings`)"
         class="text-black text-base font-medium flex flex-col gap-2 items-center bg-white px-4 justify-center min-w-[120px] min-h-[79px] rounded-[12px] hover:text-black"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
@@ -188,7 +188,7 @@
       >
       <nuxt-link
         v-if="$route.params.user === 'freelancer'"
-        :to="`/profile/freelancer/comments`"
+        :to="localePath(`/profile/freelancer/comments`)"
         class="text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[96px] xl:min-h-[68px] rounded-[12px] hover:text-black"
         ><svg
           width="24"

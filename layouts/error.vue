@@ -12,7 +12,7 @@
 
       <nuxt-link
         class="h-[60px] w-[246px] flex justify-center items-center rounded-[12px] bg-main-color text-base font-semibold text-white hover:text-white"
-        to="/"
+       :to="localePath('/')"
         >Bosh sahifaga qayting
       </nuxt-link>
     </div>
