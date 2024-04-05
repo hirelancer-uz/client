@@ -15,7 +15,7 @@
     </div>
     <TheFooter />
     <div v-for="route in routes">
-      <BottomBar v-if="route == $route.path" />
+      <BottomBar v-if="route == $route.name.split('___')[0]" />
     </div>
   </div>
 </template>
@@ -43,11 +43,11 @@ export default {
   data() {
     return {
       routes: [
-        "/freelancers",
-        "/profile/freelancer",
-        "/",
-        "/orders",
-        "/profile/customer",
+        "freelancers",
+        "profile-freelancer",
+        "index",
+        "orders",
+        "profile-customer",
       ],
       layoutHeight: 63,
     };
@@ -74,6 +74,7 @@ export default {
     },
   },
   async mounted() {
+    console.log(this)
     if (localStorage.getItem("auth-token")) {
       try {
         const [userInfoData] = await Promise.all([

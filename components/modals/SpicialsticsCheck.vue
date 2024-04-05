@@ -52,7 +52,7 @@
             <div class="modal-board flex flex-col justify-between gap-4">
               <div
                 class="flex gap-3 flex-wrap items-start"
-                v-show="maxCount !== 1"
+                v-if="maxCount !== 1"
               >
                 <button
                   :disabled="
@@ -92,7 +92,7 @@
               </div>
               <div
                 class="flex gap-3 flex-wrap items-start"
-                v-show="maxCount === 1"
+                v-if="maxCount === 1"
               >
                 <a-radio-group
                   v-model="value"
@@ -181,7 +181,7 @@
                         :src="`${imgUrl}${item?.icon}`"
                         alt=""
                       />
-                      {{ item?.name_ru }}</span
+                      {{ item?.name_ru }} </span
                     >
                     <span class="text-[12px] text-grey-40"
                       >({{ item?.children.length }})</span
@@ -209,7 +209,8 @@
 
                 <div class="drop-body relative z-10">
                   <div class="py-4 flex flex-col gap-4 xl:gap-8">
-                    <div class="flex gap-3 flex-wrap" v-show="maxCount !== 1">
+                    <div class="flex gap-3 flex-wrap" v-if="maxCount !== 1">
+
                       <button
                         class="px-4 py-2 bg-bg-grey rounded-[22px] flex items-center gap-2"
                         v-for="child in item?.children"
@@ -218,7 +219,7 @@
                         :disabled="
                           !Boolean(
                             checkedList.find(
-                              (elemChild) => elemChild.id === child.id
+                              (elemChild) => elemChild.id == child.id
                             )
                           ) && checkedList.length === maxSelectCount
                         "
@@ -227,9 +228,9 @@
                           :disabled="
                             !Boolean(
                               checkedList.find(
-                                (elemChild) => elemChild.id === child.id
+                                (elemChild) => elemChild.id == child.id
                               )
-                            ) && checkedList.length === maxSelectCount
+                            ) && checkedList.length == maxSelectCount
                           "
                           :checked="
                             Boolean(
@@ -246,7 +247,7 @@
                     </div>
                     <div
                       class="flex gap-3 flex-wrap items-start"
-                      v-show="maxCount === 1"
+                      v-if="maxCount === 1"
                     >
                       <a-radio-group
                         v-model="value"
@@ -256,15 +257,9 @@
                         <a-radio
                           class="bg-bg-grey rounded-[22px] flex items-center gap-2"
                           :style="radioStyle"
-                          :value="child"
+                          :value="child?.id"
                           :key="child?.id"
-                          v-for="child in specialities?.find(
-                            (elem) =>
-                              elem.id ===
-                              (modalList !== null
-                                ? modalList
-                                : specialities[0]?.id)
-                          )?.children"
+                          v-for="child in item?.children"
                         >
                           {{ child?.name_ru }}
                         </a-radio>
@@ -375,6 +370,7 @@ export default {
         }
         this.checkedList.push(obj);
       }
+      console.log(this.checkedList)
     },
     async deleteChecked(id) {
       this.onSubmit(id);

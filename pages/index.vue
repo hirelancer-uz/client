@@ -27,7 +27,7 @@ export default {
   middleware: "auth",
   $nuxt: undefined,
 
-  async asyncData({ store }) {
+  async asyncData({ store,i18n }) {
     const [freeLancersData, specialitiesData, ordersData] = await Promise.all([
       store.dispatch("fetchFreelancers/getFreelancers", {
         params: {
@@ -38,6 +38,9 @@ export default {
       store.dispatch("fetchSpecialities/getSpecialities",{
         params: {
           limit: 12,
+        },
+        headers: {
+          Lang: i18n.locale,
         },
       }),
       store.dispatch("fetchOrders/getOrders", {
