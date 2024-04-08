@@ -15,7 +15,7 @@
     </div>
     <TheFooter />
     <div v-for="route in routes">
-      <BottomBar v-if="route == $route.name.split('___')[0]" />
+      <BottomBar v-if="route == $route.name?.split('___')[0]" />
     </div>
   </div>
 </template>

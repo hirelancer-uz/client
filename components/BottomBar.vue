@@ -28,11 +28,11 @@
     <div class="menu">
       <button
         @click="$router.push(localePath('/'))"
-        :class="{ active: $route.name.split('___')[0] === 'index' }"
+        :class="{ active: $route.name?.split('___')[0] === 'index' }"
         class="flex flex-col gap-1 items-center text-grey-64 text-[12px] font-medium px-1 pt-[6px]"
       >
         <svg
-          v-if="$route.name.split('___')[0] === 'index'"
+          v-if="$route.name?.split('___')[0] === 'index'"
           width="24"
           height="24"
           viewBox="0 0 24 24"
@@ -72,11 +72,11 @@
       </button>
       <button
         @click="$router.push(localePath('/orders'))"
-        :class="{ active: $route.name.split('___')[0] === 'orders' }"
+        :class="{ active: $route.name?.split('___')[0] === 'orders' }"
         class="flex flex-col gap-1 items-center text-grey-64 text-[12px] font-medium px-1 pt-[6px]"
       >
         <svg
-          v-if="$route.name.split('___')[0] === 'orders'"
+          v-if="$route.name?.split('___')[0] === 'orders'"
           width="24"
           height="24"
           viewBox="0 0 24 24"
@@ -126,11 +126,11 @@
       </button>
       <button
         @click="$router.push(localePath('/freelancers'))"
-        :class="{ active: $route.name.split('___')[0] === 'freelancers' }"
+        :class="{ active: $route.name?.split('___')[0] === 'freelancers' }"
         class="flex flex-col gap-1 items-center text-grey-64 text-[12px] font-medium px-1 pt-[6px]"
       >
         <svg
-          v-if="$route.name.split('___')[0] === 'freelancers'"
+          v-if="$route.name?.split('___')[0] === 'freelancers'"
           width="24"
           height="24"
           viewBox="0 0 24 24"
@@ -258,7 +258,7 @@ export default {
       return (
         this.$store.state.auth &&
         Boolean(this.$store.state.userInfo["name"]) &&
-        this.accessRoutesAddOrder.find((item) => item === this.$route.name.split('___')[0])
+        this.accessRoutesAddOrder.find((item) => item === this.$route.name?.split('___')[0])
       );
     },
   },

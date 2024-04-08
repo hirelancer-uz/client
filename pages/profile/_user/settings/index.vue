@@ -800,6 +800,9 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+.ckeditor-container {
+  width: 100%; /* Ensure the container is responsive */
+}
 :deep(.ck-content) {
   height: 250px;
   border: 1px solid var(--grey-8) !important;
