@@ -394,7 +394,7 @@ export default {
       this.visible = true;
     },
     onChange(a, b, c) {
-      console.log(a, b, c);
+
     },
     async __DELETE_WORK() {
       try {

@@ -125,7 +125,7 @@ export default {
   props: ["freelancer"],
 
   mounted() {
-    console.log(this.freelancer);
+
   },
 
   computed: {

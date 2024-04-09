@@ -96,7 +96,7 @@ export default {
     headerScrollHandle() {
       let header = this.$refs.navScroll;
       window.addEventListener("scroll", () => {
-        console.log(this.$route.name);
+
         let scrollTop =
           window.pageYOffset || document.documentElement.scrollTop;
         if (
@@ -128,7 +128,7 @@ export default {
           },
         }
       );
-      console.log("change lang",translations?.translates)
+
       await this.$store.commit("getTranslations", translations?.translates);
     },
   },

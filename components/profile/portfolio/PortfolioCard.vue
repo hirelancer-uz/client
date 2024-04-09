@@ -142,7 +142,7 @@ export default {
   },
   methods: {
     openShow() {
-      console.log(this.$refs);
+
       this.$refs.portfolioModal?.openModal();
     },
     widthHandle() {

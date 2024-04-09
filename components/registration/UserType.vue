@@ -377,7 +377,7 @@ export default {
         if (valid) {
           this.$emit("sendCode", data);
         } else {
-          console.log("error submit!!");
+
           return false;
         }
       });

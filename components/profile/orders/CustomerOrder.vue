@@ -965,7 +965,7 @@ export default {
     },
 
     cancelOrder() {
-      console.log(this.order?.status);
+
       switch (this.order?.status) {
         case 0:
           this.openDeleteOrder();

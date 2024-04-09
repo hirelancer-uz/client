@@ -778,7 +778,7 @@ export default {
           this.__GET_USER_INFO();
         }
       } catch (e) {
-        // console.log(e.response);
+        //
         // this.$notification["error"]({
         //   message: "Error",
         //   description: e.response.statusText,

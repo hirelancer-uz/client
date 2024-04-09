@@ -52,7 +52,7 @@ export default {
             : await this.$router.push(this.localePath("/profile/freelancer"));
         }
       } catch (e) {
-        console.log(e);
+
         this.$notification["error"]({
           message: "Error",
           description: e.response?.statusText,

@@ -123,7 +123,7 @@ export default {
   },
   methods: {
     openShow() {
-      console.log('calaldsas')
+
       this.$refs.portfolioModal.openModal();
     },
     widthHandle() {

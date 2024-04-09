@@ -294,7 +294,7 @@ export default {
   },
   methods: {
     openCustomerChat() {
-      console.log(this.$refs)
+
       this.$refs?.customerChat.open();
     },
     closeCustomerChat() {

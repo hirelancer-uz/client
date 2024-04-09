@@ -29,7 +29,7 @@ export default ({ $axios, redirect, error }, inject) => {
         message: "This page could not be found",
         layout: "error",
       });
-      // console.log("error",e.response.status)
+      //
       //  throw new Error('NOT FOUNT')
     }
     if (e.response.status === 413) {

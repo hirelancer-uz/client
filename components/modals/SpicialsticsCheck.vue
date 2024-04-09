@@ -370,7 +370,7 @@ export default {
         }
         this.checkedList.push(obj);
       }
-      console.log(this.checkedList)
+
     },
     async deleteChecked(id) {
       this.onSubmit(id);

@@ -819,7 +819,7 @@ export default {
         });
         this.$router.push(this.localePath(`/profile/customer/order/view/${data?.content?.id}`));
       } catch (e) {
-        console.log(e)
+
         if(e.response.status == 413) {
           this.$notification["error"]({
             message: "Error",

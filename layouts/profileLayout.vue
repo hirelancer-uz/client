@@ -122,7 +122,7 @@ export default {
     headerScrollHandle() {
       let header = this.$refs.navScroll;
       window.addEventListener("scroll", () => {
-        console.log(this.$route.name)
+
         let scrollTop =
           window.pageYOffset || document.documentElement.scrollTop;
         if (
