@@ -57,13 +57,21 @@ export default {
   },
 
   async fetch() {
-    const translations = await translationsApi.getTranslations(this.$axios, {
-      headers: {
-        Lang: this.$i18n.locale,
-      },
-    });
+    const [translations, siteInfo] = await Promise.all([
+      this.$store.dispatch("fetchTranslations/getTranslations", {
+        headers: {
+          Lang: this.$i18n.locale,
+        },
+      }),
+      this.$store.dispatch("fetchSiteInfo/getSiteInfo", {
+        headers: {
+          Lang: this.$i18n.locale,
+        },
+      }),
+    ]);
 
-    await this.$store.commit("getTranslations", translations);
+    this.$store.commit("getTranslations", translations?.translates);
+    this.$store.commit("getSiteInfo", siteInfo?.content);
   },
   computed: {
     authCheck() {
@@ -74,24 +82,21 @@ export default {
     },
   },
   async mounted() {
-     this.headerScrollHandle();
-    if (localStorage.getItem("auth-token")) {
-      try {
-        const [userInfoData] = await Promise.all([
-          this.$store.dispatch("fetchAuth/getUserInfo"),
-        ]);
-        this.$store.commit("getUserInfo", userInfoData);
-      } catch (e) {}
-    } else {
-      this.$store.commit("getUserInfo", {});
-    }
+    this.headerScrollHandle();
+    localStorage.getItem("auth-token")
+      ? this.__GET_USER()
+      : this.$store.commit("getUserInfo", {});
   },
 
   methods: {
+    async __GET_USER() {
+      const userInfoData = await this.$store.dispatch("fetchAuth/getUserInfo");
+      this.$store.commit("getUserInfo", userInfoData);
+    },
     headerScrollHandle() {
       let header = this.$refs.navScroll;
       window.addEventListener("scroll", () => {
-        console.log(this.$route.name)
+        console.log(this.$route.name);
         let scrollTop =
           window.pageYOffset || document.documentElement.scrollTop;
         if (
@@ -99,8 +104,8 @@ export default {
           document.documentElement.scrollTop >= 300
         ) {
           if (this.$route.name?.split("___")[0] != "index")
-          header.style.top = "-54px";
-        }  else {
+            header.style.top = "-54px";
+        } else {
           header.style.top = "0";
         }
         this.lastScrollTop = scrollTop;
@@ -109,19 +114,22 @@ export default {
   },
 
   watch: {
-
     authCheck(val) {
       if (!val && this.$route.name.includes("profile")) {
         this.$router.push(this.localePath("/"));
       }
     },
     async currentLang() {
-      const translations = await translationsApi.getTranslations(this.$axios, {
-        headers: {
-          Lang: this.$i18n.locale,
-        },
-      });
-      await this.$store.commit("getTranslations", translations);
+      const translations = await this.$store.dispatch(
+        "fetchTranslations/getTranslations",
+        {
+          headers: {
+            Lang: this.$i18n.locale,
+          },
+        }
+      );
+      console.log("change lang",translations?.translates)
+      await this.$store.commit("getTranslations", translations?.translates);
     },
   },
   components: { TheHeader, TheFooter, BottomBar, MobileHeader },
