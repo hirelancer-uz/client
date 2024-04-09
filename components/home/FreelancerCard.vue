@@ -138,7 +138,7 @@
           :key="specialit?.id"
           class="bg-apple-grey text-xs font-medium text-grey-64 px-4 flex items-center rounded-[22px] h-[28px] xl:px-[16px] xl:py-[8px] whitespace-nowrap text-[12px]"
         >
-          {{ specialit?.name_ru }}
+          {{ specialit?.name }}
         </div>
         <!-- <div
           v-if="freelancer?.specialities.length > 1"

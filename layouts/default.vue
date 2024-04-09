@@ -1,6 +1,9 @@
 <template>
   <div class="layout W-100 min-h-[100vh] flex flex-col">
-    <div class="fixed top-0 left-0 w-full z-50" ref="mHeader">
+    <div
+      class="fixed top-0 left-0 w-full z-50 header-container"
+      ref="navScroll"
+    >
       <MobileHeader class="xl:block" />
     </div>
     <TheHeader class="xl:hidden" ref="header" />
@@ -66,15 +69,12 @@ export default {
     authCheck() {
       return this.$store.state.auth;
     },
-    userCheck() {
-      return this.$store.state.userInfo["id"];
-    },
     currentLang() {
       return this.$i18n.locale;
     },
   },
   async mounted() {
-    console.log(this)
+     this.headerScrollHandle();
     if (localStorage.getItem("auth-token")) {
       try {
         const [userInfoData] = await Promise.all([
@@ -86,10 +86,30 @@ export default {
       this.$store.commit("getUserInfo", {});
     }
   },
+
+  methods: {
+    headerScrollHandle() {
+      let header = this.$refs.navScroll;
+      window.addEventListener("scroll", () => {
+        console.log(this.$route.name)
+        let scrollTop =
+          window.pageYOffset || document.documentElement.scrollTop;
+        if (
+          scrollTop > this.lastScrollTop &&
+          document.documentElement.scrollTop >= 300
+        ) {
+          if (this.$route.name?.split("___")[0] != "index")
+          header.style.top = "-54px";
+        }  else {
+          header.style.top = "0";
+        }
+        this.lastScrollTop = scrollTop;
+      });
+    },
+  },
+
   watch: {
-    // userCheck(val) {
-    //   localStorage.removeItem("auth-token");
-    // },
+
     authCheck(val) {
       if (!val && this.$route.name.includes("profile")) {
         this.$router.push(this.localePath("/"));
@@ -111,5 +131,9 @@ export default {
 .layout {
   overflow: hidden;
   width: 100%;
+}
+
+.header-container {
+  transition: 0.4s;
 }
 </style>

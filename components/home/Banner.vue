@@ -37,7 +37,7 @@
             v-for="item in specialities.slice(0,4)"
             :key="item.id"
           >
-            {{ item.name_ru }}
+            {{ item.name }}
           </span>
         </div>
       </div>

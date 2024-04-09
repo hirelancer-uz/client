@@ -70,7 +70,7 @@
       </h4>
       <div class="flex justify-between">
         <p class="text-[15px] text-grey-40">
-          {{ portfolio?.specialities[0]?.name_ru }}
+          {{ portfolio?.specialities[0]?.name }}
         </p>
       </div>
     </div>

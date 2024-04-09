@@ -103,7 +103,7 @@ export default {
       const currentSpec = this.allSpecialities.find(
         (elem) => Number(elem?.id) === Number(this.$route.params.id)
       );
-      return currentSpec?.name_ru;
+      return currentSpec?.name;
     },
   },
   mounted() {
@@ -121,7 +121,7 @@ export default {
   destroyed() {
     this.$store.commit("setPageData", {});
   },
-  async asyncData({ store, params, query }) {
+  async asyncData({ store, params, query, i18n }) {
     const pageSize = 10;
     const [ordersData, specialitiesData] = await Promise.all([
       store.dispatch("fetchOrders/getOrders", {
@@ -131,7 +131,11 @@ export default {
           [`specialities[${params.id}]`]: params.id,
         },
       }),
-      store.dispatch("fetchSpecialities/getSpecialities"),
+      store.dispatch("fetchSpecialities/getSpecialities",{
+        headers: {
+          Lang: i18n.locale,
+        },
+      }),
     ]);
 
     const orders = ordersData.data;

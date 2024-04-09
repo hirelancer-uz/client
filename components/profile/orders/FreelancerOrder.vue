@@ -125,7 +125,7 @@
                         )
                       "
                       class="rounded-[22px] py-2 px-4 bg-bg-grey text-grey-64 text-[14px] font-medium cursor-pointer"
-                      >{{ specialit?.name_ru }} </span
+                      >{{ specialit?.name }} </span
                     ><span
                       v-if="index + 1 != order?.specialities.length"
                       class="text-[20px] text-grey-64 xl:hidden"

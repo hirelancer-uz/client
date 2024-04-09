@@ -180,7 +180,7 @@
                     'text-main-color': dropItem?.id === $route.params.id * 1,
                   }"
                 >
-                  {{ dropItem?.name_ru }}
+                  {{ dropItem?.name }}
 
                   <div class="count text-[#9A999B]">
                     ({{
@@ -234,9 +234,9 @@
                   >
                     <a-tooltip placement="right">
                       <template slot="title">
-                        <span>{{ dropIn?.name_ru }}</span>
+                        <span>{{ dropIn?.name }}</span>
                       </template>
-                      <span> {{ dropIn?.name_ru }}</span>
+                      <span> {{ dropIn?.name }}</span>
                     </a-tooltip>
                     <span class="text-[12px] text-grey-40"
                       >({{ dropIn?.orders_count }})</span
@@ -314,7 +314,7 @@
                       'text-main-color': dropItem?.id == $route.params.id,
                     }"
                   >
-                    {{ dropItem?.name_ru }}
+                    {{ dropItem?.name }}
 
                     <div class="count text-[#9A999B]">
                       ({{ dropItem?.children.reduce((sum,elem) => {
@@ -367,9 +367,9 @@
                     >
                       <a-tooltip placement="right">
                         <template slot="title">
-                          <span>{{ dropIn?.name_ru }}</span>
+                          <span>{{ dropIn?.name }}</span>
                         </template>
-                        <span> {{ dropIn?.name_ru }}</span>
+                        <span> {{ dropIn?.name }}</span>
                       </a-tooltip>
                       <span class="text-[12px] text-grey-40"
                         >({{ dropIn?.orders_count }})</span

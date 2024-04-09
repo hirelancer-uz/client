@@ -101,7 +101,7 @@
           :key="specialit?.id"
           :ref="`button${index}`"
         >
-          {{ specialit?.name_ru }}
+          {{ specialit?.name }}
         </p>
         <p
           v-if="hiddenButtonsCount"

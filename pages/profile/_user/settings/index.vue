@@ -282,7 +282,7 @@
                       v-for="region in countries"
                       :key="region?.id"
                     >
-                      {{ region?.name_ru }}
+                      {{ region?.name }}
                     </a-select-option>
                   </a-select>
                 </a-form-model-item>
@@ -299,7 +299,7 @@
                       v-for="region in regions"
                       :key="region?.id"
                     >
-                      {{ region?.name_ru }}
+                      {{ region?.name }}
                     </a-select-option>
                   </a-select>
                 </a-form-model-item>
@@ -778,11 +778,11 @@ export default {
           this.__GET_USER_INFO();
         }
       } catch (e) {
-        console.log(e);
-        this.$notification["error"]({
-          message: "Error",
-          description: e.response.statusText,
-        });
+        // console.log(e.response);
+        // this.$notification["error"]({
+        //   message: "Error",
+        //   description: e.response.statusText,
+        // });
       }
     },
   },

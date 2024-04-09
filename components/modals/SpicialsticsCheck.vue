@@ -46,7 +46,7 @@
                   :src="`${imgUrl}${item?.icon}`"
                   alt=""
                 />
-                {{ item?.name_ru }}
+                {{ item?.name }}
               </div>
             </div>
             <div class="modal-board flex flex-col justify-between gap-4">
@@ -86,7 +86,7 @@
                     "
                   />
                   <p class="text-grey-80 text-[14px] font-medium">
-                    {{ child?.name_ru }}
+                    {{ child?.name }}
                   </p>
                 </button>
               </div>
@@ -110,7 +110,7 @@
                         (modalList !== null ? modalList : specialities[0]?.id)
                     )?.children"
                   >
-                    {{ child?.name_ru }}
+                    {{ child?.name }}
                   </a-radio>
                 </a-radio-group>
               </div>
@@ -181,7 +181,7 @@
                         :src="`${imgUrl}${item?.icon}`"
                         alt=""
                       />
-                      {{ item?.name_ru }} </span
+                      {{ item?.name }} </span
                     >
                     <span class="text-[12px] text-grey-40"
                       >({{ item?.children.length }})</span
@@ -241,7 +241,7 @@
                           "
                         />
                         <p class="text-grey-80 text-[14px] font-medium">
-                          {{ child?.name_ru }}
+                          {{ child?.name }}
                         </p>
                       </button>
                     </div>
@@ -261,7 +261,7 @@
                           :key="child?.id"
                           v-for="child in item?.children"
                         >
-                          {{ child?.name_ru }}
+                          {{ child?.name }}
                         </a-radio>
                       </a-radio-group>
                     </div>

@@ -15,7 +15,7 @@
           )"
         class="h-[40px] px-[24px] rounded-[8px] border border-solid border-grey-light bg-bg-grey flex gap-2 items-center text-black text-[14px]"
       >
-        {{ elem?.name_ru }}
+        {{ elem?.name }}
         <button
           @click="$emit('deleteFilter', `specialities[${elem?.id}]`, elem?.id)"
         >

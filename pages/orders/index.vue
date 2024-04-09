@@ -107,7 +107,7 @@ export default {
   destroyed() {
     this.$store.commit("setPageData", {});
   },
-  async asyncData({ store, query }) {
+  async asyncData({ store, query,i18n }) {
     const pageSize = 10;
     const queryEditor = { ...query };
     if (query?.status) queryEditor.status = [query?.status];
@@ -118,7 +118,11 @@ export default {
           ...queryEditor,
         },
       }),
-      store.dispatch("fetchSpecialities/getSpecialities"),
+      store.dispatch("fetchSpecialities/getSpecialities",{
+        headers: {
+          Lang: i18n.locale,
+        },
+      }),
     ]);
     const orders = ordersData.data;
     const specialities = specialitiesData.content;

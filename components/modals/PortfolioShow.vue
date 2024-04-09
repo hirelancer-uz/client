@@ -41,10 +41,10 @@
                 v-for="(specialit, index) in portfolio?.specialities"
                 :key="specialit?.id"
               >
-                {{ specialit?.name_ru }}
+                {{ specialit?.name }}
               </p>
             </div>
-            <!-- <p class="modal__category">{{ portfolio?.specialities[0]?.name_ru }}</p> -->
+            <!-- <p class="modal__category">{{ portfolio?.specialities[0]?.name }}</p> -->
             <div class="dot xl:hidden"></div>
             <p class="modal__date whitespace-nowrap">{{ dateFormat }}</p>
           </div>

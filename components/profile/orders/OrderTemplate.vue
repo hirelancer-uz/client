@@ -90,7 +90,7 @@
                   :key="listItem?.id"
                   class="px-4 h-[34px] rounded-[4px] bg-apple-grey flex gap-1 items-center text-blue text-[14px] font-medium"
                 >
-                  {{ listItem?.name_ru }}
+                  {{ listItem?.name }}
 
                   <button @click="deleteChecked(listItem?.id)">
                     <svg
@@ -185,7 +185,7 @@
                 :placeholder="$store.state.translations[`order.order-comment`]"
                 @change="handleTextChange"
               /> -->
-          
+
             <!-- </a-form-model-item> -->
           </div>
 
@@ -558,7 +558,7 @@ export default {
   props: ["specialities", "title"],
   mixins: [deleteFile],
   data() {
-    return {  
+    return {
       editor: ClassicEditor,
       maxLength: 5000,
       imgFileTypes: imgFileTypes,
@@ -817,7 +817,7 @@ export default {
         this.$notification["success"]({
           message: this.$store.state.translations["modal.sent-done"],
         });
-        this.$router.push(this.localePah(`/profile/customer/order/view/${data?.content?.id}`));
+        this.$router.push(this.localePath(`/profile/customer/order/view/${data?.content?.id}`));
       } catch (e) {
         console.log(e)
         if(e.response.status == 413) {

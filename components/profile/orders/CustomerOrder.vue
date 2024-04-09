@@ -6,7 +6,7 @@
     <div class="max-w-[1200px] mx-auto">
       <button
         @click="$router.go(-1)"
-        class="back-btn flex gap-2 w-[126px] py-3 border border-main-color border-solid rounded-lg justify-center items-center text-base font-medium text-grey-80 hover:text-blue xl:hidden"
+        class="back-btn flex xl:hidden gap-4 w-[162px] py-3 border border-grey-24 border-solid rounded-lg justify-center items-center text-base font-medium text-blue hover:text-blue"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -148,7 +148,7 @@
                         )
                       "
                       class="rounded-[22px] py-2 px-4 bg-bg-grey text-grey-64 text-[14px] font-medium cursor-pointer"
-                      >{{ specialit?.name_ru }} </span
+                      >{{ specialit?.name }} </span
                     ><span
                       v-if="index + 1 != order?.specialities.length"
                       class="text-[20px] text-grey-64 xl:hidden"

@@ -6,9 +6,13 @@ export const state = () => ({
   lang: "",
   orderCounts: {},
   userType: 'freelancer',
+  previousRoute: null
 });
 
 export const mutations = {
+  setPreviousRoute(state, route) {
+    state.previousRoute = route
+  },
   getUserInfo(state, payload) {
     state.userInfo = payload;
 

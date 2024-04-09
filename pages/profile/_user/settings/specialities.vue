@@ -63,7 +63,7 @@
             :key="elem?.id"
             class="py-[7px] text-base xl:text-[14px] text-grey-80 font-medium h-[38px] flex items-center rounded-[4px] gap-2 border border-solid border-grey-light pl-2 pr-3 bg-bg-grey"
           >
-            {{ elem?.name_ru }}
+            {{ elem?.name }}
             <button @click="deleteChecked(elem?.id)">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

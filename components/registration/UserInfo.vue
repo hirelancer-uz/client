@@ -42,7 +42,7 @@
     </div>
 
     <div class="flex flex-col items-center">
-      <nuxt-link:to="localePath('/')">
+      <nuxt-link :to="localePath('/')">
         <span
           ><svg
             xmlns="http://www.w3.org/2000/svg"
@@ -298,7 +298,7 @@
                   :key="listItem?.id"
                   class="px-4 h-[34px] rounded-[4px] bg-apple-grey flex gap-1 items-center text-blue text-[14px] font-medium relative z-[20]"
                 >
-                  {{ listItem?.name_ru }}
+                  {{ listItem?.name }}
                   <button @click="deleteChecked(listItem?.id)">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -388,7 +388,7 @@
                 v-for="region in regions"
                 :key="region?.id"
               >
-                {{ region?.name_ru }}</a-select-option
+                {{ region?.name }}</a-select-option
               >
             </a-select>
           </a-form-model-item>
