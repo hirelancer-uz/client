@@ -647,7 +647,7 @@ export default {
       this.loading = false;
     }
     this.$store.commit("setPageData", {
-      title: "Buyurtma yaratish",
+      title: this.title,
       center: false,
       info: "",
       link: true,
