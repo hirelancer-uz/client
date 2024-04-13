@@ -806,14 +806,14 @@ import PriceCard from "@/components/orders/PriceCard.vue";
 import OrderStatus from "@/components/profile/orders/OrderStatus.vue";
 import EndingProcess from "@/components/orders/EndingProcess.vue";
 import CancellationOrder from "@/components/modals/CancellationOrder.vue";
-import CustomerChat from "./CustomerChat.vue";
+import CustomerChat from "../chat/CustomerChat.vue";
 import Loader from "@/components/Loader.vue";
 import OffersOrderCard from "./OffersOrderCard.vue";
-import OffersChat from "./OffersChat.vue";
+import OffersChat from "../chat/OffersChat.vue";
 import moment from "moment";
 import SelectedFreelancer from "./SelectedFreelancer.vue";
 import CompliteOrder from "../../modals/CompliteOrder.vue";
-import CustomerChatMobile from "../../modals/CustomerChatMobile.vue";
+import CustomerChatMobile from "../chat/CustomerChatMobile.vue";
 
 export default {
   props: ["order", "loading", "reasons"],

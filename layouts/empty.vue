@@ -5,7 +5,6 @@
   </div>
 </template>
 <script>
-import translationsApi from "@/store/fetchTranslations";
 import Loader from "@/components/Loader.vue";
 
 export default {
@@ -20,12 +19,12 @@ export default {
     },
   },
   async fetch() {
-    const translations = await translationsApi.getTranslations(this.$axios, {
-      headers: {
-        Lang: this.$i18n.locale,
-      },
-    });
-    await this.$store.commit("getTranslations", translations);
+    const translations = await  this.$store.dispatch("fetchTranslations/getTranslations", {
+        headers: {
+          Lang: this.$i18n.locale,
+        },
+      })
+    await this.$store.commit("getTranslations", translations?.translates);
   },
   mounted() {
     if (localStorage.getItem("auth-token")) {
@@ -36,12 +35,12 @@ export default {
   },
   watch: {
     async currentLang() {
-      const translations = await translationsApi.getTranslations(this.$axios, {
+      const translations = await this.$store.dispatch("fetchTranslations/getTranslations", {
         headers: {
           Lang: this.$i18n.locale,
         },
-      });
-      await this.$store.commit("getTranslations", translations);
+      })
+      await this.$store.commit("getTranslations", translations?.translates);
     },
   },
   components: {

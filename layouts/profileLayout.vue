@@ -90,13 +90,13 @@ export default {
     },
   },
   async fetch() {
-    const translations = await translationsApi.getTranslations(this.$axios, {
+    const translations = await this.$store.dispatch("fetchTranslations/getTranslations", {
       headers: {
         Lang: this.$i18n.locale,
       },
-    });
+    })
 
-    await this.$store.commit("getTranslations", translations);
+    await this.$store.commit("getTranslations", translations?.translates);
   },
   async mounted() {
     this.headerScrollHandle();
@@ -144,12 +144,12 @@ export default {
       }
     },
     async currentLang() {
-      const translations = await translationsApi.getTranslations(this.$axios, {
+      const translations = await this.$store.dispatch("fetchTranslations/getTranslations", {
         headers: {
           Lang: this.$i18n.locale,
         },
-      });
-      await this.$store.commit("getTranslations", translations);
+      })
+      await this.$store.commit("getTranslations", translations?.translates);
     },
   },
   components: {

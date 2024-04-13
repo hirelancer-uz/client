@@ -18,7 +18,7 @@
           <img
             v-else
             class="w-full h-full object-cover"
-            src="@/assets/images/user-avatar.jpg"
+            src="../../../assets/images/user-avatar.jpg"
             alt=""
           />
         </div>
@@ -27,7 +27,7 @@
             <h5 class="text-[20px] text-black font-medium">
               {{ order?.selected_request?.freelancer?.name }}
             </h5>
-            <p class="text-grey-40 text-base">{{ requestTime }}</p>
+            <p class="text-grey-40 text-base">{{order?.client?.online ? $store.state.translations['profile.online']:$store.state.translations['profile.last-online'] }}: {{ requestTime }}</p>
           </div>
 
           <div>
@@ -136,7 +136,7 @@
                     >{{ order?.selected_request?.deadline }} kun</span
                   >
                 </h6>
-                <p class="text-[10px] text-white">14:30</p>
+                <p class="text-[10px] text-black">{{moment(order?.selected_request?.created_at).format('HH:mm')}}</p>
               </div>
             </div>
           </div>
@@ -258,8 +258,8 @@
 </template>
 <script>
 import moment from "moment";
-import CustomerChatMobile from "@/components/modals/CustomerChatMobile.vue";
-import ChatModal from "@/components/modals/ChatModal.vue";
+import CustomerChatMobile from "@/components/profile/chat/CustomerChatMobile.vue";
+import ChatModal from "@/components/profile/chat/ChatModal.vue";
 import chatService from "@/mixins/chatService";
 
 
@@ -288,7 +288,7 @@ export default {
       return this.order?.selected_request?.freelancer?.last_online_at
         ? moment(
             this.order?.selected_request?.freelancer?.last_online_at
-          ).format("HH:mm")
+          ).format("DD-MMM. YYYY")
         : "---";
     },
   },

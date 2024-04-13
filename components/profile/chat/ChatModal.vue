@@ -43,7 +43,7 @@
             <img
               v-else
               class="w-full h-full object-cover"
-              src="@/assets/images/user-avatar.jpg"
+              src="../../../assets/images/user-avatar.jpg"
               alt=""
             />
           </div>
@@ -52,7 +52,7 @@
               <h5 class="text-[20px] text-black font-medium">
                 {{ order?.client?.name }} {{ order?.client?.surname }}
               </h5>
-              <p class="text-grey-40 text-base">{{ onlineTime }}</p>
+              <p class="text-grey-40 text-base">{{order?.client?.online ? $store.state.translations['profile.online']:$store.state.translations['profile.last-online'] }}: {{ onlineTime }}</p>
             </div>
           </div>
         </div>
@@ -159,7 +159,7 @@
                       >{{ myRequest?.deadline }} kun</span
                     >
                   </h6>
-                  <p class="text-[10px] text-white">14:30</p>
+                  <p class="text-[10px] text-white">{{moment(myRequest?.created_at).format('HH:mm')}}</p>
                 </div>
               </div>
             </div>
@@ -250,7 +250,7 @@ export default {
       return this.$config.baseURL + "/storage/";
     },
     onlineTime: function () {
-      return this.order?.client?.last_online_at ? moment(this.order?.client?.last_online_at).format("HH:mm"):'---';
+      return this.order?.client?.last_online_at ? moment(this.order?.client?.last_online_at).format("DD-MMM. YYYY"):'---';
     },
   },
 

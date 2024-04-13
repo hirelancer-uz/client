@@ -35,7 +35,8 @@
         class="flex items-center justify-between px-6 py-[18px] border-[0] border-b border-solid border-grey-light"
       >
         <h3 class="text-[24px] text-black font-semibold">Онлайн чат</h3>
-        <p class="text-[14px] text-grey-64">В сети / Был(а) 3 минут назад</p>
+        <p class="text-[14px] text-grey-64">{{order?.client?.online ? $store.state.translations['profile.online']:$store.state.translations['profile.last-online'] }}: {{ lastOnlineDate }}
+        </p>
       </div>
       <div
         ref="chatBoard"
@@ -211,7 +212,7 @@
 </template>
 <script>
 import moment from "moment";
-import ChatModal from "@/components/modals/ChatModal.vue";
+import ChatModal from "@/components/profile/chat/ChatModal.vue";
 import chatService from "@/mixins/chatService";
 
 export default {
@@ -232,6 +233,9 @@ export default {
       return this.order?.requests?.find(
         (item) => item?.freelancer_id == this.$store.state.userInfo["id"]
       );
+    },
+    lastOnlineDate() {
+      return moment(this.order?.client?.last_online_at).format("DD-MMM. YYYY");
     },
     requestTime() {
       return moment(this.order?.selected_request?.created_at).format("HH:mm");

@@ -27,9 +27,6 @@ import BottomBar from "../components/BottomBar.vue";
 import MobileHeader from "../components/layouts/MobileHeader.vue";
 import TheFooter from "../components/layouts/TheFooter.vue";
 import TheHeader from "../components/layouts/TheHeader.vue";
-
-import translationsApi from "@/store/fetchTranslations.js";
-
 export default {
   name: "defalut",
   head() {
@@ -82,6 +79,7 @@ export default {
     },
   },
   async mounted() {
+    console.log(this.$route)
     this.headerScrollHandle();
     localStorage.getItem("auth-token")
       ? this.__GET_USER()

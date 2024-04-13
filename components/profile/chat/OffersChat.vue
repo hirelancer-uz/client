@@ -36,7 +36,7 @@
           <img
             v-else
             class="w-full h-full object-cover"
-            src="@/assets/images/user-avatar.jpg"
+            src="../../../assets/images/user-avatar.jpg"
             alt=""
           />
         </div>
@@ -44,7 +44,7 @@
           <h5 class="text-base text-black font-medium">
             {{ request?.freelancer?.name }} {{ request?.freelancer?.surname }}
           </h5>
-          <p class="text-grey-40 text-[14px]">{{ requestTime }}</p>
+          <p class="text-grey-40 text-[14px]">{{order?.client?.online ? $store.state.translations['profile.online']:$store.state.translations['profile.last-online'] }}: {{ requestTime }}</p>
         </div>
       </div>
       <div
@@ -216,7 +216,7 @@
               <img
                 v-else
                 class="w-full h-full object-cover"
-                src="@/assets/images/user-avatar.jpg"
+                src="../../../assets/images/user-avatar.jpg"
                 alt=""
               />
             </div>
@@ -225,7 +225,7 @@
                 {{ request?.freelancer?.name }}
                 {{ request?.freelancer?.surname }}
               </h5>
-              <p class="text-grey-40 text-[14px]">{{ requestTime }}</p>
+              <p class="text-grey-40 text-[14px]">{{order?.client?.online ? $store.state.translations['profile.online']:$store.state.translations['profile.last-online'] }}: {{ requestTime }}</p>
             </div>
           </div>
           <div
@@ -382,7 +382,7 @@ export default {
     },
     requestTime() {
       return this.request?.freelancer?.last_online_at
-        ? moment(this.request?.freelancer?.last_online_at).format("HH:mm")
+        ? moment(this.request?.freelancer?.last_online_at).format("DD-MMM. YYYY")
         : "---";
     },
   },

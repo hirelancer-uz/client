@@ -579,7 +579,7 @@ import EndingProcess from "@/components/orders/EndingProcess.vue";
 import CloseOrder from "@/components/modals/CloseOrder.vue";
 import CancellationOrder from "@/components/modals/CancellationOrder.vue";
 import ComplaintOrder from "@/components/modals/ComplaintOrder.vue";
-import OrderChat from "@/components/orders/OrderChat.vue";
+import OrderChat from "@/components/profile/chat/OrderChat.vue";
 import Loader from "@/components/Loader.vue";
 import moment from "moment";
 import FreelancerComplite from "../../modals/FreelancerComplite.vue";
