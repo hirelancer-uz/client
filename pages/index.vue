@@ -25,8 +25,6 @@ import OrderBanner from "../components/home/OrderBanner.vue";
 export default {
   name: "IndexPage",
   middleware: "auth",
-  $nuxt: undefined,
-
   async asyncData({ store,i18n }) {
     const [freeLancersData, specialitiesData, ordersData] = await Promise.all([
       store.dispatch("fetchFreelancers/getFreelancers", {
@@ -34,7 +32,6 @@ export default {
           page_size: 12,
         },
       }),
-
       store.dispatch("fetchSpecialities/getSpecialities",{
         params: {
           limit: 12,
@@ -49,7 +46,7 @@ export default {
         },
       }),
     ]);
-    const freelancers = freeLancersData.data;
+    const freelancers = freeLancersData.data || [];
     const specialities = specialitiesData.content;
     const orders = ordersData.data;
     const totalOrder = ordersData?.meta?.total;
