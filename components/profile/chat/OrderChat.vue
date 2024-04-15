@@ -64,7 +64,7 @@
             v-if="$store.state?.userInfo?.id == message?.from"
           >
             <div
-              class="chat-client-card max-w-[40%] flex gap-2 px-3 py-3 rounded-t-[10px] rounded-l-[10px] bg-main-color items-end"
+              class="chat-client-card max-w-[642px] flex gap-2 px-3 py-3 rounded-t-[10px] rounded-l-[10px] bg-main-color items-end"
             >
               <p class="text-white text-[14px] break-all">
                 {{ message?.message }}
@@ -76,7 +76,7 @@
           </div>
           <div class="flex justify-start" v-else>
             <div
-              class="chat-client-card max-w-[40%] flex gap-2 px-3 py-3 rounded-t-[10px] rounded-l-[10px] bg-bg-grey items-end"
+              class="chat-client-card max-w-[642px] flex gap-2 px-3 py-3 rounded-t-[10px] rounded-l-[10px] bg-bg-grey items-end"
             >
               <p class="text-black text-[14px] break-all">
                 {{ message?.message }}
@@ -95,7 +95,7 @@
             "
           >
             <div
-              class="chat-date w-[123px] h-[32px] rounded-[50px] flex justify-center items-center bg-bg-grey text-black text-[14px]"
+              class="chat-date w-[123px] h-[32px] rounded-[50px] flex justify-center items-center bg-bg-grey text-black text-[14px] mt-[30px]"
             >
               <span v-if="!chatLoader">{{
                 moment(messages[index - 1]?.created_at).format("DD.MM.YYYY")

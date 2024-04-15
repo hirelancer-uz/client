@@ -236,7 +236,7 @@
                   :before-upload="handleBeforeUpload"
                   :custom-request="customRequest"
                 >
-                  <div class="flex justify-center bg-bg-grey">
+                  <div class="flex justify-center bg-bg-grey flex-col items-center gap-1">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="20"
@@ -253,6 +253,7 @@
                         stroke-linejoin="round"
                       />
                     </svg>
+                      <p>Max 4MB</p>
                   </div>
                 </a-upload>
                 <div
@@ -671,7 +672,7 @@ export default {
         this.fileList = this.order.files.map((item, index) => {
           return {
             uid: (index + 1) * -1,
-            name: "image.png",
+            name: item.file.split('/')[1],
             status: "done",
             url: this.imgUrl + item.file,
             id: item.id,

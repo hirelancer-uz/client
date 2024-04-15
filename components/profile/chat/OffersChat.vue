@@ -136,7 +136,7 @@
                     >{{ request?.deadline }} kun</span
                   >
                 </h6>
-                <p class="text-[10px] text-grey-40">14:301</p>
+                <p class="text-[10px] text-grey-40"> {{ moment(request?.created_at).format("HH:mm") }}</p>
               </div>
             </div>
           </div>
