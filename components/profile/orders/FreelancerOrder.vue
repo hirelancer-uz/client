@@ -79,7 +79,7 @@
                 </div>
               </div>
               <div
-                class="body mt-6 pb-4 border-[0] border-b border-solid border-grey-8 xl:mt-4"
+                class="body mt-6 pb-4 border-[0] border-b border-solid border-grey-8 xl:mt-4 break-all"
               >
                 <h1
                   class="title text-[24px] font-semibold text-black mb-4 xl:text-base"
