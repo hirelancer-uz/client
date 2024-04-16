@@ -140,6 +140,7 @@
               </nuxt-link>
             </div>
           </a-form-model-item>
+
           <a-form-model-item
             ref="name"
             class="auth-item required"
@@ -158,8 +159,11 @@
                 v-model="form.password"
                 onKeyPress="if(this.value.length==6) return false;"
                 placeholder="●●●●●●"
+                min="1"
                 @keyup.enter="onSubmit"
+                inputmode="none"
               />
+
               <!--              <v-otp-input-->
               <!--                ref="otpInput"-->
               <!--                input-classes="otp-input"-->
@@ -194,7 +198,7 @@
         </div>
         <span
           @click="onSubmitNumber"
-          :class="{ 'opacity-50 pointer-events-none': time > 0 }"
+          :class="{ 'opacity-50 pointer-events-none': time > 0 || isLoading }"
           class="text-blue text-[15px] mt-3 xl:mt-2 xl:text-[14px] cursor-pointer"
         >
           {{ $store.state.translations["auth.resend-code"] }}
@@ -222,7 +226,7 @@
             class="h-[60px] xl:h-[52px] border border-solid border-blue bg-blue rounded-[12px] flex justify-center items-center text-[18px] xl:text-[14px] text-white font-medium"
             :class="{
               'pointer-events-none opacity-50':
-                loading && loadingBtn || form.password.length < 6,
+                (loading && loadingBtn) || form.password.length < 6,
             }"
           >
             <LoaderBtn v-if="loading && loadingBtn" />
@@ -264,6 +268,7 @@ export default {
       timeProgress: 100,
       smsError: false,
       loadingBtn: false,
+      isLoading: false,
       time: 0,
       form: {
         phone_number: "",
@@ -282,6 +287,14 @@ export default {
     };
   },
   mounted() {
+    const numberInput = this.$refs.codeInput;
+
+    numberInput.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+        event.preventDefault();
+      }
+    });
+
     this.$refs.codeInput.focus();
     if (localStorage.getItem("phone")) {
       this.form.phone_number = localStorage.getItem("phone");
@@ -339,7 +352,8 @@ export default {
     },
     async __POST_SEND_NUMBER(form) {
       try {
-        this.loadingBtn = true
+        this.loadingBtn = true;
+        this.isLoading = true;
         const data = await this.$store.dispatch("fetchAuth/postSendCode", form);
         if (data.success) {
           await this.setToLocaleTimer(data?.content?.in_seconds);
@@ -356,7 +370,8 @@ export default {
           description: e.response?.statusText,
         });
       } finally {
-        this.loadingBtn = false
+        this.loadingBtn = false;
+        this.isLoading = false;
       }
     },
     setToLocaleTimer(value) {
