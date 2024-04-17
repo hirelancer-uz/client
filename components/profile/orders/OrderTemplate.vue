@@ -398,7 +398,7 @@
                     `${value.replace(/[^0-9.]/g, '')}`.replace(
                       /\B(?=(\d{3})+(?!\d))/g,
                       ' '
-                    )
+                    ).toString().slice(0, 10)
                 "
                 :parser="
                   (value) =>

@@ -388,7 +388,7 @@
                 v-for="region in regions"
                 :key="region?.id"
               >
-                {{ region?.name }}</a-select-option
+                {{ region?.name_ru }}</a-select-option
               >
             </a-select>
           </a-form-model-item>

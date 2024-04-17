@@ -728,6 +728,7 @@ export default {
               .at(-1).id,
           }
         );
+        this.closeOfferCancel();
         this.$router.go(-1);
       } catch (e) {
         if (e.response) {

@@ -282,7 +282,7 @@
                       v-for="region in countries"
                       :key="region?.id"
                     >
-                      {{ region?.name }}
+                      {{ region?.name_ru }}
                     </a-select-option>
                   </a-select>
                 </a-form-model-item>
@@ -299,7 +299,7 @@
                       v-for="region in regions"
                       :key="region?.id"
                     >
-                      {{ region?.name }}
+                      {{ region?.name_ru }}
                     </a-select-option>
                   </a-select>
                 </a-form-model-item>
@@ -314,7 +314,7 @@
                 <!-- <label class="inline gap-3 relative">
                 {{ $store.state.translations["auth.bio"] }}
               </label> -->
-                <ckeditor :editor="editor" v-model="form.bio" placeholder="siuu" />
+                <ckeditor :editor="editor" v-model="form.bio" />
                 <!-- <a-input v-model="form.bio" placeholder="O’zhaqingizda ma’lumot" /> -->
                 <!-- <quill-editor
                     style="min-height: 250px"
@@ -807,6 +807,7 @@ export default {
   height: 250px;
   border: 1px solid var(--grey-8) !important;
   border-radius: 0 0 10px 10px !important;
+  word-break: break-word;
 }
 :deep(.ck-toolbar) {
   border: 1px solid var(--grey-8) !important;
