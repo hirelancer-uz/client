@@ -204,7 +204,7 @@
           {{ $store.state.translations["main.rights"] }} {{ currentYear }}
         </p>
         <div class="flex gap-4 items-center">
-          <img class="xl:h-5" src="@/assets/images/ndc.png" alt="" />
+<!--          <img class="xl:h-5" src="@/assets/images/ndc.png" alt="" />-->
           <p
             class="text-[14px] text-black whitespace-nowrap xl:whitespace-normal"
           >

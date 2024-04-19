@@ -328,6 +328,9 @@ a {
 .ck.ck-toolbar.ck-toolbar_grouping>.ck-toolbar__items {
   flex-wrap: wrap !important;
 }
+.ck-powered-by {
+  display: none !important;
+}
 @media (min-width: 1200px) {
   .container {
     max-width: 1440px;

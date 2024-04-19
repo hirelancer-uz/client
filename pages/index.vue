@@ -12,7 +12,6 @@
       :freelancers="freelancers"
       :totalFreelancer="totalFreelancer"
     />
-    Test
     <!-- <OrderBanner /> -->
   </div>
 </template>

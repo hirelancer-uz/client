@@ -314,7 +314,7 @@
                 <!-- <label class="inline gap-3 relative">
                 {{ $store.state.translations["auth.bio"] }}
               </label> -->
-                <ckeditor :editor="editor" v-model="form.bio" />
+                <ckeditor :editor="editor" v-model="form.bio" :config="editorConfig"/>
                 <!-- <a-input v-model="form.bio" placeholder="O’zhaqingizda ma’lumot" /> -->
                 <!-- <quill-editor
                     style="min-height: 250px"
@@ -551,11 +551,23 @@ export default {
   data() {
     return {
       editor: ClassicEditor,
+
       linkTemplates: {
         instagram: "https://www.instagram.com/",
         telegram: "https://t.me/",
         facebook: "https://www.facebook.com/",
         linkedin: "https://www.linkedin.com/in/",
+      },
+      editorConfig: {
+        toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'indent','outdent', 'bulletedList', 'numberedList', 'blockQuote','undo', 'redo'],
+        heading: {
+          options: [
+            { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+            { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+            { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
+          ]
+        },
+
       },
       editorOption: {
         theme: "snow",
@@ -836,6 +848,7 @@ export default {
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
+  padding-right: 40px;
 }
 
 .form-item :deep(.ant-input:focus) {
