@@ -34,7 +34,7 @@
       <div class="content-box mt-6 xl:mt-0">
         <div class="flex flex-col gap-6 max-w-[918px]">
           <div
-            class="info-box rounded-3xl border-solid border-grey-light border-[2px] relative overflow-hidden max-h-[430px] xl:rounded-none xl:px-0 xl:border-[0]"
+            class="info-box rounded-3xl border-solid border-grey-light border-[2px] relative overflow-hidden max-h-[453px] xl:rounded-none xl:px-0 xl:border-[0]"
             :class="{ active: openBlock }"
           >
             <div
@@ -79,7 +79,7 @@
                 </div>
               </div>
               <div
-                class="body mt-6 pb-4 border-[0] border-b border-solid border-grey-8 xl:mt-4"
+                class="body mt-6 pb-4 border-[0] border-b border-solid border-grey-8 xl:mt-4 break-all"
               >
                 <h1
                   class="title text-[24px] font-semibold text-black mb-4 xl:text-base"
@@ -125,7 +125,7 @@
                         )
                       "
                       class="rounded-[22px] py-2 px-4 bg-bg-grey text-grey-64 text-[14px] font-medium cursor-pointer"
-                      >{{ specialit?.name_ru }} </span
+                      >{{ specialit?.name }} </span
                     ><span
                       v-if="index + 1 != order?.specialities.length"
                       class="text-[20px] text-grey-64 xl:hidden"
@@ -266,7 +266,6 @@
               </button>
             </div>
           </div>
-          <OrderChat :status="order?.status" :order="order" />
         </div>
         <div class="flex flex-col gap-4">
           <ClientCard :client="order?.client" />
@@ -503,6 +502,8 @@
           </div> -->
         </div>
       </div>
+      <OrderChat :status="order?.status" :order="order" class="mt-6" />
+
     </div>
     <div>
       <CloseOrder @handleOkProp="handleOkWait" :visibleProp="visibleWait" />
@@ -579,7 +580,7 @@ import EndingProcess from "@/components/orders/EndingProcess.vue";
 import CloseOrder from "@/components/modals/CloseOrder.vue";
 import CancellationOrder from "@/components/modals/CancellationOrder.vue";
 import ComplaintOrder from "@/components/modals/ComplaintOrder.vue";
-import OrderChat from "@/components/orders/OrderChat.vue";
+import OrderChat from "@/components/profile/chat/OrderChat.vue";
 import Loader from "@/components/Loader.vue";
 import moment from "moment";
 import FreelancerComplite from "../../modals/FreelancerComplite.vue";
@@ -727,6 +728,7 @@ export default {
               .at(-1).id,
           }
         );
+        this.closeOfferCancel();
         this.$router.go(-1);
       } catch (e) {
         if (e.response) {

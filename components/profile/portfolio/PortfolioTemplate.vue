@@ -79,7 +79,7 @@
                   :key="listItem?.id"
                   class="px-4 h-[34px] rounded-[4px] bg-apple-grey flex gap-1 items-center text-blue text-[14px] font-medium"
                 >
-                  {{ listItem?.name_ru }}
+                  {{ listItem?.name }}
 
                   <button @click="deleteChecked(listItem?.id)">
                     <svg

@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="layout w-full min-h-[100vh] flex flex-col overflow-hidden">
-    <div class="fixed top-0 left-0 w-full z-50" ref="mHeader">
+    <div class="fixed top-0 left-0 w-full z-50 header-container" ref="navScroll">
       <MobileHeader class="xl:block" />
     </div>
     <TheHeader class="xl:hidden" />
@@ -90,15 +90,16 @@ export default {
     },
   },
   async fetch() {
-    const translations = await translationsApi.getTranslations(this.$axios, {
+    const translations = await this.$store.dispatch("fetchTranslations/getTranslations", {
       headers: {
         Lang: this.$i18n.locale,
       },
-    });
+    })
 
-    await this.$store.commit("getTranslations", translations);
+    await this.$store.commit("getTranslations", translations?.translates);
   },
   async mounted() {
+    this.headerScrollHandle();
     if (localStorage.getItem("auth-token")) {
       try {
         this.loading = true;
@@ -106,21 +107,35 @@ export default {
           this.$store.dispatch("fetchAuth/getUserInfo"),
           this.$store.dispatch("fetchOrders/getOrderCounts"),
         ]);
-
         this.userInfo = userInfoData;
         this.$store.commit("getUserInfo", userInfoData);
         this.$store.commit("getOrderCounts", orderCountsData.content);
         this.loading = false;
-      } catch (e) {
-        if (e.response.status == 401) {
-          this.$store.dispatch("logout");
-        }
-      } finally {
+      }  finally {
         this.loading = false;
       }
     } else {
       this.$router.push(this.localePath("/"));
     }
+  },
+  methods: {
+    headerScrollHandle() {
+      let header = this.$refs.navScroll;
+      window.addEventListener("scroll", () => {
+
+        let scrollTop =
+          window.pageYOffset || document.documentElement.scrollTop;
+        if (
+          scrollTop > this.lastScrollTop &&
+          document.documentElement.scrollTop >= 300
+        ) {
+            header.style.top = "-54px";
+        }  else {
+          header.style.top = "0";
+        }
+        this.lastScrollTop = scrollTop;
+      });
+    },
   },
   watch: {
     authHandle() {
@@ -129,12 +144,12 @@ export default {
       }
     },
     async currentLang() {
-      const translations = await translationsApi.getTranslations(this.$axios, {
+      const translations = await this.$store.dispatch("fetchTranslations/getTranslations", {
         headers: {
           Lang: this.$i18n.locale,
         },
-      });
-      await this.$store.commit("getTranslations", translations);
+      })
+      await this.$store.commit("getTranslations", translations?.translates);
     },
   },
   components: {
@@ -150,6 +165,9 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+.header-container {
+  transition: .3s;
+}
 .profile-grid {
   display: grid;
   grid-template-columns: 408px 1fr;

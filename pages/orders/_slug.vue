@@ -2,7 +2,7 @@
   <div class="pt-12 order xl:pt-6">
     <div class="max-w-[1286px] mx-auto pb-[80px] xl:pb-8">
       <button
-        @click="$router.go(-1)"
+        @click="goBack"
         class="back-btn flex xl:hidden gap-4 w-[162px] py-3 border border-grey-24 border-solid rounded-lg justify-center items-center text-base font-medium text-blue hover:text-blue"
       >
         <svg
@@ -343,7 +343,7 @@
                       $router.push(localePath(`/specialities/${specialit?.id}`))
                     "
                     class="rounded-[22px] py-2 px-4 bg-bg-grey text-grey-64 text-[14px] font-medium cursor-pointer"
-                    >{{ specialit?.name_ru }} </span
+                    >{{ specialit?.name }} </span
                   ><span
                     v-if="index + 1 != order?.specialities.length"
                     class="text-[20px] text-grey-64 xl:hidden"
@@ -605,7 +605,7 @@ export default {
   destroyed() {
     this.$store.commit("setPageData", {});
   },
-  async asyncData({ store, params }) {
+  async asyncData({ store, params,i18n }) {
     try {
       const [orderData, ordersData, specialitiesData] = await Promise.all([
         store.dispatch("fetchOrders/getOrderById", {
@@ -616,12 +616,15 @@ export default {
             similar: params.slug,
           },
         }),
-        store.dispatch("fetchSpecialities/getSpecialities"),
+        store.dispatch("fetchSpecialities/getSpecialities",{
+          headers: {
+            Lang: i18n.locale,
+          },
+        }),
       ]);
       const order = orderData?.content;
       const orders = ordersData.data;
       const specialities = specialitiesData.content;
-
       return {
         order,
         orders,
@@ -632,6 +635,13 @@ export default {
     }
   },
   methods: {
+    goBack() {
+      if(this.$nuxt.context?.from) {
+        this.$router.push(this.localePath(this.$nuxt.context.from.path))
+      } else {
+        this.$router.go(-1)
+      }
+    },
     isOffer() {
       if (this.$store.state.auth && this.$store.state.userInfo["id"]) {
         const isMyOffer = Boolean(

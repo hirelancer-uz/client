@@ -5,14 +5,15 @@
     <div class="flex gap-4 items-center">
       <div
         class="image w-[72px] h-[72px] rounded-full overflow-hidden xl:w-10 xl:h-10"
-      >  <img
-          v-if="feedback?.order?.user?.avatar"
-          class="h-full w-full object-cover"
-          :src="`${imgUrl}${feedback?.order?.user?.avatar}`"
-          alt=""
-      />
+      >
         <img
-            v-else
+          v-if="feedback?.user?.avatar"
+          class="h-full w-full object-cover"
+          :src="`${imgUrl}${feedback?.user?.avatar}`"
+          alt=""
+        />
+        <img
+          v-else
           class="w-full h-full object-cover"
           src="../../assets/images/user-avatar.jpg"
           alt=""
@@ -22,7 +23,7 @@
         <h6
           class="text-[18px] text-black font-medium xl:text-[12px] xl:leading-4"
         >
-          {{ feedback?.order?.user?.name }} {{ feedback?.order?.user?.surname }}
+          {{ feedback?.user?.name }} {{ feedback?.user?.surname }}
         </h6>
         <div class="flex text-[14px] text-[#9A999B] items-center gap-[12px]">
           <p class="clock">{{ hour }}</p>
@@ -36,14 +37,16 @@
     >
       <h4
         @click="
-          $router.push(localePath(`/profile/freelancer/order/view/${feedback?.order?.id}`))
+          $router.push(
+            localePath(`/profile/freelancer/order/view/${feedback?.order?.id}`)
+          )
         "
         class="text-black font-medium w-full text-[16px] mb-[8px] truncate cursor-pointer"
       >
         {{ feedback?.order?.name }}
       </h4>
       <div class="flex items-center gap-[12px]">
-        <div class="direction text-[#5D5D5F] text-[14px]">Web design</div>
+        <div class="direction text-[#5D5D5F] text-[14px]">{{feedback?.order?.specialities[0]?.name_ru}}</div>
         <p class="stick bg-[#EBEBEB] w-[1px] h-[16px]"></p>
         <div
           class="flex flex-col justify-between gap-2 items-end xl:flex-row xl:items-center"
@@ -76,7 +79,7 @@ export default {
   props: ["feedback"],
   computed: {
     imgUrl() {
-      return this.$config.baseURL + "/storage/"
+      return this.$config.baseURL + "/storage/";
     },
     date() {
       return moment(this.feedback?.created_at).format("DD.MM.YYYY");

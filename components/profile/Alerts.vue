@@ -8,7 +8,7 @@
       </h1>
       <nuxt-link
         class="flex gap-[6px] text-blue text-base font-medium xl:hidden"
-        to="/orders"
+       :to="localePath('/notifications')"
         >{{ $store.state.translations["profile.view-more"] }}
         <svg
           xmlns="http://www.w3.org/2000/svg"

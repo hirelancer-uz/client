@@ -8,7 +8,7 @@
         <nuxt-link
           v-if="totalOrder > 10"
           class="flex gap-[6px] text-blue text-[18px] items-center font-medium xl:text-[14px]"
-          to="/orders"
+         :to="localePath('/orders')"
           >{{ $store.state.translations["main.see-more"] }}
           <svg
             xmlns="http://www.w3.org/2000/svg"

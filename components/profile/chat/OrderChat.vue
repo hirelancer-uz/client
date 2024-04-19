@@ -35,7 +35,8 @@
         class="flex items-center justify-between px-6 py-[18px] border-[0] border-b border-solid border-grey-light"
       >
         <h3 class="text-[24px] text-black font-semibold">Онлайн чат</h3>
-        <p class="text-[14px] text-grey-64">В сети / Был(а) 3 минут назад</p>
+        <p class="text-[14px] text-grey-64">{{order?.client?.online ? $store.state.translations['profile.online']:$store.state.translations['profile.last-online'] }}: {{ lastOnlineDate }}
+        </p>
       </div>
       <div
         ref="chatBoard"
@@ -63,7 +64,7 @@
             v-if="$store.state?.userInfo?.id == message?.from"
           >
             <div
-              class="chat-client-card max-w-[40%] flex gap-2 px-3 py-3 rounded-t-[10px] rounded-l-[10px] bg-main-color items-end"
+              class="chat-client-card max-w-[642px] flex gap-2 px-3 py-3 rounded-t-[10px] rounded-l-[10px] bg-main-color items-end"
             >
               <p class="text-white text-[14px] break-all">
                 {{ message?.message }}
@@ -75,7 +76,7 @@
           </div>
           <div class="flex justify-start" v-else>
             <div
-              class="chat-client-card max-w-[40%] flex gap-2 px-3 py-3 rounded-t-[10px] rounded-l-[10px] bg-bg-grey items-end"
+              class="chat-client-card max-w-[642px] flex gap-2 px-3 py-3 rounded-t-[10px] rounded-l-[10px] bg-bg-grey items-end"
             >
               <p class="text-black text-[14px] break-all">
                 {{ message?.message }}
@@ -88,13 +89,13 @@
           <div
             class="flex justify-center"
             v-if="
-              index - 1 > 0 &&
-              Number(moment(messages[index]?.created_at).format('DD')) <
-                Number(moment(messages[index - 1]?.created_at).format('DD'))
+              index &&
+              moment(messages[index]?.created_at).format('YYYY-MM-DD') <
+                moment(messages[index - 1]?.created_at).format('YYYY-MM-DD')
             "
           >
             <div
-              class="chat-date w-[123px] h-[32px] rounded-[50px] flex justify-center items-center bg-bg-grey text-black text-[14px]"
+              class="chat-date w-[123px] h-[32px] rounded-[50px] flex justify-center items-center bg-bg-grey text-black text-[14px] mt-[30px]"
             >
               <span v-if="!chatLoader">{{
                 moment(messages[index - 1]?.created_at).format("DD.MM.YYYY")
@@ -211,9 +212,8 @@
 </template>
 <script>
 import moment from "moment";
-import ChatModal from "@/components/modals/ChatModal.vue";
+import ChatModal from "@/components/profile/chat/ChatModal.vue";
 import chatService from "@/mixins/chatService";
-
 
 export default {
   components: { ChatModal },
@@ -234,6 +234,9 @@ export default {
         (item) => item?.freelancer_id == this.$store.state.userInfo["id"]
       );
     },
+    lastOnlineDate() {
+      return moment(this.order?.client?.last_online_at).format("DD-MMM. YYYY");
+    },
     requestTime() {
       return moment(this.order?.selected_request?.created_at).format("HH:mm");
     },
@@ -249,7 +252,8 @@ export default {
       this.form = { ...form };
       this.form.order_id = this.order.id;
       this.form.to = this.order?.client?.id;
-      if (this.form.message.length > 0) this.__POST_CHAT_MESSAGE(this.form,this.formClear);
+      if (this.form.message.length > 0)
+        this.__POST_CHAT_MESSAGE(this.form, this.formClear);
     },
     formClear() {
       this.form = {

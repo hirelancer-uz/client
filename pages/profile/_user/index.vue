@@ -63,7 +63,7 @@ export default {
         const data = await this.$store.dispatch(
           "fetchNotifications/getNotifications"
         );
-        this.notifications = data?.content;
+        this.notifications = data?.content?.data;
         // this.totalPage = ""
       } catch (e) {
         this.$notification.error({

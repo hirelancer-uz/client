@@ -116,6 +116,7 @@
                     <a-form-model-item
                       class="form-item w-full relative"
                       :label="$store.state.translations['order.comment']"
+                      prop="additional_info"
                     >
                       <a-input
                         type="textarea"
@@ -267,6 +268,7 @@
                     <a-form-model-item
                       class="form-item w-full relative"
                       :label="$store.state.translations['order.comment']"
+                      prop="additional_info"
                     >
                       <a-input
                         type="textarea"
@@ -361,6 +363,13 @@ export default {
           },
         ],
         deadline: [
+          {
+            required: true,
+            message: this.$store.state.translations["order.required"],
+            trigger: "blur",
+          },
+        ],
+        additional_info: [
           {
             required: true,
             message: this.$store.state.translations["order.required"],

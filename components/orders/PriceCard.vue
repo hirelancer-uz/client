@@ -94,7 +94,7 @@ export default {
   props: ["order"],
   data() {
     return {
-      cancelStatus: [0,5,6]
+      cancelStatus: [0,5,6,4]
     }
   },
   computed: {

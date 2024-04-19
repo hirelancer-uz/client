@@ -6,7 +6,7 @@
       class="rounded-2xl bg-bg-grey px-4 xl:px-0 py-4 flex gap-6 xl:bg-transparent xl:overflow-x-scroll xl:gap-3 scroll-none xl:pb-6 xl:grid xl:grid-cols-3 xl:px-[16px] xl:py-[24px]"
     >
       <nuxt-link
-        :to="`/freelancer/${$route.params.index}`"
+        :to="localePath(`/freelancer/${$route.params.index}`)"
         exact
         class="text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[unset] xl:min-h-[68px] rounded-[12px] hover:text-black"
         ><svg
@@ -29,7 +29,7 @@
       </nuxt-link>
 
       <nuxt-link
-        :to="`/freelancer/${$route.params.index}/portfolio`"
+        :to="localePath(`/freelancer/${$route.params.index}/portfolio`)"
         class="text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[unset] xl:min-h-[68px] rounded-[12px] hover:text-black"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +50,7 @@
         {{ $store.state.translations["profile.portfolio"] }}</nuxt-link
       >
       <nuxt-link
-        :to="`/freelancer/${$route.params.index}/comments`"
+        :to="localePath(`/freelancer/${$route.params.index}/comments`)"
         class="text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[unset] xl:min-h-[68px] rounded-[12px] hover:text-black"
         ><svg
           width="24"
@@ -73,7 +73,7 @@
         {{ $store.state.translations["profile.comments"] }}</nuxt-link
       >
       <!--   <nuxt-link
-        to="/"
+       :to="localePath('/')"
         class="opacity-50 pointer-events-none text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[96px] xl:min-h-[68px] rounded-[12px] hover:text-black"
         ><svg
           xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +97,7 @@
         Бизнесы</nuxt-link
       >
       <nuxt-link
-        to="/"
+       :to="localePath('/')"
         class="opacity-50 pointer-events-none text-black text-base xl:text-[12px] xl:leading-[12px] xl:py-3 font-medium flex flex-col gap-2 items-center bg-white xl:bg-bg-grey px-4 justify-center min-w-[120px] min-h-[79px] xl:min-w-[96px] xl:min-h-[68px] rounded-[12px] hover:text-black"
         ><svg
           xmlns="http://www.w3.org/2000/svg"

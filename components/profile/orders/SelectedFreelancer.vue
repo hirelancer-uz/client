@@ -4,7 +4,7 @@
       class="select-freelancer-card relative px-4 py-4 rounded-2xl bg-white flex flex-col gap-4"
     >
       <nuxt-link
-        :to="`/freelancer/${freelancer?.id}`"
+        :to="localePath(`/freelancer/${freelancer?.id}`)"
         class="absolute right-4 top-4"
         ><svg
           width="20"
@@ -125,7 +125,7 @@ export default {
   props: ["freelancer"],
 
   mounted() {
-    console.log(this.freelancer);
+
   },
 
   computed: {

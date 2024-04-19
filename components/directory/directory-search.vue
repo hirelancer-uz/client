@@ -56,7 +56,7 @@ export default {
       this.__GET_ORDERS();
     },
     __GET_ORDERS() {
-      console.log('Siuuu')
+
     },
     async changeSearch() {
       if (this.searchVal.length > 2) {

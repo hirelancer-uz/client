@@ -2,7 +2,7 @@
   <div
     class="card place-order-card px-8 py-8 border-grey-8 border-solid rounded-2xl border flex flex-col gap-[30px] xl:p-[16px] xl:gap-[12px]"
   >
-    <h6 class="text-blue font-400 text-base xl:text-[10px] xl:leading-[150%]">
+    <h6 class="text-blue  text-base xl:text-[10px] xl:leading-[150%] title">
       {{ number }} - {{ $store.state.translations["main.step"] }}
     </h6>
     <div class="flex gap-[30px] xl:flex-col xl:gap-[12px]">
@@ -20,4 +20,9 @@ export default {
   props: ["title", "number"],
 };
 </script>
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.title {
+  font-family: 'Unbounded',sans-serif;;
+  font-weight: 500;
+}
+</style>

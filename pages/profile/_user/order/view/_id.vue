@@ -66,7 +66,7 @@ export default {
         this.order = data?.content;
         this.orderRequests = this.order.requests.reverse();
 
-        console.log(this.orderRequests);
+
       } catch (e) {
 
       } finally {

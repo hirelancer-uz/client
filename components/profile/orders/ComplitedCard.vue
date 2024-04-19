@@ -156,7 +156,7 @@
             </div>
             <nuxt-link
               class="text-blue text-[12px] font-semibold uppercase flex gap-1 items-center"
-              :to="`/profile/customer/order/view/${order?.id}`"
+              :to="localePath(`/profile/customer/order/view/${order?.id}`)"
             >
               {{ $store.state.translations["profile.more"] }}
               <svg
@@ -205,7 +205,7 @@
       <div class="mt-4 hidden xl:block">
         <nuxt-link
           class="text-blue text-[14px] font-semibold uppercase flex gap-2 items-center h-11 rounded-lg border border-solid border-main-color justify-center"
-          :to="`/freelancer/${order?.selected_request?.freelancer?.id}`"
+          :to="localePath(`/freelancer/${order?.selected_request?.freelancer?.id}`)"
           >{{ $store.state.translations["profile.more"]
           }}<svg
             width="24"

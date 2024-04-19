@@ -11,28 +11,28 @@
           >
             <li>
               <nuxt-link
-                to="/orders"
+               :to="localePath('/orders')"
                 class="text-[20px] font-medium text-black xl:text-base"
                 >{{ $store.state.translations["main.orders"] }}
               </nuxt-link>
             </li>
             <li>
               <nuxt-link
-                to="/freelancers"
+               :to="localePath('/freelancers')"
                 class="text-[20px] font-medium text-black xl:text-base"
                 >{{ $store.state.translations["header.freelancers"] }}
               </nuxt-link>
             </li>
             <li>
               <nuxt-link
-                to="/"
+               :to="localePath('/')"
                 class="text-[20px] font-medium text-black xl:text-base"
                 >{{ $store.state.translations["header.guide"] }}
               </nuxt-link>
             </li>
             <li>
               <nuxt-link
-                to="/"
+               :to="localePath('/')"
                 class="text-[20px] font-medium text-black xl:text-base"
                 >{{ $store.state.translations["main.faq"] }}
               </nuxt-link>
@@ -40,8 +40,8 @@
           </ul>
           <div class="buttons flex gap-10 items-center mt-9 xl:mt-6">
             <div class="flex gap-4">
-              <a
-                href="#"
+              <a v-if="$store.state.siteInfo?.telegram"
+                :href="$store.state.siteInfo?.telegram"
                 class="w-[80px] h-[80px] xl:w-10 xl:h-10 rounded-full flex justify-center items-center bg-white"
               >
                 <img
@@ -50,8 +50,8 @@
                   alt=""
                 />
               </a>
-              <a
-                href="#"
+              <a v-if="$store.state.siteInfo?.instagram"
+                  :href="$store.state.siteInfo?.instagram"
                 class="w-[80px] h-[80px] xl:w-10 xl:h-10 rounded-full flex justify-center items-center bg-white"
               >
                 <img
@@ -61,7 +61,8 @@
                 />
               </a>
               <a
-                href="#"
+                  v-if="$store.state.siteInfo?.youtube"
+                  :href="$store.state.siteInfo?.youtube"
                 class="w-[80px] h-[80px] xl:w-10 xl:h-10 rounded-full flex justify-center items-center bg-white"
               >
                 <img
@@ -113,7 +114,7 @@
                   {{ $store.state.translations["main.tg-bot"] }}
                 </p>
                 <a
-                  href=""
+                    :href="$store.state.siteInfo?.telegram_for_notification"
                   class="text-[14px] font-semibold text-main-color underline"
                 >
                   {{ $store.state.translations["main.open-bot"] }}</a
@@ -135,7 +136,7 @@
                   {{ $store.state.translations["main.tg-channel"] }}
                 </p>
                 <a
-                  href=""
+                    :href="$store.state.siteInfo?.telegram_for_orders"
                   class="text-[14px] font-semibold text-main-color underline"
                 >
                   {{ $store.state.translations["main.go-to-channel"] }}</a
@@ -157,7 +158,7 @@
               {{ $store.state.translations["main.support-bot"] }}
             </p>
             <a
-              href=""
+                :href="$store.state.siteInfo?.telegram_for_help"
               class="xl:mb-[-8px] text-black xl:min-h-12 text-[24px] xl:text-base font-medium flex gap-8 items-center h-[56px] xl:h-12 bg-bg-grey w-[311px] xl:w-full justify-center rounded-[21px] xl:rounded-[8px]"
             >
               {{ $store.state.translations["main.bot-link"] }}
@@ -203,7 +204,7 @@
           {{ $store.state.translations["main.rights"] }} {{ currentYear }}
         </p>
         <div class="flex gap-4 items-center">
-          <img class="xl:h-5" src="@/assets/images/ndc.png" alt="" />
+<!--          <img class="xl:h-5" src="@/assets/images/ndc.png" alt="" />-->
           <p
             class="text-[14px] text-black whitespace-nowrap xl:whitespace-normal"
           >

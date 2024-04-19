@@ -8,9 +8,9 @@
           {{ $store.state.translations["order.similar-orders"] }}
         </h1>
         <nuxt-link
-          v-if="orders.length > 0"
+          v-if="orders?.length > 0"
           class="flex gap-[6px] xl:gap-1 text-blue text-[18px] font-medium xl:text-[14px] leading-[19px] items-center"
-          to="/orders"
+         :to="localePath('/orders')"
           >{{ $store.state.translations["order.view-more"] }}
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="max-w-[1286px] mx-auto list-grid">
-      <div v-if="orders.length > 0" class="list flex flex-col gap-4">
+      <div v-if="orders?.length > 0" class="list flex flex-col gap-4">
         <OrderCard v-for="order in orders" :order="order" :key="order?.id" />
       </div>
       <div v-else class="similar__empty">

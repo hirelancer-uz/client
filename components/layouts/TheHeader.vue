@@ -3,7 +3,7 @@
     <div class="max-w-[1776px] mx-auto flex justify-between w-full header-container">
       <div class="left flex gap-[80px] items-center">
         <div class="logo">
-          <nuxt-link to="/">
+          <nuxt-link :to="localePath('/')">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="145"
@@ -34,13 +34,13 @@
         <div class="menu flex gap-[40px]">
           <nuxt-link
             class="text-[18px] text-black font-tt font-normal"
-            to="/orders"
+           :to="localePath('/orders')"
           >
             {{ $store.state.translations["header.orders"] }}</nuxt-link
           >
           <nuxt-link
             class="text-[18px] text-black font-tt font-normal"
-            to="/freelancers"
+           :to="localePath('/freelancers')"
           >
             {{ $store.state.translations["header.freelancers"] }}</nuxt-link
           >

@@ -7,7 +7,7 @@
       <nuxt-link
         v-if="portfolios.length > 0"
         class="flex gap-[6px] text-blue text-base font-medium xl:text-[14px]"
-        :to="`/freelancer/${$route.params.index}/portfolio`"
+        :to="localePath(`/freelancer/${$route.params.index}/portfolio`)"
         >{{ $store.state.translations["profile.view-more"] }}
         <svg
           xmlns="http://www.w3.org/2000/svg"

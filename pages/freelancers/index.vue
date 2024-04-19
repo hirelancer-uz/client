@@ -195,7 +195,7 @@ export default {
     };
   },
 
-  async asyncData({ store, query }) {
+  async asyncData({ store, query,i18n }) {
     const [freeLancersData, specialitiesData, regionsData] = await Promise.all([
       store.dispatch("fetchFreelancers/getFreelancers", {
         params: {
@@ -205,7 +205,11 @@ export default {
           ...query,
         },
       }),
-      store.dispatch("fetchSpecialities/getSpecialities"),
+      store.dispatch("fetchSpecialities/getSpecialities",{
+        headers: {
+          Lang: i18n.locale,
+        },
+      }),
       store.dispatch("fetchRegions/getRegions"),
     ]);
     const freelancers = freeLancersData.data;

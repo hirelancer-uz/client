@@ -1,5 +1,5 @@
 export default function ({ $axios, redirect, error }, inject) {
-  console.log(process.env.BASE_URL);
+
   const axios = $axios.create({
     baseURL: process.env.BASE_URL || "https://test-api.hirelancer.ndc.uz/",
   });
@@ -13,7 +13,7 @@ export default function ({ $axios, redirect, error }, inject) {
     return response;
   });
   axios.onError((err) => {
-    console.log(err);
+
     // const errors = [404, 500];
     // if (errors.includes(err.response.status)) {
     //   error({

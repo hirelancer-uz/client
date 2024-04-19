@@ -69,7 +69,7 @@
       </div>
       <div class="mt-4">
         <nuxt-link
-          :to="`/profile/customer/order/view/${order?.id}`"
+          :to="localePath(`/profile/customer/order/view/${order?.id}`)"
           class="text-main-color border border-solid border-main-color rounded-[8px] h-11 justify-center text-[14px] font-medium flex gap-2 items-center"
           >{{ $store.state.translations["profile.more"]
           }}<svg

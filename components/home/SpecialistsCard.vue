@@ -51,7 +51,7 @@
     <p
       class="font-medium text-[18px] text-black xl:text-[12px] xl:font-semibold xl:font-semibold"
     >
-      {{ obj?.name_ru }}
+      {{ obj?.name }}
     </p>
   </div>
 </template>

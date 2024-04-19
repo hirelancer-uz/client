@@ -43,7 +43,7 @@
             <img
               v-else
               class="w-full h-full object-cover"
-              src="@/assets/images/user-avatar.jpg"
+              src="../../../assets/images/user-avatar.jpg"
               alt=""
             />
           </div>
@@ -52,7 +52,7 @@
               <h5 class="text-[20px] text-black font-medium">
                 {{ order?.selected_request?.freelancer?.name }}
               </h5>
-              <p class="text-grey-40 text-base">{{moment(order?.selected_request?.freelancer?.last_online_at).format("HH:mm")}}</p>
+              <p class="text-grey-40 text-base">{{order?.client?.online ? $store.state.translations['profile.online']:$store.state.translations['profile.last-online'] }}: {{moment(order?.selected_request?.freelancer?.last_online_at).format("DD-MMM. YYYY")}}</p>
             </div>
           </div>
         </div>
@@ -101,8 +101,8 @@
               class="flex justify-center mt-4"
               v-if="
               index - 1 > 0 &&
-              Number(moment(messages[index]?.created_at).format('DD')) <
-                Number(moment(messages[index - 1]?.created_at).format('DD'))
+              moment(messages[index]?.created_at).format('YYYY-MM-DD') <
+                    moment(messages[index - 1]?.created_at).format('YYYY-MM-DD')
             "
             >
               <div
@@ -134,7 +134,7 @@
                       >{{ order?.selected_request?.deadline }} kun</span
                     >
                   </h6>
-                  <p class="text-[10px] text-white">{{moment(order?.selected_request?.created_at).format('HH:mm')}}</p>
+                  <p class="text-[10px] text-black">{{moment(order?.selected_request?.created_at).format('HH:mm')}}</p>
                 </div>
               </div>
             </div>

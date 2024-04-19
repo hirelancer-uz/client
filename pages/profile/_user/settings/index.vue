@@ -11,9 +11,7 @@
         class="buttons xl:justify-center bg-white flex gap-6 xl:gap-12 xl:mt-[-3px] xl:relative z-[1000] xl:pt-[3px] xl:hidden"
       >
         <button
-          @click="
-            $router.push(localePath(`/profile/${$route.params.user}/settings`))
-          "
+          @click="$router.push(localePath(`/profile/${$route.params.user}/settings`))"
           :class="{ active: !$route.name.includes('specialities') }"
           class="px-6 py-3 relative rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] text-base text-grey-64 font-medium xl:font-semibold xl:py-0 xl:flex xl:items-center xl:h-9 whitespace-nowrap xl:rounded-lg"
         >
@@ -33,6 +31,7 @@
       </div>
       <div class="flex justify-end gap-6 xl:hidden">
         <button
+          @click="$router.go(-1)"
           class="px-6 py-3 relative rounded-[12px] border-solid border-[2px] border-bg-grey bg-bg-grey xl:bg-white xl:px-0 xl:pt-0 xl:pb-2 xl:border-[0] text-base text-grey-64 font-medium xl:font-semibold xl:py-0 xl:flex xl:items-center xl:h-9 whitespace-nowrap xl:rounded-lg"
         >
           {{ $store.state.translations["auth.cancel"] }}
@@ -143,9 +142,7 @@
           </h3>
           <div>
             <div class="gap-6 hidden xl:grid xl:grid-cols-2 mb-6">
-              <div
-                class="image w-[148px] h-[148px] rounded-full overflow-hidden"
-              >
+              <div class="image w-[148px] h-[148px] rounded-full overflow-hidden">
                 <img
                   class="w-full h-full object-cover"
                   v-if="fileList.length > 0"
@@ -249,9 +246,7 @@
                     @change="onChange"
                     v-model="form.date_of_birth"
                     class="w-full"
-                    :placeholder="
-                      $store.state.translations['profile.date-format']
-                    "
+                    :placeholder="$store.state.translations['profile.date-format']"
                   />
                 </a-form-model-item>
                 <a-form-model-item
@@ -319,10 +314,9 @@
                 <!-- <label class="inline gap-3 relative">
                 {{ $store.state.translations["auth.bio"] }}
               </label> -->
-              {{form.bio}}
-                <ckeditor :editor="editor" v-model="form.bio" placeholder="siuu"/>
-                  <!-- <a-input v-model="form.bio" placeholder="O’zhaqingizda ma’lumot" /> -->
-                  <!-- <quill-editor
+                <ckeditor :editor="editor" v-model="form.bio" :config="editorConfig"/>
+                <!-- <a-input v-model="form.bio" placeholder="O’zhaqingizda ma’lumot" /> -->
+                <!-- <quill-editor
                     style="min-height: 250px"
                     :options="editorOption"
                     :value="form.bio"
@@ -375,12 +369,8 @@
                 <a-form-model-item class="form-item" label="Telegram">
                   <a-input
                     v-model="form.telegram"
-                    @focus="
-                      writeLinkTemplate('telegram', linkTemplates['telegram'])
-                    "
-                    @blur="
-                      removeLinkTemplate('telegram', linkTemplates['telegram'])
-                    "
+                    @focus="writeLinkTemplate('telegram', linkTemplates['telegram'])"
+                    @blur="removeLinkTemplate('telegram', linkTemplates['telegram'])"
                     placeholder="https://t.me/username"
                   />
                   <span class="absolute right-4">
@@ -403,12 +393,8 @@
                 <a-form-model-item class="form-item" label="Facebook">
                   <a-input
                     v-model="form.facebook"
-                    @focus="
-                      writeLinkTemplate('facebook', linkTemplates['facebook'])
-                    "
-                    @blur="
-                      removeLinkTemplate('facebook', linkTemplates['facebook'])
-                    "
+                    @focus="writeLinkTemplate('facebook', linkTemplates['facebook'])"
+                    @blur="removeLinkTemplate('facebook', linkTemplates['facebook'])"
                     placeholder="https://www.facebook.com/username"
                   />
                   <span class="absolute right-4">
@@ -455,15 +441,8 @@
                 <a-form-model-item class="form-item" label="Instagram">
                   <a-input
                     v-model="form.instagram"
-                    @focus="
-                      writeLinkTemplate('instagram', linkTemplates['instagram'])
-                    "
-                    @blur="
-                      removeLinkTemplate(
-                        'instagram',
-                        linkTemplates['instagram']
-                      )
-                    "
+                    @focus="writeLinkTemplate('instagram', linkTemplates['instagram'])"
+                    @blur="removeLinkTemplate('instagram', linkTemplates['instagram'])"
                     placeholder="https://www.instagram.com/username"
                   />
                   <span class="absolute right-4"
@@ -483,12 +462,8 @@
                 <a-form-model-item class="form-item" label="Linkedin">
                   <a-input
                     v-model="form.linkedin"
-                    @focus="
-                      writeLinkTemplate('linkedin', linkTemplates['linkedin'])
-                    "
-                    @blur="
-                      removeLinkTemplate('linkedin', linkTemplates['linkedin'])
-                    "
+                    @focus="writeLinkTemplate('linkedin', linkTemplates['linkedin'])"
+                    @blur="removeLinkTemplate('linkedin', linkTemplates['linkedin'])"
                     placeholder="https://www.linkedin.com/in/username"
                   />
                   <span class="absolute right-4"
@@ -512,6 +487,7 @@
       </div>
       <div class="flex justify-end gap-4 max-w-[818px] mt-8 xl:hidden">
         <button
+        @click="$router.go(-1)"
           class="text-[18px] font-medium text-black border-[2px] border-solid border-border-darik rounded-[12px] h-[60px] w-[204px] flex justify-center items-center"
         >
           {{ $store.state.translations["auth.cancel"] }}
@@ -575,11 +551,23 @@ export default {
   data() {
     return {
       editor: ClassicEditor,
+
       linkTemplates: {
         instagram: "https://www.instagram.com/",
         telegram: "https://t.me/",
         facebook: "https://www.facebook.com/",
         linkedin: "https://www.linkedin.com/in/",
+      },
+      editorConfig: {
+        toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'indent','outdent', 'bulletedList', 'numberedList', 'blockQuote','undo', 'redo'],
+        heading: {
+          options: [
+            { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+            { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+            { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
+          ]
+        },
+
       },
       editorOption: {
         theme: "snow",
@@ -705,7 +693,7 @@ export default {
     },
     onChange(date, dateString) {},
     removeAvatar(e) {
-      this.__DELETE_FILE({id: this.userInfo?.id,type:'user'})
+      this.__DELETE_FILE({ id: this.userInfo?.id, type: "user" });
       this.fileList = [];
     },
     onSubmit() {
@@ -756,9 +744,7 @@ export default {
       try {
         this.laoding = true;
         if (localStorage.getItem("auth-token")) {
-          const userInfoData = await this.$store.dispatch(
-            "fetchAuth/getUserInfo"
-          );
+          const userInfoData = await this.$store.dispatch("fetchAuth/getUserInfo");
           this.userInfo = userInfoData;
           this.$store.commit("getUserInfo", userInfoData);
           if (userInfoData["name"]) {
@@ -773,7 +759,7 @@ export default {
               }
             });
             this.form.phone = "+" + userInfoData.contacts.phone;
-            if(userInfoData.avatar  ) {
+            if (userInfoData.avatar) {
               this.fileList = [
                 {
                   uid: "-1",
@@ -786,9 +772,7 @@ export default {
             }
             this.form["country_id"] = userInfoData?.country?.id;
             this.form["region_id"] = userInfoData?.region?.id;
-            this.form["bio"] = (await userInfoData?.bio)
-              ? userInfoData?.bio
-              : "";
+            this.form["bio"] = (await userInfoData?.bio) ? userInfoData?.bio : "";
             window.scrollTo(0, 0);
           }
         }
@@ -806,11 +790,11 @@ export default {
           this.__GET_USER_INFO();
         }
       } catch (e) {
-        console.log(e);
-        this.$notification["error"]({
-          message: "Error",
-          description: e.response.statusText,
-        });
+        //
+        // this.$notification["error"]({
+        //   message: "Error",
+        //   description: e.response.statusText,
+        // });
       }
     },
   },
@@ -828,10 +812,14 @@ export default {
 };
 </script>
 <style lang="css" scoped>
+.ckeditor-container {
+  width: 100%; /* Ensure the container is responsive */
+}
 :deep(.ck-content) {
   height: 250px;
   border: 1px solid var(--grey-8) !important;
   border-radius: 0 0 10px 10px !important;
+  word-break: break-word;
 }
 :deep(.ck-toolbar) {
   border: 1px solid var(--grey-8) !important;
@@ -860,6 +848,7 @@ export default {
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
+  padding-right: 40px;
 }
 
 .form-item :deep(.ant-input:focus) {
@@ -885,8 +874,7 @@ export default {
   align-items: center;
 }
 
-.form-item
-  :deep(.ant-select-selection__rendered .ant-select-selection-selected-value) {
+.form-item :deep(.ant-select-selection__rendered .ant-select-selection-selected-value) {
   color: var(--grey-80, #353437);
   font-family: "TT Interfaces";
   font-size: 16px;

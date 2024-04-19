@@ -319,7 +319,7 @@
           >
             <div class="flex justify-between">
               <p class="text-grey-40 text-base">Баланс</p>
-              <nuxt-link class="text-blue text-[14px] underline" to="/"
+              <nuxt-link class="text-blue text-[14px] underline":to="localePath('/')"
                 >История транзакций</nuxt-link
               >
             </div>
@@ -446,7 +446,7 @@
           </p>
 
           <nuxt-link
-            to="/"
+           :to="localePath('/')"
             class="flex gap-1 text-[12px] font-semibold text-grey-64 uppercase items-center"
             >Читать далее
             <svg

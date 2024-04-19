@@ -29,7 +29,7 @@
       </div>
     </a>
     <div class="w-[104px] flex">
-      <p class="text-[12px] text-grey-80 truncate ">{{file?.file}}</p>
+      <p class="text-[12px] text-grey-80 truncate ">{{file?.file.split('/')[1]}}</p>
       <p>.{{fyleType}}</p>
     </div>
     <transition name="fade" appear>

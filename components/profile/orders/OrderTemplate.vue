@@ -90,7 +90,7 @@
                   :key="listItem?.id"
                   class="px-4 h-[34px] rounded-[4px] bg-apple-grey flex gap-1 items-center text-blue text-[14px] font-medium"
                 >
-                  {{ listItem?.name_ru }}
+                  {{ listItem?.name }}
 
                   <button @click="deleteChecked(listItem?.id)">
                     <svg
@@ -185,7 +185,7 @@
                 :placeholder="$store.state.translations[`order.order-comment`]"
                 @change="handleTextChange"
               /> -->
-          
+
             <!-- </a-form-model-item> -->
           </div>
 
@@ -236,7 +236,7 @@
                   :before-upload="handleBeforeUpload"
                   :custom-request="customRequest"
                 >
-                  <div class="flex justify-center bg-bg-grey">
+                  <div class="flex justify-center bg-bg-grey flex-col items-center gap-1">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="20"
@@ -253,6 +253,7 @@
                         stroke-linejoin="round"
                       />
                     </svg>
+                      <p>Max 4MB</p>
                   </div>
                 </a-upload>
                 <div
@@ -397,7 +398,7 @@
                     `${value.replace(/[^0-9.]/g, '')}`.replace(
                       /\B(?=(\d{3})+(?!\d))/g,
                       ' '
-                    )
+                    ).toString().slice(0, 10)
                 "
                 :parser="
                   (value) =>
@@ -558,7 +559,7 @@ export default {
   props: ["specialities", "title"],
   mixins: [deleteFile],
   data() {
-    return {  
+    return {
       editor: ClassicEditor,
       maxLength: 5000,
       imgFileTypes: imgFileTypes,
@@ -647,7 +648,7 @@ export default {
       this.loading = false;
     }
     this.$store.commit("setPageData", {
-      title: "Buyurtma yaratish",
+      title: this.title,
       center: false,
       info: "",
       link: true,
@@ -671,7 +672,7 @@ export default {
         this.fileList = this.order.files.map((item, index) => {
           return {
             uid: (index + 1) * -1,
-            name: "image.png",
+            name: item.file.split('/')[1],
             status: "done",
             url: this.imgUrl + item.file,
             id: item.id,
@@ -817,9 +818,9 @@ export default {
         this.$notification["success"]({
           message: this.$store.state.translations["modal.sent-done"],
         });
-        this.$router.push(`/profile/customer/order/view/${data?.content?.id}`);
+        this.$router.push(this.localePath(`/profile/customer/order/view/${data?.content?.id}`));
       } catch (e) {
-        console.log(e)
+
         if(e.response.status == 413) {
           this.$notification["error"]({
             message: "Error",

@@ -335,7 +335,7 @@
             v-if="$route.params.user == 'freelancer'"
           >
             <nuxt-link
-              :to="`/profile/${$route.params.user}/info`"
+              :to="localePath(`/profile/${$route.params.user}/info`)"
               class="flex w-full gap-3 items-center text-[14px] font-medium text-black relative p-4"
               ><svg
                 width="24"
@@ -382,7 +382,7 @@
 
           <li class="border-[0] border-b border-solid border-grey-light">
             <nuxt-link
-              :to="`/profile/${$route.params.user}/orders/active/status`"
+              :to="localePath(`/profile/${$route.params.user}/orders/active/status`)"
               class="flex w-full gap-3 items-center text-[14px] font-medium text-black relative p-4"
               ><svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -423,7 +423,7 @@
             v-if="$route.params.user == 'freelancer'"
           >
             <nuxt-link
-              :to="`/profile/${$route.params.user}/portfolio`"
+              :to="localePath(`/profile/${$route.params.user}/portfolio`)"
               class="flex w-full gap-3 items-center text-[14px] font-medium text-black relative p-4"
               ><svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -475,7 +475,7 @@
           </li>
           <li class="border-[0] border-b border-solid border-grey-light">
             <nuxt-link
-              :to="`/profile/${$route.params.user}/settings`"
+              :to="localePath(`/profile/${$route.params.user}/settings`)"
               class="flex w-full gap-3 items-center text-[14px] font-medium text-black relative p-4"
               ><svg
                 width="18"

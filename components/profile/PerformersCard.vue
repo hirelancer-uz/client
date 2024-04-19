@@ -140,7 +140,7 @@
           </div>
 
           <nuxt-link
-            to="/"
+           :to="localePath('/')"
             class="text-blue flex gap-1 items-center text-[14px] font-medium font-tt"
             >{{ $store.state.translations["profile.view-more"] }}
             <svg

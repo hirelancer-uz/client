@@ -151,7 +151,7 @@
             :ref="`button${index}`"
             class="whitespace-nowrap h-[36px] xl:h-[32px] flex items-center bg-apple-grey font-tt text-grey-64 py-2 px-4 rounded-[22px] text-[14px] xl:text-[12px]"
           >
-            {{ special?.name_ru }}
+            {{ special?.name }}
           </button>
           <button
             v-if="hiddenButtonsCount"
@@ -168,7 +168,7 @@
             :key="special?.id"
             class="whitespace-nowrap h-[36px] xl:h-[32px] flex items-center bg-apple-grey font-tt text-grey-64 py-2 px-4 rounded-[22px] text-[14px] xl:text-[12px]"
           >
-            {{ special?.name_ru }}
+            {{ special?.name }}
           </button>
         </div>
       </div>

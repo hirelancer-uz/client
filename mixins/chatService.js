@@ -44,7 +44,7 @@ export default {
         this.$refs.chatBoard.scrollTop = 0;
         formFunc();
       } catch (e) {
-        console.log(e);
+
       }
     },
 

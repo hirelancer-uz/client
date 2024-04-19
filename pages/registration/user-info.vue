@@ -21,10 +21,14 @@ export default {
   data() {
     return {};
   },
-  async asyncData({ store }) {
+  async asyncData({ store,i18n }) {
     const [regionsData, freeLancersData] = await Promise.all([
       store.dispatch("fetchRegions/getRegions"),
-      store.dispatch("fetchSpecialities/getSpecialities"),
+      store.dispatch("fetchSpecialities/getSpecialities",{
+        headers: {
+          Lang: i18n.locale,
+        },
+      }),
     ]);
     const regions = regionsData.content;
     const specialities = freeLancersData.content;
@@ -48,7 +52,7 @@ export default {
             : await this.$router.push(this.localePath("/profile/freelancer"));
         }
       } catch (e) {
-        console.log(e);
+
         this.$notification["error"]({
           message: "Error",
           description: e.response?.statusText,

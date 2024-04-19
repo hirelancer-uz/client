@@ -2,13 +2,71 @@
 
 /* fonts */
 @font-face {
+  font-family: 'Unbounded';
+  src: url('../fonts/static/Unbounded-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Unbounded';
+  src: url('../fonts/static/Unbounded-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Unbounded';
+  src: url('../fonts/static/Unbounded-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Unbounded';
+  src: url('../fonts/static/Unbounded-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Unbounded';
+  src: url('../fonts/static/Unbounded-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Unbounded';
+  src: url('../fonts/static/Unbounded-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Unbounded';
+  src: url('../fonts/static/Unbounded-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Unbounded';
+  src: url('../fonts/static/Unbounded-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
   font-family: "venture13-100";
   src: url(../fonts/Venture13-Thin.ttf);
 }
+
 @font-face {
   font-family: "venture13-400";
   src: url(../fonts/Venture13.ttf);
 }
+
 @font-face {
   font-family: "venture13-700";
   src: url(../fonts/Venture13-Bold.ttf);
@@ -52,29 +110,36 @@
 .font-100 {
   font-family: var(--thin);
 }
+
 .font-400 {
   font-family: var(--regular);
 }
+
 .font-700 {
   font-family: var(--bold);
 }
+
 html {
   scroll-behavior: smooth;
   /* overflow-x: hidden; */
 }
+
 body {
   font-family: "TT Interfaces";
   font-weight: 400;
   font-style: normal;
   line-height: normal;
 }
+
 a,
 button {
   font-family: "TT Interfaces";
 }
+
 .font-tt {
   font-family: "TT Interfaces";
 }
+
 /**:where(:not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol*/
 /*      *)) {*/
 /*  all: unset;*/
@@ -87,41 +152,47 @@ button {
   margin: 0;
   padding: 0;
 }
+
 a,
 button {
   cursor: pointer;
 }
+
 ol,
 ul,
 menu {
   list-style: none;
 }
+
 img {
   max-inline-size: 100%;
   max-block-size: 100%;
 }
+
 /* table { */
-  /* border-collapse: collapse; */
+/* border-collapse: collapse; */
 /* }/ */
 input,
 textarea {
   -webkit-user-select: auto;
 }
+
 textarea {
   white-space: revert;
 }
+
 /* meter {
   -webkit-appearance: revert;
   appearance: revert;
 } */
 /* :where(pre) { */
-  /* all: revert;
+/* all: revert;
 }
 ::placeholder {
-  color: unset; */
+color: unset; */
 /* } */
 /* ::marker { */
-  /* content: initial;
+/* content: initial;
 } */
 /* :where([hidden]) {
   display: none;
@@ -142,15 +213,18 @@ textarea {
 ul {
   margin: 0;
 }
+
 li {
   list-style: none;
   padding: 0;
   margin: 0;
 }
+
 p {
   margin: 0;
   margin-bottom: 0;
 }
+
 h1,
 h2,
 h3,
@@ -160,6 +234,7 @@ h6 {
   margin: 0;
   margin-bottom: 0;
 }
+
 input:focus-visible {
   outline: none;
 }
@@ -167,12 +242,15 @@ input:focus-visible {
 .ant-form-item {
   margin-bottom: 0;
 }
+
 a:hover {
   color: var(--blue);
 }
+
 .ant-modal-footer {
   display: none !important;
 }
+
 .auth-item label {
   color: var(--black);
   font-family: "TT Interfaces";
@@ -180,10 +258,12 @@ a:hover {
   font-weight: 500;
   line-height: 150%; /* 24px */
 }
+
 .auth-item label::after,
 .auth-item label::before {
   display: none;
 }
+
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -198,12 +278,15 @@ a:hover {
   background-color: var(--blue);
   border-radius: 6px;
 }
+
 .portfolio-modal .ant-modal-content {
   border-radius: 16px !important;
 }
+
 .ant-tooltip {
   max-width: 354px;
 }
+
 .ant-tooltip-inner {
   border-radius: 8px;
   border: 1px solid var(--border-darik);
@@ -217,54 +300,78 @@ a:hover {
   line-height: 130%;
   padding: 8px 16px;
 }
+
 .ant-tooltip-arrow {
   display: none;
 }
+
 .ant-select-dropdown {
   z-index: 999999 !important;
 }
+
 .ql-editor a {
   color: #3c4bdc !important;
 }
+
 .order-desc a {
   color: #3c4bdc;
   text-decoration: underline;
 }
+
 a {
   transition: color 0s !important;
 }
+
 .ant-input-number-input-wrap {
   width: 100%;
 }
+.ck.ck-toolbar.ck-toolbar_grouping>.ck-toolbar__items {
+  flex-wrap: wrap !important;
+}
+.ck-powered-by {
+  display: none !important;
+}
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1440px;
+  }
+}
+
 @media (max-width: 1460px) {
   .container {
     padding-left: 16px;
     padding-right: 16px;
   }
 }
+
 @media (max-width: 1200px) {
   .portfolio-modal .ant-modal-content {
     border-radius: 0 !important;
     border-top-left-radius: 8px !important;
     border-top-right-radius: 8px !important;
   }
+
   .ant-modal {
     width: 100% !important;
     padding: 0 !important;
     margin: 0 !important;
     max-width: 100% !important;
   }
+
   .auth-item label {
     font-size: 14px;
   }
+
   .ant-modal-body {
     margin: 0 !important;
     padding: 56px 16px 0 16px !important;
   }
+
   .ant-carousel {
     margin-right: -4px !important;
   }
 }
+
 @media (max-width: 576px) {
   .fade-left-enter-active,
   .fade-left-leave-active {
@@ -273,6 +380,7 @@ a {
     filter: blur(4.1px);
     z-index: 1;
   }
+
   .fade-left-enter,
   .fade-left-leave-to {
     /* transform: translateX(100%); */
@@ -280,15 +388,19 @@ a {
     filter: blur(1.1px);
     z-index: 1;
   }
+
   .ant-upload-list-item-actions {
     opacity: 1 !important;
   }
+
   ::-webkit-scrollbar {
     width: 6px;
   }
+
   ::-webkit-scrollbar-track {
     border-radius: 10px;
   }
+
   ::-webkit-scrollbar-thumb {
     background-color: var(--blue);
     border-radius: 6px;

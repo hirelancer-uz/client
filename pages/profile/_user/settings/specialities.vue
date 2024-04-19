@@ -10,7 +10,7 @@
       class="buttons xl:justify-center bg-white flex gap-6 mt-4 xl:gap-12 xl:mt-[-3px] xl:relative z-[2000] xl:pt-[3px] xl:hidden"
     >
       <button
-        :to="`/profile/${$route.params.user}/settings`"
+        :to="localePath(`/profile/${$route.params.user}/settings`)"
         @click="
           $router.push(localePath(`/profile/${$route.params.user}/settings`))
         "
@@ -63,7 +63,7 @@
             :key="elem?.id"
             class="py-[7px] text-base xl:text-[14px] text-grey-80 font-medium h-[38px] flex items-center rounded-[4px] gap-2 border border-solid border-grey-light pl-2 pr-3 bg-bg-grey"
           >
-            {{ elem?.name_ru }}
+            {{ elem?.name }}
             <button @click="deleteChecked(elem?.id)">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

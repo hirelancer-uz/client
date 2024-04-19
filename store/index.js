@@ -6,15 +6,23 @@ export const state = () => ({
   lang: "",
   orderCounts: {},
   userType: 'freelancer',
+  previousRoute: null,
+  siteInfo: {}
 });
 
 export const mutations = {
+  setPreviousRoute(state, route) {
+    state.previousRoute = route
+  },
   getUserInfo(state, payload) {
     state.userInfo = payload;
 
     localStorage.getItem("auth-token")
       ? (state.auth = true)
       : (state.auth = false);
+  },
+  getSiteInfo(state, payload) {
+    state.siteInfo = payload;
   },
   setUserType(state, payload) {
     state.userType = payload;

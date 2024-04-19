@@ -238,7 +238,7 @@ export default {
       this.__GET_ORDERS();
     },
     async changeSearch() {
-      console.log(this.searchVal);
+
       if (this.searchVal.length > 2) {
         if (this.$route.query?.search !== this.searchVal)
           await this.$router.replace({

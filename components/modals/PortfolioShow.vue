@@ -41,22 +41,64 @@
                 v-for="(specialit, index) in portfolio?.specialities"
                 :key="specialit?.id"
               >
-                {{ specialit?.name_ru }}
+                {{ specialit?.name }}
               </p>
             </div>
-            <!-- <p class="modal__category">{{ portfolio?.specialities[0]?.name_ru }}</p> -->
+            <!-- <p class="modal__category">{{ portfolio?.specialities[0]?.name }}</p> -->
             <div class="dot xl:hidden"></div>
             <p class="modal__date whitespace-nowrap">{{ dateFormat }}</p>
           </div>
         </div>
         <div class="modal__header-right">
           <button
+            v-if="$route.name.includes('profile')"
+            @click="openDelete"
+            class="px-[10px] py-1 border border-solid text-base border-light-red bg-[#FFF1F4] flex gap-[6px] rounded-[6px] text-light-red xl:hidden"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 9L18.2841 18.3068C18.1238 20.3908 16.386 22 14.2959 22H9.70412C7.61398 22 5.87621 20.3908 5.71591 18.3068L5 9M21 7C18.4021 5.73398 15.3137 5 12 5C8.68635 5 5.59792 5.73398 3 7M10 5V4C10 2.89543 10.8954 2 12 2C13.1046 2 14 2.89543 14 4V5M10 11V17M14 11V17"
+                stroke="#F2154A"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              /></svg
+            >{{ $store.state.translations["modal.delete"]
+          }}
+          </button>
+          <button
+            v-if="$route.name.includes('profile')"
+            @click="
+              $router.push(localePath(`/profile/freelancer/portfolio/${portfolio?.id}`))
+            "
+            class="px-[10px] py-1 border border-solid text-base border-main-color bg-bg-grey flex gap-[6px] rounded-[6px] text-main-color xl:hidden"
+          >
+            <svg
+              width="18"
+              height="19"
+              viewBox="0 0 18 19"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M16.5 9.5V14C16.5 15.6569 15.1569 17 13.5 17H4.5C2.84315 17 1.5 15.6569 1.5 14V5C1.5 3.34315 2.84315 2 4.5 2H9M11.7648 3.51706C11.7648 3.51706 11.7648 4.58978 12.8375 5.66251C13.9102 6.73523 14.9829 6.73523 14.9829 6.73523M6.866 12.4922L9.11872 12.1704C9.44367 12.1239 9.7448 11.9734 9.9769 11.7413L16.0557 5.6625C16.6481 5.07006 16.6481 4.10951 16.0557 3.51706L14.9829 2.44434C14.3905 1.85189 13.4299 1.85189 12.8375 2.44434L6.75873 8.5231C6.52663 8.7552 6.37606 9.05633 6.32964 9.38128L6.00783 11.634C5.93631 12.1346 6.3654 12.5637 6.866 12.4922Z"
+                stroke="#5C46E6"
+                stroke-linecap="round"
+              />
+            </svg>
+            {{ $store.state.translations["modal.edit"]
+          }}
+          </button>
+          <button
             v-if="$route.path == '/profile/freelancer/portfolio'"
             class="border border-solid border-main-color bg-bg-grey px-[10px] rounded-[6px] text-main-color text-base flex h-[37px] items-center gap-[6px] xl:hidden"
             @click="
-              $router.push(
-                localePath(`/profile/freelancer/portfolio/${portfolio?.id}`)
-              )
+              $router.push(localePath(`/profile/freelancer/portfolio/${portfolio?.id}`))
             "
           >
             <svg
@@ -146,8 +188,7 @@
             <div>
               <h4 class="modal__cardo-name">{{ freelancer?.name }}</h4>
               <p class="modal__cardo-status">
-                {{ $store.state.translations["modal.registrated"] }} более 5 лет
-                назад
+                {{ $store.state.translations["modal.registrated"] }} более 5 лет назад
               </p>
             </div>
           </div>
@@ -195,9 +236,7 @@
                   /></svg
                 ><span class="text-green">{{ freelancer?.likes_count }}</span
                 ><span class="text-grey-40">/</span
-                ><span class="text-pantone-2023">{{
-                  freelancer?.dislikes_count
-                }}</span
+                ><span class="text-pantone-2023">{{ freelancer?.dislikes_count }}</span
                 ><svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="14"
@@ -267,9 +306,7 @@
       >
         <button
           @click="
-            $router.push(
-              localePath(`/profile/freelancer/portfolio/${portfolio?.id}`)
-            )
+            $router.push(localePath(`/profile/freelancer/portfolio/${portfolio?.id}`))
           "
           class="w-full h-12 flex justify-center items-center bg-main-color text-white rounded-xl"
         >
@@ -310,13 +347,20 @@
         </button>
       </div>
     </a-modal>
-    <DeletePortfolio ref="deletePortfolio" @submit="__DELETE_WORK" />
+    <!-- <DeletePortfolio ref="deletePortfolio" @submit="__DELETE_WORK" /> -->
+    <CancellationOrder
+      ref="deletePortfolio"
+      @submit="__DELETE_WORK"
+      :title="$store.state.translations['modal.sure-delete']"
+      :icon="true"
+    />
   </div>
 </template>
 <script>
 import moment from "moment";
 import PortfolioCard2 from "../profile/portfolio/PortfolioCard2.vue";
 import DeletePortfolio from "./DeletePortfolio.vue";
+import CancellationOrder from "./CancellationOrder.vue";
 export default {
   props: ["portfolios", "freelancer", "portfolio"],
   name: "portfolioModal",
@@ -337,9 +381,11 @@ export default {
   methods: {
     openDelete() {
       this.$refs.deletePortfolio.open();
+      this.$refs.deletePortfolio.openModal();
     },
     closeDelete() {
       this.$refs.deletePortfolio.close();
+      this.$refs.deletePortfolio.closeModal();
     },
     closeModal() {
       this.visible = false;
@@ -348,14 +394,11 @@ export default {
       this.visible = true;
     },
     onChange(a, b, c) {
-      console.log(a, b, c);
+
     },
     async __DELETE_WORK() {
       try {
-        await this.$store.dispatch(
-          "fetchPortfolio/deleteWork",
-          this.portfolio?.id
-        );
+        await this.$store.dispatch("fetchPortfolio/deleteWork", this.portfolio?.id);
         this.$notification["success"]({
           message: this.$store.state.translations["modal.delete-done"],
         });
@@ -366,7 +409,7 @@ export default {
       }
     },
   },
-  components: { PortfolioCard2, DeletePortfolio },
+  components: { PortfolioCard2, DeletePortfolio, CancellationOrder },
 };
 </script>
 <style lang="css" scoped>

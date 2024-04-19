@@ -32,7 +32,7 @@ export default {
 
   components: true,
 
-  buildModules: ["@nuxtjs/tailwindcss"],
+  buildModules: ["@nuxtjs/tailwindcss",'@nuxtjs/pwa'],
 
   modules: ["@nuxtjs/axios", "@nuxtjs/dotenv", "@nuxtjs/i18n"],
   axios: {
@@ -76,6 +76,16 @@ export default {
     defaultLocale: "ru",
     vueI18n: {
       fallbackLocale: "ru",
+    },
+  },
+  pwa: {
+    meta: {
+      theme_color: '#ffffff',
+    },
+    manifest: {
+      name: 'My Nuxt PWA',
+      short_name: 'My Nuxt PWA',
+      lang: 'en',
     },
   },
 };

@@ -1,5 +1,7 @@
 <template>
+
   <div class="pt-[40px] xl:pt-4 pb-[120px] xl:pb-[24px]">
+
     <div class="2xl:container container mx-auto xl:px-4 ">
       <Banner :specialities="specialities" />
       <PlaceOrder />
@@ -25,19 +27,19 @@ import OrderBanner from "../components/home/OrderBanner.vue";
 export default {
   name: "IndexPage",
   middleware: "auth",
-  $nuxt: undefined,
-
-  async asyncData({ store }) {
+  async asyncData({ store,i18n }) {
     const [freeLancersData, specialitiesData, ordersData] = await Promise.all([
       store.dispatch("fetchFreelancers/getFreelancers", {
         params: {
           page_size: 12,
         },
       }),
-
       store.dispatch("fetchSpecialities/getSpecialities",{
         params: {
           limit: 12,
+        },
+        headers: {
+          Lang: i18n.locale,
         },
       }),
       store.dispatch("fetchOrders/getOrders", {
@@ -46,7 +48,7 @@ export default {
         },
       }),
     ]);
-    const freelancers = freeLancersData.data;
+    const freelancers = freeLancersData.data || [];
     const specialities = specialitiesData.content;
     const orders = ordersData.data;
     const totalOrder = ordersData?.meta?.total;

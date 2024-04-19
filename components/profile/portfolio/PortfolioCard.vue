@@ -101,7 +101,7 @@
           :key="specialit?.id"
           :ref="`button${index}`"
         >
-          {{ specialit?.name_ru }}
+          {{ specialit?.name }}
         </p>
         <p
           v-if="hiddenButtonsCount"
@@ -142,7 +142,7 @@ export default {
   },
   methods: {
     openShow() {
-      console.log(this.$refs);
+
       this.$refs.portfolioModal?.openModal();
     },
     widthHandle() {

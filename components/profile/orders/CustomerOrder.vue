@@ -6,7 +6,7 @@
     <div class="max-w-[1200px] mx-auto">
       <button
         @click="$router.go(-1)"
-        class="back-btn flex gap-2 w-[126px] py-3 border border-main-color border-solid rounded-lg justify-center items-center text-base font-medium text-grey-80 hover:text-blue xl:hidden"
+        class="back-btn flex xl:hidden gap-4 w-[162px] py-3 border border-grey-24 border-solid rounded-lg justify-center items-center text-base font-medium text-blue hover:text-blue"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +102,7 @@
                 </div> -->
               </div>
               <div
-                class="body mt-6 pb-4 border-[0] border-b border-solid border-grey-8 xl:mt-4"
+                class="body mt-6 pb-4 border-[0] border-b border-solid border-grey-8 xl:mt-4 break-all"
               >
                 <h1
                   class="title text-[24px] font-semibold text-black mb-4 xl:text-base"
@@ -148,7 +148,7 @@
                         )
                       "
                       class="rounded-[22px] py-2 px-4 bg-bg-grey text-grey-64 text-[14px] font-medium cursor-pointer"
-                      >{{ specialit?.name_ru }} </span
+                      >{{ specialit?.name }} </span
                     ><span
                       v-if="index + 1 != order?.specialities.length"
                       class="text-[20px] text-grey-64 xl:hidden"
@@ -532,7 +532,10 @@
           </p>
         </div>
       </div>
-      <div class="mt-6 pb-[120px] xl:pb-0 xl:mt-0" v-if="order?.selected_request?.id">
+      <div
+        class="mt-6 pb-[120px] xl:pb-0 xl:mt-0"
+        v-if="order?.selected_request?.id"
+      >
         <CustomerChat :order="order" :status="status" />
       </div>
     </div>
@@ -629,11 +632,7 @@
           <div
             class="xl:hidden customer-chat"
             :class="{ activeChat: chatHandle }"
-            v-if="
-              !order?.selected_request?.id &&
-              order?.status === 1 &&
-              order?.requests.length > 0
-            "
+            v-if="order?.status === 1 && windowWidth >= 1200"
           >
             <OffersChat
               @close="chatHandle = false"
@@ -787,8 +786,7 @@
       <Loader v-if="loading" />
     </div>
 
-
-    <div class="hidden xl:block" >
+    <div class="hidden xl:block" v-if="windowWidth < 1200">
       <OffersChat
         ref="offerChat"
         @close="chatHandle = false"
@@ -808,14 +806,14 @@ import PriceCard from "@/components/orders/PriceCard.vue";
 import OrderStatus from "@/components/profile/orders/OrderStatus.vue";
 import EndingProcess from "@/components/orders/EndingProcess.vue";
 import CancellationOrder from "@/components/modals/CancellationOrder.vue";
-import CustomerChat from "./CustomerChat.vue";
+import CustomerChat from "../chat/CustomerChat.vue";
 import Loader from "@/components/Loader.vue";
 import OffersOrderCard from "./OffersOrderCard.vue";
-import OffersChat from "./OffersChat.vue";
+import OffersChat from "../chat/OffersChat.vue";
 import moment from "moment";
 import SelectedFreelancer from "./SelectedFreelancer.vue";
 import CompliteOrder from "../../modals/CompliteOrder.vue";
-import CustomerChatMobile from "../../modals/CustomerChatMobile.vue";
+import CustomerChatMobile from "../chat/CustomerChatMobile.vue";
 
 export default {
   props: ["order", "loading", "reasons"],
@@ -844,6 +842,7 @@ export default {
     };
   },
   computed: {
+
     orderDate() {
       return moment(this.order?.created_at).format("DD MMM YYYY");
     },
@@ -880,7 +879,7 @@ export default {
     },
     async currentRequestMobile(request) {
       this.isRequest = await request;
-      this.$refs.offerChat.open()
+      this.$refs.offerChat.open();
       this.__GET_CHAT_MESSAGES(request);
     },
     async currentRequest(request) {
@@ -901,7 +900,6 @@ export default {
             item.from === request?.freelancer_id ||
             item.to === request?.freelancer_id
         );
-
       } catch (e) {
       } finally {
         this.chatLoader = false;
@@ -919,7 +917,6 @@ export default {
     sortByDate() {
       this.order.requests.sort((a, b) => b.deadline - a.deadline);
     },
-
 
     openCompliteOrder() {
       this.$refs.compliteOrder.open();
@@ -968,7 +965,7 @@ export default {
     },
 
     cancelOrder() {
-      console.log(this.order?.status);
+
       switch (this.order?.status) {
         case 0:
           this.openDeleteOrder();
@@ -1342,6 +1339,7 @@ export default {
 .icon.rotate {
   transform: rotate(180deg);
 }
+
 @media (max-width: 1200px) {
   .customer-chat {
     transition: 0s;

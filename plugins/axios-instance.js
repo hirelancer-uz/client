@@ -1,3 +1,5 @@
+import { notification } from "ant-design-vue";
+
 export default ({ $axios, redirect, error }, inject) => {
   const tokenKey = "auth-token";
   const axiosInstance = $axios.create({
@@ -18,18 +20,24 @@ export default ({ $axios, redirect, error }, inject) => {
     const errors = [401];
     if (e.response && errors.includes(e.response.status))
       if (localStorage.getItem(tokenKey)) {
-        location.reload()
+        location.reload();
         localStorage.removeItem(tokenKey);
       }
-    if(e.response.status === 404) {
+    if (e.response.status === 404) {
       error({
         statusCode: e.response.status,
         message: "This page could not be found",
         layout: "error",
       });
-      // console.log("error",e.response.status)
+      //
       //  throw new Error('NOT FOUNT')
     }
+    if (e.response.status === 413) {
+      notification.error({
+        message: "Размер загружаемого файла слишком большой.",
+      });
+    }
+
     return Promise.reject(e);
   });
   inject("axiosInstance", axiosInstance);
