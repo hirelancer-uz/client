@@ -1,6 +1,6 @@
 export default {
   head: {
-    title: "Hirelancer",
+    title: "Opendeal",
     htmlAttrs: {
       lang: "en",
     },
