@@ -134,7 +134,7 @@ export default {
           header.style.top = "0";
         }
         this.lastScrollTop = scrollTop;
-      });
+      }, { passive: true });
     },
   },
   watch: {
