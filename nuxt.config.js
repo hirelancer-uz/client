@@ -31,11 +31,7 @@ export default {
   ],
 
   components: true,
- server: {
-   host: 'localhost',
-   port: 3000
- },
-  buildModules: ["@nuxtjs/tailwindcss",'@nuxtjs/pwa'],
+  buildModules: ["@nuxtjs/tailwindcss"],
 
   modules: ["@nuxtjs/axios", "@nuxtjs/dotenv", "@nuxtjs/i18n"],
   axios: {
@@ -79,16 +75,6 @@ export default {
     defaultLocale: "ru",
     vueI18n: {
       fallbackLocale: "ru",
-    },
-  },
-  pwa: {
-    meta: {
-      theme_color: '#ffffff',
-    },
-    manifest: {
-      name: 'My Nuxt PWA',
-      short_name: 'My Nuxt PWA',
-      lang: 'en',
     },
   },
 };
