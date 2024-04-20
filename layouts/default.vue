@@ -79,7 +79,6 @@ export default {
     },
   },
   async mounted() {
-    console.log(this.$route)
     this.headerScrollHandle();
     localStorage.getItem("auth-token")
       ? this.__GET_USER()
@@ -107,7 +106,7 @@ export default {
           header.style.top = "0";
         }
         this.lastScrollTop = scrollTop;
-      });
+      }, { passive: true });
     },
   },
 

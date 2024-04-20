@@ -238,7 +238,7 @@ export default {
 
   mounted() {
     this.search = this.$route.query?.search
-    this.getFirstData();
+    // this.getFirstData();
     this.$store.commit("setPageData", {
       title: "Frilanserlar",
       center: false,
