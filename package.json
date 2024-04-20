@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@bachdgvn/vue-otp-input": "^1.0.8",
-    "@ckeditor/ckeditor5-build-classic": "^41.2.1",
+    "@ckeditor/ckeditor5-build-classic": "^41.3.1",
     "@ckeditor/ckeditor5-essentials": "^41.2.1",
     "@ckeditor/ckeditor5-font": "^41.3.1",
     "@ckeditor/ckeditor5-vue2": "^3.0.1",
@@ -21,8 +21,8 @@
     "ant-design-vue": "^1.7.8",
     "cookie": "^0.6.0",
     "core-js": "^3.25.3",
-    "moment": "^2.30.1",
     "indexof": "^0.0.1",
+    "moment": "^2.30.1",
     "nuxt": "^2.15.8",
     "pusher-js": "^8.4.0-rc2",
     "swiper": "^9.0.5",

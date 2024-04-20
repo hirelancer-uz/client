@@ -18,3 +18,18 @@
     </div>
   </div>
 </template>
+<script>
+
+export default {
+  head() {
+    return {
+      title: this.$store.state?.siteInfo?.title,
+      meta: [
+        {
+          name: "theme-color",
+          content: "#5c46e5",
+        },
+      ],
+    };
+  },
+}

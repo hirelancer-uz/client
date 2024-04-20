@@ -31,6 +31,7 @@ export default {
   name: "defalut",
   head() {
     return {
+      title: this.$store.state?.siteInfo?.title,
       meta: [
         {
           name: "theme-color",
@@ -117,16 +118,30 @@ export default {
       }
     },
     async currentLang() {
-      const translations = await this.$store.dispatch(
-        "fetchTranslations/getTranslations",
-        {
-          headers: {
-            Lang: this.$i18n.locale,
-          },
-        }
-      );
+      // const translations = await this.$store.dispatch(
+      //   "fetchTranslations/getTranslations",
+      //   {
+      //     headers: {
+      //       Lang: this.$i18n.locale,
+      //     },
+      //   }
+      // );
 
-      await this.$store.commit("getTranslations", translations?.translates);
+      // await this.$store.commit("getTranslations", translations?.translates);
+      const [translations, siteInfo] = await Promise.all([
+      this.$store.dispatch("fetchTranslations/getTranslations", {
+        headers: {
+          Lang: this.$i18n.locale,
+        },
+      }),
+      this.$store.dispatch("fetchSiteInfo/getSiteInfo", {
+        headers: {
+          Lang: this.$i18n.locale,
+        },
+      }),
+    ]);
+    this.$store.commit("getTranslations", translations?.translates);
+    this.$store.commit("getSiteInfo", siteInfo?.content);
     },
   },
   components: { TheHeader, TheFooter, BottomBar, MobileHeader },

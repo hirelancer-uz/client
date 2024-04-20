@@ -69,6 +69,17 @@ import translationsApi from "@/store/fetchTranslations";
 export default {
   name: "ProfileLayout",
   middleware: "auth",
+  head() {
+    return {
+      title: this.$store.state?.siteInfo?.title,
+      meta: [
+        {
+          name: "theme-color",
+          content: "#5c46e5",
+        },
+      ],
+    };
+  },
   data() {
     return {
       routes: [
@@ -90,25 +101,30 @@ export default {
     },
   },
   async fetch() {
-    const translations = await this.$store.dispatch("fetchTranslations/getTranslations", {
-      headers: {
-        Lang: this.$i18n.locale,
-      },
-    })
-
-    await this.$store.commit("getTranslations", translations?.translates);
+    const [translations, siteInfo] = await Promise.all([
+      this.$store.dispatch("fetchTranslations/getTranslations", {
+        headers: {
+          Lang: this.$i18n.locale,
+        },
+      }),
+      this.$store.dispatch("fetchSiteInfo/getSiteInfo", {
+        headers: {
+          Lang: this.$i18n.locale,
+        },
+      }),
+    ]);
+    this.userInfo = siteInfo;
+    this.$store.commit("getTranslations", translations?.translates);
+    this.$store.commit("getSiteInfo", siteInfo?.content);
   },
   async mounted() {
     this.headerScrollHandle();
     if (localStorage.getItem("auth-token")) {
       try {
         this.loading = true;
-        const [userInfoData, orderCountsData] = await Promise.all([
-          this.$store.dispatch("fetchAuth/getUserInfo"),
+        const [ orderCountsData] = await Promise.all([
           this.$store.dispatch("fetchOrders/getOrderCounts"),
         ]);
-        this.userInfo = userInfoData;
-        this.$store.commit("getUserInfo", userInfoData);
         this.$store.commit("getOrderCounts", orderCountsData.content);
         this.loading = false;
       }  finally {
@@ -144,12 +160,27 @@ export default {
       }
     },
     async currentLang() {
-      const translations = await this.$store.dispatch("fetchTranslations/getTranslations", {
+      // const translations = await this.$store.dispatch("fetchTranslations/getTranslations", {
+      //   headers: {
+      //     Lang: this.$i18n.locale,
+      //   },
+      // })
+      // await this.$store.commit("getTranslations", translations?.translates);
+      const [translations, siteInfo] = await Promise.all([
+      this.$store.dispatch("fetchTranslations/getTranslations", {
         headers: {
           Lang: this.$i18n.locale,
         },
-      })
-      await this.$store.commit("getTranslations", translations?.translates);
+      }),
+      this.$store.dispatch("fetchSiteInfo/getSiteInfo", {
+        headers: {
+          Lang: this.$i18n.locale,
+        },
+      }),
+    ]);
+
+    this.$store.commit("getTranslations", translations?.translates);
+    this.$store.commit("getSiteInfo", siteInfo?.content);
     },
   },
   components: {

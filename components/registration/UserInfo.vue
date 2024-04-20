@@ -590,24 +590,28 @@ export default {
       //   date_of_birth: "",
       //   specialities: [1],
       //   region_id: undefined,
-      // let formData = new FormData();
-      // formData.append("name", this.form.name);
-      // formData.append("surname", this.form.surname);
-      // formData.append("surname", this.form.surname);
-      // formData.append("date_of_birth", this.form.date_of_birth);
-      // formData.append("region_id", this.form.region_id);
+      let formData = new FormData();
+      formData.append("name", this.form.name);
+      formData.append("surname", this.form.surname);
+      formData.append("gender", this.form.gender);
+      formData.append("date_of_birth", this.form.date_of_birth.replaceAll(" ","").replaceAll('/','-'));
+      formData.append("region_id", this.form.region_id);
+      this.activeCheckedList.forEach((item) => {
+          formData.append("specialities[]", item.id);
+      });
       // formData.append("specialities[]", JSON.stringify(this.form.specialities));
-      const data = {
-        ...this.form,
-        date_of_birth: this.form.date_of_birth
-          .replaceAll(" ", "")
-          .replaceAll("/", "-"),
-        // [`specialities[]`]: this.form.specialities,
-      };
-      delete data["specialities"];
+      // const data = {
+      //   ...this.form,
+      //   date_of_birth: this.form.date_of_birth
+      //     .replaceAll(" ", "")
+      //     .replaceAll("/", "-"),
+      //   [`specialities`]: this.activeCheckedList.map(elem => elem.id),
+      // };
+      // delete data["specialities"];
+      // console.log(data);
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          this.$emit("sendRegister", data);
+          this.$emit("sendRegister", formData);
         } else {
           return false;
         }
