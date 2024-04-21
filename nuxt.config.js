@@ -77,4 +77,8 @@ export default {
       fallbackLocale: "ru",
     },
   },
+  server: {
+    host: "192.168.67.206",
+    port: '3000'
+  }
 };
