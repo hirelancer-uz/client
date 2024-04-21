@@ -136,7 +136,6 @@
                 min="1"
                 @keyup.enter="onSubmit"
                 @input="onInput"
-                inputmode="none"
               />
               <div
                 class="mr-1 text-base text-black px-4 py-[6px] xl:pr-[6px] xl:leading-5 rounded-[4px] bg-bg-grey flex gap-2 items-center xl:max-h-8"
@@ -250,15 +249,15 @@ export default {
     };
   },
   mounted() {
-    const numberInput = this.$refs.codeInput;
+    // const numberInput = this.$refs.codeInput;
 
-    numberInput.addEventListener("keydown", function (event) {
-      if (event.key === "ArrowUp" || event.key === "ArrowDown") {
-        event.preventDefault();
-      }
-    });
+    // numberInput.addEventListener("keydown", function (event) {
+    //   if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+    //     event.preventDefault();
+    //   }
+    // });
 
-    this.$refs.codeInput.focus();
+    // this.$refs.codeInput.focus();
     if (localStorage.getItem("phone")) {
       this.form.phone_number = localStorage.getItem("phone");
     } else {
