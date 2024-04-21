@@ -130,14 +130,11 @@
             >
               <input
                 ref="codeInput"
-                autofocus
                 type="number"
-                pattern="/^-?\d+\.?\d*$/"
                 v-model="form.password"
                 placeholder="●●●●●●"
                 min="1"
                 @keyup.enter="onSubmit"
-
                 @input="onInput"
                 inputmode="none"
               />
