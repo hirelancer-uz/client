@@ -43,7 +43,7 @@
           <div>
             <a
               href="#"
-              class="telegram flex gap-2 h-[60px] px-[20px] items-center rounded-lg justify-center text-white font-semibold text-[16px] xl:w-full xl:text-[16px] py-[12px] xl:h-[48px]"
+              class="telegram  hover:text-white flex gap-2 h-[60px] px-[20px] items-center rounded-lg justify-center text-white font-semibold text-[16px] xl:w-full xl:text-[16px] py-[12px] xl:h-[48px]"
               >{{ $store.state.translations["profile.telegram-channel"] }}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -237,7 +237,13 @@ export default {
 
 .telegram {
   background: linear-gradient(0deg, #28a9ea 0%, #28a9ea 100%), #1878f3;
+  transition: .3s !important;
+  opacity: 1;
 }
+.telegram:hover {
+  opacity: 0.7;
+}
+
 
 .head-grid {
   display: grid;
