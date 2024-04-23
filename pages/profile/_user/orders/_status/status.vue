@@ -164,7 +164,7 @@ export default {
       totalPage: 0,
       status: {
         customer: {
-          active: [1],
+          active: [1,3],
           completed: [4],
           pending: [0],
           cancel: [6],
