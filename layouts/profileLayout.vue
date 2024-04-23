@@ -1,6 +1,9 @@
 <template lang="html">
   <div class="layout w-full min-h-[100vh] flex flex-col overflow-hidden">
-    <div class="fixed top-0 left-0 w-full z-50 header-container" ref="navScroll">
+    <div
+      class="fixed top-0 left-0 w-full z-50 header-container"
+      ref="navScroll"
+    >
       <MobileHeader class="xl:block" />
     </div>
     <TheHeader class="xl:hidden" />
@@ -120,37 +123,46 @@ export default {
   async mounted() {
     this.headerScrollHandle();
     if (localStorage.getItem("auth-token")) {
+      this.__GET_USER();
       try {
         this.loading = true;
-        const [ orderCountsData] = await Promise.all([
+        const [orderCountsData] = await Promise.all([
           this.$store.dispatch("fetchOrders/getOrderCounts"),
         ]);
         this.$store.commit("getOrderCounts", orderCountsData.content);
         this.loading = false;
-      }  finally {
+      } finally {
         this.loading = false;
       }
     } else {
+      this.$store.commit("getUserInfo", {});
       this.$router.push(this.localePath("/"));
     }
   },
   methods: {
+    async __GET_USER() {
+      const userInfoData = await this.$store.dispatch("fetchAuth/getUserInfo");
+      this.$store.commit("getUserInfo", userInfoData);
+    },
     headerScrollHandle() {
       let header = this.$refs.navScroll;
-      window.addEventListener("scroll", () => {
-
-        let scrollTop =
-          window.pageYOffset || document.documentElement.scrollTop;
-        if (
-          scrollTop > this.lastScrollTop &&
-          document.documentElement.scrollTop >= 300
-        ) {
+      window.addEventListener(
+        "scroll",
+        () => {
+          let scrollTop =
+            window.pageYOffset || document.documentElement.scrollTop;
+          if (
+            scrollTop > this.lastScrollTop &&
+            document.documentElement.scrollTop >= 300
+          ) {
             header.style.top = "-54px";
-        }  else {
-          header.style.top = "0";
-        }
-        this.lastScrollTop = scrollTop;
-      }, { passive: true });
+          } else {
+            header.style.top = "0";
+          }
+          this.lastScrollTop = scrollTop;
+        },
+        { passive: true }
+      );
     },
   },
   watch: {
@@ -167,20 +179,20 @@ export default {
       // })
       // await this.$store.commit("getTranslations", translations?.translates);
       const [translations, siteInfo] = await Promise.all([
-      this.$store.dispatch("fetchTranslations/getTranslations", {
-        headers: {
-          Lang: this.$i18n.locale,
-        },
-      }),
-      this.$store.dispatch("fetchSiteInfo/getSiteInfo", {
-        headers: {
-          Lang: this.$i18n.locale,
-        },
-      }),
-    ]);
+        this.$store.dispatch("fetchTranslations/getTranslations", {
+          headers: {
+            Lang: this.$i18n.locale,
+          },
+        }),
+        this.$store.dispatch("fetchSiteInfo/getSiteInfo", {
+          headers: {
+            Lang: this.$i18n.locale,
+          },
+        }),
+      ]);
 
-    this.$store.commit("getTranslations", translations?.translates);
-    this.$store.commit("getSiteInfo", siteInfo?.content);
+      this.$store.commit("getTranslations", translations?.translates);
+      this.$store.commit("getSiteInfo", siteInfo?.content);
     },
   },
   components: {
@@ -197,8 +209,9 @@ export default {
 </script>
 <style lang="css" scoped>
 .header-container {
-  transition: .3s;
+  transition: 0.3s;
 }
+
 .profile-grid {
   display: grid;
   grid-template-columns: 408px 1fr;

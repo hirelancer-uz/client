@@ -687,6 +687,10 @@ export default {
       this.$refs.sendApp.open();
       this.$refs.sendApp.openModal();
     },
+    closeSendApp() {
+      this.$refs.sendApp.close();
+      this.$refs.sendApp.closeModal();
+    },
     onSubmitSpicial() {
       let formData = new FormData();
       this.activeCheckedList.forEach((item) => {
@@ -767,12 +771,14 @@ export default {
         this.openSuccessModal();
         this.closeBeFreelancer();
         this.openSuccess();
+        this.closeSendApp()
       } catch (e) {
         this.$notification["error"]({
           message: "Error",
           description: e.response.statusText,
         });
       }
+
     },
   },
   watch: {
