@@ -399,8 +399,6 @@ export default {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
           this.$emit("submit", this.form);
-          this.close();
-          this.closeModal();
         } else {
           return false;
         }

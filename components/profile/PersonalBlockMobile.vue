@@ -25,8 +25,8 @@
                 {{ `${freelancer["name"]} ${freelancer["surname"]}` }}
               </h4>
               <p class="text-grey-40 text-[12px]">
-                {{ $store.state.translations["profile.registrated"] }} более 5
-                лет назад
+                {{ $store.state.translations["profile.last-time-online"] }}
+                {{ lastLoginDate }}
               </p>
               <div
                 class="status flex gap-2 w-full mt-[4px]"
@@ -764,6 +764,7 @@
 </template>
 <script>
 import Logout from "../modals/Logout.vue";
+import moment from "moment/moment";
 
 export default {
   props: ["user", "freelancer"],
@@ -774,6 +775,9 @@ export default {
     };
   },
   computed: {
+    lastLoginDate() {
+      return moment(this.user?.last_login_at).format("DD-MMM. YYYY");
+    },
     imgUrl() {
       return this.$config.baseURL + "/storage/";
     },
