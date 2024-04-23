@@ -174,7 +174,7 @@ export default {
           active: [2,3],
           offers: [1],
           completed: [4],
-          cancel: [5],
+          cancel: [5,6],
         },
       },
     };
