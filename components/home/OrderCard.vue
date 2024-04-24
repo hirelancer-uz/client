@@ -438,6 +438,7 @@ export default {
 :deep(.order-desc p),
 :deep(.order-desc ul) {
   display: none;
+  font-style: normal !important;
 }
 
 :deep(.order-desc strong),
@@ -454,5 +455,9 @@ export default {
   display: -webkit-box;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+:deep(.order-desc i) {
+  font-style: normal !important;
 }
 </style>
