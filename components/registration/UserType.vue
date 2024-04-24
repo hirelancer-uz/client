@@ -249,13 +249,13 @@ export default {
     };
   },
   mounted() {
-    // const numberInput = this.$refs.codeInput;
+    const numberInput = this.$refs.codeInput;
 
-    // numberInput.addEventListener("keydown", function (event) {
-    //   if (event.key === "ArrowUp" || event.key === "ArrowDown") {
-    //     event.preventDefault();
-    //   }
-    // });
+    numberInput.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+        event.preventDefault();
+      }
+    });
 
     // this.$refs.codeInput.focus();
     if (localStorage.getItem("phone")) {
