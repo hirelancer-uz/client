@@ -1,6 +1,7 @@
 <template lang="html">
   <div
-    class="notifications pt-12 pb-[400px] max-w-[954px] mx-auto xl:pt-4 xl:pb-6"
+    class="notifications pt-12  max-w-[954px] mx-auto xl:pt-4 xl:pb-6"
+    :class="{'pb-[400px]': notifications.length > 0}"
   >
     <div class="2xl:container container mx-auto flex flex-col gap-12">
       <h2 class="text-black text-[32px] font-semibold xl:hidden">
@@ -22,6 +23,10 @@
             :notification="notification"
           />
         </div>
+        <div v-if="notifications.length === 0 && !loading" class="flex flex-col gap-10 items-center justify-center h-[60vh]">
+          <NotificationEmpty />
+          <p class="text-base text-[--grey-80] ">Bildirish noma bo’m bo’sh holatda</p>
+        </div>
         <VPagination
           :totalPage="totalPage"
           @getData="__GET_NOTIFICATIONS"
@@ -34,9 +39,10 @@
 <script>
 import NotificationCard from "../components/NotificationCard.vue";
 import VPagination from "../components/VPagination.vue";
+import NotificationEmpty from "../components/icons/notification-empty.vue";
 
 export default {
-  name: 'notifications',
+  name: "notifications",
   transition: {
     name: "fade-left",
     mode: "out-in",
@@ -63,10 +69,11 @@ export default {
     async __GET_NOTIFICATIONS() {
       try {
         const data = await this.$store.dispatch(
-          "fetchNotifications/getNotifications",{params: {...this.$route.query}}
+          "fetchNotifications/getNotifications",
+          { params: { ...this.$route.query } }
         );
         this.notifications = data?.content?.data;
-        this.totalPage = data?.content?.total
+        this.totalPage = data?.content?.total;
       } catch (e) {
         this.$notification.error({
           description: e.response.statusText,
@@ -80,7 +87,7 @@ export default {
     this.$store.commit("setPageData", {});
   },
 
-  components: { VPagination, NotificationCard },
+  components: { NotificationEmpty, VPagination, NotificationCard },
 };
 </script>
 <style lang="css" scoped>
